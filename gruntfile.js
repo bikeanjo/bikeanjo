@@ -3,11 +3,24 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         watch: {
-            files: [
-                'static/less/**/*.less',
-                'bower_components/**/*'
-            ],
-            tasks: ['styles'],
+            styles: {
+                files: [
+                    'assets/styles/**/*.less',
+                ],
+                tasks: ['styles'],
+            },
+            main: {
+                files: [
+                    'assets/scripts/**/*.js',
+                ],
+                tasks: ['uglify:main'],
+            },
+            bower_components: {
+                files: [
+                    'bower_components/**/*'
+                ],
+                tasks: ['all'],
+            }
         },
         uglify: {
             options: {
@@ -19,14 +32,20 @@ module.exports = function (grunt) {
                 files: {
                     'static/js/vendor.js': [
                         'bower_components/jquery/dist/jquery.js',
-                        'bower_components/bootstrap/dist/js/bootstrap.js'
+                        'bower_components/bootstrap/dist/js/bootstrap.js',
+                    ],
+                },
+            },
+            main: {
+                files: {
+                    'static/js/main.js': [
+                        'assets/scripts/**/*.js',
                     ],
                 },
             },
         },
         less: {
             options: {
-                paths: ['assets/css'],
                 compress: true,
                 sourceMap: true,
                 outputSourceFiles: true,
@@ -36,7 +55,7 @@ module.exports = function (grunt) {
                     sourceMapFilename: 'main.css.map',
                 },
                 files: {
-                    'static/css/main.css': 'static/less/main.less',
+                    'static/css/main.css': 'assets/styles/main.less',
                 },
             },
         },
@@ -44,6 +63,14 @@ module.exports = function (grunt) {
             csssourcemap: {
                 src: 'main.css.map',
                 dest: 'static/css/',
+            },
+        },
+        copy: {
+            fontawesome: {
+                files: [
+                    {expand: true, flatten: true, src: ['bower_components/font-awesome/fonts/*'], dest: 'static/fonts/', filter: 'isFile',},
+                    {expand: true, flatten: true, src: ['bower_components/font-awesome/css/*.css'], dest: 'static/css/', filter: 'isFile',},
+                ],
             },
         },
         browserSync: {
@@ -67,10 +94,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-rename');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-browser-sync');
 
     // define default task
-    grunt.registerTask('styles', ['less', 'rename']);
-    grunt.registerTask('scripts', ['uglify']);
-    grunt.registerTask('default', ['scripts', 'styles', 'browserSync', 'watch']);
+    grunt.registerTask('styles', ['less', 'rename',]);
+    grunt.registerTask('all', ['uglify', 'styles', 'copy',])
+    grunt.registerTask('default', ['all', 'browserSync', 'watch',]);
 };

@@ -4,3 +4,4 @@ db.sqlite
 secret.txt
 bower_components/
 node_modules/
+static/
