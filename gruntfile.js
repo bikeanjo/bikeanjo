@@ -13,14 +13,20 @@ module.exports = function (grunt) {
                 files: [
                     'assets/scripts/**/*.js',
                 ],
-                tasks: ['uglify:main'],
+                tasks: ['uglify:main', 'jshint',  'jscs',],
             },
             bower_components: {
                 files: [
                     'bower_components/**/*'
                 ],
                 tasks: ['all'],
-            }
+            },
+            python: {
+                files: [
+                    'bikeanjo.py',
+                ],
+                tasks: ['flake8',],
+            },
         },
         uglify: {
             options: {
@@ -73,16 +79,44 @@ module.exports = function (grunt) {
                 ],
             },
         },
+        jshint: {
+            options: {
+                reporter: require('jshint-stylish'),
+                globals: {
+                    jQuery: true,
+                },
+                force: true,
+            },
+            all: [
+                'assets/scripts/**/*.js',
+            ],
+        },
+        jscs: {
+            src: 'assets/scripts/**/*.js',
+            options: {
+                requireCurlyBraces: ['if', ],
+                force: true,
+                disallowMixedSpacesAndTabs: true,
+            },
+        },
+        flake8: {
+            options: {
+                force: true,
+                errorsOnly: true,
+                maxLineLength: 250,
+            },
+            src: ['bikeanjo.py', ],
+        },
         browserSync: {
             options: {
-                watchTask: true // < VERY important
+                watchTask: true, // < VERY important
             },
             app: {
                 bsFiles: {
                     src : [
                         'static/css/*.css',
                         'static/js/*.js',
-                        'templates/*.html'
+                        'templates/*.html',
                     ]
                 },
             },
@@ -95,10 +129,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-rename');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-flake8');
     grunt.loadNpmTasks('grunt-browser-sync');
 
     // define default task
     grunt.registerTask('styles', ['less', 'rename',]);
-    grunt.registerTask('all', ['uglify', 'styles', 'copy',])
+    grunt.registerTask('all', ['uglify', 'jshint', 'jscs', 'flake8', 'styles', 'copy',])
     grunt.registerTask('default', ['all', 'browserSync', 'watch',]);
 };

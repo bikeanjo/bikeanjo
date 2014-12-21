@@ -13,3 +13,4 @@ six==1.8.0
 smarturls==0.1.4
 sqlparse==0.1.14
 wsgiref==0.1.2
+flake8==2.2.5

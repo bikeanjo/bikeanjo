@@ -1,3 +1,7 @@
-$(function () {
-	console.log('oi');
-});
+(function () {
+   'use strict';
+
+    $(function () {
+        console.log('oi');
+    });
+})();
