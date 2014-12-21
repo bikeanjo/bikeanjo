@@ -1,0 +1,24 @@
+{
+  "name": "newbikeanjo",
+  "version": "0.0.0",
+  "authors": [
+    "Leonardo Santagada <santagada@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "(AGPL)",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "jquery": "~2.1.2",
+    "font-awesome": "~4.2.0"
+  }
+}

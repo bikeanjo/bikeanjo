@@ -1,0 +1,15 @@
+Django==1.7.1
+dj-database-url==0.3.0
+django-debug-toolbar==1.2.2
+django-extensions==1.4.9
+django-pipeline==1.4.2
+fhurl==0.1.7
+futures==2.2.0
+importd==0.3.1
+py==1.4.26
+pytest==2.6.4
+pytest-django==2.7.0
+six==1.8.0
+smarturls==0.1.4
+sqlparse==0.1.14
+wsgiref==0.1.2
