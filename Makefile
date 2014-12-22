@@ -8,6 +8,9 @@ all:
 	grunt all
 
 pre-ci:
+	sudo add-apt-repository -y ppa:chris-lea/node.js
+	sudo apt-get -y update
+	sudo apt-get -y install nodejs
 	sudo npm install -g grunt-cli bower
 
 setup-ci: pre-ci all
