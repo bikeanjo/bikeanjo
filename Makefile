@@ -15,3 +15,6 @@ setup-ci: pre-ci all
 tests:
 	py.test
 	flake8
+
+clean:
+	find . -type f -name '*.py[co]' -exec rm {} \;

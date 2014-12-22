@@ -1,9 +1,9 @@
 language: python
 python:
   - "2.7"
-# command to install dependencies
+node_js:
+  - '0.10'
 install: "make setup-ci"
-# command to run tests
 script: "make tests"
 
 notifications:

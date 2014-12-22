@@ -8,7 +8,7 @@ install:
 --------
 
 * create a virtualenv
-* npm install -g grunt-cli bower
+* (sudo) npm install -g grunt-cli bower
 * make
 
 run:
