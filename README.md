@@ -12,14 +12,15 @@ install:
 * npm install
 * bower install
 * pip install -r requirements.txt
+* ./bikeanjo.py syncdb
 
 run:
 ----
 
 you need to run both the django process and grunt to build static assets:
 
-* $ ./bikeanjo.py
-* $ grunt
+* ./bikeanjo.py
+* grunt
 
 then you can open [http://localhost:8000](http://localhost:8000) on your browser.
 
