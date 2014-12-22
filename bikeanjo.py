@@ -5,8 +5,9 @@ import time
 d(  # configure django
     DEBUG=True,
     SMART_RETURN=True,
-    INSTALLED_APPS=['debug_toolbar', 'django_extensions'],
-    STATICFILES_DIRS=['static', 'bower_components'],
+    INSTALLED_APPS=['debug_toolbar', 'django_extensions', 'crispy_forms', ],
+    CRISPY_TEMPLATE_PACK='bootstrap3',
+    STATICFILES_DIRS=['static', ],
 )
 
 
