@@ -1,12 +1,13 @@
 .PHONY: pre-ci setup-ci all tests
 
 NPM=npm
+NOINPUT=
 
 all:
 	${NPM} install
 	bower install
 	pip install -r requirements.txt
-	./bikeanjo.py syncdb
+	./bikeanjo.py migrate ${NOINPUT}
 	grunt all
 
 pre-ci:
@@ -16,6 +17,7 @@ pre-ci:
 	sudo npm install -g grunt-cli bower
 
 setup-ci: NPM=sudo npm
+setup-ci: NOINPUT=--noinput
 setup-ci: pre-ci all
 
 tests:
