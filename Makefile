@@ -5,7 +5,7 @@ NPM=npm
 all:
 	${NPM} install
 	bower install
-	pip install -r requirements.tx
+	pip install -r requirements.txt
 	./bikeanjo.py syncdb
 	grunt all
 
