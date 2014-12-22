@@ -1,7 +1,9 @@
 .PHONY: pre-ci setup-ci all tests
 
+NPM=npm
+
 all:
-	npm install
+	${NPM} install
 	bower install
 	pip install -r requirements.tx
 	./bikeanjo.py syncdb
@@ -11,8 +13,9 @@ pre-ci:
 	sudo add-apt-repository -y ppa:chris-lea/node.js
 	sudo apt-get -y update
 	sudo apt-get -y install nodejs
-	sudo npm install -g grunt-cli bower browser-sync string-length
+	sudo npm install -g grunt-cli bower
 
+setup-ci: NPM=sudo npm
 setup-ci: pre-ci all
 
 tests:
