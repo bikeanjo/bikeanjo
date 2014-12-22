@@ -1,5 +1,6 @@
 from .. import bikeanjo
 
+
 def test_home(rf):
     request = rf.get('/')
     assert bikeanjo.home(request)
