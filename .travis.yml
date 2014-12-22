@@ -5,3 +5,10 @@ python:
 install: "make setup-ci"
 # command to run tests
 script: "make tests"
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/df106e7590af361d5c02
+    on_success: always
+    on_failure: always
