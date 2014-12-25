@@ -3,6 +3,7 @@ python:
   - "2.7"
 install: "make setup-ci"
 script: "make tests"
+sudo: false
 
 notifications:
   webhooks:

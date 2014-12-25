@@ -4,19 +4,16 @@ NPM=npm
 NOINPUT=
 
 all:
-	${NPM} install
+	npm install
 	bower install
 	pip install -r requirements.txt
 	./bikeanjo.py migrate ${NOINPUT}
 	grunt all
 
 pre-ci:
-	sudo add-apt-repository -y ppa:chris-lea/node.js
-	sudo apt-get -y update
-	sudo apt-get -y install nodejs
-	sudo npm install -g grunt-cli bower
+	nvm install 0.10
+	nvm use 0.10
 
-setup-ci: NPM=sudo npm
 setup-ci: NOINPUT=--noinput
 setup-ci: pre-ci all
 
