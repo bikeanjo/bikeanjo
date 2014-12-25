@@ -11,6 +11,7 @@ all:
 	grunt all
 
 pre-ci:
+	curl https://raw.githubusercontent.com/creationix/nvm/v0.21.0/install.sh | bash
 	nvm install 0.10
 	nvm use 0.10
 
