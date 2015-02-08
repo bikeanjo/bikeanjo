@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                     sourceMapFilename: 'main.css.map',
                 },
                 files: {
-                    'static/css/main.css': 'assets/styles/main.less',
+                    'static/css/main.css': 'assets/styles/*.less',
                 },
             },
         },
