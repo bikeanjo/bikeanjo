@@ -1,57 +1,515 @@
+//
+// Import Bootstrap
+// --------------------------------------------------
 @import '../../bower_components/bootstrap/less/bootstrap.less';
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+//
+// Import font styles
+// --------------------------------------------------
+@import "fonts.less";
+
+//
+// Overwrite Bootstrap variables with project variables
+// --------------------------------------------------
+@import "variables.less";
+
+
+//== Body background
 
 body {
-  margin-top: 50px;
-  margin-bottom: 150px;
+    background-color: #f1f1f1;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 150px;
-  background-color: #f5f5f5;
+//== Buttons styles
+
+.btn {
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-.hero {
-  background-color: #ddd;
+//== Index
+// --------------------------------------------------
+//== 1.   Site navigation
+//## 1.1. Navbar / top navigation
+//## 1.2. Footer / bottom navigation
+//== 2.   Common styles for all sections
+//## 2.1. Jumbotron section
+//## 2.2. How it works section
+//## 2.3. Statistics section
+//## 2.4. Devices section
+//## 2.5. Subscribe section
+//## 2.6. Join section
+
+//== 1. Site navigation
+// --------------------------------------------------
+
+//## 1.1. Navbar / top navigation
+
+.navbar {
+    .site-logo {
+        margin: 14px 15px;
+        @media scren and (min-width: @screen-xs-min) {
+            margin: 14px 0;
+        }
+        a {
+            background: url('../imgs/logo-bike-anjo.png');
+            background-size: cover;
+            display: block;
+            height: 61px;
+            width: 169px;
+        }
+    }
+    .navbar-toggle {
+        padding: 4px 10px;
+        .icon-bar {
+            width: 30px;
+            height: 5px;
+        }
+    }
+    .navbar-collapse {
+        text-align: center;
+
+        .navigation {
+            padding: 20px 0 35px;
+            @media screen and (min-width: @screen-sm-min) {
+                padding: 4px 10px;
+                float: right;
+                margin: 19px 0 0;
+            }
+        }
+        .nav-pills {
+            margin-bottom: 10px;
+            @media screen and (min-width: @screen-sm-min) {
+                float: left;
+                margin-bottom: 0px;
+            }
+            li {
+                float: none;
+                text-align: center; 
+                @media screen and (min-width: @screen-sm-min) {
+                    float: left;
+                }
+            }
+            a {
+                color: @navbar-default-link-color;
+                font-size: 16px;
+                font-weight: 700;
+                text-transform: uppercase;
+                &:hover, &:focus, &:active, &.active {
+                    color: @brand-primary;
+                    background-color: transparent;
+                }
+            }
+        }
+        .btn {
+            font-size: 16px;
+            padding: 10px 40px;
+            margin: 0 auto;
+            @media screen and (min-width: @screen-sm-min) {
+                margin-left: 5px;
+                float: right;
+            }
+            @media screen and (min-width: @screen-md-min) {
+                margin-left: 30px; 
+            }
+        }
+    }
 }
 
-.footer {
-  border-top: 1px solid #ddd;
+//## 1.2. Footer / bottom navigation
+
+footer {
+    background-color: #282828;
+    color: #fff;
+    .social {
+        margin: 0;
+        padding: 40px 0;
+        text-align: center;
+        a {
+            display: block;
+            height: 40px;
+            width: 40px;
+        }
+        .facebook {
+            background: url('../imgs/ico-footer-facebook.png');
+            background-size: cover;
+        }
+        .google {
+            background: url('../imgs/ico-footer-google.png');
+            background-size: cover;
+        }
+        .twitter {  
+            background: url('../imgs/ico-footer-twitter.png');
+            background-size: cover;
+        }
+        .youtube {
+            background: url('../imgs/ico-footer-youtube.png');
+            background-size: cover;
+        }
+    }
+    .nav-footer {
+        border-top: 2px solid #fff;
+        font-size: 18px;
+        margin: 0;
+        padding: 30px 0;
+        text-align: center;
+        text-transform: uppercase;
+        @media screen and (min-width: @screen-sm-min) {
+            text-align: left;
+        }
+        li {
+            margin-right: 40px;
+            &:last-child {
+                margin-right: 0;
+            }
+            @media screen and (max-width: @screen-xs-max) {
+                display: block;
+                margin-bottom: 15px;
+                width: 100%;
+            }
+        }
+        a {
+            color: #fff;
+            &:hover {
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
+    }
+    .back-to-top {
+        background: url('../imgs/ico-back-to-top.png');
+        background-repeat: no-repeat;
+        background-size: 40px;
+        display: block;
+        height: 40px;
+        margin: 5px auto 60px;
+        width: 40px;
+        @media screen and (min-width: @screen-sm-min) {
+            float: right;
+            margin: -62px 0 0 0;
+        }
+    }
 }
 
-.sitemap {
-  background-color: #eee;
+//== 2. Common styles for all sections
+// --------------------------------------------------
+
+section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    header {
+        h2 {
+            font-size: 40px;
+            margin-top: 0;
+            @media screen and (min-width: @screen-xs-min) {
+                font-size: 48px;
+            }
+        }
+        p {
+            color: #7d7d7d;
+            font-size: 20px;
+            font-weight: 200;
+            @media screen and (min-width: @screen-xs-min) {
+                font-size: 28px;
+            }
+        }
+    }
+    .box {
+        h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 0;
+        text-transform: uppercase;
+        }
+        p {
+            color: #7d7d7d;
+            font-weight: 200;
+            font-size: 16px;
+        }
+    }
 }
 
-.newsletter {
-  background-color: #ddd;
+//## 2.1. Jumbotron section
+
+.jumbotron {
+    background-image: url('../imgs/bg-jumbotron.jpg'); 
+    background-position: -415px 0px;
+    background-size: cover;
+    color: #fff;
+    height: 385px;
+    margin-bottom: 0;
+    margin-top: 90px;
+    @media screen and (min-width: @screen-xs-min) {
+        background-position: top right;
+    }
+    @media screen and (min-width: @screen-sm-min) {
+        height: 610px;
+    }
+    h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 28px;
+        line-height: 150%;
+        margin-bottom: 25px;
+        text-align: center;
+        text-transform: uppercase;
+        @media screen and (min-width: @screen-xs-min) {
+            margin-top: 60px;
+            font-size: 30px;
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            margin-top: 165px;
+            margin-bottom: 40px;
+        }
+        @media screen and (min-width: @screen-md-min) {
+            margin-top: 160px;
+            font-size: 40px;
+        }
+        @media screen and (min-width: @screen-lg-min) {
+            font-size: 44px;
+        }
+    }
+    p {
+        text-align: center;
+    }
 }
 
-.copyright {
-  background-color: #eee;
+//## 2.2. How it works section
+
+.how-it-works {
+    .box {
+        margin-bottom: 30px;
+        @media screen and (min-width: @screen-xs-min) and (max-width: @screen-sm-max) {
+            p {
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        } 
+        @media screen and (min-width: @screen-md-min) {
+            margin-bottom: 0;
+        }
+    }
+    .icon {
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 300px;
+        width: 100%;
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            background-size: 90%;
+        }
+    }
+    .ask-help {
+        .icon {
+            background-image: url('../imgs/how-it-works-01.png');
+        }
+    }
+    .find-help {
+        .icon {
+            background-image: url('../imgs/how-it-works-02.png');
+        }
+    }
+    .community {
+        .icon {
+            background-image: url('../imgs/how-it-works-03.png');
+        }
+    }
+    h2, h3 {
+        color: @brand-success;
+    }
 }
 
-.ba-bg-orange {
-  background-color: #ff5400;
+//## 2.3. Statistics section
+
+.statistics {
+    background-image: url('../imgs/bg-statistics.jpg'); 
+    background-size: cover;
+    color: #fff;
+    height: 341px;
+    padding: 0; 
+    h2 {
+        font-size: 33px;
+        margin: 35px 0 20px;
+        @media screen and (min-width: @screen-xs-min) {
+            font-size: 36px;
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            font-size: 44px;
+            margin: 30px 0 20px;
+        }
+        @media screen and (min-width: @screen-md-min) {
+            font-size: 50px;
+            margin: 60px 0 40px;
+        }
+    }
+    .box {
+        margin-bottom: 15px;
+    }
+    .number {
+        display: block;
+        font-size: 44px;
+        font-weight: 700;
+        line-height: 34px;
+        @media screen and (min-width: @screen-xs-min) {
+            font-size: 54px;
+            line-height: 44px;
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            font-size: 64px;
+            font-size: 54px;
+        }
+        @media screen and (min-width: @screen-md-min) {
+            font-size: 84px;
+            line-height: 74px;
+        }
+    }
+    .info {
+        display: block;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
 }
 
-.ba-bg-blue {
-  background-color: #00aef7;
+//## 2.4. Devices section
+
+.devices {
+    @media screen and (min-width: @screen-xs-min) {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    h2 {
+        color: @brand-warning;
+        font-size: 40px;
+        @media screen and (min-width: @screen-xs-min) {
+            font-size: 48px;
+        }
+    }
+    p {
+        color: #7d7d7d;
+        font-size: 20px;
+        font-weight: 200;
+        margin-bottom: 30px;
+        @media screen and (min-width: @screen-xs-min) {
+            font-size: 28px;
+            margin-bottom: 50px;
+        }
+    }
+    img {
+        margin: 0 auto; 
+    }
 }
 
-.ba-bg-green {
-  background-color: #76d01a;
+//## 2.5. Subscribe section
+
+.subscribe {
+    background-color: #eaeaea;
+    h2 {
+        color: @brand-info;
+        font-size: 40px;
+        @media screen and (min-width: @screen-xs-min) {
+            font-size: 48px;
+        }
+    }
+    p {
+        color: #7d7d7d;
+        font-size: 20px;
+        font-weight: 200;
+        margin-bottom: 30px;
+        @media screen and (min-width: @screen-xs-min) {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+    }
+    form {
+        input[type="email"] {
+            border-color: #999;
+            font-size: 18px;
+            height: 55px;
+            margin-bottom: 20px;
+            @media screen and (min-width: @screen-xs-min) {
+                display: inline-block;
+                margin-bottom: 0;
+                margin-right: 10px;
+                width: 340px;
+            }
+            @media screen and (min-width: @screen-sm-min) {
+                width: 450px;
+            }
+        }
+        input[type="submit"] {
+            font-size: 22px;
+            height: 55px;
+            @media screen and (min-width: @screen-xs-min) {
+                display: inline-block;
+                //width: 100px;
+            }
+        }
+    }
+    .subscribe-success {
+        margin: 43px 0 42px;
+    }
 }
 
-.circle {
-  border-radius: 50%;
-}
+//## 2.6. Join section
 
+.join {
+    h2, h3 {
+        color: @brand-primary;
+    }
+    header {
+        p {
+            margin-bottom: 30px;
+        }
+    }
+    .icon {
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 1px solid #c2c2c2;
+        border-radius: 110px;
+        height: 110px;
+        margin: 0 auto 15px; 
+        width: 110px;
+        @media screen and (min-width: @screen-lg-min) {
+            float: left;
+            margin-right: 15px;
+            margin-bottom: 40px;
+        }
+    }
+    .ask-help {
+        .icon {
+            background-image: url('../imgs/ico-join-ask-help.png');
+            background-size: 80px 48px;
+        }
+    }
+    .join-us {
+        .icon {
+            background-image: url('../imgs/ico-join-join-us.png');
+            background-size: 49px 48px;
+        }
+    }
+    .events {
+        .icon {
+            background-image: url('../imgs/ico-join-events.png');
+            background-size: 45px 44px;
+        }
+    }
+    .box {
+        margin-bottom: 50px;
+        p {
+            font-size: 15px;
+        }
+        @media screen and (max-width: @screen-xs-min) {
+            clear: both;
+        }
+        @media screen and (min-width: @screen-xs-min) and (max-width: @screen-sm-max) {
+            margin: 0 auto 50px;
+            max-width: 280px;
+        }
+        @media screen and (min-width: @screen-lg-min) {
+            margin-bottom: 0;
+            text-align: left;
+            h3 {
+                margin-top: 15px;
+            }
+        }
+    }
+}
