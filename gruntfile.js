@@ -74,9 +74,14 @@ module.exports = function (grunt) {
             },
         },
         copy: {
+            assets: {
+                files: [
+                    {expand: true, cwd: 'assets/imgs', src:['**'], dest: 'static/imgs/', },
+                    {expand: true, cwd: 'assets/fonts', src:['**'], dest: 'static/fonts/', },
+                ],
+            },
             fontawesome: {
                 files: [
-                    {expand: true, cwd: 'assets/fonts', src:['**'], dest: 'static/fonts/', },
                     {expand: true, flatten: true, src: ['bower_components/font-awesome/fonts/*'], dest: 'static/fonts/', filter: 'isFile',},
                     {expand: true, flatten: true, src: ['bower_components/font-awesome/css/*.css'], dest: 'static/css/', filter: 'isFile',},
                 ],
