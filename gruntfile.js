@@ -32,7 +32,9 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: true,
                 sourceMapIncludeSources: true,
-                compress: true,
+                compress: {
+                    drop_console: true
+                },
             },
             vendor: {
                 files: {
