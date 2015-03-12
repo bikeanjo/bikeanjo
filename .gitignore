@@ -1,6 +1,6 @@
 *.py[co]
 __pycache__
-db.sqlite
+db.sqlite3
 secret.txt
 bower_components/
 node_modules/
