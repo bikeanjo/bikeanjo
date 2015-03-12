@@ -6,7 +6,6 @@ django-extensions==1.4.9
 django-pipeline==1.4.2
 fhurl==0.1.7
 futures==2.2.0
-importd==0.3.1
 py==1.4.26
 pytest==2.6.4
 pytest-django==2.7.0
