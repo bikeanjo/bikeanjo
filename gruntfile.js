@@ -74,6 +74,7 @@ module.exports = function (grunt) {
         copy: {
             fontawesome: {
                 files: [
+                    {expand: true, cwd: 'assets/fonts', src:['**'], dest: 'static/fonts/', },
                     {expand: true, flatten: true, src: ['bower_components/font-awesome/fonts/*'], dest: 'static/fonts/', filter: 'isFile',},
                     {expand: true, flatten: true, src: ['bower_components/font-awesome/css/*.css'], dest: 'static/css/', filter: 'isFile',},
                 ],
@@ -105,7 +106,7 @@ module.exports = function (grunt) {
                 errorsOnly: true,
                 maxLineLength: 250,
             },
-            src: ['bikeanjo.py', ],
+            src: ['manage.py', ],
         },
         browserSync: {
             options: {
