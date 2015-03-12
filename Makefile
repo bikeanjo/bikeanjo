@@ -8,7 +8,7 @@ all:
 	npm install
 	${BOWER} install
 	pip install -r requirements.txt
-	./bikeanjo.py migrate ${NOINPUT}
+	./manage.py migrate ${NOINPUT}
 	${GRUNT} all
 
 pre-ci:
