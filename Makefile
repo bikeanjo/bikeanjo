@@ -5,10 +5,14 @@ BOWER=bower
 NOINPUT=
 
 all:
+	bash -c "\
+		test -n ${VIRTUALENVWRAPPER_SCRIPT} && \
+		source ${VIRTUALENVWRAPPER_SCRIPT} && \
+	 	mkvirtualenv bikeanjo -p /usr/bin/python2"
 	npm install
 	${BOWER} install
-	pip install -r requirements.txt
-	./manage.py migrate ${NOINPUT}
+	${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/pip install -r requirements.txt
+	${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/python manage.py migrate ${NOINPUT}
 	${GRUNT} all
 
 pre-ci:
