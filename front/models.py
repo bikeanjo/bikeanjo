@@ -25,7 +25,8 @@ class Cyclist(models.Model):
     date_of_birth = models.DateField(_('date of birth'))
     gender = models.CharField(_('gender'), max_length=1, choices=GENDER)
     phone = models.CharField(_('phone number'), max_length=32)
-    years_experience = models.PositiveSmallIntegerField(_('years of experience'))
+    years_experience = models.PositiveSmallIntegerField(
+                                                    _('years of experience'))
 
     address = models.CharField(_('address'), max_length=64)
     address_number = models.PositiveSmallIntegerField(_('number'))
