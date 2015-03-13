@@ -1,4 +1,5 @@
 .PHONY: pre-ci setup-ci all tests
+.SILENT: all
 
 GRUNT=grunt
 BOWER=bower
@@ -6,9 +7,11 @@ NOINPUT=
 
 all:
 	bash -c "\
+		test -z ${VIRTUAL_ENV} && \
 		test -n ${VIRTUALENVWRAPPER_SCRIPT} && \
 		source ${VIRTUALENVWRAPPER_SCRIPT} && \
-	 	mkvirtualenv bikeanjo -p /usr/bin/python2"
+	 	mkvirtualenv bikeanjo -p /usr/bin/python2 || \
+	 	echo 'skipped virtualenv creation'"
 	npm install
 	${BOWER} install
 	${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/pip install -r requirements.txt
