@@ -1,87 +1,116 @@
 {% extends 'base.htm' %}
 
 {% block content %}
-<div class="hero">
+<section id="top" class="jumbotron">
     <div class="container">
-        <div class="row">
-            <h1 class="text-center text-uppercase">Junte-se a uma comunidade que acredita na transformação das cidades por meio da bicicleta!</h1>
+        <h2>Uma comunidade que acredita na transformação das cidades por meio da bicicleta!</h2>
+        <p><a class="btn btn-warning btn-lg" href="#about" role="button">Conheça o Bike Anjo</a></p>
+    </div>
+</section>
+
+<section id="about" class="how-it-works container">
+    <header>
+        <h2>Como funciona nossa plataforma?</h2>
+        <p>Somos uma comunidade de ciclistas voluntários apaixonados pelo seu meio de transporte</p>
+    </header>
+    <div class="row">
+        <div class="ask-help box col-md-4">
+            <div class="icon"></div>
+            <h3>Você pede ajuda</h3>
+            <p>Na plataforma você encontra ajuda para aprender e praticar sua pedaladas, recomendações de rota, acompanhamento no trânsito e muito mais.</p>
         </div>
-        <div class="row">
-            <div class="col-xs-3 col-xs-offset-2">
-                <button class="btn btn-lg btn-block ba-bg-orange">Quero ajuda para pedalar</button>
-            </div>
-            <div class="col-xs-3 col-xs-offset-2">
-                <button class="btn btn-lg btn-block ba-bg-blue">Já pedalo e quero ajudar</button>
-            </div>
+        <div class="find-help box col-md-4">
+            <div class="icon"></div>
+            <h3>Encontre seu Bike Anjo</h3>
+            <p>Analisamos seu pedido em nossa base e conectamos com um bike anjo mais próximo de você para ajudar com o seu pedido.</p>
+        </div>
+        <div class="community box col-md-4">
+            <div class="icon"></div>
+            <h3>Faz parte da comunidade</h3>
+            <p>A partir do momento que você recebe ajuda você poderá engajar outras pessoas a fazer o mesmo e transformar a sua cidade.</p>
         </div>
     </div>
-</div>
-<div class="comunidade">
+</section>
+
+<section class="statistics">
     <div class="container">
-        <div class="row">
-            <h2 class="text-center text-uppercase">Nossa Comunidade Não Para de Crescer</h2>
+        <header>
+            <h2>Nossa comunidade não para de crescer</h2>
+        </header>
+        <div class="box col-xs-6 col-md-3">
+            <span class="number">1450</span>
+            <span class="info">Bike Anjos</span>
         </div>
-        <div class="row">
-            <ul>
-                <li><a href="{% url 'socialaccount_signup' %}">Cadastrar-se</a></li>
-                <li><a href="{% url 'account_login' %}">Login</a></li>
-                <li><a href="{% url 'account_logout' %}">Logout</a></li>
-            </ul>
+        <div class="box col-xs-6 col-md-3">
+            <span class="number">5887</span>
+            <span class="info">Pedidos</span>
         </div>
-        <div class="row">
-            <div class="col-xs-2 col-xs-offset-2">
-                <div class="circle circle-stats ba-bg-green">
-                    15555
-                    <small>Bike Anjos</small>
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <div class="circle circle-stats ba-bg-green">
-                    365
-                    <small>Bike Anjos</small>
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <div class="circle circle-stats ba-bg-green">
-                    69
-                    <small>Bike Anjos</small>
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <div class="circle circle-stats ba-bg-green">
-                    25
-                    <small>Países</small>
-                </div>
-            </div>
+        <div class="box col-xs-6 col-md-3">
+            <span class="number">231</span>
+            <span class="info">cidades</span>
+        </div>
+        <div class="box col-xs-6 col-md-3">
+            <span class="number">6</span>
+            <span class="info">Países</span>
         </div>
     </div>
-</div>
-<div class="siga">
+</section>
+
+<section class="devices container">
+    <header>
+        <h2>Estaremos em todos os dispositivos</h2>
+        <p>Uma nova plataforma mais moderna, intuitiva e participativa</p>
+        <div class="col-xs-10 col-xs-offset-1">
+            <img src="/static/imgs/devices.jpg" alt="Dispositivos: notebook, tablet, celular" class="img-responsive">
+        </div>
+    </header>
+</section>
+
+<section id="sign-up" class="subscribe">
     <div class="container">
-        <div class="row">
-            <h4 class="text-uppercase">Siga o Bike Anjo:</h4>
+        <div class="subscribe-form">
+            <header>
+                <h2>Faça seu cadastro</h2>
+                <p>Fique sabendo primeiro do lançamento da nova plataforma</p>
+            </header>
+            <form class="form-inline" action="/fhurl/" method="post" id="mailing">
+                <div class="form-group">
+                    <input type="email" placeholder="Digite seu e-mail" class="form-control" name="email">
+                    <input type="submit" class="btn btn-info btn-lg" value="Enviar">
+                </div>
+            </form>
+        </div>
+        <div class="subscribe-success" style="display:none;">
+            <header>
+                <h2>Cadastro efetuado com sucesso!</h2>
+                <p>Obrigado por fazer parte dessa comunidade</p>
+            </header>
         </div>
     </div>
-</div>
-<div class="como">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-4">
-                <h1>img</h1><br>
-                Aprendendo a pedalar
-            </div>
-            <div class="col-xs-4">
-                <h1>img</h1><br>
-                Usando a plataforma
-            </div>
-            <div class="col-xs-4">
-                <h1>img</h1><br>
-                Virando um bike anjo
-            </div>
-        </div>
-        <div class="row">
-            <p class="text-center"><a href="#">Saiba mais</a> sobre como funciona o Bike Anjo</p>
-        </div>
+</section>
+
+<section class="join container">
+    <header>
+        <h2>É do Brasil? Você já pode participar!</h2>
+        <p>Se você for do Brasil pode já usar nossa plataforma atual e conferir o que estamos fazendo</p>
+    </header>
+    <div class="ask-help box col-sm-4">
+        <div class="icon"></div>
+        <h3>Pedir um Bike Anjo</h3>
+        <p>Você já pode pedir ajuda para pedalar em nosso sistema atual</p>
+        <a href="http://sistema.bikeanjo.com.br/pt-br/solicite-um-bikeanjo/" class="btn btn-success">Peça ajuda</a>
     </div>
-</div>
+    <div class="join-us box col-sm-4">
+        <div class="icon"></div>
+        <h3>Vire um bike anjo</h3>
+        <p>Entre e faça parte da nossa comunidade de voluntários</p>
+        <a href="http://bikeanjo.org/novobikeanjo/" class="btn btn-success">Participe</a>
+    </div>
+    <div class="events box col-sm-4">
+        <div class="icon"></div>
+        <h3>Eventos e Projetos</h3>
+        <p>Veja a agenda de eventos e projetos que temos por todo o Brasil</p>
+        <a href="http://bikeanjo.org/blog/" class="btn btn-success">Confira as novidades</a>
+    </div>
+</section>
 {% endblock %}
