@@ -8,11 +8,11 @@ from front.models import Cyclist
 class CyclistInline(admin.StackedInline):
     model = Cyclist
     can_delete = False
-    verbose_name_plural = 'Cyclist'
+    verbose_name_plural = 'Cyclists'
 
 
-class UserAdmin(UserAdmin):
+class CyclistAdmin(UserAdmin):
     inlines = (CyclistInline, )
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CyclistAdmin)

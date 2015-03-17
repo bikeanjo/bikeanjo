@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
 GENDER = (
@@ -8,33 +11,65 @@ GENDER = (
     ('F', _('Female')),
 )
 
-SERVICES = (
-    ('router', _('Choose good routes')),
-    ('monitor', _('Monitor cycling in traffic')),
-    ('teach', _('Teaching pedaling')),
-    ('workshop', _('Institutional events')),
+CYCLIST_ROLES = (
+    ('volunteer', _('Volunteer')),
+    ('recipient', _('Recipient')),
 )
+
+
+class Service(models.Model):
+    label = models.CharField(max_length=64)
 
 
 class Cyclist(models.Model):
     user = models.OneToOneField(User)
 
-    is_volunteer = models.BooleanField(default=False)
+    role = models.CharField(_('role'), choices=CYCLIST_ROLES, max_length=32,
+                            blank=True)
 
-    bio = models.CharField(_('biography'), max_length=140)
-    date_of_birth = models.DateField(_('date of birth'))
-    gender = models.CharField(_('gender'), max_length=1, choices=GENDER)
-    phone = models.CharField(_('phone number'), max_length=32)
+    bio = models.CharField(_('biography'), max_length=140, blank=True)
+
+    date_of_birth = models.DateField(_('date of birth'),
+                                     default=datetime(1984, 10, 22))
+
+    gender = models.CharField(_('gender'), max_length=1, choices=GENDER,
+                              blank=True)
+
+    phone = models.CharField(_('phone number'), max_length=32, blank=True)
+
     years_experience = models.PositiveSmallIntegerField(
-                                                    _('years of experience'))
+                                                    _('years of experience'),
+                                                    default=0)
 
-    address = models.CharField(_('address'), max_length=64)
-    address_number = models.PositiveSmallIntegerField(_('number'))
-    address_complement = models.CharField(_('complement'), max_length=16)
-    locality = models.CharField(_('locality'), max_length=32)
-    state = models.CharField(_('state'), max_length=32)
+    address = models.CharField(_('address'), max_length=64, blank=True)
 
-    level_in_mechanics = models.PositiveSmallIntegerField(_('Mechanics'))
-    level_in_security = models.PositiveSmallIntegerField(_('Security'))
-    level_in_legislation = models.PositiveSmallIntegerField(_('Legislation'))
-    level_in_routes = models.PositiveSmallIntegerField(_('Routes'))
+    address_number = models.PositiveSmallIntegerField(_('number'), default=0)
+
+    address_complement = models.CharField(_('complement'), max_length=16,
+                                          blank=True)
+
+    locality = models.CharField(_('locality'), max_length=32, blank=True)
+
+    state = models.CharField(_('state'), max_length=32, blank=True)
+
+    level_in_mechanics = models.PositiveSmallIntegerField(_('Mechanics'),
+                                                          default=0)
+
+    level_in_security = models.PositiveSmallIntegerField(_('Security'),
+                                                         default=0)
+
+    level_in_legislation = models.PositiveSmallIntegerField(_('Legislation'),
+                                                            default=0)
+
+    level_in_routes = models.PositiveSmallIntegerField(_('Routes'), default=0)
+
+    services = models.ManyToManyField(Service, _('provide services'))
+
+    def __unicode__(self):
+        return self.user.__unicode__()
+
+    @staticmethod
+    @receiver(post_save, sender=User)
+    def register_cyclist_signal(signal, sender, instance, created, **kwargs):
+        if created:
+            return Cyclist.objects.create(user=instance)
