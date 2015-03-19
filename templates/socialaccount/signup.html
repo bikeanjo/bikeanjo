@@ -1,0 +1,229 @@
+{% extends "socialaccount/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<section class="signup container">
+    <div class="col-sm-8">
+        <h1>{% trans "Sign Up" %}</h1>
+
+        <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right">{{ form.role.label }}</label>
+                <div class="col-sm-9 radio">
+                    {% for choice,label in form.role.field.choices %}
+                    <label class="col-sm-3 text-right" for="{{ form.role.id_for_label }}_{{ choice }}">
+                        <input type="radio" name="{{ form.role.html_name }}" id="{{ form.role.id_for_label }}_{{ choice }}" value="{{ choice }}" {% if form.role.value = choice %}checked="checked"{% endif %}/>{{ label }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.bio.id_for_label }}">{{ form.bio.label }}</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" type="text" name="{{ form.bio.html_name }}" id="{{ form.bio.id_for_label }}"></textarea>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="date" name="{{ form.date_of_birth.html_name }}" id="{{ form.date_of_birth.id_for_label }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                <div class="col-sm-9 radio">
+                    {% for choice,label in form.gender.field.choices %}
+                    <label class="col-sm-3 text-right" for="{{ form.gender.id_for_label }}_{{ choice }}">
+                        <input type="radio" name="{{ form.gender.html_name }}" id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}" {% if form.gender.value = choice %}checked="checked"{% endif %}/>{{ label }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="tel" name="{{ form.phone.html_name }}" id="{{ form.phone.id_for_label }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.years_experience.id_for_label }}">{{ form.years_experience.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="number" name="{{ form.years_experience.html_name }}" id="{{ form.years_experience.id_for_label }}" min="0" step="1" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.address.html_name }}" id="{{ form.address.id_for_label }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.address_number.id_for_label }}">{{ form.address_number.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="number" name="{{ form.address_number.html_name }}" id="{{ form.address_number.id_for_label }}" min="0"/>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.address_complement.id_for_label }}">{{ form.address_complement.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.address_complement.html_name }}" id="{{ form.address_complement.id_for_label }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.locality.id_for_label }}">{{ form.locality.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.locality.html_name }}" id="{{ form.locality.id_for_label }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.state.id_for_label }}">{{ form.state.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.state.html_name }}" id="{{ form.state.id_for_label }}" />
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right">{{ form.level_in_mechanics.label }}</label>
+                <div class="col-sm-9 btn-group" data-toggle="buttons">
+                    <label class="btn btn-default {% if form.level_in_mechanics.value = 1 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_1">
+                    <input {% if form.level_in_mechanics.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_1" value="1"/>1</label>
+                    
+                    <label class="btn btn-default {% if form.level_in_mechanics.value = 2 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_2">
+                    <input {% if form.level_in_mechanics.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_2" value="2"/>2</label>
+
+                    <label class="btn btn-default {% if form.level_in_mechanics.value = 3 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_3">
+                    <input {% if form.level_in_mechanics.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_3" value="3"/>3</label>
+
+                    <label class="btn btn-default {% if form.level_in_mechanics.value = 4 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_4">
+                    <input {% if form.level_in_mechanics.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_4" value="4"/>4</label>
+
+                    <label class="btn btn-default {% if form.level_in_mechanics.value = 5 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_5">
+                    <input {% if form.level_in_mechanics.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_5" value="5"/>5</label>
+
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right">{{ form.level_in_security.label }}</label>
+                <div class="col-sm-9 btn-group" data-toggle="buttons">
+                    <label class="btn btn-default {% if form.level_in_security.value = 1 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_1">
+                    <input {% if form.level_in_security.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_1" value="1"/>1</label>
+                    
+                    <label class="btn btn-default {% if form.level_in_security.value = 2 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_2">
+                    <input {% if form.level_in_security.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_2" value="2"/>2</label>
+
+                    <label class="btn btn-default {% if form.level_in_security.value = 3 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_3">
+                    <input {% if form.level_in_security.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_3" value="3"/>3</label>
+
+                    <label class="btn btn-default {% if form.level_in_security.value = 4 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_4">
+                    <input {% if form.level_in_security.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_4" value="4"/>4</label>
+
+                    <label class="btn btn-default {% if form.level_in_security.value = 5 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_5">
+                    <input {% if form.level_in_security.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_5" value="5"/>5</label>
+
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right">{{ form.level_in_legislation.label }}</label>
+                <div class="col-sm-9 btn-group" data-toggle="buttons">
+                    <label class="btn btn-default {% if form.level_in_legislation.value = 1 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_1">
+                    <input {% if form.level_in_legislation.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_1" value="1"/>1</label>
+                    
+                    <label class="btn btn-default {% if form.level_in_legislation.value = 2 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_2">
+                    <input {% if form.level_in_legislation.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_2" value="2"/>2</label>
+
+                    <label class="btn btn-default {% if form.level_in_legislation.value = 3 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_3">
+                    <input {% if form.level_in_legislation.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_3" value="3"/>3</label>
+
+                    <label class="btn btn-default {% if form.level_in_legislation.value = 4 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_4">
+                    <input {% if form.level_in_legislation.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_4" value="4"/>4</label>
+
+                    <label class="btn btn-default {% if form.level_in_legislation.value = 5 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_5">
+                    <input {% if form.level_in_legislation.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_5" value="5"/>5</label>
+
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right">{{ form.level_in_routes.label }}</label>
+                <div class="col-sm-9 btn-group" data-toggle="buttons">
+                    <label class="btn btn-default {% if form.level_in_routes.value = 1 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_1">
+                    <input {% if form.level_in_routes.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_1" value="1"/>1</label>
+                    
+                    <label class="btn btn-default {% if form.level_in_routes.value = 2 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_2">
+                    <input {% if form.level_in_routes.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_2" value="2"/>2</label>
+
+                    <label class="btn btn-default {% if form.level_in_routes.value = 3 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_3">
+                    <input {% if form.level_in_routes.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_3" value="3"/>3</label>
+
+                    <label class="btn btn-default {% if form.level_in_routes.value = 4 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_4">
+                    <input {% if form.level_in_routes.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_4" value="4"/>4</label>
+
+                    <label class="btn btn-default {% if form.level_in_routes.value = 5 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_5">
+                    <input {% if form.level_in_routes.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_5" value="5"/>5</label>
+
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="col-sm-3 text-right" for="{{ form.services.id_for_label }}">{{ form.services.label }}</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="{{ form.services.html_name }}" id="{{ form.services.id_for_label }}" />
+                </div>
+            </div>
+
+
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
