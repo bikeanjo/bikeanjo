@@ -28,7 +28,8 @@ class Cyclist(models.Model):
     bio = models.CharField(_('biography'), max_length=140, blank=True)
 
     date_of_birth = models.DateField(_('date of birth'),
-                                     default=datetime(1984, 10, 22))
+                                     default=datetime(1984, 10, 22),
+                                     null=True)
 
     gender = models.CharField(_('gender'), max_length=1, choices=GENDER,
                               blank=True)
@@ -37,11 +38,12 @@ class Cyclist(models.Model):
 
     years_experience = models.PositiveSmallIntegerField(
                                                     _('years of experience'),
-                                                    default=0)
+                                                    default=0, null=True)
 
     address = models.CharField(_('address'), max_length=64, blank=True)
 
-    address_number = models.PositiveSmallIntegerField(_('number'), default=0)
+    address_number = models.PositiveSmallIntegerField(_('number'), default=0,
+                                                      null=True)
 
     address_complement = models.CharField(_('complement'), max_length=16,
                                           blank=True)
@@ -51,15 +53,19 @@ class Cyclist(models.Model):
     state = models.CharField(_('state'), max_length=32, blank=True)
 
     level_in_mechanics = models.PositiveSmallIntegerField(_('Mechanics'),
+                                                          null=True,
                                                           default=0)
 
     level_in_security = models.PositiveSmallIntegerField(_('Security'),
+                                                         null=True,
                                                          default=0)
 
     level_in_legislation = models.PositiveSmallIntegerField(_('Legislation'),
+                                                            null=True,
                                                             default=0)
 
-    level_in_routes = models.PositiveSmallIntegerField(_('Routes'), default=0)
+    level_in_routes = models.PositiveSmallIntegerField(_('Routes'), default=0,
+                                                       null=True)
 
     services = models.ManyToManyField(Service, _('provide services'))
 
