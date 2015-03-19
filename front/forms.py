@@ -9,7 +9,7 @@ class SignupForm(forms.Form):
 
     role = forms.ChoiceField(choices=CYCLIST_ROLES)
     bio = forms.CharField(max_length=140, required=False)
-    date_of_birth = forms.DateField(input_formats=['%d/%m/%Y'], required=False)
+    date_of_birth = forms.DateField(required=False)
     gender = forms.ChoiceField(choices=GENDER, required=False)
     phone = forms.CharField(max_length=32, required=False)
     years_experience = forms.IntegerField(min_value=0, required=False)
@@ -50,5 +50,4 @@ class SignupForm(forms.Form):
         cyc.level_in_security = self.cleaned_data['level_in_security']
         cyc.level_in_legislation = self.cleaned_data['level_in_legislation']
         cyc.level_in_routes = self.cleaned_data['level_in_routes']
-        cyc.services = self.cleaned_data['services']
         cyc.save()

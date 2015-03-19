@@ -8,7 +8,7 @@
 {% block content %}
 <div class="signup container">
     <div class="col-sm-8">
-        <h1>{% trans "Sign Up" %}</h1>
+        <h2>{% trans "Sign Up" %}</h2>
 
         <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
             {% csrf_token %}
@@ -95,7 +95,7 @@
             <div class="form-group {% if form.bio.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.bio.id_for_label }}">{{ form.bio.label }}</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" name="{{ form.bio.html_name }}" id="{{ form.bio.id_for_label }}"></textarea>
+                    <textarea class="form-control" name="{{ form.bio.html_name }}" id="{{ form.bio.id_for_label }}">{{ form.bio.value }}</textarea>
 
                     {% if form.bio.errors %}
                     <ul class="error">
@@ -110,7 +110,7 @@
             <div class="form-group {% if form.date_of_birth.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="date" name="{{ form.date_of_birth.html_name }}" id="{{ form.date_of_birth.id_for_label }}" />
+                    <input class="form-control" type="date" name="{{ form.date_of_birth.html_name }}" id="{{ form.date_of_birth.id_for_label }}" value="{{ form.date_of_birth.value }}" />
 
                     {% if form.date_of_birth.errors %}
                     <ul class="error">
@@ -144,7 +144,7 @@
             <div class="form-group {% if form.phone.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="tel" name="{{ form.phone.html_name }}" id="{{ form.phone.id_for_label }}" />
+                    <input class="form-control" type="tel" name="{{ form.phone.html_name }}" id="{{ form.phone.id_for_label }}" value="{{ form.phone.value }}"/>
 
                     {% if form.phone.errors %}
                     <ul class="error">
@@ -159,7 +159,7 @@
             <div class="form-group {% if form.years_experience.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.years_experience.id_for_label }}">{{ form.years_experience.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="number" name="{{ form.years_experience.html_name }}" id="{{ form.years_experience.id_for_label }}" min="0" step="1" />
+                    <input class="form-control" type="number" name="{{ form.years_experience.html_name }}" id="{{ form.years_experience.id_for_label }}" min="0" step="1" value="{{ form.years_experience.value }}" />
 
                     {% if form.years_experience.errors %}
                     <ul class="error">
@@ -189,7 +189,7 @@
             <div class="form-group {% if form.address_number.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.address_number.id_for_label }}">{{ form.address_number.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="number" name="{{ form.address_number.html_name }}" id="{{ form.address_number.id_for_label }}" min="0"/>
+                    <input class="form-control" type="number" name="{{ form.address_number.html_name }}" id="{{ form.address_number.id_for_label }}" min="0" value="{{ form.address_number.value }}"/>
 
                     {% if form.address_number.errors %}
                     <ul class="error">
