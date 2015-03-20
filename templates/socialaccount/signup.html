@@ -12,11 +12,12 @@
 
         <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
             {% csrf_token %}
-
+    
+{% comment %}
             <div class="form-group {% if form.username.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value }}" />
+                    <input class="form-control" type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value|default:"" }}" />
 
                     {% if form.username.errors %}
                     <ul class="error">
@@ -27,11 +28,12 @@
                     {% endif %}
                 </div>
             </div>
+{% endcomment %}
         
             <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value }}" />
+                    <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" />
 
                     {% if form.email.errors %}
                     <ul class="error">
@@ -46,7 +48,7 @@
             <div class="form-group {% if form.first_name.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value }}" />
+                    <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" />
 
                     {% if form.first_name.errors %}
                     <ul class="error">
@@ -61,7 +63,7 @@
             <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value }}" />
+                    <input class="form-control" type="text" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" />
 
                     {% if form.last_name.errors %}
                     <ul class="error">
@@ -95,7 +97,7 @@
             <div class="form-group {% if form.bio.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.bio.id_for_label }}">{{ form.bio.label }}</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" name="{{ form.bio.html_name }}" id="{{ form.bio.id_for_label }}">{{ form.bio.value }}</textarea>
+                    <textarea class="form-control" name="{{ form.bio.html_name }}" id="{{ form.bio.id_for_label }}">{{ form.bio.value|default:"" }}</textarea>
 
                     {% if form.bio.errors %}
                     <ul class="error">
@@ -110,7 +112,7 @@
             <div class="form-group {% if form.date_of_birth.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="date" name="{{ form.date_of_birth.html_name }}" id="{{ form.date_of_birth.id_for_label }}" value="{{ form.date_of_birth.value }}" />
+                    <input class="form-control" type="date" name="{{ form.date_of_birth.html_name }}" id="{{ form.date_of_birth.id_for_label }}" value="{{ form.date_of_birth.value|default:"" }}" />
 
                     {% if form.date_of_birth.errors %}
                     <ul class="error">
@@ -144,7 +146,7 @@
             <div class="form-group {% if form.phone.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="tel" name="{{ form.phone.html_name }}" id="{{ form.phone.id_for_label }}" value="{{ form.phone.value }}"/>
+                    <input class="form-control" type="tel" name="{{ form.phone.html_name }}" id="{{ form.phone.id_for_label }}" value="{{ form.phone.value|default:"" }}"/>
 
                     {% if form.phone.errors %}
                     <ul class="error">
@@ -159,7 +161,7 @@
             <div class="form-group {% if form.years_experience.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.years_experience.id_for_label }}">{{ form.years_experience.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="number" name="{{ form.years_experience.html_name }}" id="{{ form.years_experience.id_for_label }}" min="0" step="1" value="{{ form.years_experience.value }}" />
+                    <input class="form-control" type="number" name="{{ form.years_experience.html_name }}" id="{{ form.years_experience.id_for_label }}" min="0" step="1" value="{{ form.years_experience.value|default:"" }}" />
 
                     {% if form.years_experience.errors %}
                     <ul class="error">
@@ -174,7 +176,7 @@
             <div class="form-group {% if form.address.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.address.html_name }}" id="{{ form.address.id_for_label }}" value="{{ form.address.value }}" />
+                    <input class="form-control" type="text" name="{{ form.address.html_name }}" id="{{ form.address.id_for_label }}" value="{{ form.address.value|default:"" }}" />
 
                     {% if form.address.errors %}
                     <ul class="error">
@@ -189,7 +191,7 @@
             <div class="form-group {% if form.address_number.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.address_number.id_for_label }}">{{ form.address_number.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="number" name="{{ form.address_number.html_name }}" id="{{ form.address_number.id_for_label }}" min="0" value="{{ form.address_number.value }}"/>
+                    <input class="form-control" type="number" name="{{ form.address_number.html_name }}" id="{{ form.address_number.id_for_label }}" min="0" value="{{ form.address_number.value|default:"" }}"/>
 
                     {% if form.address_number.errors %}
                     <ul class="error">
@@ -204,7 +206,7 @@
             <div class="form-group {% if form.address_complement.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.address_complement.id_for_label }}">{{ form.address_complement.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.address_complement.html_name }}" id="{{ form.address_complement.id_for_label }}" value="{{ form.address_complement.value }}" />
+                    <input class="form-control" type="text" name="{{ form.address_complement.html_name }}" id="{{ form.address_complement.id_for_label }}" value="{{ form.address_complement.value|default:"" }}" />
 
                     {% if form.address_complement.errors %}
                     <ul class="error">
@@ -219,7 +221,7 @@
             <div class="form-group {% if form.locality.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.locality.id_for_label }}">{{ form.locality.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.locality.html_name }}" id="{{ form.locality.id_for_label }}" value="{{ form.locality.value }}" />
+                    <input class="form-control" type="text" name="{{ form.locality.html_name }}" id="{{ form.locality.id_for_label }}" value="{{ form.locality.value|default:"" }}" />
 
                     {% if form.locality.errors %}
                     <ul class="error">
@@ -234,7 +236,7 @@
             <div class="form-group {% if form.state.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.state.id_for_label }}">{{ form.state.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.state.html_name }}" id="{{ form.state.id_for_label }}" value="{{ form.state.value }}" />
+                    <input class="form-control" type="text" name="{{ form.state.html_name }}" id="{{ form.state.id_for_label }}" value="{{ form.state.value|default:"" }}" />
 
                     {% if form.state.errors %}
                     <ul class="error">
@@ -249,20 +251,20 @@
             <div class="form-group {% if form.level_in_mechanics.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right">{{ form.level_in_mechanics.label }}</label>
                 <div class="col-sm-9 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default {% if form.level_in_mechanics.value = 1 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_1">
-                    <input {% if form.level_in_mechanics.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_1" value="1"/>1</label>
+                    <label class="btn btn-default {% if form.level_in_mechanics.value == "1" %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_1">
+                    <input {% if form.level_in_mechanics.value == "1" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_1" value="1"/>1</label>
                     
-                    <label class="btn btn-default {% if form.level_in_mechanics.value = 2 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_2">
-                    <input {% if form.level_in_mechanics.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_2" value="2"/>2</label>
+                    <label class="btn btn-default {% if form.level_in_mechanics.value == "2" %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_2">
+                    <input {% if form.level_in_mechanics.value == "2" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_2" value="2"/>2</label>
 
-                    <label class="btn btn-default {% if form.level_in_mechanics.value = 3 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_3">
-                    <input {% if form.level_in_mechanics.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_3" value="3"/>3</label>
+                    <label class="btn btn-default {% if form.level_in_mechanics.value == "3" %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_3">
+                    <input {% if form.level_in_mechanics.value == "3" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_3" value="3"/>3</label>
 
-                    <label class="btn btn-default {% if form.level_in_mechanics.value = 4 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_4">
-                    <input {% if form.level_in_mechanics.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_4" value="4"/>4</label>
+                    <label class="btn btn-default {% if form.level_in_mechanics.value == "4" %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_4">
+                    <input {% if form.level_in_mechanics.value == "4" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_4" value="4"/>4</label>
 
-                    <label class="btn btn-default {% if form.level_in_mechanics.value = 5 %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_5">
-                    <input {% if form.level_in_mechanics.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_5" value="5"/>5</label>
+                    <label class="btn btn-default {% if form.level_in_mechanics.value == "5" %}active{% endif %}" for="{{ form.level_in_mechanics.id_for_label }}_5">
+                    <input {% if form.level_in_mechanics.value == "5" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_mechanics.html_name }}" id="{{ form.level_in_mechanics.id_for_label }}_5" value="5"/>5</label>
 
 
                     {% if form.level_in_mechanics.errors %}
@@ -278,20 +280,20 @@
             <div class="form-group {% if form.level_in_security.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right">{{ form.level_in_security.label }}</label>
                 <div class="col-sm-9 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default {% if form.level_in_security.value = 1 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_1">
-                    <input {% if form.level_in_security.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_1" value="1"/>1</label>
+                    <label class="btn btn-default {% if form.level_in_security.value == "1" %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_1">
+                    <input {% if form.level_in_security.value == "1" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_1" value="1"/>1</label>
                     
-                    <label class="btn btn-default {% if form.level_in_security.value = 2 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_2">
-                    <input {% if form.level_in_security.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_2" value="2"/>2</label>
+                    <label class="btn btn-default {% if form.level_in_security.value == "2" %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_2">
+                    <input {% if form.level_in_security.value == "2" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_2" value="2"/>2</label>
 
-                    <label class="btn btn-default {% if form.level_in_security.value = 3 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_3">
-                    <input {% if form.level_in_security.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_3" value="3"/>3</label>
+                    <label class="btn btn-default {% if form.level_in_security.value == "3" %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_3">
+                    <input {% if form.level_in_security.value == "3" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_3" value="3"/>3</label>
 
-                    <label class="btn btn-default {% if form.level_in_security.value = 4 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_4">
-                    <input {% if form.level_in_security.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_4" value="4"/>4</label>
+                    <label class="btn btn-default {% if form.level_in_security.value == "4" %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_4">
+                    <input {% if form.level_in_security.value == "4" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_4" value="4"/>4</label>
 
-                    <label class="btn btn-default {% if form.level_in_security.value = 5 %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_5">
-                    <input {% if form.level_in_security.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_5" value="5"/>5</label>
+                    <label class="btn btn-default {% if form.level_in_security.value == "5" %}active{% endif %}" for="{{ form.level_in_security.id_for_label }}_5">
+                    <input {% if form.level_in_security.value == "5" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_security.html_name }}" id="{{ form.level_in_security.id_for_label }}_5" value="5"/>5</label>
 
 
                     {% if form.level_in_security.errors %}
@@ -307,20 +309,20 @@
             <div class="form-group {% if form.level_in_legislation.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right">{{ form.level_in_legislation.label }}</label>
                 <div class="col-sm-9 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default {% if form.level_in_legislation.value = 1 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_1">
-                    <input {% if form.level_in_legislation.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_1" value="1"/>1</label>
+                    <label class="btn btn-default {% if form.level_in_legislation.value == "1" %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_1">
+                    <input {% if form.level_in_legislation.value == "1" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_1" value="1"/>1</label>
                     
-                    <label class="btn btn-default {% if form.level_in_legislation.value = 2 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_2">
-                    <input {% if form.level_in_legislation.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_2" value="2"/>2</label>
+                    <label class="btn btn-default {% if form.level_in_legislation.value == "2" %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_2">
+                    <input {% if form.level_in_legislation.value == "2" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_2" value="2"/>2</label>
 
-                    <label class="btn btn-default {% if form.level_in_legislation.value = 3 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_3">
-                    <input {% if form.level_in_legislation.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_3" value="3"/>3</label>
+                    <label class="btn btn-default {% if form.level_in_legislation.value == "3" %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_3">
+                    <input {% if form.level_in_legislation.value == "3" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_3" value="3"/>3</label>
 
-                    <label class="btn btn-default {% if form.level_in_legislation.value = 4 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_4">
-                    <input {% if form.level_in_legislation.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_4" value="4"/>4</label>
+                    <label class="btn btn-default {% if form.level_in_legislation.value == "4" %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_4">
+                    <input {% if form.level_in_legislation.value == "4" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_4" value="4"/>4</label>
 
-                    <label class="btn btn-default {% if form.level_in_legislation.value = 5 %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_5">
-                    <input {% if form.level_in_legislation.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_5" value="5"/>5</label>
+                    <label class="btn btn-default {% if form.level_in_legislation.value == "5" %}active{% endif %}" for="{{ form.level_in_legislation.id_for_label }}_5">
+                    <input {% if form.level_in_legislation.value == "5" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_legislation.html_name }}" id="{{ form.level_in_legislation.id_for_label }}_5" value="5"/>5</label>
 
 
                     {% if form.level_in_legislation.errors %}
@@ -336,20 +338,20 @@
             <div class="form-group {% if form.level_in_routes.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right">{{ form.level_in_routes.label }}</label>
                 <div class="col-sm-9 btn-group" data-toggle="buttons">
-                    <label class="btn btn-default {% if form.level_in_routes.value = 1 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_1">
-                    <input {% if form.level_in_routes.value = 1 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_1" value="1"/>1</label>
+                    <label class="btn btn-default {% if form.level_in_routes.value == "1" %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_1">
+                    <input {% if form.level_in_routes.value == "1" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_1" value="1"/>1</label>
                     
-                    <label class="btn btn-default {% if form.level_in_routes.value = 2 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_2">
-                    <input {% if form.level_in_routes.value = 2 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_2" value="2"/>2</label>
+                    <label class="btn btn-default {% if form.level_in_routes.value == "2" %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_2">
+                    <input {% if form.level_in_routes.value == "2" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_2" value="2"/>2</label>
 
-                    <label class="btn btn-default {% if form.level_in_routes.value = 3 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_3">
-                    <input {% if form.level_in_routes.value = 3 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_3" value="3"/>3</label>
+                    <label class="btn btn-default {% if form.level_in_routes.value == "3" %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_3">
+                    <input {% if form.level_in_routes.value == "3" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_3" value="3"/>3</label>
 
-                    <label class="btn btn-default {% if form.level_in_routes.value = 4 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_4">
-                    <input {% if form.level_in_routes.value = 4 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_4" value="4"/>4</label>
+                    <label class="btn btn-default {% if form.level_in_routes.value == "4" %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_4">
+                    <input {% if form.level_in_routes.value == "4" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_4" value="4"/>4</label>
 
-                    <label class="btn btn-default {% if form.level_in_routes.value = 5 %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_5">
-                    <input {% if form.level_in_routes.value = 5 %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_5" value="5"/>5</label>
+                    <label class="btn btn-default {% if form.level_in_routes.value == "5" %}active{% endif %}" for="{{ form.level_in_routes.id_for_label }}_5">
+                    <input {% if form.level_in_routes.value == "5" %}checked="checked"{% endif %} type="radio" name="{{ form.level_in_routes.html_name }}" id="{{ form.level_in_routes.id_for_label }}_5" value="5"/>5</label>
 
 
                     {% if form.level_in_routes.errors %}

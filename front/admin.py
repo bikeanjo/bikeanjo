@@ -13,6 +13,19 @@ class CyclistInline(admin.StackedInline):
 
 class CyclistAdmin(UserAdmin):
     inlines = (CyclistInline, )
+    add_fieldsets = (
+        (None, {
+            'fields': ('username', 'email', 'password1', 'password2'),
+            'classes': ('wide',)
+        }),
+    )
+
+    def save_formset(self, request, form, formset, change):
+        cyclistForm = formset.forms[0]
+        cyclistForm.instance = form.instance.cyclist
+
+        super(CyclistAdmin, self).save_formset(request, form, formset, change)
+
 
 admin.site.unregister(User)
 admin.site.register(User, CyclistAdmin)

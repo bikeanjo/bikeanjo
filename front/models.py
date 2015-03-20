@@ -67,7 +67,8 @@ class Cyclist(models.Model):
     level_in_routes = models.PositiveSmallIntegerField(_('Routes'), default=0,
                                                        null=True)
 
-    services = models.ManyToManyField(Service, _('provide services'))
+    services = models.ManyToManyField(Service, _('provide services'),
+                                      blank=True)
 
     def __unicode__(self):
         return self.user.__unicode__()
