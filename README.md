@@ -27,3 +27,11 @@ tests:
 * make tests
 
 [nossa trello board](https://trello.com/b/jRVE7t8B/cocriacao-nova-plataforma-bike-anjo)
+
+
+Postgresql
+----------
+
+    sudo pacman -S postgresql postgis
+
+http://gis.stackexchange.com/a/19440
