@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from django.views.generic import TemplateView
 from front.views import HomeView
 admin.autodiscover()
 
@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/'}),
     url(r'^accounts/', include('allauth.urls')),
+
+        url(r'^login/', TemplateView.as_view(template_name="login.html")),
 ]
