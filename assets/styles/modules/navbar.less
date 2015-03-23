@@ -1,0 +1,86 @@
+//== Site navigation
+// --------------------------------------------------
+
+//## Navbar / top navigation
+
+.navbar {
+    .site-logo {
+        margin: 14px 15px;
+        @media scren and (min-width: @screen-xs-min) {
+            margin: 14px 0;
+        }
+        a {
+            background: url('../imgs/logo-bike-anjo.png');
+            background-size: cover;
+            display: block;
+            height: 61px;
+            width: 169px;
+        }
+    }
+    .navbar-toggle {
+        padding: 4px 10px;
+        .icon-bar {
+            width: 30px;
+            height: 5px;
+        }
+    }
+    .navbar-collapse {
+        text-align: center;
+
+        .navigation {
+            padding: 20px 0 35px;
+            @media screen and (min-width: @screen-sm-min) {
+                padding: 4px 10px;
+                float: right;
+                margin: 19px 0 0;
+            }
+        }
+        .nav-pills {
+            margin-bottom: 10px;
+            @media screen and (min-width: @screen-sm-min) {
+                float: left;
+                margin-bottom: 0px;
+            }
+            > li {
+                float: none;
+                text-align: center; 
+                @media screen and (min-width: @screen-sm-min) {
+                    float: left;
+                }
+                a {
+                    color: @navbar-default-link-color;
+                    font-size: 16px;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                    &:hover, &:focus, &:active, &.active {
+                        color: @brand-green;
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+        .btn {
+            font-size: 16px;
+            padding: 10px 40px;
+            margin: 0 auto;
+            @media screen and (min-width: @screen-sm-min) {
+                margin-left: 5px;
+                float: right;
+            }
+            @media screen and (min-width: @screen-md-min) {
+                margin-left: 30px; 
+            }
+        }
+    }
+    &.navbar-forms {
+        .navbar-header {
+            float: none;
+            width: 100%;
+        }
+        .site-logo {
+            a {
+                margin: 14px auto;
+            }
+        }
+    }
+}
