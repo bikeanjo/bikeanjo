@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.gis',
     'django_extensions',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'bikeanjo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'bikeanjo',
     }
 }
@@ -135,11 +135,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 
+SOCIALACCOUNT_ADAPTER = 'front.adapter.BikeAnjoSocialAccountAdapter'
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_AUTO_SIGNUP = False
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
+        'SCOPE': ['email', 'publish_stream', 'user_birthday',
+                  'public_profile'],
         # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
         'METHOD': 'js_sdk',  # 'oauth2',
         'VERIFIED_EMAIL': False

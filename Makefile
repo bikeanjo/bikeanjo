@@ -34,7 +34,7 @@ setup-ci: pre-ci all
 
 tests:
 	py.test
-	flake8
+	flake8 --ignore=E501
 
 clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;

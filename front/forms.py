@@ -1,53 +1,47 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from models import GENDER, CYCLIST_ROLES
+from models import CYCLIST_ROLES, GENDER, HELP_WITH
 
 
 class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
 
-    role = forms.ChoiceField(choices=CYCLIST_ROLES)
-    bio = forms.CharField(max_length=140, required=False)
-    date_of_birth = forms.DateField(required=False)
+    birthday = forms.DateField(required=False)
+    city = forms.CharField(max_length=32, required=False)
+    country = forms.CharField(max_length=32, required=False)
     gender = forms.ChoiceField(choices=GENDER, required=False)
+    help_with = forms.ChoiceField(choices=HELP_WITH)
     phone = forms.CharField(max_length=32, required=False)
-    years_experience = forms.IntegerField(min_value=0, required=False)
-    address = forms.CharField(max_length=64, required=False)
-    address_number = forms.IntegerField(min_value=0, required=False)
-    address_complement = forms.CharField(max_length=16, required=False)
-    locality = forms.CharField(max_length=32, required=False)
+    role = forms.ChoiceField(choices=CYCLIST_ROLES)
     state = forms.CharField(max_length=32, required=False)
-    level_in_mechanics = forms.IntegerField(min_value=0, max_value=5,
-                                            required=False)
-    level_in_security = forms.IntegerField(min_value=0, max_value=5,
-                                           required=False)
-    level_in_legislation = forms.IntegerField(min_value=0, max_value=5,
-                                              required=False)
-    level_in_routes = forms.IntegerField(min_value=0, max_value=5,
-                                         required=False)
+
+    def __init__(self, *argz, **kwargz):
+        super(SignupForm, self).__init__(*argz, **kwargz)
+
+        if hasattr(self, 'sociallogin'):
+            extra = self.sociallogin.account.extra_data
+            self['birthday'].value = extra.get('birthday', '')
+            
+            if extra.get('gender') == 'male':
+                self['gender'].value = 'M'
+            elif extra.get('gender') == 'female':
+                self['gender'].value = 'F'
+                
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.save()
 
-        # abrevia nome pra nao falhar no flake
-        cyc = user.cyclist
+        cyclist = user.cyclist
 
-        cyc.role = self.cleaned_data['role']
-        cyc.bio = self.cleaned_data['bio']
-        cyc.date_of_birth = self.cleaned_data['date_of_birth']
-        cyc.gender = self.cleaned_data['gender']
-        cyc.phone = self.cleaned_data['phone']
-        cyc.years_experience = self.cleaned_data['years_experience']
-        cyc.address = self.cleaned_data['address']
-        cyc.address_number = self.cleaned_data['address_number']
-        cyc.address_complement = self.cleaned_data['address_complement']
-        cyc.locality = self.cleaned_data['locality']
-        cyc.state = self.cleaned_data['state']
-        cyc.level_in_mechanics = self.cleaned_data['level_in_mechanics']
-        cyc.level_in_security = self.cleaned_data['level_in_security']
-        cyc.level_in_legislation = self.cleaned_data['level_in_legislation']
-        cyc.level_in_routes = self.cleaned_data['level_in_routes']
-        cyc.save()
+        cyclist.birthday = self.cleaned_data['birthday']
+        cyclist.city = self.cleaned_data['city']
+        cyclist.country = self.cleaned_data['country']
+        cyclist.gender = self.cleaned_data['gender']
+        cyclist.help_with = self.cleaned_data['help_with']
+        cyclist.phone = self.cleaned_data['phone']
+        cyclist.role = self.cleaned_data['role']
+        cyclist.state = self.cleaned_data['state']
+        cyclist.save()
