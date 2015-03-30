@@ -11,3 +11,10 @@ notifications:
       - https://webhooks.gitter.im/e/df106e7590af361d5c02
     on_success: always
     on_failure: always
+
+addons:
+  postgresql: "9.3"
+
+before_install:
+  - psql -U postgres -c 'CREATE EXTENSION postgis;'
+  - psql -U postgres -c 'CREATE DATABASE bikeanjo;'
