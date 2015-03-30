@@ -25,8 +25,9 @@
         }
     }
     .navbar-collapse {
-        text-align: center;
-
+        &.in {
+            overflow-y: visible;
+        }
         .navigation {
             padding: 20px 0 35px;
             @media screen and (min-width: @screen-sm-min) {
@@ -51,6 +52,7 @@
                     color: @navbar-default-link-color;
                     font-size: 16px;
                     font-weight: 400;
+                    padding: 13px 12px;
                     text-transform: uppercase;
                     &:hover, &:focus, &:active, &.active {
                         color: @brand-green;
@@ -69,6 +71,17 @@
             }
             @media screen and (min-width: @screen-md-min) {
                 margin-left: 30px; 
+            }
+        }
+        @media screen and (max-width: @screen-xs-max) {
+            background-color: @brand-green;
+            .nav-pills {
+                > li a {
+                    color: #fff;
+                    &:hover {
+                        color: #fff;
+                    }
+                }
             }
         }
     }

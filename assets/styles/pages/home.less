@@ -4,7 +4,6 @@
 //## Common styles for all home sections
 
 .home {
-
     section {
         padding-top: 40px;
         padding-bottom: 40px;
@@ -58,22 +57,30 @@
         }
         h2 {
             font-family: 'Oswald', sans-serif;
-            font-size: 28px;
+            font-size: 26px;
             line-height: 150%;
+            margin-top: 0;
             margin-bottom: 25px;
             text-align: center;
             text-transform: uppercase;
+            @media screen and (min-width: 360px) {
+                font-size: 28px;
+            }
             @media screen and (min-width: @screen-xs-min) {
-                margin-top: 60px;
                 font-size: 30px;
+                margin-top: 60px;
+            }
+            @media screen and (min-width: @screen-xs-min) and (max-width: 560px) {
+                margin-top: 20px;
             }
             @media screen and (min-width: @screen-sm-min) {
+                font-size: 42px;
                 margin-top: 165px;
                 margin-bottom: 40px;
             }
             @media screen and (min-width: @screen-md-min) {
-                margin-top: 160px;
                 font-size: 40px;
+                margin-top: 160px;
             }
             @media screen and (min-width: @screen-lg-min) {
                 font-size: 44px;
@@ -81,6 +88,23 @@
         }
         p {
             text-align: center;
+        }
+        .btn {
+            margin-bottom: 10px;
+            @media (max-width: 359px) {
+                .btn-sm;
+            }
+            @media (min-width: @screen-sm-min) {
+                .btn-lg;
+            }
+        }
+        @media (min-width: 560px) {
+            .btn-warning {
+                .pull-left;
+            }
+            .btn-success {
+                .pull-right;
+            }
         }
     }
 
@@ -193,6 +217,12 @@
             font-weight: normal;
             margin-top: 20px;
             text-transform: none;
+            @media (max-width: @screen-xs-min) {
+                .btn-sm;
+            }
+            @media (min-width: @screen-sm-min) {
+                .btn-lg;
+            }
         }
     }
 

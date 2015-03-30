@@ -48,9 +48,16 @@ footer {
     }
     .footer-bottom {
         border-top: 1px solid @gray-base;
-        padding: 20px 0;
+        padding: 30px 0 20px;
+        @media screen and (min-width: @screen-sm-min) {
+            padding: 20px 0;
+        }
         .credits {
             margin-top: 10px; 
+            text-align: center;
+            @media screen and (min-width: @screen-sm-min) {
+                text-align: left;
+            }
         }
     }
     .back-to-top {
@@ -59,7 +66,7 @@ footer {
         background-size: 40px;
         display: block;
         height: 40px;
-        margin: 5px auto 60px;
+        margin: 40px auto 20px;
         width: 40px;
         @media screen and (min-width: @screen-sm-min) {
             float: right;
