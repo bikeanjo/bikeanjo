@@ -1,4 +1,4 @@
-{% extends "socialaccount/base.html" %}
+{% extends "account/base.html" %}
 {% load url from future %}
 
 {% load i18n %}
@@ -10,11 +10,11 @@
     <div class="col-sm-8">
         <h2>{% trans "Sign Up" %}</h2>
 
-        <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+        <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'account_signup' %}">
             {% csrf_token %}
 
             {% include '_signup_inner_form.html' %}
-        
+
             <div class="pull-right">
                 <button class="btn btn-success btn-lg" type="submit">{% trans "Sign Up" %} &raquo;</button>
             </div></br></br></br>
