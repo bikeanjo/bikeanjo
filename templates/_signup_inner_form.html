@@ -81,7 +81,7 @@
                 <label class="col-sm-3 text-right">{{ form.role.label }}</label>
                 <div class="col-sm-9">
                     {% for choice,label in form.role.field.choices %}
-                    <label class="radio {% if form.role.value = choice %}checked{% endif %}" for="{{ form.role.id_for_label }}_{{ choice }}" for="{{ form.role.id_for_label }}_{{ choice }}">
+                    <label class="radio {% if form.role.value == choice %}checked{% endif %}" for="{{ form.role.id_for_label }}_{{ choice }}" for="{{ form.role.id_for_label }}_{{ choice }}">
                         <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                         <input type="radio" name="{{ form.role.html_name }}" id="{{ form.role.id_for_label }}_{{ choice }}" value="{{ choice }}"
                                {% if form.role.value = choice %}checked="checked"{% endif %}/>&nbsp;&nbsp;{{ label }}
@@ -101,7 +101,7 @@
             <div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.birthday.html_name }}" id="{{ form.birthday.id_for_label }}" value="{{ form.birthday.value|default:"" }}" />
+                    <input class="form-control" type="text" name="{{ form.birthday.html_name }}" id="{{ form.birthday.id_for_label }}" value="{{ form.birthday.value }}" />
 
                     {% if form.birthday.errors %}
                     <ul class="error">

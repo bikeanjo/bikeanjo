@@ -7,7 +7,8 @@ class SignupView(allauth.account.views.SignupView):
 
     def get_form_kwargs(self):
         kwargs = super(SignupView, self).get_form_kwargs()
-        kwargs['initial'].update(self.request.GET.dict())
+        if self.request.method == 'GET':
+            kwargs['initial'].update(self.request.GET.dict())
         return kwargs
 
 

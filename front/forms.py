@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from django import forms
 from models import CYCLIST_ROLES, GENDER, HELP_WITH
 
@@ -21,13 +22,16 @@ class SignupForm(forms.Form):
 
         if hasattr(self, 'sociallogin'):
             extra = self.sociallogin.account.extra_data
-            self['birthday'].value = extra.get('birthday', '')
-            
+
+            # facebook birthday is month/day/year
+            match = re.match('^(\d\d)/(\d\d)/(\d\d\d\d)$', extra.get('birthday'))
+            if match:
+                self['birthday'].value = '{1}/{0}/{2}'.format(*match.groups())
+
             if extra.get('gender') == 'male':
                 self['gender'].value = 'M'
             elif extra.get('gender') == 'female':
                 self['gender'].value = 'F'
-                
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']

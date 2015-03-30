@@ -33,7 +33,7 @@ module.exports = function (grunt) {
                 sourceMap: true,
                 sourceMapIncludeSources: true,
                 compress: {
-                    drop_console: true
+                    drop_console: false
                 },
             },
             vendor: {

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import datetime, date
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -31,7 +31,7 @@ EXPERIENCE = (
 
 class Cyclist(models.Model):
     user = models.OneToOneField(User)
-    birthday = models.DateField(default=datetime(1984, 10, 22), null=True)
+    birthday = models.DateField(default=date.today, null=True)
     city = models.CharField(max_length=32, blank=True)
     country = models.CharField(max_length=32, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)
