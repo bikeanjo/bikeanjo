@@ -17,5 +17,5 @@ urlpatterns = [
         {'next_page': '/'}),
     url(r'^accounts/', include('allauth.urls')),
 
-        url(r'^login/', TemplateView.as_view(template_name="login.html")),
+    url(r'^login/', TemplateView.as_view(template_name="login.html")),
 ]

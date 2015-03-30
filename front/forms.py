@@ -22,12 +22,11 @@ class SignupForm(forms.Form):
         if hasattr(self, 'sociallogin'):
             extra = self.sociallogin.account.extra_data
             self['birthday'].value = extra.get('birthday', '')
-            
+
             if extra.get('gender') == 'male':
                 self['gender'].value = 'M'
             elif extra.get('gender') == 'female':
                 self['gender'].value = 'F'
-                
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
