@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import TemplateView
+from django.views.generic import FormView, TemplateView
+
 import allauth.account.views
+import forms
 
 
 class SignupView(allauth.account.views.SignupView):
@@ -10,6 +12,10 @@ class SignupView(allauth.account.views.SignupView):
         if self.request.method == 'GET':
             kwargs['initial'].update(self.request.GET.dict())
         return kwargs
+
+
+class HelpOfferView(TemplateView):
+    template_name = 'help_offer.html'
 
 
 class HomeView(TemplateView):

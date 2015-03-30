@@ -1,20 +1,26 @@
 # -*- coding: utf-8 -*-
 import re
 from django import forms
-from models import CYCLIST_ROLES, GENDER, HELP_WITH
+
+import models
 
 
 class SignupForm(forms.Form):
+    """
+    This form will be wrapped by django-allauth. It will receive two password
+    fields when user uses the standard signup view. In social signup, these
+    password fields does not appear
+    """
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
 
     birthday = forms.DateField(required=False)
     city = forms.CharField(max_length=32, required=False)
     country = forms.CharField(max_length=32, required=False)
-    gender = forms.ChoiceField(choices=GENDER, required=False)
-    help_with = forms.ChoiceField(choices=HELP_WITH)
+    gender = forms.ChoiceField(choices=models.GENDER, required=False)
+    help_with = forms.ChoiceField(choices=models.HELP_WITH)
     phone = forms.CharField(max_length=32, required=False)
-    role = forms.ChoiceField(choices=CYCLIST_ROLES)
+    role = forms.ChoiceField(choices=models.CYCLIST_ROLES)
     state = forms.CharField(max_length=32, required=False)
 
     def __init__(self, *argz, **kwargz):
@@ -49,3 +55,17 @@ class SignupForm(forms.Form):
         cyclist.role = self.cleaned_data['role']
         cyclist.state = self.cleaned_data['state']
         cyclist.save()
+
+
+class HelpOfferForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Cyclist
+        fields = ('help_with',)
+
+
+class HelpAddressForm(forms.ModelForm):
+
+    class Meta:
+        model = models.HelpAddress
+        exclude = []
