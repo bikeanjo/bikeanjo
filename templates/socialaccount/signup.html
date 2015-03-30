@@ -112,11 +112,13 @@
             </div>
         
             <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
-                <label class="col-sm-3 text-right" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
-                <div class="col-sm-9 radio">
+                <label class="col-sm-3 text-right">{{ form.gender.label }}</label>
+                <div class="col-sm-9">
                     {% for choice,label in form.gender.field.choices %}
-                    <label class="text-right" for="{{ form.gender.id_for_label }}_{{ choice }}">
-                        <input type="radio" class="input" name="{{ form.gender.html_name }}" id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}" {% if form.gender.value = choice %}checked="checked"{% endif %}/>{{ label }}
+                    <label class="radio {% if form.gender.value = choice %}checked{% endif %}" for="{{ form.gender.id_for_label }}_{{ choice }}" for="{{ form.gender.id_for_label }}_{{ choice }}">
+                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                        <input type="radio" name="{{ form.gender.html_name }}" id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}"
+                               {% if form.gender.value = choice %}checked="checked"{% endif %}/>&nbsp;&nbsp;{{ label }}
                     </label>
                     {% endfor %}
 
@@ -129,6 +131,7 @@
                     {% endif %}
                 </div>
             </div>
+        
         
             <div class="form-group {% if form.phone.errors %}has-error{% endif %}">
                 <label class="col-sm-3 text-right" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
@@ -197,7 +200,6 @@
                     <label class="checkbox {% if form.help_with.value = choice %}checked{% endif %}" for="{{ form.help_with.id_for_label }}_{{ choice }}">
                         <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                         <input type="checkbox" name="{{ form.help_with.html_name }}"
-                               onclick="$(this).parent('label').toggleClass('checked', $(this).is(':checked'))" 
                                id="{{ form.help_with.id_for_label }}_{{ choice }}" value="{{ choice }}"
                                {% if form.help_with.value = choice %}checked="checked"{% endif %}/>{{ label }}
                     </label>
