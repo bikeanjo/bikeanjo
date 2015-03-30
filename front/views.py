@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import FormView, TemplateView
+from django.views.generic import TemplateView
 
 import allauth.account.views
-import forms
 
 
 class SignupView(allauth.account.views.SignupView):
