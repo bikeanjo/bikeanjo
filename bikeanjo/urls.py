@@ -2,7 +2,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
-from front.views import HomeView
+import front.views
 admin.autodiscover()
 
 urlpatterns = [
@@ -10,12 +10,12 @@ urlpatterns = [
     # url(r'^$', 'poneybike.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^$', front.views.HomeView.as_view(), name='home'),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',
-        {'next_page': '/'}),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^accounts/signup/', front.views.SignupView.as_view()),
     url(r'^accounts/', include('allauth.urls')),
 
-        url(r'^login/', TemplateView.as_view(template_name="login.html")),
+    url(r'^login/', TemplateView.as_view(template_name="login.html")),
 ]

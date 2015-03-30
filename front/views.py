@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.views.generic import TemplateView
+import allauth.account.views
+
+
+class SignupView(allauth.account.views.SignupView):
+
+    def get_form_kwargs(self):
+        kwargs = super(SignupView, self).get_form_kwargs()
+        kwargs['initial'].update(self.request.GET.dict())
+        return kwargs
 
 
 class HomeView(TemplateView):

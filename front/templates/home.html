@@ -7,9 +7,9 @@
         <div class="container">
             <h2>Junte-se a uma comunidade que acredita na transformação por meio da bicicleta!</h2>
             <p>
-                <a class="btn btn-warning btn-lg pull-left" role="button">
+                <a href="{% url 'account_signup' %}?role=requester" class="btn btn-warning btn-lg pull-left" role="button">
                 Quero ajuda para pedalar</a>
-                <a class="btn btn-success btn-lg pull-right" role="button">
+                <a href="{% url 'account_signup' %}?role=volunteer" class="btn btn-success btn-lg pull-right" role="button">
                 Já pedalo e quero ajudar</a>
             </p>
         </div>
