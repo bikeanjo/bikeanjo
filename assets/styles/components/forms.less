@@ -33,7 +33,19 @@
         font-size: 18px;
         font-weight: 600;
     }
-
+    .input-wrapper {
+        position: relative;
+        .fa {
+            color: @brand-gray;
+            font-size: 22px;
+            position: absolute;
+            right: 12px;
+            top: 8px;
+            &.fa-lock {
+                font-size: 26px;
+            }
+        }
+    }
     .login-social {
         margin-bottom: 25px;
         .btn {
