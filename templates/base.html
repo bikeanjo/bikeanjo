@@ -15,16 +15,22 @@
         {% block extrahead %}{% endblock %}
     </head>
     <body>
-        {% include '_header.html' %}
+        {% if form %}
+            {% include '_header-form.html' %}
+        {% else %}
+            {% include '_header.html' %}
+        {% endif %}
         
         <div class="main-content" role="main">
             {% block content %}
                 <h1>bloco content</h1>
             {% endblock %}
         </div>
-
-        {% include '_footer.html' %}
-
+        
+        {% if not form %}
+            {% include '_footer.html' %}
+        {% endif %}
+        
         <script src="{% static 'js/vendor.js' %}"></script>
         <script src="{% static 'js/main.js' %}"></script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
