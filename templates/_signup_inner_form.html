@@ -84,7 +84,7 @@
                     <label class="radio {% if form.role.value == choice %}checked{% endif %}" for="{{ form.role.id_for_label }}_{{ choice }}" for="{{ form.role.id_for_label }}_{{ choice }}">
                         <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                         <input type="radio" name="{{ form.role.html_name }}" id="{{ form.role.id_for_label }}_{{ choice }}" value="{{ choice }}"
-                               {% if form.role.value = choice %}checked="checked"{% endif %}/>&nbsp;&nbsp;{{ label }}
+                               {% if form.role.value = choice %}checked="checked"{% endif %}/>{{ label }}
                     </label>
                     {% endfor %}
 
@@ -120,7 +120,7 @@
                     <label class="radio {% if form.gender.value = choice %}checked{% endif %}" for="{{ form.gender.id_for_label }}_{{ choice }}" for="{{ form.gender.id_for_label }}_{{ choice }}">
                         <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                         <input type="radio" name="{{ form.gender.html_name }}" id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}"
-                               {% if form.gender.value = choice %}checked="checked"{% endif %}/>&nbsp;&nbsp;{{ label }}
+                               {% if form.gender.value = choice %}checked="checked"{% endif %}/>{{ label }}
                     </label>
                     {% endfor %}
 
