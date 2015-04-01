@@ -42,14 +42,17 @@
             display: inline-block;
             padding-top: 2px;
         }
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
     .form-group {
         clear: both;
         margin-bottom: 30px;
         overflow: auto;
-        &:last-child {
-            margin-bottom: 0;
-        }
+    }
+    .form-group:last-child {
+        margin-bottom: 0;
     }
     .select-birthday {
         select {
@@ -121,11 +124,12 @@
     }
 
     .send-form {
-        margin: 25px 0 35px;
+        margin: 25px 0 0;
     }
 
     .create-account {
         font-size: 18px;
+        margin-top: 35px;
         text-align: center;
         a {
             color: @brand-blue;

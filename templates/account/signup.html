@@ -15,11 +15,7 @@
         <form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
             {% csrf_token %}
 
-            {% include '_signup_inner_form.html' %}
-
-            <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Sign Up" %} </button>
-
-            <p class="create-account">{% blocktrans %}Já faz parte? <a href="{{ login_url }}">Faça o login</a>{% endblocktrans %}</p>
+            {% include '_signup_inner_form_solicitante.html' %}
 
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
