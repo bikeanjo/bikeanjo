@@ -6,24 +6,28 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<div class="signup container">
-    <div class="col-sm-8">
-        <h2>{% trans "Sign Up" %}</h2>
+    <section class="forms signup container">
+        <header>
+            <h2>Cadastre-se agora!</h2>
+            <p>Junte-se a uma comunidade que acredita na transformação por meio da bicicleta</p>
+        </header>
 
-        <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        <form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
             {% csrf_token %}
 
             {% include '_signup_inner_form.html' %}
 
-            <div class="pull-right">
-                <button class="btn btn-success btn-lg" type="submit">{% trans "Sign Up" %} &raquo;</button>
-            </div></br></br></br>
+            <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Sign Up" %} </button>
+
+            <p class="create-account">{% blocktrans %}Já faz parte? <a href="{{ login_url }}">Faça o login</a>{% endblocktrans %}</p>
 
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
         </form>
-    </div>
-</div>
+
+        <p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
+        Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    </section>
 
 {% endblock %}
