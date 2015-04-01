@@ -3,6 +3,7 @@
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.1/sprintf.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true"></script>
 
@@ -21,16 +22,12 @@ window.addEventListener('load', function(){
         id: 'examples.map-i875mjb7'
     }).addTo(map);
 
-    function placeOnMap(addresses) {
-        for (var i = 0; i < addresses.length; i++){
-            var address = addresses[i];
-
-            L.marker([
-                address.geometry.location.lat(), 
-                address.geometry.location.lng(), 
-            ]).addTo(map)
-              .bindPopup(address.formatted_address).openPopup();
-        }
+    function placeOnMap(address) {
+        L.marker([
+            address.geometry.location.lat(), 
+            address.geometry.location.lng(), 
+        ]).addTo(map)
+          .bindPopup(address.formatted_address).openPopup();
     }
 
     // basic geoCodeAddress
@@ -43,12 +40,32 @@ window.addEventListener('load', function(){
 
         geocoder.geocode({'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                defer.resolve(results, status);
+                defer.resolve(results);
             } else {
                 defer.reject(status);
             }
         });
         return defer;
+    }
+
+    // let user select correct address
+    function selectCorrectAddress(addresses) {
+        if(addresses.length === 1) {
+            return addresses[0];
+        }
+        
+        var str = 'Escolha o endereço correto:\n\n';
+        addresses.forEach(function(address, i){
+            str += sprintf('(%3d) - ', i+1);
+            str += address.formatted_address;
+            str += '\n';
+        });
+
+        var index = parseInt(prompt(str), 10);
+        if(index > 0) {
+            return addresses[index - 1];
+        }
+        return addresses[0];
     }
 
     // setup elements
@@ -57,9 +74,9 @@ window.addEventListener('load', function(){
         if(e.which === 13) {
             var address = $(this).val();
             geoCodeAddress(address)
-                .then(placeOnMap)
-                .then(console.log.bind(console));
-                
+                .then(selectCorrectAddress)
+                .then(placeOnMap);
+
             return false;
         }
     });
