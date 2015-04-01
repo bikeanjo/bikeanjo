@@ -13,17 +13,23 @@
     <div class="col-sm-12">
         <h2>{% trans "Track" %}</h2>
 
-        <form class="form-horizontal" method="post" action="{% url 'account_signup' %}">
+        <form class="form-horizontal" method="post">
             {% csrf_token %}
 
-            <div id="map" class="form-group" style="min-height: 300px;"></div>
+            <div id="js-map" class="form-group" style="min-height: 300px;"></div>
 
-            <ol class="addresses"></ol>
+            <p>{% blocktrans %}Type the addresses that you use to ride, type 'Enter' to see the address on map and confirm pressing 'Add address' button{% endblocktrans %}</p>
+
+            <ol id="js-addresses"></ol>
 
             <div class="form-group">
                 <input type="text" id="geocoder-input" class="form-control input-lg"/>
-                <a class="btn btn-default">{% trans 'Add address' %}</a>
             </div>
+
+            <div class="form-group">
+                <button class="btn btn-default" id="js-add-address">{% trans 'Add address' %}</button>
+            </div>
+
 
             {{ form.as_p }}
 
