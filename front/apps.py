@@ -5,4 +5,4 @@ class FrontConfig(AppConfig):
     name = 'front'
 
     def ready(self):
-        import signals
+        import signals  # NOQA
