@@ -3,23 +3,89 @@
         width: 490px;
     }
     header {
+        margin: 30px 0;
         text-align: center;
+        h2 {
+            color: @brand-blue;
+            font-size: 34px;
+            font-weight: 600;
+            margin: 0;
+        }
+        p {
+            font-size: 16px;
+            margin: 0;
+        }
     }
-    h2 {
-        color: @brand-blue;
-        font-weight: 700;
+    fieldset {
+        border-top: 1px solid @gray-lighter;
+    }
+    legend {
+        border: 0;
+        font-size: 18px;
+        margin-bottom: 10px;
+        padding: 0 5px;
+        text-align: center;
+        width: auto; 
+    } 
+    label {
+        color: #00aeef;
+        line-height: 1;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .login-social {
+        margin-bottom: 25px;
+        .btn {
+            font-weight: 600;
+            width: 32%;
+        }
+        .btn:nth-child(2) {
+            margin: 0 1.3%;
+        }
+        .fa {
+            font-size: 22px;
+            margin-right: 8px;
+            vertical-align: text-bottom;
+        }
+        .facebook {
+            background-color: #3b5998;
+        }
+        .google {
+            background-color: #dd4b39;
+        }
+        .twitter {
+            background-color: #00aced;
+        }
+    }
+
+    .forgot-password {
+        color: @gray-light;
+        float: right;
+    }
+
+    .send-form {
+        margin: 25px 0 35px;
+    }
+
+    .create-account {
+        font-size: 18px;
+        text-align: center;
+        a {
+            color: @brand-blue;
+        }
+    }
+
+    .questions {
+        font-size: 16px;
+        margin: 60px auto 0;
+        text-align: center;
+        i {
+            font-size: 24px;
+            margin: 0 5px 0 0;
+            vertical-align: middle;
+        }
     }
 }
 
-.form-box {
-    background-color: #fff;
-    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.1);
-    margin: 0 auto;
-    padding: 30px;
-}
 
-.questions {
-    font-size: 14px;
-    margin: 60px auto 0;
-    text-align: center;
-}

@@ -7,40 +7,31 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<div class="login container">
-    <div class="col-sm-8">
-        <h2>{% trans "Sign In" %}</h2>
+    
+    <section class="forms login container">
+        <header>
+            <h2>Vamos pedalar?</h2>
+            <p>Faça seu login para acessar seu painel de informações exclusivo.</p>
+        </header>
+        <form class="card" method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            
+            <fieldset>
+                <legend>Faça seu login usando</legend>
+                {# include "socialaccount/snippets/provider_list.html" with process="login" #}
+                <div class="login-social">
+                    <a href="#" class="facebook btn btn-default"><i class="fa fa-facebook"></i>Facebook</a>
+                    <a href="#" class="google btn btn-default"><i class="fa fa-google-plus"></i></i>Google</a>
+                    <a href="#" class="twitter btn btn-default"><i class="fa fa-twitter"></i>Twitter</a>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>{% trans 'or' %}</legend>
 
-        {% if socialaccount.providers  %}
-        <div class="socialaccount_ballot row">
-            <div class="col-sm-3 text-right">
-                <p>Usando</p>
-            </div>
-
-            <div class="col-sm-9">
-                <ul class="socialaccount_providers">
-                  {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-                </ul>
-            </div>
-
-            <div class="login-or text-center">{% trans 'or' %}</div>
-        </div>
-
-        {% include "socialaccount/snippets/login_extra.html" %}
-
-        {% else %}
-        <p>{% blocktrans %}If you have not created an account yet, then please
-        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-        {% endif %}
-
-        <form class="login form-horizontal" method="POST" action="{% url 'account_login' %}">
-          {% csrf_token %}
-
-          <div class="form-group">
-                <label class="col-sm-3 text-right" for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
-                <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value }}" placeholder="Username" />
-
+                <div class="form-group">
+                    <label for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
+                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value }}" placeholder="Digite aqui seu e-mail">
                     {% if form.login.errors %}
                     <ul class="error">
                         {% for error in form.login.errors %}
@@ -49,13 +40,13 @@
                     </ul>
                     {% endif %}
                 </div>
-          </div>
 
-          <div class="form-group">
-                <label class="col-sm-3 text-right" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-                <div class="col-sm-9">
-                    <input class="form-control" type="text" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value }}" placeholder="Password" />
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
 
+                    <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+            
+                    <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value }}" placeholder="Digite sua senha" />
                     {% if form.password.errors %}
                     <ul class="error">
                         {% for error in form.password.errors %}
@@ -64,16 +55,20 @@
                     </ul>
                     {% endif %}
                 </div>
-          </div>
+            </fieldset>
 
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <div class="pull-right">
-              <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-              <button class="btn btn-success btn-lg primaryAction" type="submit">{% trans "Sign In" %}</button>
-          </div></br></br></br>
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <button class="send-form btn btn-primary btn-block btn-lg primaryAction" type="submit">{% trans "Sign In" %}</button>
+
+            <p class="create-account">{% blocktrans %}Não tem uma conta? <a href="{{ signup_url }}">Cadastre-se</a>{% endblocktrans %}</p>
         </form>
-    </div>
-</div>
+
+        <p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
+        Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+
+    </section>
+
 {% endblock %}
