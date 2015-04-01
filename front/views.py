@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.views.generic import FormView, TemplateView
+from django.forms.formsets import formset_factory
 
 import allauth.account.views
 import forms
@@ -14,8 +15,9 @@ class SignupView(allauth.account.views.SignupView):
         return kwargs
 
 
-class HelpOfferView(TemplateView):
+class TrackView(FormView):
     template_name = 'help_offer.html'
+    form_class = forms.TrackForm
 
 
 class HomeView(TemplateView):

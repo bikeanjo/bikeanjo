@@ -16,6 +16,6 @@ urlpatterns = [
 
     # bikeanjo urls
     url(r'^$', front.views.HomeView.as_view(), name='home'),
-    url(r'^how-can-you-help/$', front.views.HelpOfferView.as_view(), name='help_offer'),
+    url(r'^how-can-you-help/$', front.views.TrackView.as_view(), name='help_offer'),
     url(r'^login/', TemplateView.as_view(template_name="login.html")),
 ]

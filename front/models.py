@@ -44,8 +44,12 @@ class Cyclist(models.Model):
         return self.user.__unicode__()
 
 
-class HelpAddress(models.Model):
+class Track(models.Model):
+    cyclist = models.ForeignKey(Cyclist)
+    track = models.MultiPointField()
+
+
+class Point(models.Model):
     cyclist = models.ForeignKey(Cyclist)
     address = models.CharField(max_length=128)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    coords = models.PointField()

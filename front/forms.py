@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 import re
-from django import forms
+from django.contrib.gis import forms
 
 import models
+
+
+class TrackForm(forms.Form):
+    json_points = forms.CharField(widget=forms.HiddenInput)
 
 
 class SignupForm(forms.Form):
@@ -55,17 +59,3 @@ class SignupForm(forms.Form):
         cyclist.role = self.cleaned_data['role']
         cyclist.state = self.cleaned_data['state']
         cyclist.save()
-
-
-class HelpOfferForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Cyclist
-        fields = ('help_with',)
-
-
-class HelpAddressForm(forms.ModelForm):
-
-    class Meta:
-        model = models.HelpAddress
-        exclude = []

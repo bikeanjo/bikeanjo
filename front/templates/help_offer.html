@@ -1,2 +1,96 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true"></script>
+
+<script type="text/javascript">
+window.addEventListener('load', function(){
+    // load apis
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    var geocoder = new google.maps.Geocoder();
+
+    // setup leaflet
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: 'examples.map-i875mjb7'
+    }).addTo(map);
+
+    function placeOnMap(addresses) {
+        for (var i = 0; i < addresses.length; i++){
+            var address = addresses[i];
+
+            L.marker([
+                address.geometry.location.lat(), 
+                address.geometry.location.lng(), 
+            ]).addTo(map)
+              .bindPopup(address.formatted_address).openPopup();
+        }
+    }
+
+    // basic geoCodeAddress
+    function geoCodeAddress(address) {
+        var defer = jQuery.Deferred();
+
+        if(!address) {
+            return defer.reject();
+        }
+
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                defer.resolve(results, status);
+            } else {
+                defer.reject(status);
+            }
+        });
+        return defer;
+    }
+
+    // setup elements
+    var $geocoderInput = $('#geocoder-input');
+    $geocoderInput.keydown(function(e){
+        if(e.which === 13) {
+            var address = $(this).val();
+            geoCodeAddress(address)
+                .then(placeOnMap)
+                .then(console.log.bind(console));
+                
+            return false;
+        }
+    });
+
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-sm-12">
+        <h2>{% trans "Track" %}</h2>
+
+        <form class="form-horizontal" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+
+            <div id="map" class="form-group" style="min-height: 180px;"></div>
+
+            <ol class="addresses"></ol>
+
+            <div class="form-group">
+                <input type="text" id="geocoder-input" class="form-control input-lg"/>
+                <a class="btn btn-default">Adicionar endereço</a>
+            </div>
+
+            {{ form.as_p }}
+
+            <div class="pull-right">
+                <button class="btn btn-success btn-lg" type="submit">{% trans "Next" %} &raquo;</button>
+            </div><br/><br/><br/>
+        </form>
+    </div>
+</div>
+{% endblock %}
