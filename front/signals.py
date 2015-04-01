@@ -7,10 +7,10 @@ from django.dispatch import receiver
 from models import Cyclist
 
 
-@receiver(post_save, sender=User)
-def register_cyclist_signal(signal, sender, instance, created, **kwargs):
-    if created:
-        return Cyclist.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def register_cyclist_signal(signal, sender, instance, created, **kwargs):
+#     if created:
+#         return Cyclist.objects.create(user=instance)
 
 
 # @receiver(user_signed_up)

@@ -48,8 +48,8 @@ class SignupForm(forms.Form):
         user.last_name = self.cleaned_data['last_name']
         user.save()
 
-        cyclist = user.cyclist
-
+        cyclist = models.Cyclist()
+        cyclist.user = user
         cyclist.birthday = self.cleaned_data['birthday']
         cyclist.city = self.cleaned_data['city']
         cyclist.country = self.cleaned_data['country']
