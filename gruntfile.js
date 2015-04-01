@@ -96,11 +96,11 @@ module.exports = function (grunt) {
                 force: true,
             },
             all: [
-                'assets/scripts/**/*.js',
+                ['assets/scripts/**/*.js', '!assets/scripts/vendor/**/*.js'],
             ],
         },
         jscs: {
-            src: 'assets/scripts/**/*.js',
+            src: ['assets/scripts/**/*.js', '!assets/scripts/vendor/**/*.js'],
             options: {
                 requireCurlyBraces: ['if', ],
                 force: true,
