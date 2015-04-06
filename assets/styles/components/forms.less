@@ -59,6 +59,7 @@
     .form-group {
         clear: both;
         margin-bottom: 30px;
+        overflow: hidden;
     }
     .form-group:last-child {
         margin-bottom: 0;
@@ -106,9 +107,16 @@
         margin-bottom: 25px;
         .btn {
             font-weight: 600;
-            width: 32%;
+            width: 100%;
             &:nth-child(2) {
-                margin: 0 1.2%;
+                margin: 10px 0;
+            }
+            @media screen and (min-width: @screen-xs-min) {
+                margin-bottom: 0;
+                width: 32%;
+                &:nth-child(2) {
+                    margin: 0 1.2%;
+                }
             }
         }
         .fa {
