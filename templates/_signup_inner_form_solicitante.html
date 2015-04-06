@@ -1,79 +1,89 @@
-<div class="form-group {% if form.gender.errors %}has-error{% endif %}">
-    <label class="primary-label">{{ form.gender.label }}</label>
-    {% for choice,label in form.gender.field.choices %}
-    <div class="select-gender">
-        <label class="radio {% if form.gender.value = choice %}checked{% endif %}" for="{{ form.gender.id_for_label }}_{{ choice }}" for="{{ form.gender.id_for_label }}_{{ choice }}">
-            <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
-            <input type="radio" name="{{ form.gender.html_name }}"
-                id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}"
-                {% if form.gender.value = choice %}checked="checked"{% endif %}/>
-                <span class="text">{{ label }}</span>
+<header>
+    <h2>Só mais alguns dados</h2>
+    <p>Para encaminhar melhor seu pedido vamos<br>precisar só de mais alguns dados</p>
+</header>
+
+<form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+
+    <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
+        <label class="primary-label">{{ form.gender.label }}</label>
+        {% for choice,label in form.gender.field.choices %}
+        <div class="select-gender">
+            <label class="radio {% if form.gender.value = choice %}checked{% endif %}" for="{{ form.gender.id_for_label }}_{{ choice }}" for="{{ form.gender.id_for_label }}_{{ choice }}">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                <input type="radio" name="{{ form.gender.html_name }}"
+                    id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}"
+                    {% if form.gender.value = choice %}checked="checked"{% endif %}/>
+                    <span class="text">{{ label }}</span>
+            </label>
+        </div>
+        {% endfor %}
+
+        {% if form.gender.errors %}
+        <ul class="error">
+            {% for error in form.gender.errors %}
+            <li class="text-error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
+        <label class="primary-label" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+        <div class="select-birthday">
+            <select class="form-control">
+                <option>Dia</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select class="form-control">
+                <option>Mês</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+            <select class="form-control">
+                <option>Ano</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+        </div>
+        {% if form.birthday.errors %}
+        <ul class="error">
+            {% for error in form.birthday.errors %}
+            <li class="text-error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label class="primary-label">Sua experiência com a bicicleta</label>
+        <label class="radio">
+            <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Ainda não sei pedalar</span>
         </label>
+        <label class="radio">
+            <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Já sei pedalar, mas não tenho experiência no trânsito</span>
+        </label>
+        <label class="radio">
+            <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Já pedalo faz tempo mas não no dia a dia</span>
+        </label>
+        <label class="radio">
+            <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Uso quase todo dia a bicicleta</span>
+        </label>
+
+        {% if form.help_with.errors %}
+        <ul class="error">
+            {% for error in form.help_with.errors %}
+            <li class="text-error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
-    {% endfor %}
 
-    {% if form.gender.errors %}
-    <ul class="error">
-        {% for error in form.gender.errors %}
-        <li class="text-error">{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
+    <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Finalizar e pedir ajuda</button>
 
-<div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
-    <label class="primary-label" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
-    <div class="select-birthday">
-        <select class="form-control">
-            <option>Dia</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <select class="form-control">
-            <option>Mês</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-        <select class="form-control">
-            <option>Ano</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-    </div>
-    {% if form.birthday.errors %}
-    <ul class="error">
-        {% for error in form.birthday.errors %}
-        <li class="text-error">{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-
-<div class="form-group">
-    <label class="primary-label">Sua experiência com a bicicleta</label>
-    <label class="radio">
-        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Ainda não sei pedalar</span>
-    </label>
-    <label class="radio">
-        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Já sei pedalar, mas não tenho experiência no trânsito</span>
-    </label>
-    <label class="radio">
-        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Já pedalo faz tempo mas não no dia a dia</span>
-    </label>
-    <label class="radio">
-        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Uso quase todo dia a bicicleta</span>
-    </label>
-
-    {% if form.help_with.errors %}
-    <ul class="error">
-        {% for error in form.help_with.errors %}
-        <li class="text-error">{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-
-<button class="send-form btn btn-primary btn-block btn-lg" type="submit">Finalizar e pedir ajuda</button>
+</form>

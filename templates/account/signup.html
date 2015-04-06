@@ -7,23 +7,9 @@
 
 {% block content %}
     <section class="forms signup container">
-        <header>
-            <h2>Cadastre-se agora!</h2>
-            <p>Junte-se a uma comunidade que acredita na transformação por meio da bicicleta</p>
-        </header>
 
-        <form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
-            {% csrf_token %}
+        {% include '_signup_inner_form_solicitante_2.html' %}
 
-            {% include '_signup_inner_form_solicitante.html' %}
-
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
-        </form>
-
-        <p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
-        Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
     </section>
 
 {% endblock %}

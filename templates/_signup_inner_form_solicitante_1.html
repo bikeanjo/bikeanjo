@@ -1,0 +1,16 @@
+<header>
+    <h2>Como podemos ajudar?</h2>
+    <p>Escolha a opção em que você precisa da nossa ajuda</p>
+</header>
+
+<form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+
+    <div class="form-group">    
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Aprender a pedalar</button>    
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Praticar pedaladas</button>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Acompanhamento no trânsito</button>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Recomendar rota</button>            
+    </div>
+
+</form>

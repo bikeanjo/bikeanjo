@@ -1,5 +1,5 @@
 .forms {
-    max-width: 490px;
+    max-width: 540px;
     header {
         margin: 30px 0;
         text-align: center;
@@ -12,6 +12,11 @@
         p {
             font-size: 16px;
             margin: 0;
+        }
+    }
+    .card {
+        header {
+            margin: 0 0 15px; 
         }
     }
     fieldset {
@@ -117,16 +122,42 @@
             background-color: #00aced;
         }
     }
-
     .forgot-password {
         color: @gray-light;
         float: right;
     }
-
+    .btn-block+.btn-block {
+        margin-top: 15px;
+    }
     .send-form {
         margin: 25px 0 0;
     }
-
+    .add-address {
+        width: 100%;
+        input {
+            width: ~"calc(100% - 60px)";
+        }
+        .btn {
+            float: right;
+            padding: 11px 12px 3px;
+            .fa {
+                font-size: 30px;
+            }
+        }
+    }
+    .addresses-list {
+        font-size: 16px;
+        margin: 15px 0;
+        li {
+            margin-bottom: 5px;
+            .fa {
+                color: #f00;
+                float: left;
+                font-size: 20px;
+                margin: 0 10px 0 0;
+            }
+        }
+    }
     .create-account {
         font-size: 18px;
         margin-top: 35px;
@@ -135,7 +166,6 @@
             color: @brand-blue;
         }
     }
-
     .questions {
         font-size: 16px;
         margin: 60px auto;
@@ -144,6 +174,20 @@
             font-size: 24px;
             margin: 0 5px 0 0;
             vertical-align: middle;
+        }
+    }
+    .map {
+        position: absolute;
+        top: 90px;
+        right: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        iframe {
+            height: 100%;
+            width: 100%;
         }
     }
 }
