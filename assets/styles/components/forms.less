@@ -46,6 +46,11 @@
         .text {
             display: inline-block;
             padding-top: 2px;
+            &.terms {
+                font-size: 16px;
+                line-height: 1.5;
+                padding: 0;  
+            }
         }
         &:last-child {
             margin-bottom: 0;
@@ -54,7 +59,6 @@
     .form-group {
         clear: both;
         margin-bottom: 30px;
-        overflow: auto;
     }
     .form-group:last-child {
         margin-bottom: 0;
@@ -150,12 +154,21 @@
         margin: 15px 0;
         li {
             margin-bottom: 5px;
-            .fa {
+            .fa-times {
                 color: #f00;
-                float: left;
                 font-size: 20px;
-                margin: 0 10px 0 0;
+                margin-right: 5px;
             }
+            .fa-arrow-right {
+                margin: 0 5px 0;
+                vertical-align: text-top;
+            }
+        }
+    }
+    .add-route {
+        margin-bottom: 5px;
+        input {
+            margin-bottom: 10px;
         }
     }
     .create-account {
