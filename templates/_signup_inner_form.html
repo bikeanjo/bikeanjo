@@ -17,94 +17,76 @@
     </fieldset>
     <fieldset>
         <legend>ou crie uma conta com seu e-mail</legend>
-        <div class="form-group {% if form.first_name.errors %}has-error{% endif %}">
+        <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
             <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
-                <i class="fa fa-user"></i>
-            </div>
+            <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
+            <i class="fa fa-user form-control-icon"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.first_name.errors %}
-            <ul class="error">
                 {% for error in form.first_name.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
 
         <div class="form-group {% if form.email.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Digite seu e-mail">
-                <i class="fa fa-envelope"></i>
-            </div>
+            <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Digite seu e-mail">
+            <i class="fa fa-envelope form-control-icon"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.email.errors %}
-            <ul class="error">
                 {% for error in form.email.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
 
         <div class="form-group {% if form.email.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Confirme seu e-mail">
-                <i class="fa fa-envelope-o"></i>
-            </div>
+            <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Confirme seu e-mail">
+            <i class="fa fa-envelope-o form-control-icon"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.email.errors %}
-            <ul class="error">
                 {% for error in form.email.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
 
         <div class="form-group {% if form.country.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
-                <i class="fa fa-globe"></i>
-            </div>
+            <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
+            <i class="fa fa-globe form-control-icon"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.country.errors %}
-            <ul class="error">
                 {% for error in form.country.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
 
         <div class="form-group {% if form.city.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="tel" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}" placeholder="O nome da sua cidade">
-                <i class="fa fa-home"></i>
-            </div>
+            <input class="form-control" type="tel" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}" placeholder="O nome da sua cidade">
+            <i class="fa fa-home form-control-icon"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.city.errors %}
-            <ul class="error">
                 {% for error in form.city.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
 
         {% if form.password1 %}
         <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="text" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}" placeholder="Digite sua senha">
-                <i class="fa fa-lock"></i>
-            </div>
+            <input class="form-control" type="text" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}" placeholder="Digite sua senha">
+            <i class="fa fa-lock form-control-icon"></i>
+                <i class="fa fa-times form-control-feedback"></i>
             {% if form.password1.errors %}
-            <ul class="error">
                 {% for error in form.password1.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
         {% endif %}
@@ -112,16 +94,13 @@
         {% if form.password2 %}
         <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
-            <div class="input-wrapper">
-                <input class="form-control" type="text" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}" value="{{ form.password2.value|default:"" }}" placeholder="Confirme sua senha">
-                <i class="fa fa-lock"></i>
-            </div>
+            <input class="form-control" type="text" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}" value="{{ form.password2.value|default:"" }}" placeholder="Confirme sua senha">
+            <i class="fa fa-lock form-control-icon"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.password2.errors %}
-            <ul class="error">
                 {% for error in form.password2.errors %}
-                <li class="text-error">{{ error }}</li>
+                <span class="text-danger">{{ error }}</span>
                 {% endfor %}
-            </ul>
             {% endif %}
         </div>
         {% endif %}
@@ -133,5 +112,6 @@
 
 </form>
 
-<p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
+<p class="questions"><a href="#"><i class="fa fa-question-circle form-control-icon"></i>
+<i class="fa fa-times form-control-feedback"></i>
         Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>

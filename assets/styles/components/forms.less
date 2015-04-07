@@ -57,19 +57,47 @@
         width: 100%;
     }
 
-    // wrapper for when you want to put an icon in a text input
-    .input-wrapper {
+    // input icon class
+    .form-control-icon {
+        position: absolute;
+        right: 0;
+        z-index: 2;
+        display: block;
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+        pointer-events: none;
+        color: @brand-gray;
+        font-size: 22px;
+        top: 26px;
+        &.fa-lock {
+            font-size: 26px;
+        }
+    }
+    // input error icon class
+    .form-control-feedback {
+        display: none;
+        font-size: 25px;
+        top: 30px;
+    }
+    // fix some issues with the bootstrap classes
+    .has-error, .has-feedback {
+        .form-control-icon {
+            display: none;
+        }
+        .form-control-feedback {
+            display: block;
+        }
+    }
+    // fix some issues with the bootstrap form-group class
+    .form-group {
+        clear: both;
+        margin-bottom: 30px;
+        overflow: hidden;
         position: relative;
-        .fa {
-            color: @brand-gray;
-            font-size: 22px;
-            pointer-events: none;
-            position: absolute;
-            right: 12px;
-            top: 8px;
-            &.fa-lock {
-                font-size: 26px;
-            }
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 
@@ -92,20 +120,11 @@
         margin-top: 15px;
     }
 
-    // fix some issues with the bootstrap form-group class
-    .form-group {
-        clear: both;
-        margin-bottom: 30px;
-        overflow: hidden;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
     // social login on login and sign up forms
     .login-social {
         margin-bottom: 25px;
         .btn {
+            color: #fff;
             font-weight: 600;
             width: 100%;
             &:nth-child(2) {

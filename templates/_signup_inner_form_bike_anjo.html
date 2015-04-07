@@ -21,11 +21,9 @@
         {% endfor %}
 
         {% if form.gender.errors %}
-        <ul class="error">
             {% for error in form.gender.errors %}
-            <li class="text-error">{{ error }}</li>
+            <span class="text-danger">{{ error }}</span>
             {% endfor %}
-        </ul>
         {% endif %}
     </div>
 
@@ -52,11 +50,9 @@
             </select>
         </div>
         {% if form.birthday.errors %}
-        <ul class="error">
             {% for error in form.birthday.errors %}
-            <li class="text-error">{{ error }}</li>
+            <span class="text-danger">{{ error }}</span>
             {% endfor %}
-        </ul>
         {% endif %}
     </div>
 
@@ -76,11 +72,9 @@
         </label>
 
         {% if form.help_with.errors %}
-        <ul class="error">
             {% for error in form.help_with.errors %}
-            <li class="text-error">{{ error }}</li>
+            <span class="text-danger">{{ error }}</span>
             {% endfor %}
-        </ul>
         {% endif %}
     </div>
 
@@ -100,11 +94,9 @@
         </label>
 
         {% if form.help_with.errors %}
-        <ul class="error">
             {% for error in form.help_with.errors %}
-            <li class="text-error">{{ error }}</li>
+            <span class="text-danger">{{ error }}</span>
             {% endfor %}
-        </ul>
         {% endif %}
     </div>
 
@@ -113,11 +105,9 @@
         <textarea class="form-control" rows="5" id="participate" placeholder="Descreva sua participação aqui"></textarea>
 
         {% if form.help_with.errors %}
-        <ul class="error">
             {% for error in form.help_with.errors %}
-            <li class="text-error">{{ error }}</li>
+            <span class="text-danger">{{ error }}</span>
             {% endfor %}
-        </ul>
         {% endif %}
     </div>
 

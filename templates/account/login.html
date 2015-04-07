@@ -31,15 +31,13 @@
 
                 <div class="form-group">
                     <label for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
-                    <div class="input-wrapper">
-                        <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value }}" placeholder="Digite aqui seu e-mail"><i class="fa fa-envelope"></i>
-                    </div>
+                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value }}" placeholder="Digite aqui seu e-mail">
+                    <i class="fa fa-envelope form-control-icon"></i>
+                    <i class="fa fa-times form-control-feedback"></i>
                     {% if form.login.errors %}
-                    <ul class="error">
                         {% for error in form.login.errors %}
-                        <li class="text-error">{{ error }}</li>
+                        <span class="text-danger">{{ error }}</span>
                         {% endfor %}
-                    </ul>
                     {% endif %}
                 </div>
 
@@ -47,16 +45,14 @@
                     <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
 
                     <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-                    
-                    <div class="input-wrapper">
-                        <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value }}" placeholder="Digite sua senha" /><i class="fa fa-lock"></i>
-                    </div>
+                        
+                    <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value }}" placeholder="Digite sua senha" />
+                    <i class="fa fa-lock form-control-icon"></i>
+                    <i class="fa fa-times form-control-feedback"></i>
                     {% if form.password.errors %}
-                    <ul class="error">
                         {% for error in form.password.errors %}
-                        <li class="text-error">{{ error }}</li>
+                        <span class="text-danger">{{ error }}</span>
                         {% endfor %}
-                    </ul>
                     {% endif %}
                 </div>
             </fieldset>
