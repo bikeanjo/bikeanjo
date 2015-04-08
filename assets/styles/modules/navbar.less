@@ -35,6 +35,31 @@
                 float: right;
                 margin: 19px 0 0;
             }
+            @media screen and (min-width: @screen-md-min) {
+                .dropdown-menu {
+                    background-color: @brand-green;
+                    border: 0; 
+                    &:before {
+                        border-bottom: 10px solid @brand-green;
+                        border-left: 10px solid transparent;
+                        border-right: 10px solid transparent;
+                        content: "";
+                        position: absolute;
+                        left: 40px;
+                        top: -9px;
+                    }
+                    a {
+                        color: #fff;
+                        font-size: 14px;
+                        margin: 0 5px; 
+                        padding: 5px 12px;
+                        &:hover, &:active, &:focus, &.active {
+                            background-color: darken(@brand-green, 10%);
+                            color: #fff;
+                        } 
+                    }
+                }
+            }
         }
         .nav-pills {
             margin-bottom: 10px;
@@ -49,14 +74,14 @@
                     float: left;
                 }
                 a {
+                    background-color: transparent;
                     color: @navbar-default-link-color;
                     font-size: 16px;
                     font-weight: 400;
                     padding: 13px 12px;
                     text-transform: uppercase;
                     &:hover, &:focus, &:active, &.active {
-                        color: @brand-green;
-                        background-color: transparent;
+                        color: @brand-green;   
                     }
                 }
             }

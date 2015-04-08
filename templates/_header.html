@@ -1,3 +1,4 @@
+
 {% load i18n %}
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -14,11 +15,46 @@
         <nav id="navbar" class="navbar-collapse collapse">
             <div class="navigation">
                 <ul class="nav nav-pills">
-                    <li><a href="#">Quem somos</a></li>
-                    <li><a href="#">O que fazemos</a></li>
-                    <li><a href="#">Onde atuamos</a></li>
-                    <li><a href="#">Apoie</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Quem somos</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Sobre nós</a></li>
+                            <li><a href="#">Como funciona</a></li>
+                            <li><a href="#">Nossos projetos</a></li>
+                            <li><a href="#">Parceiros</a></li>
+                            <li><a href="#">Transparência</a></li>
+                            <li><a href="#">Na imprensa</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">O que fazemos</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">O que temos feito</a></li>
+                            <li><a href="#">Nossas campanhas</a></li>
+                            <li><a href="#">Agenda</a></li>
+                            <li><a href="#">Dicas</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Onde atuamos</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Onde estamos</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Apoie</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Faça uma doação</a></li>
+                            <li><a href="#">Seja um Bike Anjo</a></li>
+                            <li><a href="#">Trabalhe conosco</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Contato</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Fale conosco</a></li>
+                        </ul>
+                    </li>
 
                     {% if user.is_authenticated %}
                     <li role="presentation" class="dropdown">
