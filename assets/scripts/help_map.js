@@ -11,19 +11,9 @@ jQuery(function(){
     var geocoder = new google.maps.Geocoder();
     var $list = $("#js-addresses");
     var $addBtn = $("#js-add-address");
-    var $geocoderInput = $('#geocoder-input');
+    var $addressInput = $('#geocoder-input');
     var $jsonPointsInput = $("#id_json_points");
     var points = [ ];
-
-    // setup leaflet
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        id: 'examples.map-i875mjb7'
-    }).addTo(map);
-
 
     // basic geoCodeAddress
     function geoCodeAddress(address) {
@@ -35,32 +25,12 @@ jQuery(function(){
 
         geocoder.geocode({'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                defer.resolve(results);
+                defer.resolve(results[0]);
             } else {
                 defer.reject(status);
             }
         });
         return defer;
-    }
-
-    // let user select correct address
-    function selectCorrectAddress(addresses) {
-        if(addresses.length === 1) {
-            return addresses[0];
-        }
-
-        var str = 'Escolha o endereço correto:\n\n';
-        addresses.forEach(function(address, i){
-            str += sprintf('(%3d) - ', i+1);
-            str += address.formatted_address;
-            str += '\n';
-        });
-
-        var index = parseInt(prompt(str), 10);
-        if(index > 0) {
-            return addresses[index - 1];
-        }
-        return addresses[0];
     }
 
     function appendOnList(marker) {
@@ -91,6 +61,44 @@ jQuery(function(){
         }
     }
 
+    function panTo(address) {
+        map.panTo(L.latLng(
+            address.geometry.location.lat(), 
+            address.geometry.location.lng()
+        ));
+        return address;
+    }
+
+    /**
+     * Setup
+     */
+
+    // setup leaflet
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: 'examples.map-i875mjb7'
+    }).addTo(map);
+
+    function selectAutocompleteAddress() {
+        removeTempMarker();
+        var address = $addressInput.val();
+        geoCodeAddress(address)
+            .then(panTo)
+            .then(addTempMarker)
+            .always(__log);
+    }
+
+    // setup autocomplete
+    window.autocomplete = new google.maps.places.Autocomplete($addressInput.get(0),{
+        types: ['address'],
+        changed: selectAutocompleteAddress,
+        componentRestrictions: {country: 'br'}
+    });
+
+
     // setup elements and events
     $addBtn.click(function(){
         if(tempMarker) {
@@ -98,22 +106,10 @@ jQuery(function(){
             appendOnList(tempMarker);
             tempMarker = null;
         }
-        $geocoderInput.val('');
-        $geocoderInput.focus();
-        $geocoderInput.click();
+        $addressInput.val('');
+        $addressInput.focus();
+        $addressInput.click();
         return false;
-    });
-
-    $geocoderInput.keydown(function(e){
-        if(e.which === 13) {
-            removeTempMarker();
-            var address = $(this).val();
-            geoCodeAddress(address)
-                .then(selectCorrectAddress)
-                .then(addTempMarker)
-                .then(__log);
-            return false;
-        }
     });
 
     $('form').submit(function() {
