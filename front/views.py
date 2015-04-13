@@ -16,7 +16,7 @@ class SignupView(allauth.account.views.SignupView):
 
 
 class TrackView(FormView):
-    template_name = 'help_offer.html'
+    template_name = 'routes_form.html'
     form_class = forms.TrackForm
 
 

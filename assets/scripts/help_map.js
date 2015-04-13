@@ -6,12 +6,16 @@ jQuery(function(){
         return;
     }
 
-    var tempMarker = null;
+    var tempMarker = {
+        'departing': null,
+        'destination': null
+    };
+
     var map = L.map('js-map').setView([-23.548991, -46.633328], 13);
     var geocoder = new google.maps.Geocoder();
     var $list = $("#js-addresses");
     var $addBtn = $("#js-add-address");
-    var $addressInput = $('#geocoder-input');
+    var $addressInput = $('#departing-address,#destination-address');
     var $jsonPointsInput = $("#id_json_points");
     var points = [ ];
 
@@ -50,14 +54,14 @@ jQuery(function(){
         return marker;
     }
 
-    function addTempMarker(address) {
-        tempMarker = addMarker(address);
+    function addTempMarker(address, type) {
+        tempMarker[type] = addMarker(address);
         return tempMarker;
     }
 
-    function removeTempMarker() {
-        if (tempMarker) {
-            map.removeLayer(tempMarker);
+    function removeTempMarker(type) {
+        if (tempMarker[type]) {
+            map.removeLayer(tempMarker[type]);
         }
     }
 
@@ -82,19 +86,24 @@ jQuery(function(){
         id: 'examples.map-i875mjb7'
     }).addTo(map);
 
-    function selectAutocompleteAddress() {
-        removeTempMarker();
-        var address = $addressInput.val();
+    function selectAddress($input, type) {
+        removeTempMarker(type);
+        var address = $input.val();
         geoCodeAddress(address)
             .then(panTo)
-            .then(addTempMarker)
-            .always(__log);
+            .then(function(a){ return addTempMarker(a, type); });
     }
 
     // setup autocomplete
-    window.autocomplete = new google.maps.places.Autocomplete($addressInput.get(0),{
+    new google.maps.places.Autocomplete($addressInput.get(0),{
         types: ['address'],
-        changed: selectAutocompleteAddress,
+        changed: selectAddress.bind(null, $addressInput.eq(0), 'departing'),
+        componentRestrictions: {country: 'br'}
+    });
+
+    new google.maps.places.Autocomplete($addressInput.get(1),{
+        types: ['address'],
+        changed: selectAddress.bind(null, $addressInput.eq(1), 'destination'),
         componentRestrictions: {country: 'br'}
     });
 
