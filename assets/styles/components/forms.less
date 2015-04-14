@@ -207,10 +207,24 @@
 
     // select gender on sign up form
     .select-gender {
-        float: left;
-        margin-right: 30px;
+        &:last-child {
+            margin-top: 20px;
+        }
+        @media screen and (min-width: @screen-xs-min) {
+            float: left;
+            margin-right: 5%;
+            width: 25%;
+            &:last-child {
+                margin: 0;
+                width: 40%;
+            }
+        }
         .radio {
             margin-bottom: 0;
+            input[type=text] {
+                display: inline-block;
+                margin-top: -10px;
+            }
         }
         label {
             color: @gray-base;

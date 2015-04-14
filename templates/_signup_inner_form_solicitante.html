@@ -8,7 +8,7 @@
 
     <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
         <label class="primary-label">{{ form.gender.label }}</label>
-        {% for choice,label in form.gender.field.choices %}
+        <!-- {% for choice,label in form.gender.field.choices %}
         <div class="select-gender">
             <label class="radio {% if form.gender.value = choice %}checked{% endif %}" for="{{ form.gender.id_for_label }}_{{ choice }}" for="{{ form.gender.id_for_label }}_{{ choice }}">
                 <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -18,7 +18,24 @@
                     <span class="text">{{ label }}</span>
             </label>
         </div>
-        {% endfor %}
+        {% endfor %} -->
+
+        <div class="select-gender">
+            <label class="radio">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Feminino</span>
+            </label>
+        </div>
+        <div class="select-gender">
+            <label class="radio">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Masculino</span>
+            </label>
+        </div>
+        <div class="select-gender">
+            <label class="radio">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time">
+                <input type="text" class="form-control" name="" id="" value="" placeholder="Personalize">
+            </label>
+        </div>
 
         {% if form.gender.errors %}
             {% for error in form.gender.errors %}
