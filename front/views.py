@@ -18,6 +18,11 @@ class SignupView(allauth.account.views.SignupView):
 class TrackView(FormView):
     template_name = 'routes_form.html'
     form_class = forms.TrackForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.save(cyclist=self.request.user.cyclist)
+        return super(TrackView, self).form_valid(form)
 
 
 class HomeView(TemplateView):

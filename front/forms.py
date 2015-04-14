@@ -1,12 +1,40 @@
 # -*- coding: utf-8 -*-
 import re
+import json
+
 from django.contrib.gis import forms
+from django.contrib.gis.geos import MultiPoint, Point
 
 import models
 
 
 class TrackForm(forms.Form):
     json_points = forms.CharField(widget=forms.HiddenInput)
+
+    def clean_json_points(self):
+        try:
+            return json.loads(self.cleaned_data['json_points'])
+        except ValueError, e:
+            raise forms.ValidationError(e.message)
+
+    def save(self, cyclist):
+        points = self.cleaned_data['json_points']
+        track = models.Track(cyclist=cyclist)
+
+        start = Point(
+            points['start']['coords']['lon'],
+            points['start']['coords']['lat'],
+        )
+        end = Point(
+            points['end']['coords']['lon'],
+            points['end']['coords']['lat'],
+        )
+
+        track.track = MultiPoint(start, end)
+        track.start = points['start']['address']
+        track.end = points['end']['address']
+
+        track.save()
 
 
 class SignupForm(forms.Form):

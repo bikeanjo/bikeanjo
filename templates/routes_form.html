@@ -17,15 +17,16 @@
 
     <div class="map" id="js-map"></div>
 
-    <form class="signup fullscreen card" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    <form class="signup fullscreen card" id="signup_form" method="post">
         {% csrf_token %}
+        {{ form.as_p }}
 
         <header>
             <h2>Cadastre suas rotas</h2>
             <p>Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'. Essas rotas definirão as localidades onde você poderá atender pedidos.</p>
         </header>
         <div class="add-route">
-            <div class="steps">
+            <div class="steps" id="js-addresses">
                 
             </div>
             <div class="form-group">
@@ -35,8 +36,7 @@
                 <input class="form-control input-lg" type="text" id="destination-address" placeholder="Local de destino">
             </div>
         </div>
-        
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>
 
     </form>
 </section>

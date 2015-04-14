@@ -46,6 +46,8 @@ class Cyclist(models.Model):
 
 class Track(models.Model):
     cyclist = models.ForeignKey(Cyclist)
+    start = models.CharField(max_length=64)
+    end = models.CharField(max_length=64)
     track = models.MultiPointField()
 
 

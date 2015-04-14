@@ -6,9 +6,9 @@ jQuery(function(){
         return;
     }
 
-    var tempMarker = {
-        'departing': null,
-        'destination': null
+    var track = {
+        'start': null,
+        'end': null
     };
 
     var map = L.map('js-map').setView([-23.548991, -46.633328], 13);
@@ -17,7 +17,7 @@ jQuery(function(){
     var $addBtn = $("#js-add-address");
     var $addressInput = $('#departing-address,#destination-address');
     var $jsonPointsInput = $("#id_json_points");
-    var points = [ ];
+
 
     // basic geoCodeAddress
     function geoCodeAddress(address) {
@@ -37,11 +37,6 @@ jQuery(function(){
         return defer;
     }
 
-    function appendOnList(marker) {
-        var $li = $('<li>').text(marker.address.formatted_address);
-        $li.appendTo($list);
-    }
-
     function addMarker(address) {
         var marker = L.marker([
             address.geometry.location.lat(), 
@@ -49,19 +44,21 @@ jQuery(function(){
         ]);
         marker.bindPopup(address.formatted_address);
         marker.addTo(map);
-        marker.address = address;
 
         return marker;
     }
 
     function addTempMarker(address, type) {
-        tempMarker[type] = addMarker(address);
-        return tempMarker;
+        track[type] = {
+            address: address,
+            marker: addMarker(address)
+        };
+        return track;
     }
 
     function removeTempMarker(type) {
-        if (tempMarker[type]) {
-            map.removeLayer(tempMarker[type]);
+        if (track && track[type]) {
+            map.removeLayer(track[type].marker);
         }
     }
 
@@ -97,38 +94,42 @@ jQuery(function(){
     // setup autocomplete
     new google.maps.places.Autocomplete($addressInput.get(0),{
         types: ['address'],
-        changed: selectAddress.bind(null, $addressInput.eq(0), 'departing'),
+        changed: selectAddress.bind(null, $addressInput.eq(0), 'start'),
         componentRestrictions: {country: 'br'}
     });
 
     new google.maps.places.Autocomplete($addressInput.get(1),{
         types: ['address'],
-        changed: selectAddress.bind(null, $addressInput.eq(1), 'destination'),
+        changed: selectAddress.bind(null, $addressInput.eq(1), 'end'),
         componentRestrictions: {country: 'br'}
     });
 
-
-    // setup elements and events
-    $addBtn.click(function(){
-        if(tempMarker) {
-            points.push(tempMarker);
-            appendOnList(tempMarker);
-            tempMarker = null;
-        }
-        $addressInput.val('');
-        $addressInput.focus();
-        $addressInput.click();
-        return false;
-    });
-
-    $('form').submit(function() {
-        var json = points.map(function(marker){
-            return {
-                'address': marker.address.formatted_address,
-                'lat': marker.address.geometry.location.lat(),
-                'lon': marker.address.geometry.location.lng()
+    $('form').submit(function(evt) {
+        try {
+            var json = {
+                start: {
+                    address: $addressInput.val(),
+                    coords: {
+                        lat: track.start.address.geometry.location.lat(),
+                        lon: track.start.address.geometry.location.lng(),
+                    }
+                },
+                end: {
+                    address: $addressInput.val(),
+                    coords: {
+                        lat: track.end.address.geometry.location.lat(),
+                        lon: track.end.address.geometry.location.lng(),
+                    }
+                }
             };
-        });
-        $jsonPointsInput.val(JSON.stringify(json));
+
+            $jsonPointsInput.val(JSON.stringify(json));
+        } catch (err) {
+            console.error(err);
+            evt.preventDefault();
+        }
     });
+
+    $addressInput.eq(0).focus();
+    $addressInput.eq(0).click();
 });
