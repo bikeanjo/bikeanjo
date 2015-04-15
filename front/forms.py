@@ -3,7 +3,7 @@ import re
 import json
 
 from django.contrib.gis import forms
-from django.contrib.gis.geos import MultiPoint, Point
+from django.contrib.gis.geos import LineString, Point
 
 import models
 
@@ -30,7 +30,7 @@ class TrackForm(forms.Form):
             points['end']['coords']['lat'],
         )
 
-        track.track = MultiPoint(start, end)
+        track.track = LineString(start, end)
         track.start = points['start']['address']
         track.end = points['end']['address']
 

@@ -18,9 +18,16 @@ jQuery(function(){
     var $addressInput = $('#departing-address,#destination-address');
     var $jsonPointsInput = $("#id_json_points");
 
-    function insertInList(start, end) {
-        return $('<li>')
-            .append($('<i class="fa fa-times">'))
+    function insertInList(start, end, onremove) {
+        var $li;
+
+        function remove() {
+            $li.remove();
+            if(onremove){ onremove(); };
+        }
+
+        $li = $('<li>')
+            .append($('<i class="fa fa-times">').click(remove))
             .append($('<span class="departing-address">').text(start))
             .append($('<i class="fa fa-arrow-right"></i>'))
             .append($('<span class="destination-address">').text(end))
@@ -148,14 +155,29 @@ jQuery(function(){
 
     // Desenha pontos se houverem na página
     if(window.TRACKS) {
+        var myStyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65
+        };
+
         TRACKS.forEach(function(track){
             var p1 = track.coordinates[0];
             var p2 = track.coordinates[1];
 
-            addMarker(p1[1], p1[0], track.properties.start);
-            addMarker(p2[1], p2[0], track.properties.end);
+            track.layers = [
+                addMarker(p1[1], p1[0], track.properties.start),
+                addMarker(p2[1], p2[0], track.properties.end),
+                L.geoJson(track, {style: myStyle }).addTo(map)
+            ];
 
-            insertInList(track.properties.start, track.properties.end);
+            function remove(){
+                map.removeLayer(track.layers[0]);
+                map.removeLayer(track.layers[1]);
+                map.removeLayer(track.layers[2]);
+            }
+
+            insertInList(track.properties.start, track.properties.end, remove);
         });
         
         var lines = TRACKS.map(function(t){
@@ -165,15 +187,6 @@ jQuery(function(){
             };
         });
 
-        var myStyle = {
-            "color": "#ff7800",
-            "weight": 5,
-            "opacity": 0.65
-        };
-
-        L.geoJson(lines, {
-            style: myStyle
-        }).addTo(map);
     }
 
 });

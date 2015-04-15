@@ -49,12 +49,12 @@ class Track(models.Model):
     cyclist = models.ForeignKey(Cyclist)
     start = models.CharField(max_length=128)
     end = models.CharField(max_length=128)
-    track = models.MultiPointField()
+    track = models.LineStringField()
 
     def json(self):
         d = {
-            'type': 'MultiPoint',
-            'coordinates': [p.get_coords() for p in self.track],
+            'type': 'LineString',
+            'coordinates': [p for p in self.track],
             'properties': {
                 'start': self.start,
                 'end': self.end,
