@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from datetime import datetime, date
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
@@ -46,9 +47,20 @@ class Cyclist(models.Model):
 
 class Track(models.Model):
     cyclist = models.ForeignKey(Cyclist)
-    start = models.CharField(max_length=64)
-    end = models.CharField(max_length=64)
+    start = models.CharField(max_length=128)
+    end = models.CharField(max_length=128)
     track = models.MultiPointField()
+
+    def json(self):
+        d = {
+            'type': 'MultiPoint',
+            'coordinates': [p.get_coords() for p in self.track],
+            'properties': {
+                'start': self.start,
+                'end': self.end,
+            },
+        }
+        return json.dumps(d)
 
 
 class Point(models.Model):

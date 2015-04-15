@@ -18,6 +18,14 @@ jQuery(function(){
     var $addressInput = $('#departing-address,#destination-address');
     var $jsonPointsInput = $("#id_json_points");
 
+    function insertInList(start, end) {
+        return $('<li>')
+            .append($('<i class="fa fa-times">'))
+            .append($('<span class="departing-address">').text(start))
+            .append($('<i class="fa fa-arrow-right"></i>'))
+            .append($('<span class="destination-address">').text(end))
+            .appendTo($list);
+    }
 
     // basic geoCodeAddress
     function geoCodeAddress(address) {
@@ -37,21 +45,26 @@ jQuery(function(){
         return defer;
     }
 
-    function addMarker(address) {
-        var marker = L.marker([
-            address.geometry.location.lat(), 
-            address.geometry.location.lng(), 
-        ]);
-        marker.bindPopup(address.formatted_address);
+    function addMarker(lat, lon, text) {
+        var marker = L.marker([lat, lon]);
+        marker.bindPopup(text);
         marker.addTo(map);
 
         return marker;
     }
 
-    function addTempMarker(address, type) {
+    function addAddress(address) {
+        return addMarker(
+            address.geometry.location.lat(),
+            address.geometry.location.lng(),
+            address.formatted_address
+        );
+    }
+
+    function insertInTrack(address, type) {
         track[type] = {
             address: address,
-            marker: addMarker(address)
+            marker: addAddress(address)
         };
         return track;
     }
@@ -88,7 +101,7 @@ jQuery(function(){
         var address = $input.val();
         geoCodeAddress(address)
             .then(panTo)
-            .then(function(a){ return addTempMarker(a, type); });
+            .then(function(a){ return insertInTrack(a, type); });
     }
 
     // setup autocomplete
@@ -108,14 +121,14 @@ jQuery(function(){
         try {
             var json = {
                 start: {
-                    address: $addressInput.val(),
+                    address: $addressInput.eq(0).val(),
                     coords: {
                         lat: track.start.address.geometry.location.lat(),
                         lon: track.start.address.geometry.location.lng(),
                     }
                 },
                 end: {
-                    address: $addressInput.val(),
+                    address: $addressInput.eq(1).val(),
                     coords: {
                         lat: track.end.address.geometry.location.lat(),
                         lon: track.end.address.geometry.location.lng(),
@@ -132,4 +145,35 @@ jQuery(function(){
 
     $addressInput.eq(0).focus();
     $addressInput.eq(0).click();
+
+    // Desenha pontos se houverem na página
+    if(window.TRACKS) {
+        TRACKS.forEach(function(track){
+            var p1 = track.coordinates[0];
+            var p2 = track.coordinates[1];
+
+            addMarker(p1[1], p1[0], track.properties.start);
+            addMarker(p2[1], p2[0], track.properties.end);
+
+            insertInList(track.properties.start, track.properties.end);
+        });
+        
+        var lines = TRACKS.map(function(t){
+            return {
+                'type': 'LineString',
+                'coordinates': t.coordinates
+            };
+        });
+
+        var myStyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65
+        };
+
+        L.geoJson(lines, {
+            style: myStyle
+        }).addTo(map);
+    }
+
 });

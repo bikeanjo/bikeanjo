@@ -12,7 +12,18 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
 {% endblock %}
 
+
+
 {% block content %}
+<script type="text/javascript">
+var TRACKS = [
+    {% for track in user.cyclist.track_set.all %}
+    {{ track.json|safe }}
+    {% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+</script>
+
 <section class="forms signup container">
     <div class="map" id="js-map"></div>
     <div class="signup fullscreen card">
@@ -23,7 +34,8 @@
             <p>Você pode cadastrar mais rotas ou continuar seu cadastro no site.</p>
         </header>
         <label class="primary-label">Rotas Cadastradas</label>
-        <ul class="addresses-list list-unstyled">
+        <ul class="addresses-list list-unstyled" id="js-addresses">
+        {% comment %}
             <li>
                 <i class="fa fa-times"></i>
                 <span class="departing-address">Avenida Paulista, 1222</span>
@@ -36,8 +48,9 @@
                 <i class="fa fa-arrow-right"></i>
                 <span class="destination-address">Alameda Casa Branca, 159</span>
             </li>
+        {% endcomment %}
         </ul>
-        <button class="btn btn-default btn-block btn-lg" type="submit">Cadastrar nova rota</button>
+        <a href="{% url 'help_offer' %}" class="btn btn-default btn-block btn-lg">Cadastrar nova rota</a>
         <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
     </div>
 </section>
