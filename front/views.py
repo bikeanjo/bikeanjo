@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import FormView, TemplateView
+from braces.views import LoginRequiredMixin
+from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
+from django.views.generic import FormView, TemplateView
 
 import allauth.account.views
 import forms
@@ -15,14 +17,26 @@ class SignupView(allauth.account.views.SignupView):
         return kwargs
 
 
-class TrackView(FormView):
-    template_name = 'routes_form.html'
+class TrackRegisterView(LoginRequiredMixin, FormView):
+    template_name = 'bikeanjo_routes_register_form.html'
     form_class = forms.TrackForm
-    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('registered_tracks')
 
     def form_valid(self, form):
         form.save(cyclist=self.request.user.cyclist)
-        return super(TrackView, self).form_valid(form)
+        return super(TrackRegisterView, self).form_valid(form)
+
+
+class TrackListView(LoginRequiredMixin, TemplateView):
+    template_name = 'bikeanjo_routes_list.html'
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super(TrackListView, self).get_context_data(**kwargs)
+        context['form'] = True
+        return context
 
 
 class HomeView(TemplateView):

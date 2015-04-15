@@ -1,0 +1,44 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.1/sprintf.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+{% endblock %}
+
+{% block content %}
+<section class="forms signup container">
+    <div class="map" id="js-map"></div>
+    <div class="signup fullscreen card">
+        {% csrf_token %}
+
+        <header>
+            <h2>Rota Cadastrada!</h2>
+            <p>Você pode cadastrar mais rotas ou continuar seu cadastro no site.</p>
+        </header>
+        <label class="primary-label">Rotas Cadastradas</label>
+        <ul class="addresses-list list-unstyled">
+            <li>
+                <i class="fa fa-times"></i>
+                <span class="departing-address">Avenida Paulista, 1222</span>
+                <i class="fa fa-arrow-right"></i>
+                <span class="destination-address">Alameda Casa Branca, 159</span>
+            </li>
+            <li>
+                <i class="fa fa-times"></i>
+                <span class="departing-address">Avenida Paulista, 1222</span>
+                <i class="fa fa-arrow-right"></i>
+                <span class="destination-address">Alameda Casa Branca, 159</span>
+            </li>
+        </ul>
+        <button class="btn btn-default btn-block btn-lg" type="submit">Cadastrar nova rota</button>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+    </div>
+</section>
+{% endblock %}

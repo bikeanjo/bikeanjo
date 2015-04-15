@@ -2,7 +2,9 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
+
 import front.views
+
 admin.autodiscover()
 
 urlpatterns = [
@@ -16,6 +18,8 @@ urlpatterns = [
 
     # bikeanjo urls
     url(r'^$', front.views.HomeView.as_view(), name='home'),
-    url(r'^how-can-you-help/$', front.views.TrackView.as_view(), name='help_offer'),
+    url(r'^registered-tracks/$', front.views.TrackListView.as_view(), name='registered_tracks'),
+    url(r'^how-can-you-help/$', front.views.TrackRegisterView.as_view(), name='help_offer'),
+
     url(r'^login/', TemplateView.as_view(template_name="login.html")),
 ]
