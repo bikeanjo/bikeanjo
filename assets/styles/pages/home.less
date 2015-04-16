@@ -12,17 +12,11 @@
             h2 {
                 font-size: 40px;
                 margin-top: 0;
-                @media screen and (min-width: @screen-xs-min) {
-                    font-size: 48px;
-                }
             }
             p {
                 color: #7d7d7d;
                 font-size: 20px;
                 font-weight: 400;
-                @media screen and (min-width: @screen-xs-min) {
-                    font-size: 28px;
-                }
             }
         }
         .box {
@@ -229,8 +223,120 @@
     //## Devices section
 
     .who-used {
-        h2 {
-            color: @brand-green;
+        header {
+            margin-bottom: 20px;
+            h2 {
+                color: @brand-green;
+            }
+        }
+        #carousel-who-used {
+            margin: 0 auto;
+            max-width: 315px;
+            @media screen and (min-width: @screen-xs-min) {
+                max-width: 430px;
+            }
+            @media screen and (min-width: @screen-sm-min) {
+                margin: 0;
+                max-width: initial;
+            }
+        }
+        .carousel-content { 
+            overflow: hidden;
+            .card {
+                height: 440px;
+                @media screen and (min-width: 360px) and (max-width: @screen-xs-min) {
+                    height: 380px;
+                }
+                @media screen and (min-width: @screen-xs-min) {
+                    height: 420px;
+                }
+                @media screen and (min-width: @screen-sm-min) {
+                    height: 300px;
+                }
+                @media screen and (min-width: @screen-md-min) {
+                    height: 250px;
+                }
+                @media screen and (min-width: @screen-lg-min) {
+                    height: 230px;
+                }
+                margin: 43px 2px 2px 2px;
+                padding-top: 43px;
+            }
+            .icon {
+                border-radius: 86px;
+                height: 86px;
+                width: 86px;
+                margin: -86px auto 0;
+                img {
+                    border-radius: 86px;
+                }
+            }
+            .testimonial {
+                font-size: 14px;
+                margin-top: 20px; 
+                @media screen and (min-width: @screen-xs-min) {
+                    font-size: 17px;
+                    margin: 20px 20px; 
+                }
+                @media screen and (min-width: @screen-sm-min) {
+                    margin: 20px 40px; 
+                }
+            }
+            .author {
+                color: @brand-green;
+                margin: 0;
+                font-size: 14px;
+                @media screen and (min-width: @screen-xs-min) {
+                    font-size: 17px;
+                }
+            }
+        }
+        .carousel-control {
+            background-image: none;
+            color: #fff;
+            height: 60px;
+            margin-top: -30px;
+            opacity: 1;
+            text-shadow: none; 
+            top: 50%;
+            width: 45px;
+            display: none;
+            @media screen and (min-width: @screen-xs-min) {
+                display: block;
+            }
+            .fa {
+                font-size: 36px;
+                margin-top: 6px;
+            }
+            &.right {
+                background: url('../imgs/carousel-right.png') no-repeat right center;
+                right: -14px;
+                .fa {
+                    margin-left: 7px;
+                }
+            }
+            &.left {
+                background: url('../imgs/carousel-left.png') no-repeat left center;
+                left: -14px;
+                .fa {
+                    margin-right: 7px;
+                }
+            }
+        }
+        .carousel-indicators {
+            margin: 10px 0 0 0;
+            position: static;
+            width: 100%;
+            li {
+                border: 0;
+                background-color: @gray; 
+                height: 8px;
+                margin: 0 1px;
+                width: 8px;
+                &.active {
+                    background-color: @brand-green;
+                }
+            }
         }
     }
 
