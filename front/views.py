@@ -10,11 +10,25 @@ import forms
 
 class SignupView(allauth.account.views.SignupView):
 
-    def get_form_kwargs(self):
-        kwargs = super(SignupView, self).get_form_kwargs()
-        if self.request.method == 'GET':
-            kwargs['initial'].update(self.request.GET.dict())
-        return kwargs
+    def get_success_url(self):
+        return reverse('cyclist_account_signup_complete',
+                       kwargs={'role': self.kwargs.get('role')})
+
+    def form_valid(self, form):
+        response = super(SignupView, self).form_valid(form)
+        self.request.user.cyclist.role = self.kwargs.get('role')
+        self.request.user.cyclist.save()
+        return response
+
+
+class SignupCompleteView(LoginRequiredMixin, TemplateView):
+    success_url = '/'
+
+    def get_template_names(self):
+        role = self.kwargs.get('role')
+
+        if role == 'volunteer':
+            return ['bikeanjo_complete_signup.html']
 
 
 class TrackRegisterView(LoginRequiredMixin, FormView):

@@ -3,8 +3,14 @@
     <p>Junte-se a uma comunidade que acredita na transformação por meio da bicicleta</p>
 </header>
 
-<form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
+<form class="signup card" id="signup_form" method="post" >
     {% csrf_token %}
+
+    {% if form.errors and debug %}
+    <div class="errors">
+        <ul>{{ form.errors }}</ul>
+    </div>
+    {% endif %}
 
     <fieldset>
         <legend>Crie sua conta usando</legend>
@@ -29,13 +35,13 @@
             {% endif %}
         </div>
 
-        <div class="form-group {% if form.email.errors %}has-error{% endif %}">
-            <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-            <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Digite seu e-mail">
+        <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
+            <label class="primary-label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="Digite seu e-mail">
             <i class="fa fa-envelope form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
-            {% if form.email.errors %}
-                {% for error in form.email.errors %}
+            {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             {% endif %}

@@ -46,14 +46,8 @@ class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
 
-    birthday = forms.DateField(required=False)
-    city = forms.CharField(max_length=32, required=False)
     country = forms.CharField(max_length=32, required=False)
-    gender = forms.ChoiceField(choices=models.GENDER, required=False)
-    help_with = forms.ChoiceField(choices=models.HELP_WITH)
-    phone = forms.CharField(max_length=32, required=False)
-    role = forms.ChoiceField(choices=models.CYCLIST_ROLES)
-    state = forms.CharField(max_length=32, required=False)
+    city = forms.CharField(max_length=32, required=False)
 
     def __init__(self, *argz, **kwargz):
         super(SignupForm, self).__init__(*argz, **kwargz)
@@ -78,12 +72,18 @@ class SignupForm(forms.Form):
 
         cyclist = models.Cyclist()
         cyclist.user = user
-        cyclist.birthday = self.cleaned_data['birthday']
         cyclist.city = self.cleaned_data['city']
         cyclist.country = self.cleaned_data['country']
-        cyclist.gender = self.cleaned_data['gender']
-        cyclist.help_with = self.cleaned_data['help_with']
-        cyclist.phone = self.cleaned_data['phone']
-        cyclist.role = self.cleaned_data['role']
-        cyclist.state = self.cleaned_data['state']
         cyclist.save()
+
+        user.cyclist = cyclist
+
+
+class SignupCompleteForm(forms.ModelForm):
+    gender = forms.ChoiceField(choices=models.GENDER, required=False)
+    birthday = forms.DateField(required=False)
+    ride_experience = forms.CharField(max_length=32)
+    bike_use = forms.CharField(max_length=32)
+
+    class Meta:
+        model = models.Cyclist
