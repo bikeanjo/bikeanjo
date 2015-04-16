@@ -23,9 +23,5 @@
             return false;
         });
     });
-
-    $('.navbar-toggle').click(function(){
-        var id=$(this).attr('data-target');
-        $(id).toggleClass('cbp-spmenu-open');
-    });
+    
 })();
