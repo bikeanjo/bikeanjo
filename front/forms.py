@@ -87,3 +87,4 @@ class SignupCompleteForm(forms.ModelForm):
 
     class Meta:
         model = models.Cyclist
+        fields = ('gender', 'birthday',)
