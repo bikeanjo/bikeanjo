@@ -86,3 +86,16 @@ class SignupCompleteForm(forms.ModelForm):
     class Meta:
         model = models.Cyclist
         fields = ('gender', 'birthday', 'ride_experience', 'bike_use', 'initiatives')
+
+
+class HelpOfferForm(forms.ModelForm):
+    help_with = forms.IntegerField()
+
+    def get_help_choices(self):
+        value = self.instance.help_with
+        for code, label in models.HELP:
+            yield (code, label, bool(value & code))
+
+    class Meta:
+        model = models.Cyclist
+        fields = ('help_with',)

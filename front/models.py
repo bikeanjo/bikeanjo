@@ -15,11 +15,12 @@ CYCLIST_ROLES = (
     ('requester', _('Requester')),
 )
 
-HELP_WITH = (
-    ('advice', _('Advice about safe routes')),
-    ('escort', _('Follow someone in a ride')),
-    ('teach', _('Teach someone to ride a bike')),
-    ('workshop', _('Talk in workshop')),
+
+HELP = (
+    (1, _('Teach someone to ride a bike')),  # Ensinando alguém a pedalar
+    (2, _('Follow beginners on cycling')),  # Acompanhando iniciantes nas pedaladas
+    (4, _('Advice about safe routes')),  # Recomendando rotas mais seguras
+    (8, _('Participating in the events of Bike Anjos')),  # Participando dos eventos dos Bikes Anjos
 )
 
 EXPERIENCE = (
@@ -45,7 +46,7 @@ class Cyclist(models.Model):
     birthday = models.DateField(default=date.today, null=True)
     ride_experience = models.CharField(choices=EXPERIENCE, max_length=32, blank=True)
     bike_use = models.CharField(choices=BIKE_USE, max_length=32, blank=True)
-    help_with = models.CharField(choices=HELP_WITH, max_length=16, blank=True)
+    help_with = models.IntegerField(default=0)  # choices=HELP
     initiatives = models.CharField(max_length=256, blank=True)
     role = models.CharField(choices=CYCLIST_ROLES, max_length=32, blank=True)
 

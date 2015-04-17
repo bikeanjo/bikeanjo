@@ -25,8 +25,12 @@ class SignupCompleteView(LoginRequiredMixin, FormView):
     form_class = forms.SignupCompleteForm
 
     def get_success_url(self):
-        return reverse('cyclist_account_signup_complete',
-                       kwargs={'role': self.kwargs.get('role')})
+        role = self.kwargs.get('role')
+
+        if role == 'volunteer':
+            return reverse('volunteer_help_offer')
+
+        return reverse('cyclist_account_signup_complete', kwargs={'role': role})
 
     def get_form_kwargs(self):
         kwargs = super(SignupCompleteView, self).get_form_kwargs()
@@ -42,6 +46,23 @@ class SignupCompleteView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super(SignupCompleteView, self).form_valid(form)
+
+
+class HelpOfferView(LoginRequiredMixin, FormView):
+    form_class = forms.HelpOfferForm
+    template_name = 'bikeanjo_help_offer.html'
+
+    def get_success_url(self):
+        return reverse('volunteer_help_offer')
+
+    def get_form_kwargs(self):
+        kwargs = super(HelpOfferView, self).get_form_kwargs()
+        kwargs['instance'] = self.request.user.cyclist
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super(HelpOfferView, self).form_valid(form)
 
 
 class TrackRegisterView(LoginRequiredMixin, FormView):

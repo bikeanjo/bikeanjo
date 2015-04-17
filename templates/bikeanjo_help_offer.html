@@ -1,0 +1,49 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<section class="forms signup container">
+<header>
+    <h2>Como você pode ajudar?</h2>
+    <p>Preencha os dados abaixo para que o nosso sistema consiga cruzar corretamente os pedidos de ajuda</p>
+</header>
+
+<form class="signup card" id="signup_form" method="post">
+    {% csrf_token %}
+
+    {% if form.errors and debug %}
+    <ul class="errors">
+        {{ form.errors }}
+    </ul>
+    {% endif %}
+
+    <div class="form-group">
+        <label class="primary-label">Escolha como você pode ajudar</label>
+        {% for code,label,checked in form.get_help_choices %}
+        <label class="checkbox {% if checked %}checked{% endif %}">
+            <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+            <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
+            <input type="checkbox" {% if checked %}checked="checked"{% endif %} value="{{ code }}">
+            <span class="text terms">{{ label }}</span>
+        </label>
+        {% endfor %}
+
+    </div>
+
+    <input type="hidden" name="{{form.help_with.html_name}}"
+           value="{{form.help_with.value|default:''}}"
+           data-composed-bind="form.signup input[type=checkbox]"
+           data-composed-bitoptions="true" />
+
+    <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Continuar cadastro</button>
+
+</form>
+
+<p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
+        Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+</section>
+{% endblock %}

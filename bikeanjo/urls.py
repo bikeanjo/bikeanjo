@@ -23,6 +23,8 @@ urlpatterns = [
         front.views.SignupView.as_view(), name='cyclist_account_signup'),
     url(r'^(?P<role>volunteer|requester)/signup/complete/$',
         front.views.SignupCompleteView.as_view(), name='cyclist_account_signup_complete'),
+    url(r'^volunteer/help-offer/$',
+        front.views.HelpOfferView.as_view(), name='volunteer_help_offer'),
 
 
     url(r'^registered-tracks/$', front.views.TrackListView.as_view(), name='registered_tracks'),
