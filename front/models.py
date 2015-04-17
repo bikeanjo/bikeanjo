@@ -53,6 +53,9 @@ class Cyclist(models.Model):
     def __unicode__(self):
         return self.user.__unicode__()
 
+    def help_labels(self):
+        return (label for code, label in HELP if self.help_with & code > 0)
+
 
 class Track(models.Model):
     cyclist = models.ForeignKey(Cyclist)
