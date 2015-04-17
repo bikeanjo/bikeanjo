@@ -26,18 +26,26 @@
         }
     }
     .navbar-collapse {
-        &.in {
-            overflow-y: visible;
+        @media screen and (max-width: @screen-sm-max) {
+            padding: 15px;
+            margin: 0;
         }
         .navigation {
             padding: 20px 0 35px;
-            @media screen and (min-width: @screen-sm-min) {
+            @media screen and (min-width: @screen-md-min) {
                 padding: 4px 10px;
                 float: right;
                 margin: 19px 0 0;
             }
-            @media screen and (min-width: @screen-md-min) {
-                .dropdown-menu {
+            .dropdown-menu {
+                @media screen and (max-width: @screen-sm-max) {
+                    background-color: transparent;
+                    border: none;  
+                    box-shadow: none;
+                    float: none;
+                    position: inherit;
+                }
+                @media screen and (min-width: @screen-md-min) {
                     background-color: @brand-green;
                     border: 0; 
                     &:before {
@@ -64,15 +72,15 @@
         }
         .nav-pills {
             margin-bottom: 10px;
-            @media screen and (min-width: @screen-sm-min) {
+            @media screen and (min-width: @screen-md-min) {
                 float: left;
                 margin-bottom: 0px;
             }
             > li {
                 float: none;
-                text-align: center; 
-                @media screen and (min-width: @screen-sm-min) {
+                @media screen and (min-width: @screen-md-min) {
                     float: left;
+                    text-align: center;
                 }
                 a {
                     background-color: transparent;
@@ -84,29 +92,63 @@
                     &:hover, &:focus, &:active, &.active {
                         color: @brand-green;   
                     }
+                    .fa {
+                        display: none;
+                    }
                 }
+            }
+        }
+        .divider {
+            height: 1px;
+            background: darken(@brand-green, 5%);
+            margin: 20px 12px 35px;
+            @media screen and (min-width: @screen-md-min) {
+                display: none;
             }
         }
         .btn {
             font-size: 16px;
             padding: 10px 40px;
             margin: 0 auto;
-            @media screen and (min-width: @screen-sm-min) {
-                margin-left: 5px;
-                float: right;
+            @media screen and (max-width: @screen-sm-max) {
+                background-color: @brand-gray;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 0 12px;
             }
             @media screen and (min-width: @screen-md-min) {
-                margin-left: 30px; 
+                margin-left: 5px;
+            }
+            @media screen and (min-width: @screen-lg-min) {
+                margin-left: 25px; 
             }
         }
-        @media screen and (max-width: @screen-xs-max) {
+        @media screen and (max-width: @screen-sm-max) {
             background-color: @brand-green;
             .nav-pills {
-                > li a {
-                    color: #fff;
-                    &:hover {
+                > li {
+                    a {
+                        border-radius: 0;
                         color: #fff;
+                        font-size: 18px;
+                        font-weight: 600;
+                        padding: 8px 12px;
+                        &:hover, &:active, &:focus, &.active {
+                            background-color: darken(@brand-green, 10%);
+                            color: #fff;
+                        }
+                        .fa {
+                            color: darken(@brand-green, 5%);
+                            display: inline-block;
+                            font-size: 20px;
+                            line-height: 12px;
+                            margin: 0 0 0 5px;
+                        }
                     }
+                }
+                .dropdown-menu li a {
+                    font-size: 16px;
+                    font-weight: normal;
                 }
             }
         }
