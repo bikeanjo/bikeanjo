@@ -25,10 +25,12 @@ urlpatterns = [
         front.views.SignupCompleteView.as_view(), name='cyclist_account_signup_complete'),
     url(r'^volunteer/help-offer/$',
         front.views.HelpOfferView.as_view(), name='volunteer_help_offer'),
+    url(r'^volunteer/register-routes-to-help/$',
+        front.views.TrackRegisterView.as_view(), name='volunteer_register_routes'),
+    url(r'^volunteer/registered-routes/$',
+        front.views.TrackListView.as_view(), name='volunteer_registered_routes'),
 
 
-    url(r'^registered-tracks/$', front.views.TrackListView.as_view(), name='registered_tracks'),
-    url(r'^how-can-you-help/$', front.views.TrackRegisterView.as_view(), name='help_offer'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
 ]

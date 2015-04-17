@@ -53,7 +53,7 @@ class HelpOfferView(LoginRequiredMixin, FormView):
     template_name = 'bikeanjo_help_offer.html'
 
     def get_success_url(self):
-        return reverse('volunteer_help_offer')
+        return reverse('volunteer_register_routes')
 
     def get_form_kwargs(self):
         kwargs = super(HelpOfferView, self).get_form_kwargs()
@@ -70,7 +70,7 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        return reverse('registered_tracks')
+        return reverse('volunteer_registered_routes')
 
     def form_valid(self, form):
         form.save(cyclist=self.request.user.cyclist)
