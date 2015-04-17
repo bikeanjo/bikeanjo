@@ -60,10 +60,7 @@ class SignupForm(forms.Form):
             if match:
                 self['birthday'].value = '{1}/{0}/{2}'.format(*match.groups())
 
-            if extra.get('gender') == 'male':
-                self['gender'].value = 'M'
-            elif extra.get('gender') == 'female':
-                self['gender'].value = 'F'
+            self['gender'].value = extra.get('gender')
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
@@ -80,11 +77,12 @@ class SignupForm(forms.Form):
 
 
 class SignupCompleteForm(forms.ModelForm):
-    gender = forms.ChoiceField(choices=models.GENDER, required=False)
-    birthday = forms.DateField(required=False)
-    ride_experience = forms.CharField(max_length=32)
-    bike_use = forms.CharField(max_length=32)
+    gender = forms.CharField()
+    birthday = forms.DateField()
+    ride_experience = forms.ChoiceField(choices=models.EXPERIENCE)
+    bike_use = forms.ChoiceField(choices=models.BIKE_USE)
+    initiatives = forms.CharField(required=False, max_length=256)
 
     class Meta:
         model = models.Cyclist
-        fields = ('gender', 'birthday',)
+        fields = ('gender', 'birthday', 'ride_experience', 'bike_use', 'initiatives')

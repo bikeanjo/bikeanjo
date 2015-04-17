@@ -6,8 +6,8 @@ from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
 GENDER = (
-    ('M', _('Male')),
-    ('F', _('Female')),
+    ('male', _('Male')),
+    ('female', _('Female')),
 )
 
 CYCLIST_ROLES = (
@@ -23,23 +23,31 @@ HELP_WITH = (
 )
 
 EXPERIENCE = (
-    ('none', _("I don't know how to ride a bike")),
-    ('beginner', _("I don't know how to ride in traffic")),
-    ('intermediate', _('I use my bike rarely')),
-    ('advanced', _('I use my bike almost every day')),
+    ('less than 1 year', _('Less than 1 year')),
+    ('from 1 to 2 years', _('From 1 to 2 years')),
+    ('from 2 to 4 years', _('From 2 to 4 years')),
+    ('more than 4 years', _('More than 4 years')),
+)
+
+BIKE_USE = (
+    ('everyday', _('Everyday'),),
+    ('just few days a week/month', _('Just few days a week/month'),),
+    ('once a week', _('Once a week'),),
+    ('no, i use for leisure', _('No, I use for leisure'),),
 )
 
 
 class Cyclist(models.Model):
     user = models.OneToOneField(User)
-    birthday = models.DateField(default=date.today, null=True)
-    city = models.CharField(max_length=32, blank=True)
     country = models.CharField(max_length=32, blank=True)
-    gender = models.CharField(max_length=1, choices=GENDER, blank=True)
+    city = models.CharField(max_length=32, blank=True)
+    gender = models.CharField(max_length=24, blank=True)
+    birthday = models.DateField(default=date.today, null=True)
+    ride_experience = models.CharField(choices=EXPERIENCE, max_length=32, blank=True)
+    bike_use = models.CharField(choices=BIKE_USE, max_length=32, blank=True)
     help_with = models.CharField(choices=HELP_WITH, max_length=16, blank=True)
-    phone = models.CharField(max_length=32, blank=True)
+    initiatives = models.CharField(max_length=256, blank=True)
     role = models.CharField(choices=CYCLIST_ROLES, max_length=32, blank=True)
-    state = models.CharField(max_length=32, blank=True)
 
     def __unicode__(self):
         return self.user.__unicode__()

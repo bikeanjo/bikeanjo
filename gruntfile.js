@@ -41,6 +41,7 @@ module.exports = function (grunt) {
                     'static/js/vendor.js': [
                         'bower_components/jquery/dist/jquery.js',
                         'bower_components/bootstrap/dist/js/bootstrap.js',
+                        'bower_components/sprintf/dist/sprintf.min.js',
                     ],
                 },
             },

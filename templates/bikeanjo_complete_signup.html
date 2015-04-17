@@ -12,69 +12,110 @@
         <p>Para melhorar seu cadastro vamos precisar só de mais alguns dados</p>
     </header>
 
-    <form class="signup card" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    <form class="signup card" id="signup_form" method="post">
         {% csrf_token %}
 
-        <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
-            <label class="primary-label">{{ form.gender.label }}</label>
-            <!-- {% for choice,label in form.gender.field.choices %}
-            <div class="select-gender">
-                <label class="radio {% if form.gender.value = choice %}checked{% endif %}" for="{{ form.gender.id_for_label }}_{{ choice }}" for="{{ form.gender.id_for_label }}_{{ choice }}">
-                    <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
-                    <input type="radio" name="{{ form.gender.html_name }}"
-                        id="{{ form.gender.id_for_label }}_{{ choice }}" value="{{ choice }}"
-                        {% if form.gender.value = choice %}checked="checked"{% endif %}/>
-                        <span class="text">{{ label }}</span>
-                </label>
-            </div>
-            {% endfor %} -->
+        {% if form.errors and debug %}
+        <ul class="errors">
+            {{ form.errors }}
+        </ul>
+        {% endif %}
 
-            <div class="select-gender">
-                <label class="radio">
-                    <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Feminino</span>
-                </label>
-            </div>
-            <div class="select-gender">
-                <label class="radio">
-                    <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Masculino</span>
-                </label>
-            </div>
-            <div class="select-gender">
-                <label class="radio">
-                    <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time">
-                    <input type="text" class="form-control" name="" id="" value="" placeholder="Personalize">
-                </label>
-            </div>
+        <div class="form-group">
+            <label class="primary-label">
+                <span class="{% if form.gender.errors %}text-danger{% endif %}">{{ form.gender.label }}</span>
+            </label>
 
+            <div class="clear">
+                <div class="select-gender">
+                    <label class="radio {% if form.gender.value = 'female' %}checked{% endif %}">
+                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                        <input type="radio" name="{{ form.gender.html_name }}" value="female"
+                               {% if form.gender.value = 'female' %}checked="checked"{% endif %}>
+                        <span class="text">{% trans 'Female' %}</span>
+                    </label>
+                </div>
+                <div class="select-gender">
+                    <label class="radio {% if form.gender.value = 'male' %}checked{% endif %}">
+                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                        <input type="radio" name="{{ form.gender.html_name }}" value="male"
+                               {% if form.gender.value = 'male' %}checked="checked"{% endif %}>
+                        <span class="text">{% trans 'Male' %}</span>
+                    </label>
+                </div>
+                <div class="select-gender">
+                    <label class="radio {% if form.gender.value not in 'male,female' %}checked{% endif %}">
+                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+
+                        <input type="radio" data-bind-to="#{{ form.gender.auto_id }}_custom"
+                               {% if form.gender.value not in 'male,female' %}checked="checked"{% endif %}
+                               name="{{ form.gender.html_name }}" value="{{ form.gender.value|default:'' }}">
+
+                        <input type="text" class="form-control" id="{{ form.gender.auto_id }}_custom"
+                               value="{% if form.gender.value not in 'male,female' %}{{ form.gender.value|default:''}}{% endif %}"
+                               placeholder="{% firstof form.gender.value 'Personalize' %}">
+
+                    </label>
+                </div>
+            </div>
             {% if form.gender.errors %}
+            <div class="clear">
                 {% for error in form.gender.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
+            </div>
             {% endif %}
         </div>
 
         <div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
-            <label class="primary-label" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+            <label class="primary-label" for="{{ form.birthday.id_for_label }}"><span class="{% if form.birthday.errors %}text-danger{% endif %}">{{ form.birthday.label }}</span></label>
             <div class="select-birthday">
                 <select class="form-control">
-                    <option>Dia</option>
-                    <option>1</option>
-                    <option>1</option>
-                    <option>1</option>
+                    <option>{% trans 'Day' %}</option>
+                    <script type="text/javascript">
+                    var birthday = "{% firstof form.birthday.value|date:'d/m/Y' form.birthday.value '' %}";
+                    var birthday_match = birthday.match(/^(\d\d)\/(\d\d)\/(\d\d\d\d)$/);
+
+                    for(var i = 1; i <= 31; i++){
+                        document.write('<option value="'+i+'"');
+                        if(birthday_match && i == birthday_match[1]) {
+                            document.write(' selected="selected"');
+                        }
+                        document.write('>'+i+'</option>');
+                    }
+                    </script>
                 </select>
                 <select class="form-control">
-                    <option>Mês</option>
-                    <option>1</option>
-                    <option>1</option>
-                    <option>1</option>
+                    <option>{% trans 'Month' %}</option>
+                    <script type="text/javascript">(function(){
+                    for(var i = 1; i <= 12; i++){
+                        var m = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                        document.write('<option value="'+i+'"');
+                        if(birthday_match && i == birthday_match[2]) {
+                            document.write(' selected="selected"');
+                        }
+                        document.write('>'+m[i-1]+'</option>');
+                    }})();</script>
                 </select>
                 <select class="form-control">
-                    <option>Ano</option>
-                    <option>1</option>
-                    <option>1</option>
-                    <option>1</option>
+                    <option>{% trans 'Year' %}</option>
+                    <script type="text/javascript">
+                    for(var i = 1950; i <= (new Date()).getFullYear(); i++){
+                        document.write('<option value="'+i+'"');
+                        if(birthday_match && i == birthday_match[3]) {
+                            document.write(' selected="selected"');
+                        }
+                        document.write('>'+i+'</option>');
+                    }
+                    </script>
                 </select>
             </div>
+            <input type="hidden" name="{{ form.birthday.html_name }}"
+                   data-composed-bind=".select-birthday select"
+                   data-composed-format="%02d/%02d/%04d"
+                   value="{% firstof form.birthday.value|date:'d/m/Y' form.birthday.value '' %}">
+
             {% if form.birthday.errors %}
                 {% for error in form.birthday.errors %}
                 <span class="text-danger">{{ error }}</span>
@@ -83,19 +124,18 @@
         </div>
 
         <div class="form-group">
-            <label class="primary-label">Há quanto tempo você pedala?</label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Menos de 1 ano</span>
+            <label class="primary-label">
+                <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
             </label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Entre 1 e 2 anos</span>
+            
+            {% for value,label in form.ride_experience.field.choices %}
+            <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                <input type="radio" name="{{ form.ride_experience.html_name }}" value="{{ value }}"
+                       {% if form.ride_experience.value = value %}checked="checked"{% endif %}>
+                       <span class="text">{{ label }}</span>
             </label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Entre 2 e 4 anos</span>
-            </label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Mais de 4 anos</span>
-            </label>
+            {% endfor %}
 
             {% if form.help_with.errors %}
                 {% for error in form.help_with.errors %}
@@ -105,19 +145,18 @@
         </div>
 
         <div class="form-group">
-            <label class="primary-label">Você usa a bicicleta como meio de transporte?</label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="transport"><span class="text">Todos os dias</span>
+            <label class="primary-label">
+                <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use the bicycle as a means of transportation?' %}</span>
             </label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="transport"><span class="text">Só alguns dias da semana</span>
+
+            {% for value,label in form.bike_use.field.choices %}
+            <label class="radio {% if form.bike_use.value = value %}checked{% endif %}">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                <input type="radio" name="{{ form.bike_use.html_name }}" value="{{ value }}"
+                       {% if form.bike_use.value = value %}checked="checked"{% endif %}>
+                       <span class="text">{{ label }}</span>
             </label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="transport"><span class="text">Uma vez por semana/mês</span>
-            </label>
-            <label class="radio">
-                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="transport"><span class="text">Não, só uso para lazer</span>
-            </label>
+            {% endfor %}
 
             {% if form.help_with.errors %}
                 {% for error in form.help_with.errors %}
@@ -128,7 +167,7 @@
 
         <div class="form-group">
             <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
-            <textarea class="form-control" rows="5" id="participate" placeholder="Descreva sua participação aqui"></textarea>
+            <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
 
             {% if form.help_with.errors %}
                 {% for error in form.help_with.errors %}

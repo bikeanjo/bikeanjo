@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <label for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
-                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value }}" placeholder="Digite aqui seu e-mail">
+                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value|default:'' }}" placeholder="{% trans 'E-Mail' %}" tabindex="1">
                     <i class="fa fa-envelope form-control-icon"></i>
                     <i class="fa fa-times form-control-feedback"></i>
                     {% if form.login.errors %}
@@ -46,7 +46,7 @@
 
                     <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
                         
-                    <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value }}" placeholder="Digite sua senha" />
+                    <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value|default:'' }}" placeholder="{% trans 'Password' %}" tabindex="2" />
                     <i class="fa fa-lock form-control-icon"></i>
                     <i class="fa fa-times form-control-feedback"></i>
                     {% if form.password.errors %}
@@ -61,7 +61,7 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
 
-            <button class="send-form btn btn-primary btn-block btn-lg primaryAction" type="submit">{% trans "Sign In" %}</button>
+            <button class="send-form btn btn-primary btn-block btn-lg primaryAction" type="submit" tabindex="3">{% trans "Sign In" %}</button>
 
             <p class="create-account">{% blocktrans %}Não tem uma conta? <a href="{{ signup_url }}">Cadastre-se</a>{% endblocktrans %}</p>
         </form>
