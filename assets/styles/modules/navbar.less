@@ -98,6 +98,60 @@
                 }
             }
         }
+        .user-menu {
+            @media screen and (min-width: @screen-md-min) {
+                float: right;
+            }
+            > li a {
+                padding: 0;
+                .fa {
+                    display: inline-block;
+                    font-size: 18px;
+                } 
+                .user-icon {
+                    border: 2px solid #fff; 
+                    border-radius: 45px;
+                    display: inline-block;
+                    margin-right: 5px;
+                    position: relative;
+                    @media screen and (min-width: @screen-md-min) {
+                        border-color: @brand-green; 
+                        margin-left: 5px;
+                    }
+                    img {
+                        border-radius: 45px;
+                    }
+                    .notification {
+                        background-color: #f00;
+                        border-radius: 15px;
+                        color: #fff;
+                        display: block;
+                        font-size: 11px;
+                        font-weight: bold;
+                        height: 15px;
+                        position: absolute;
+                        right: -3px;
+                        text-align: center; 
+                        top: -3px;
+                        width: 15px;
+                    }
+                }
+            }
+            .dropdown-menu {
+                @media screen and (min-width: @screen-md-min) {
+                    &:before {
+                        left: 85px;
+                    }
+                }
+                .btn {
+                    margin: 5px 10px 5px;
+                    padding: 0px 0px;
+                    a:hover, a:focus, a:active, a.active {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
         .divider {
             height: 1px;
             background: darken(@brand-green, 5%);

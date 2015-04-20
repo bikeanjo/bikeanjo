@@ -65,5 +65,13 @@
         });
 
     });
-    
+
+    window.onscroll = function() {
+        if (window.scrollY >= 90) {
+            $('.cbp-spmenu-open').css('top', '0');
+        } else {
+            $('.cbp-spmenu-open').css('top', '');
+        }
+    };
+
 })();

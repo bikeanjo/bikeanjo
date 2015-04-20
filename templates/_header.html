@@ -23,6 +23,27 @@
         </script>
         <nav id="navbar" class="navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
             <div class="navigation">
+                {% if user.is_authenticated %}
+                <ul class="user-menu nav nav-pills">
+                    <li role="presentation" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span class="user-icon">
+                            <span class="notification">3</span>
+                            <img src="http://placehold.it/45x45" alt="Nome do Usuário">
+                        </span>
+                        {% firstof user.first_name user.username %}
+                        <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">{% trans "Panel" %}</a></li>
+                            <li><a href="#">{% trans "Help requests" %}</a></li>
+                            <li><a href="#">{% trans "Messages" %}</a></li>
+                            <li><a href="#">{% trans "Edit profile" %}</a></li>
+                            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+                            <li class="btn btn-default"><a href="#">{% trans "I want help to ride" %}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
                 <ul class="nav nav-pills">
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Quem somos
@@ -70,23 +91,6 @@
                         </ul>
                     </li>
                 </ul>
-                {% if user.is_authenticated %}
-                <ul class="user-menu">
-                    <li role="presentation" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% firstof user.first_name user.username %}
-                        <i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">{% trans "Panel" %}</a></li>
-                            <li><a href="#">{% trans "Help requests" %}</a></li>
-                            <li><a href="#">{% trans "Messages" %}</a></li>
-                            <li><a href="#">{% trans "Edit profile" %}</a></li>
-                            <li><a href="#">{% trans "I want help to ride" %}</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {% endif %}
                 <div class="divider"></div>
                 {% if not user.is_authenticated %}
                 <a href="{% url 'socialaccount_signup' %}" class="btn btn-primary">{% trans "Sign in" %}</a>
