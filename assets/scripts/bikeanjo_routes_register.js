@@ -1,192 +1,151 @@
-jQuery(function(){
-    var __log = console.log.bind(console);
-    // load apis
+(function($, L) {
+    'use strict';
 
-    if($("#js-map").length !== 1) {
-        return;
-    }
+    var Geocoder = {
+        _geocoder: new google.maps.Geocoder(),
 
-    var track = {
-        'start': null,
-        'end': null
+        code: function(address) {
+            var defer = jQuery.Deferred();
+
+            if(!address) {
+                return defer.reject();
+            }
+
+            this._geocoder.geocode({'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    defer.resolve(results);
+                } else {
+                    defer.reject(status);
+                }
+            });
+            return defer;
+        }
     };
 
-    var map = L.map('js-map').setView([-23.548991, -46.633328], 13);
-    var geocoder = new google.maps.Geocoder();
-    var $list = $("#js-addresses");
-    var $addBtn = $("#js-add-address");
-    var $addressInput = $('#departing-address,#destination-address');
-    var $jsonPointsInput = $("#id_json_points");
-
-    function insertInList(start, end, onremove) {
-        var $li;
-
-        function remove() {
-            $li.remove();
-            if(onremove){ onremove(); };
-        }
-
-        $li = $('<li>')
-            .append($('<i class="fa fa-times">').click(remove))
-            .append($('<span class="departing-address">').text(start))
-            .append($('<i class="fa fa-arrow-right"></i>'))
-            .append($('<span class="destination-address">').text(end))
-            .appendTo($list);
-    }
-
-    // basic geoCodeAddress
-    function geoCodeAddress(address) {
-        var defer = jQuery.Deferred();
-
-        if(!address) {
-            return defer.reject();
-        }
-
-        geocoder.geocode({'address': address}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                defer.resolve(results[0]);
-            } else {
-                defer.reject(status);
-            }
-        });
-        return defer;
-    }
-
-    function addMarker(lat, lon, text) {
-        var marker = L.marker([lat, lon]);
-        marker.bindPopup(text);
-        marker.addTo(map);
-
-        return marker;
-    }
-
-    function addAddress(address) {
-        return addMarker(
-            address.geometry.location.lat(),
-            address.geometry.location.lng(),
-            address.formatted_address
-        );
-    }
-
-    function insertInTrack(address, type) {
-        track[type] = {
-            address: address,
-            marker: addAddress(address)
-        };
-        return track;
-    }
-
-    function removeTempMarker(type) {
-        if (track && track[type]) {
-            map.removeLayer(track[type].marker);
-        }
-    }
-
-    function panTo(address) {
-        map.panTo(L.latLng(
-            address.geometry.location.lat(), 
-            address.geometry.location.lng()
-        ));
-        return address;
-    }
-
-    /**
-     * Setup
-     */
-
-    // setup leaflet
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        id: 'examples.map-i875mjb7'
-    }).addTo(map);
-
-    function selectAddress($input, type) {
-        removeTempMarker(type);
-        var address = $input.val();
-        geoCodeAddress(address)
-            .then(panTo)
-            .then(function(a){ return insertInTrack(a, type); });
-    }
-
-    // setup autocomplete
-    new google.maps.places.Autocomplete($addressInput.get(0),{
-        types: ['address'],
-        changed: selectAddress.bind(null, $addressInput.eq(0), 'start'),
-        componentRestrictions: {country: 'br'}
-    });
-
-    new google.maps.places.Autocomplete($addressInput.get(1),{
-        types: ['address'],
-        changed: selectAddress.bind(null, $addressInput.eq(1), 'end'),
-        componentRestrictions: {country: 'br'}
-    });
-
-    $('form').submit(function(evt) {
-        try {
-            var json = {
-                start: {
-                    address: $addressInput.eq(0).val(),
-                    coords: {
-                        lat: track.start.address.geometry.location.lat(),
-                        lon: track.start.address.geometry.location.lng(),
-                    }
-                },
-                end: {
-                    address: $addressInput.eq(1).val(),
-                    coords: {
-                        lat: track.end.address.geometry.location.lat(),
-                        lon: track.end.address.geometry.location.lng(),
-                    }
-                }
-            };
-
-            $jsonPointsInput.val(JSON.stringify(json));
-        } catch (err) {
-            console.error(err);
-            evt.preventDefault();
-        }
-    });
-
-    $addressInput.eq(0).focus();
-    $addressInput.eq(0).click();
-
-    // Desenha pontos se houverem na página
-    if(window.TRACKS) {
-        var myStyle = {
-            "color": "#ff7800",
-            "weight": 5,
-            "opacity": 0.65
-        };
-
-        TRACKS.forEach(function(track){
-            var p1 = track.coordinates[0];
-            var p2 = track.coordinates[1];
-
-            track.layers = [
-                addMarker(p1[1], p1[0], track.properties.start),
-                addMarker(p2[1], p2[0], track.properties.end),
-                L.geoJson(track, {style: myStyle }).addTo(map)
-            ];
-
-            function remove(){
-                map.removeLayer(track.layers[0]);
-                map.removeLayer(track.layers[1]);
-                map.removeLayer(track.layers[2]);
-            }
-
-            insertInList(track.properties.start, track.properties.end, remove);
-        });
+    var Bikemap = function(el, cfg) {
+        var config = $.extend({
+            center: [-23.548991, -46.633328],
+            zoom: 14
+        }, cfg);
         
-        var lines = TRACKS.map(function(t){
-            return {
-                'type': 'LineString',
-                'coordinates': t.coordinates
+        var map;
+        var layers = [];
+        var bikemap = this;
+
+        this.initialize = function(el) {
+            map = L.map(el).setView(config.center, config.zoom);
+            var layer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+            layer.addTo(map);
+            return map;
+        };
+
+        this.addMarker = function(lat, lon, text) {
+            var marker = L.marker([lat, lon]);
+            marker.bindPopup(text);
+            marker.addTo(this.map);
+            
+            marker.remove = function() {
+                var idx = layers.indexOf(marker);
+                layers.splice(idx, 1);
+                map.removeLayer(marker);
+                return marker;
             };
-        });
 
-    }
+            layers.push(marker);
+            return marker;
+        };
 
-});
+        this.addLine = function(p1, p2) {
+            var line = new L.Polyline([p1, p2], {
+                color: '#' + Math.random().toString(16).slice(-6),
+                weight: 5,
+                opacity: 1
+            });
+            line.remove = function() {
+                var idx = layers.indexOf(line);
+                layers.splice(idx, 1);
+                map.removeLayer(line);
+                return line;
+            };
+            layers.push(line);
+            line.addTo(map);
+            return line;
+        };
+
+        this.clearMap = function() {
+            var layer;
+            while(layers.length > 0) {
+                layer = layers.pop();
+                map.removeLayer(layer);
+            }
+        };
+
+        this.bindInputs = function() {
+            var $inputs = $(':input[bikeanjo-track]');
+            var $start = $inputs.filter('[bikeanjo-track=start]');
+            var $end = $inputs.filter('[bikeanjo-track=end]');
+
+            var markers = { };
+            var line;
+
+            // autocomplete
+            $inputs.each(function(i, el){
+                var $el = $(el);
+                new google.maps.places.Autocomplete(el,{
+                    types: ['address'],
+                    changed: $el.trigger.bind($el, 'address-changed'),
+                    componentRestrictions: {country: 'br'}
+                });
+            });
+
+            $inputs.on('address-changed', function(){
+                var address = $(this).val();
+                var type = $(this).attr('bikeanjo-track');
+
+                Geocoder.code(address).then(function(results){
+                    if(results.length < 1) {return; }
+                    var lat = results[0].geometry.location.lat();
+                    var lon = results[0].geometry.location.lng();
+
+                    if(!markers[type]) {
+                        markers[type] = bikemap.addMarker(lat, lon, address);
+                    }
+                    markers[type].setLatLng({lat: lat, lon: lon});
+                    markers[type].setPopupContent(address);
+
+                    if(markers.start && markers.end) {
+                        if(line) {
+                            line.setLatLngs([markers.start.getLatLng(),
+                                             markers.end.getLatLng()]);
+                        } else {
+                            line = bikemap.addLine(markers.start.getLatLng(),
+                                                   markers.end.getLatLng());
+                        }
+                    }
+
+                    if(line) {
+                        map.fitBounds(line.getBounds(), {paddingTopLeft: [0, 300]});
+                    } else {
+                        map.panTo(markers[type].getLatLng());
+                        map.panBy([0, -200]);
+                    }
+                });
+            });
+
+            $inputs.keydown(function(evt){
+                if(evt.which === 13){ evt.preventDefault(); }
+            });
+
+            return $inputs;
+        };
+
+        this.map = this.initialize(el);
+        this.bindInputs();
+        this.layers = layers;
+    };
+
+    $(function(){
+        window.bikemap = new Bikemap(document.getElementById('js-map'));
+    });
+
+})(jQuery, L);
