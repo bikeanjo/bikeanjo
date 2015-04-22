@@ -124,10 +124,10 @@
                     }
 
                     if(line) {
-                        map.fitBounds(line.getBounds(), {paddingTopLeft: [0, 300]});
+                        var paddingTop = $('form.signup').offset().top + $('form.signup').height();
+                        map.fitBounds(line.getBounds(), {paddingTopLeft: [0, paddingTop]});
                     } else {
                         map.panTo(markers[type].getLatLng());
-                        map.panBy([0, -200]);
                     }
                 });
             });
