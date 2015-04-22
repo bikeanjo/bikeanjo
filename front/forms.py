@@ -9,32 +9,61 @@ import models
 
 
 class TrackForm(forms.Form):
-    json_points = forms.CharField(widget=forms.HiddenInput)
+    tracks = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
+                             required=False)
 
-    def clean_json_points(self):
+    def clean_tracks(self):
+        if not self.cleaned_data.get('tracks'):
+            return []
+
         try:
-            return json.loads(self.cleaned_data['json_points'])
+            lines = json.loads(self.cleaned_data.get('tracks'))
+            tracks = []
+
+            for line in lines:
+                _id = line.get('properties').get('id')
+
+                if _id:
+                    track = models.Track.objects.get(id=_id)
+                else:
+                    track = models.Track()
+
+                track.track = LineString([(c[1], c[0],) for c in line.get('coordinates')])
+                track.start = line.get('properties').get('start')
+                track.end = line.get('properties').get('end')
+
+                tracks.append(track)
+
+            return tracks
         except ValueError, e:
             raise forms.ValidationError(e.message)
 
     def save(self, cyclist):
-        points = self.cleaned_data['json_points']
-        track = models.Track(cyclist=cyclist)
+            for track in self.cleaned_data['tracks']:
+                track.cyclist = cyclist
+                track.save()
+            return self.cleaned_data['tracks']
 
-        start = Point(
-            points['start']['coords']['lon'],
-            points['start']['coords']['lat'],
-        )
-        end = Point(
-            points['end']['coords']['lon'],
-            points['end']['coords']['lat'],
-        )
 
-        track.track = LineString(start, end)
-        track.start = points['start']['address']
-        track.end = points['end']['address']
+class TrackReviewForm(TrackForm):
 
-        track.save()
+    def __init__(self, *args, **kwargs):
+        self.cyclist = kwargs.pop('cyclist', None)
+        super(TrackReviewForm, self).__init__(*args, **kwargs)
+        self['tracks'].field.initial = self.load_tracks()
+
+    def load_tracks(self):
+        tracks = models.Track.objects.filter(cyclist=self.cyclist)
+        return json.dumps([t.json() for t in tracks])
+
+    def save(self, cyclist):
+        tracks = super(TrackReviewForm, self).save(cyclist=cyclist)
+        do_no_delete = (t.id for t in tracks)
+        models.Track.objects\
+            .filter(cyclist=cyclist)\
+            .exclude(id__in=do_no_delete)\
+            .delete()
+        return tracks
 
 
 class SignupForm(forms.Form):

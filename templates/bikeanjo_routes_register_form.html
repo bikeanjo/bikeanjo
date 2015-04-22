@@ -2,14 +2,17 @@
 {% load url from future %}
 
 {% load i18n %}
+{% load static %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.1/sprintf.min.js"></script>
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+{% endblock %}
+
+{% block js %}{{ block.super }}
+<script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
 {% endblock %}
 
 {% block content %}
@@ -32,10 +35,10 @@
             <div class="form-group">
                 <label class="sr-only" for="departing-address">Local de partida</label>
                 <input class="form-control input-lg" type="text" id="departing-address" placeholder="Local de partida"
-                       bikeanjo-track="start">
+                       bikeanjo-track="start"/>
                 <label class="sr-only" for="destination-address">Local de destino</label>
                 <input class="form-control input-lg" type="text" id="destination-address" placeholder="Local de destino"
-                       bikeanjo-track="end">
+                       bikeanjo-track="end"/>
             </div>
         </div>
         <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>

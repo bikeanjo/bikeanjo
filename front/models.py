@@ -72,7 +72,9 @@ class Track(models.Model):
                 'end': self.end,
             },
         }
-        return json.dumps(d)
+        if self.id:
+            d['properties']['id'] = self.id
+        return d
 
 
 class Point(models.Model):
