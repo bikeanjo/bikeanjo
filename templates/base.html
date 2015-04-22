@@ -1,5 +1,4 @@
-{% load staticfiles %}
-<!DOCTYPE html>
+{% load staticfiles %}<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -31,9 +30,12 @@
             {% include '_footer.html' %}
         {% endif %}
         
-        <script src="{% static 'js/vendor.js' %}"></script>
-        <script src="{% static 'js/main.js' %}"></script>
+        {% block js %}
+        <script type="text/javascript" src="{% static 'js/vendor.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+        {% endblock %}
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        {% if not debug %}
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
@@ -42,11 +44,6 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
-        {% if debug %}
-            <script type='text/javascript' id="__bs_script__">//<![CDATA[
-                document.write("<script async src='//HOST:3000/browser-sync/browser-sync-client.1.8.1.js'><\/script>".replace(/HOST/g, location.hostname).replace(/PORT/g, location.port));
-                //]]>
-            </script>
         {% endif %}
     </body>
 </html>

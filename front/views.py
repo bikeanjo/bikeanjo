@@ -77,14 +77,22 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
         return super(TrackRegisterView, self).form_valid(form)
 
 
-class TrackListView(LoginRequiredMixin, TemplateView):
+class TrackListView(LoginRequiredMixin, FormView):
     template_name = 'bikeanjo_routes_list.html'
-    success_url = '/'
+    form_class = forms.TrackReviewForm
 
-    def get_context_data(self, **kwargs):
-        context = super(TrackListView, self).get_context_data(**kwargs)
-        context['form'] = True
-        return context
+    def get_success_url(self):
+        return reverse('volunteer_registered_routes')
+
+    def get_form_kwargs(self):
+        kwargs = super(TrackListView, self).get_form_kwargs()
+        kwargs['cyclist'] = self.request.user.cyclist
+        return kwargs
+
+    def form_valid(self, form):
+        form.save(cyclist=self.request.user.cyclist)
+        return super(TrackListView, self).form_valid(form)
+
 
 
 class HomeView(TemplateView):

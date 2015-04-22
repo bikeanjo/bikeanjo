@@ -2,56 +2,51 @@
 {% load url from future %}
 
 {% load i18n %}
+{% load static %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.0.1/sprintf.min.js"></script>
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
 {% endblock %}
 
-
+{% block js %}{{ block.super }}
+<script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
+{% endblock %}
 
 {% block content %}
-<script type="text/javascript">
-var TRACKS = [
-    {% for track in user.cyclist.track_set.all %}
-    {{ track.json|safe }}
-    {% if not forloop.last %},{% endif %}
-    {% endfor %}
-];
-</script>
-
 <section class="forms signup container">
     <div class="map" id="js-map"></div>
-    <div class="signup fullscreen card">
-        {% csrf_token %}
+    <form method="post">
+        <div class="signup fullscreen card">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-        <header>
-            <h2>Rota Cadastrada!</h2>
-            <p>Você pode cadastrar mais rotas ou continuar seu cadastro no site.</p>
-        </header>
-        <label class="primary-label">Rotas Cadastradas</label>
-        <ul class="addresses-list list-unstyled" id="js-addresses">
-        {% comment %}
-            <li>
-                <i class="fa fa-times"></i>
-                <span class="departing-address">Avenida Paulista, 1222</span>
-                <i class="fa fa-arrow-right"></i>
-                <span class="destination-address">Alameda Casa Branca, 159</span>
-            </li>
-            <li>
-                <i class="fa fa-times"></i>
-                <span class="departing-address">Avenida Paulista, 1222</span>
-                <i class="fa fa-arrow-right"></i>
-                <span class="destination-address">Alameda Casa Branca, 159</span>
-            </li>
-        {% endcomment %}
-        </ul>
-        <a href="{% url 'volunteer_register_routes' %}" class="btn btn-default btn-block btn-lg">Cadastrar nova rota</a>
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
-    </div>
+            <header>
+                <h2>Rota Cadastrada!</h2>
+                <p>Você pode cadastrar mais rotas ou continuar seu cadastro no site.</p>
+            </header>
+            <label class="primary-label">Rotas Cadastradas</label>
+            <ul class="addresses-list list-unstyled" bikeanjo-list="lines" id="js-addresses">
+            {% comment %}
+                <li>
+                    <i class="fa fa-times"></i>
+                    <span class="departing-address">Avenida Paulista, 1222</span>
+                    <i class="fa fa-arrow-right"></i>
+                    <span class="destination-address">Alameda Casa Branca, 159</span>
+                </li>
+                <li>
+                    <i class="fa fa-times"></i>
+                    <span class="departing-address">Avenida Paulista, 1222</span>
+                    <i class="fa fa-arrow-right"></i>
+                    <span class="destination-address">Alameda Casa Branca, 159</span>
+                </li>
+            {% endcomment %}
+            </ul>
+            <a href="{% url 'volunteer_register_routes' %}" class="btn btn-default btn-block btn-lg">Cadastrar nova rota</a>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+        </div>
+    </form>
 </section>
 {% endblock %}
