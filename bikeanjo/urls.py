@@ -29,6 +29,8 @@ urlpatterns = [
         front.views.TrackRegisterView.as_view(), name='volunteer_register_routes'),
     url(r'^volunteer/registered-routes/$',
         front.views.TrackListView.as_view(), name='volunteer_registered_routes'),
+    url(r'^volunteer/register-free-points/$',
+        front.views.PointsRegisterView.as_view(), name='volunteer_register_points'),
 
 
 

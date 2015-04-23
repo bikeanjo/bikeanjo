@@ -82,7 +82,7 @@ class TrackListView(LoginRequiredMixin, FormView):
     form_class = forms.TrackReviewForm
 
     def get_success_url(self):
-        return reverse('volunteer_registered_routes')
+        return reverse('volunteer_register_points')
 
     def get_form_kwargs(self):
         kwargs = super(TrackListView, self).get_form_kwargs()
@@ -93,6 +93,22 @@ class TrackListView(LoginRequiredMixin, FormView):
         form.save(cyclist=self.request.user.cyclist)
         return super(TrackListView, self).form_valid(form)
 
+
+class PointsRegisterView(LoginRequiredMixin, FormView):
+    template_name = 'bikeanjo_free_points.html'
+    form_class = forms.PointsForm
+
+    def get_form_kwargs(self):
+        kwargs = super(PointsRegisterView, self).get_form_kwargs()
+        kwargs['cyclist'] = self.request.user.cyclist
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('volunteer_register_points')
+
+    def form_valid(self, form):
+        form.save()
+        return super(PointsRegisterView, self).form_valid(form)
 
 
 class HomeView(TemplateView):

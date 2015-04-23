@@ -66,6 +66,51 @@ class TrackReviewForm(TrackForm):
         return tracks
 
 
+class PointsForm(forms.Form):
+    points = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'points'}),
+                             required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.cyclist = kwargs.pop('cyclist', None)
+        super(PointsForm, self).__init__(*args, **kwargs)
+        self['points'].field.initial = self.load_points()
+
+    def clean_points(self):
+        if not self.cleaned_data.get('points'):
+            return []
+
+        try:
+            json_points = json.loads(self.cleaned_data.get('points'))
+            points = []
+
+            for p in json_points:
+                _id = p.get('properties').get('id')
+
+                if _id:
+                    point = models.Point.objects.get(id=_id)
+                else:
+                    point = models.Point()
+
+                point.coords = Point(p.get('coordinates'))
+                point.address = p.get('properties').get('address')
+
+                points.append(point)
+
+            return points
+        except ValueError, e:
+            raise forms.ValidationError(e.message)
+
+    def save(self):
+        for point in self.cleaned_data['points']:
+            point.cyclist = self.cyclist
+            point.save()
+        return self.cleaned_data['points']
+
+    def load_points(self):
+        points = models.Point.objects.filter(cyclist=self.cyclist)
+        return json.dumps([p.json() for p in points])
+
+
 class SignupForm(forms.Form):
     """
     This form will be wrapped by django-allauth. It will receive two password

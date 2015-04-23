@@ -81,3 +81,15 @@ class Point(models.Model):
     cyclist = models.ForeignKey(Cyclist)
     address = models.CharField(max_length=128)
     coords = models.PointField()
+
+    def json(self):
+        d = {
+            'type': 'LineString',
+            'coordinates': self.coords.get_coords(),
+            'properties': {
+                'address': self.address,
+            },
+        }
+        if self.id:
+            d['properties']['id'] = self.id
+        return d

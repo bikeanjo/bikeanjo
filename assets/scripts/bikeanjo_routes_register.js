@@ -82,6 +82,31 @@
             return map;
         };
 
+        this.render_points = function() {
+            var $line_output = $(':input[bikeanjo-geojson=points]');
+            if(!$line_output.val()) {
+                return map;
+            }
+
+            var points = JSON.parse($line_output.val());
+            if(points.length === 0) {
+                return map;
+            }
+
+            var bounds = new L.LatLngBounds();
+            for(var i=0; i < points.length; i++) {
+                var p = points[i];
+                var marker = this.addMarker(p.coordinates[1],
+                                            p.coordinates[0],
+                                            p.properties.address);
+                marker.id = p.properties.id;
+                bounds.extend(marker.getLatLng());
+            }
+            var paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
+            map.fitBounds(bounds, {paddingTopLeft: [0, paddingTop]});
+            return map;
+        };
+
         this.render_lines = function() {
             var $line_output = $(':input[bikeanjo-geojson=lines]');
             if(!$line_output.val()) {
@@ -134,6 +159,24 @@
             return map;
         };
 
+        this.write_points_to_output = function() {
+            var $line_output = $(':input[bikeanjo-geojson=points]');
+            var points = bikemap.layers
+                .filter(function(m){
+                    return m.constructor === L.Marker;
+                })
+                .map(function(marker){
+                    return $.extend(marker.toGeoJSON().geometry, {
+                        properties:{
+                            id: marker.id,
+                            address: marker.getPopup().getContent(),
+                        }
+                    });
+                });
+            $line_output.val(JSON.stringify(points));
+            return map;
+        };
+
         this.render_lines_list = function() {
             var $list = $('[bikeanjo-list="lines"]');
             if($list.length === 0) {
@@ -170,14 +213,47 @@
             return map;
         };
 
+        this.render_points_list = function() {
+            var $list = $('[bikeanjo-list="points"]');
+            if($list.length === 0) {
+                return;
+            }
+            $list.html('');
+
+            bikemap.layers
+                .filter(function(m){
+                    return m.constructor === L.Marker;
+                })
+                .forEach(function(marker) {
+                    var $li = $('<li>');
+                    $li.append($('<i class="fa fa-times">')
+                                    .click(marker.remove)
+                                    .click(function(){ $li.remove(); })
+                                    )
+                       .append($('<span>')
+                                   .text(marker.getPopup().getContent()));
+
+                    $list.append($li);
+                });
+            return map;
+        };
+
         this.bindInputs = function() {
             var $inputs = $(':input[bikeanjo-track]');
             var $outputs = $(':input[bikeanjo-geojson]');
-            var $start = $inputs.filter('[bikeanjo-track=start]');
-            var $end = $inputs.filter('[bikeanjo-track=end]');
+            var $button = $(':input[bikeanjo-add=point]');
 
             var markers = { };
             var line;
+
+            $button.click(function(evt) {
+                evt.preventDefault();
+                $inputs.val('');
+                $inputs.focus();
+                markers.point = null;
+                bikemap.render_points_list();
+                bikemap.write_points_to_output();
+            });
 
             // autocomplete
             $inputs.each(function(i, el){
@@ -244,7 +320,9 @@
         this.map = this.initialize(el);
         this.bindInputs();
         this.render_lines();
-        bikemap.render_lines_list();
+        this.render_lines_list();
+        this.render_points();
+        this.render_points_list();
     };
 
     $(function(){
