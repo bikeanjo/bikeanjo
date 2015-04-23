@@ -1,0 +1,78 @@
+//== User dashboard
+// --------------------------------------------------
+
+//## Common styles for both dash boards
+
+.dashboard {
+    margin-top: 30px;
+    .sidebar {
+        .card {
+            overflow: hidden;
+        }
+        .alert {
+            &.bubble {
+                display: inline-block;
+                margin-left: 5px;
+            }
+        }
+        .profile {
+            background-repeat: no-repeat;
+            border-radius: 3px 3px 0 0;
+            overflow: hidden;
+            .icon {
+                background-color: #fff;
+                border: 3px solid #fff; 
+                border-radius: 91px;
+                height: 91px;
+                margin: 15px auto 0;
+                width: 91px;
+                img {
+                    border-radius: 85px;
+                }
+            }
+            h2, p {
+                line-height: 1;
+                margin: 0;
+                text-transform: uppercase;
+            }
+            .name {
+                color: #000;
+                font-size: 22px;
+                margin-top: 5px;
+                text-align: center;
+            }
+            .city {
+                color: @gray;
+                text-align: center;
+            }
+        }
+        .dashboard-nav {
+            border-top: 1px solid lighten(@gray-lighter, 5%);
+            margin: 15px;
+            padding-top: 15px;
+            li {
+                margin: 0 0 10px 10px;
+                a {
+                    color: @gray-darker;
+                    text-transform: uppercase;
+                } 
+            }
+        }
+        .btn {
+            margin-top: 10px;
+        }
+    }
+}
+
+.dashboard {
+    &.applicant {
+        .profile {
+            background-image: url('../imgs/applicant-profile-header.png');
+        }
+        .alert {
+            &.bubble {
+                background-color: @brand-orange;
+            }
+        }
+    }
+}
