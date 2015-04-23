@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="dashboard applicant container">
+       
+        <div class="row">
+
+            <aside class="sidebar col-md-3 col-md-offset-1">
+                <div class="card">
+                    <header class="profile">
+                        <div class="icon">
+                            <img src="http://placehold.it/85x85" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="name">Fulano</h2>
+                        <p class="city">São Paulo - SP</p>
+                    </header>
+                    <nav class="dashboard-nav">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Pedidos de ajuda
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Recados
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Eventos e atividades</a></li>
+                            <li><a href="#">Fórum de discussão</a></li>
+                            <li><a href="#">Dicas para pedalar</a></li>
+                            <li><a href="#">Editar cadastro</a></li>
+                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                        </ul>
+                        <a href="#" class="btn btn-warning">Pedir ajuda para pedalar</a>
+                    </nav>            
+                </div>
+                <div class="feedback">
+                    <p>Como estamos pedalando?<br>
+                    <span></span></p>
+                </div>
+            </aside>
+
+            <section class="content col-md-7">
+
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    Sucesso! Seu pedido foi enviado, obrigado por fazer parte da nossa comunidade.
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    Erro! Sua mensagem não foi enviada, estamos com instabilidade no sistema.
+                </div> 
+
+                <article class="card">
+                    <header><h2>Pedidos de ajuda (1)</h2></header>
+                    Pedido #000
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat. 
+                    <footer>Ver mensagem</footer>
+                </article>
+            </section>
+
+
+        </div>
+        
+    </section>
+{% endblock %}

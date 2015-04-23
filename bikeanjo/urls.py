@@ -33,4 +33,5 @@ urlpatterns = [
 
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
+    url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
 ]
