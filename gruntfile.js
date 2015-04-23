@@ -92,6 +92,7 @@ module.exports = function (grunt) {
                 files: [
                     {expand: true, flatten: true, src: ['bower_components/font-awesome/fonts/*'], dest: 'static/fonts/', filter: 'isFile',},
                     {expand: true, flatten: true, src: ['bower_components/font-awesome/css/*.css'], dest: 'static/css/', filter: 'isFile',},
+                    {expand: true, flatten: true, src: ['bower_components/fontawesome/fonts/fontawesome-webfont.woff2'], dest: 'static/fonts/'},
                 ],
             },
         },
