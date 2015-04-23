@@ -1,17 +1,17 @@
 ;(function($, L) {
     'use strict';
 
-    var Geocoder = {
-        _geocoder: new google.maps.Geocoder(),
+    var Geocoder = function() {
+        var _geocoder = new google.maps.Geocoder();
 
-        code: function(address) {
+        this.code = function(address) {
             var defer = jQuery.Deferred();
 
             if(!address) {
                 return defer.reject();
             }
 
-            this._geocoder.geocode({'address': address}, function(results, status) {
+            _geocoder.geocode({'address': address}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     defer.resolve(results);
                 } else {
@@ -19,10 +19,12 @@
                 }
             });
             return defer;
-        }
+        };
     };
 
     var Bikemap = function(el, cfg) {
+        var geocoder = new Geocoder();
+
         var config = $.extend({
             center: [-23.548991, -46.633328],
             zoom: 14
@@ -95,8 +97,8 @@
 
             for(var i=0; i < lines.length; i++) {
                 var l = lines[i];
-                var p1 = l.coordinates[0];
-                var p2 = l.coordinates[1];
+                var p1 = l.coordinates[0].reverse();
+                var p2 = l.coordinates[1].reverse();
 
                 var line = this.addLine(p1, p2);
                 bounds.extend(line.getBounds());
@@ -191,7 +193,7 @@
                 var address = $(this).val();
                 var type = $(this).attr('bikeanjo-track');
 
-                Geocoder.code(address).then(function(results){
+                geocoder.code(address).then(function(results){
                     if(results.length < 1) {return; }
                     var lat = results[0].geometry.location.lat();
                     var lon = results[0].geometry.location.lng();

@@ -28,7 +28,7 @@ class TrackForm(forms.Form):
                 else:
                     track = models.Track()
 
-                track.track = LineString([(c[1], c[0],) for c in line.get('coordinates')])
+                track.track = LineString([c for c in line.get('coordinates')])
                 track.start = line.get('properties').get('start')
                 track.end = line.get('properties').get('end')
 
