@@ -23,12 +23,21 @@ HELP = (
     (8, _('Participating in the events of Bike Anjos')),  # Participando dos eventos dos Bikes Anjos
 )
 
-EXPERIENCE = (
+VOLUNTEER_EXPERIENCE = (
     ('less than 1 year', _('Less than 1 year')),
     ('from 1 to 2 years', _('From 1 to 2 years')),
     ('from 2 to 4 years', _('From 2 to 4 years')),
     ('more than 4 years', _('More than 4 years')),
 )
+
+REQUESTER_EXPERIENCE = (
+    ('do not know pedaling yet', _('I do not know pedaling yet')),
+    ('no experience in traffic', _('I know cycling, but have no experience in traffic')),
+    ('already ride a long time', _('Already ride a long time but not daily')),
+    ('use bike almost every day', _('I use bike almost every day')),
+)
+
+EXPERIENCE = VOLUNTEER_EXPERIENCE + REQUESTER_EXPERIENCE
 
 BIKE_USE = (
     ('everyday', _('Everyday'),),

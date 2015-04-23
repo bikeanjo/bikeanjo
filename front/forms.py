@@ -150,16 +150,26 @@ class SignupForm(forms.Form):
         user.cyclist = cyclist
 
 
-class SignupCompleteForm(forms.ModelForm):
+class SignupVolunteerForm(forms.ModelForm):
     gender = forms.CharField()
     birthday = forms.DateField()
-    ride_experience = forms.ChoiceField(choices=models.EXPERIENCE)
+    ride_experience = forms.ChoiceField(choices=models.VOLUNTEER_EXPERIENCE)
     bike_use = forms.ChoiceField(choices=models.BIKE_USE)
     initiatives = forms.CharField(required=False, max_length=256)
 
     class Meta:
         model = models.Cyclist
         fields = ('gender', 'birthday', 'ride_experience', 'bike_use', 'initiatives')
+
+
+class SignupRequesterForm(forms.ModelForm):
+    gender = forms.CharField()
+    birthday = forms.DateField()
+    ride_experience = forms.ChoiceField(choices=models.REQUESTER_EXPERIENCE)
+
+    class Meta:
+        model = models.Cyclist
+        fields = ('gender', 'birthday', 'ride_experience')
 
 
 class HelpOfferForm(forms.ModelForm):

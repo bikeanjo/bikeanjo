@@ -8,11 +8,17 @@ import allauth.account.views
 import forms
 
 
-class SignupView(allauth.account.views.SignupView):
+def firstof(*args):
+    for arg in args:
+        if arg:
+            return arg
 
+
+class SignupView(allauth.account.views.SignupView):
     def get_success_url(self):
-        return reverse('cyclist_account_signup_complete',
-                       kwargs={'role': self.kwargs.get('role')})
+        if self.kwargs.get('role') == 'volunteer':
+            return reverse('volunteer_account_signup_complete')
+        return reverse('requester_account_signup_complete')
 
     def form_valid(self, form):
         response = super(SignupView, self).form_valid(form)
@@ -21,31 +27,38 @@ class SignupView(allauth.account.views.SignupView):
         return response
 
 
-class SignupCompleteView(LoginRequiredMixin, FormView):
-    form_class = forms.SignupCompleteForm
+class SignupVolunteerView(LoginRequiredMixin, FormView):
+    form_class = forms.SignupVolunteerForm
+    template_name = 'bikeanjo_complete_signup.html'
 
     def get_success_url(self):
-        role = self.kwargs.get('role')
-
-        if role == 'volunteer':
-            return reverse('volunteer_help_offer')
-
-        return reverse('cyclist_account_signup_complete', kwargs={'role': role})
+        return reverse('volunteer_help_offer')
 
     def get_form_kwargs(self):
-        kwargs = super(SignupCompleteView, self).get_form_kwargs()
+        kwargs = super(SignupVolunteerView, self).get_form_kwargs()
         kwargs['instance'] = self.request.user.cyclist
         return kwargs
 
-    def get_template_names(self):
-        role = self.kwargs.get('role')
+    def form_valid(self, form):
+        form.save()
+        return super(SignupVolunteerView, self).form_valid(form)
 
-        if role == 'volunteer':
-            return ['bikeanjo_complete_signup.html']
+
+class SignupRequesterView(LoginRequiredMixin, FormView):
+    form_class = forms.SignupRequesterForm
+    template_name = 'requester_complete_signup.html'
+
+    def get_success_url(self):
+        return reverse('requester_account_signup_complete')
+
+    def get_form_kwargs(self):
+        kwargs = super(SignupRequesterView, self).get_form_kwargs()
+        kwargs['instance'] = self.request.user.cyclist
+        return kwargs
 
     def form_valid(self, form):
         form.save()
-        return super(SignupCompleteView, self).form_valid(form)
+        return super(SignupRequesterView, self).form_valid(form)
 
 
 class HelpOfferView(LoginRequiredMixin, FormView):
