@@ -10,7 +10,7 @@
     }
     &.photo {
         &.big {
-            @media screen and (min-width: @screen-xs-min) {
+            @media screen and (min-width: @screen-sm-min) {
                 max-height: 325px;
             }
             .card-subtitle {
@@ -24,16 +24,13 @@
             }
         }
         &.small {
-            @media screen and (min-width: @screen-xs-min) {
+            @media screen and (min-width: @screen-sm-min) {
                 max-height: 237px;
             }
             .card-subtitle {
                 font-size: 24px;
             }
             .card-info {
-                @media screen and (min-width: @screen-xs-min) {
-                    max-height: 70px;
-                }
                 @media screen and (min-width: @screen-sm-min) {
                     max-height: 45px;
                 }
@@ -45,14 +42,14 @@
         .card-content {
             border: none; 
             padding: 20px;
-            @media screen and (min-width: @screen-xs-min) {
+            @media screen and (min-width: @screen-sm-min) {
                 padding: 0 20px 0 0;
             }
         }
         .card-subtitle {
             margin-bottom: 15px;
             overflow: hidden;
-            @media screen and (min-width: @screen-xs-min) {
+            @media screen and (min-width: @screen-sm-min) {
                 margin-top: 20px;
                 margin-left: 265px;
                 max-height: 65px;
@@ -62,23 +59,25 @@
             margin: 0;
             font-size: 16px;
             overflow: hidden;
-            @media screen and (min-width: @screen-xs-min) {
+            @media screen and (min-width: @screen-sm-min) {
                 margin-left: 265px;
             }
         }
         .card-footer {
             border-top: 1px solid lighten(@gray-lighter, 5%);
-            @media screen and (min-width: @screen-xs-min) {
+            @media screen and (min-width: @screen-sm-min) {
                 margin-top: -41px;
             }
         }
     }
     &.list {
         .card-info {
-            margin-left: 35px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            @media screen and (min-width: @screen-xs-min) {
+                margin-left: 35px;
+            }
         }
         .card-content {
             padding: 20px;
@@ -166,7 +165,7 @@
     }
     .card-photo {
         display: none;
-        @media screen and (min-width: @screen-xs-min) {
+        @media screen and (min-width: @screen-sm-min) {
             display: block;
             float: left;
             img {

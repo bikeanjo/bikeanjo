@@ -50,11 +50,15 @@
         }
         .sidebar-nav {
             margin: 15px;
-            @media screen and (min-width: @screen-sm-min) {
+            @media screen and (min-width: @screen-md-min) {
                 padding-top: 15px;
                 border-top: 1px solid lighten(@gray-lighter, 5%);
             }
             ul {
+                display: none;
+                @media screen and (min-width: @screen-md-min) {
+                    display: block;
+                }
                 li {
                     margin: 0 0 10px 10px;
                     a {
@@ -65,6 +69,7 @@
             }
         }
         .sidebar-ask-help {
+            font-size: 15px;
             margin-top: 10px;
             white-space: normal;
             width: 100%;
@@ -75,10 +80,10 @@
             margin-bottom: 20px;
         }
     }
-    .feedback {
-        margin: 50px 0;
-        @media screen and (min-width: @screen-sm-min) {
-            margin: 0; 
+    .sidebar-feedback {
+        display: none;
+        @media screen and (min-width: @screen-md-min) {
+            display: block;
         }
         a {
             background: url('../imgs/applicant-feedback.png') no-repeat top center;
