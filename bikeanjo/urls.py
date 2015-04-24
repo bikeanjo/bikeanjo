@@ -32,12 +32,12 @@ urlpatterns = [
     url(r'^requester/request-help/$',
         front.views.HelpRequestView.as_view(), name='requester_help_request'),
 
-    url(r'^volunteer/register-routes-to-help/$',
-        front.views.TrackRegisterView.as_view(), name='volunteer_register_routes'),
-    url(r'^volunteer/registered-routes/$',
-        front.views.TrackListView.as_view(), name='volunteer_registered_routes'),
-    url(r'^volunteer/register-free-points/$',
-        front.views.PointsRegisterView.as_view(), name='volunteer_register_points'),
+    url(r'^cyclist/register-routes-to-help/$',
+        front.views.TrackRegisterView.as_view(), name='cyclist_register_routes'),
+    url(r'^cyclist/registered-routes/$',
+        front.views.TrackListView.as_view(), name='cyclist_registered_routes'),
+    url(r'^cyclist/register-free-points/$',
+        front.views.PointsRegisterView.as_view(), name='cyclist_register_points'),
 
 
 

@@ -66,7 +66,7 @@ class HelpOfferView(LoginRequiredMixin, FormView):
     template_name = 'bikeanjo_help_offer.html'
 
     def get_success_url(self):
-        return reverse('volunteer_register_routes')
+        return reverse('cyclist_register_routes')
 
     def get_form_kwargs(self):
         kwargs = super(HelpOfferView, self).get_form_kwargs()
@@ -83,7 +83,7 @@ class HelpRequestView(LoginRequiredMixin, FormView):
     template_name = 'requester_ask_help.html'
 
     def get_success_url(self):
-        return reverse('requester_help_request')
+        return reverse('cyclist_register_routes')
 
     def get_form_kwargs(self):
         kwargs = super(HelpRequestView, self).get_form_kwargs()
@@ -96,11 +96,11 @@ class HelpRequestView(LoginRequiredMixin, FormView):
 
 
 class TrackRegisterView(LoginRequiredMixin, FormView):
-    template_name = 'bikeanjo_routes_register_form.html'
+    template_name = 'cyclist_routes_register_form.html'
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        return reverse('volunteer_registered_routes')
+        return reverse('cyclist_registered_routes')
 
     def form_valid(self, form):
         form.save(cyclist=self.request.user.cyclist)
@@ -108,11 +108,11 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
 
 
 class TrackListView(LoginRequiredMixin, FormView):
-    template_name = 'bikeanjo_routes_list.html'
+    template_name = 'cyclist_routes_list.html'
     form_class = forms.TrackReviewForm
 
     def get_success_url(self):
-        return reverse('volunteer_register_points')
+        return reverse('cyclist_register_points')
 
     def get_form_kwargs(self):
         kwargs = super(TrackListView, self).get_form_kwargs()
@@ -125,7 +125,7 @@ class TrackListView(LoginRequiredMixin, FormView):
 
 
 class PointsRegisterView(LoginRequiredMixin, FormView):
-    template_name = 'bikeanjo_free_points.html'
+    template_name = 'cyclist_free_points.html'
     form_class = forms.PointsForm
 
     def get_form_kwargs(self):
@@ -134,7 +134,7 @@ class PointsRegisterView(LoginRequiredMixin, FormView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('volunteer_register_points')
+        return reverse('cyclist_register_points')
 
     def form_valid(self, form):
         form.save()
