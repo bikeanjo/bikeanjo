@@ -27,8 +27,11 @@ urlpatterns = [
     url(r'^requester/signup/complete/$',
         front.views.SignupRequesterView.as_view(), name='requester_account_signup_complete'),
 
-    url(r'^volunteer/help-offer/$',
+    url(r'^volunteer/offer-help/$',
         front.views.HelpOfferView.as_view(), name='volunteer_help_offer'),
+    url(r'^requester/request-help/$',
+        front.views.HelpRequestView.as_view(), name='requester_help_request'),
+
     url(r'^volunteer/register-routes-to-help/$',
         front.views.TrackRegisterView.as_view(), name='volunteer_register_routes'),
     url(r'^volunteer/registered-routes/$',

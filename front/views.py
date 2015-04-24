@@ -49,7 +49,7 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
     template_name = 'requester_complete_signup.html'
 
     def get_success_url(self):
-        return reverse('requester_account_signup_complete')
+        return reverse('requester_help_request')
 
     def get_form_kwargs(self):
         kwargs = super(SignupRequesterView, self).get_form_kwargs()
@@ -76,6 +76,23 @@ class HelpOfferView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super(HelpOfferView, self).form_valid(form)
+
+
+class HelpRequestView(LoginRequiredMixin, FormView):
+    form_class = forms.HelpRequestForm
+    template_name = 'requester_ask_help.html'
+
+    def get_success_url(self):
+        return reverse('requester_help_request')
+
+    def get_form_kwargs(self):
+        kwargs = super(HelpRequestView, self).get_form_kwargs()
+        kwargs['instance'] = self.request.user.cyclist
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super(HelpRequestView, self).form_valid(form)
 
 
 class TrackRegisterView(LoginRequiredMixin, FormView):

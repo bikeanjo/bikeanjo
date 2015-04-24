@@ -1,0 +1,34 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<section class="forms signup container">
+    <header>
+        <h2>Como podemos ajudar?</h2>
+        <p>Escolha a opção em que você precisa da nossa ajuda</p>
+    </header>
+
+    <form class="signup card" id="signup_form" method="post">
+        {% csrf_token %}
+
+        {% if debug %}{{ form.errors }}{% endif %}
+
+        <div class="form-group">
+            {% for code,label in form.get_help_choices %}
+            <button class="btn btn-primary btn-block btn-lg {% if form.help_with.value = code %}active{% endif %}"
+                    value="{{ code }}"
+                    name="help_with"
+                    type="submit">{{ label }}</button>
+            {% endfor %}
+        </div>
+
+    </form>
+
+    <p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
+            Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+</section>
+{% endblock %}

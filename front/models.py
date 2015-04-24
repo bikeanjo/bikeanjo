@@ -16,12 +16,21 @@ CYCLIST_ROLES = (
 )
 
 
-HELP = (
+HELP_OFFER = (
     (1, _('Teach someone to ride a bike')),  # Ensinando alguém a pedalar
     (2, _('Follow beginners on cycling')),  # Acompanhando iniciantes nas pedaladas
     (4, _('Advice about safe routes')),  # Recomendando rotas mais seguras
     (8, _('Participating in the events of Bike Anjos')),  # Participando dos eventos dos Bikes Anjos
 )
+
+HELP_REQUEST = (
+    (16, _('Learn to ride a bike')),  # Aprender a pedalar
+    (32, _('Pratice cycling')),  # Praticar pedaladas
+    (64, _('Monitoring on traffic')),  # Acompanhamento no trânsito
+    (128, _('Route recomendation')),  # Recomendar rota
+)
+
+HELP = HELP_OFFER + HELP_REQUEST
 
 VOLUNTEER_EXPERIENCE = (
     ('less than 1 year', _('Less than 1 year')),
@@ -63,7 +72,11 @@ class Cyclist(models.Model):
         return self.user.__unicode__()
 
     def help_labels(self):
-        return (label for code, label in HELP if self.help_with & code > 0)
+        for code, label in HELP:
+            if self.help_with >= code:
+                break
+            if self.help_with & code:
+                yield label
 
 
 class Track(models.Model):

@@ -177,7 +177,20 @@ class HelpOfferForm(forms.ModelForm):
 
     def get_help_choices(self):
         value = self.instance.help_with
-        for code, label in models.HELP:
+        for code, label in models.HELP_OFFER:
+            yield (code, label, bool(value & code))
+
+    class Meta:
+        model = models.Cyclist
+        fields = ('help_with',)
+
+
+class HelpRequestForm(forms.ModelForm):
+    help_with = forms.IntegerField()
+
+    def get_help_choices(self):
+        value = self.instance.help_with
+        for code, label in models.HELP_REQUEST:
             yield (code, label, bool(value & code))
 
     class Meta:
