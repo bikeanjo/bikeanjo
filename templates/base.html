@@ -25,10 +25,12 @@
                 <h1>bloco content</h1>
             {% endblock %}
         </div>
-        
-        {% if not form %}
-            {% include '_footer.html' %}
-        {% endif %}
+
+        {% block footer %}        
+            {% if not form %}
+                {% include '_footer.html' %}
+            {% endif %}
+        {% endblock %}
         
         {% block js %}
         <script type="text/javascript" src="{% static 'js/vendor.js' %}"></script>

@@ -100,7 +100,9 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        return reverse('cyclist_registered_routes')
+        if self.request.user.cyclist.role == 'volunteer':
+            return reverse('cyclist_registered_routes')
+        return reverse('cyclist_register_points')
 
     def form_valid(self, form):
         form.save(cyclist=self.request.user.cyclist)

@@ -24,10 +24,20 @@
         {% csrf_token %}
         {{ form.as_p }}
 
+        {% if user.cyclist.role == 'volunteer' %}
         <header>
             <h2>Cadastre suas rotas</h2>
             <p>Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'. Essas rotas definirão as localidades onde você poderá atender pedidos.</p>
         </header>
+        {% endif %}
+        
+        {% if user.cyclist.role == 'requester' %}
+        <header>
+            <h2>Qual é a sua rota?</h2>
+            <p>Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a partir dessa informação vamos achar um bike anjo para te ajudar.</p>
+        </header>
+        {% endif %}
+
         <div class="add-route">
             <div class="steps" id="js-addresses">
                 
