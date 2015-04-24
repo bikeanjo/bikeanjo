@@ -5,17 +5,17 @@
        
         <div class="row">
 
-            <aside class="sidebar col-md-3 col-md-offset-1">
+            <aside class="dashboard-sidebar col-sm-4 col-md-3 col-md-offset-1">
                 <div class="card">
                     <header class="profile">
-                        <div class="icon">
+                        <div class="profile-icon">
                             <img src="http://placehold.it/85x85" alt="Nome do Usuário">
                         </div>
-                        <h2 class="name">Fulano</h2>
-                        <p class="city">São Paulo - SP</p>
+                        <h2 class="profile-name">Fulano</h2>
+                        <p class="profile-city">São Paulo - SP</p>
                     </header>
-                    <nav class="dashboard-nav">
-                        <ul class="list-unstyled">
+                    <nav class="sidebar-nav">
+                        <ul class="list-unstyled hidden-xs">
                             <li><a href="#">Pedidos de ajuda
                             <span class="alert bubble">1</span></a></li>
                             <li><a href="#">Recados
@@ -26,16 +26,16 @@
                             <li><a href="#">Editar cadastro</a></li>
                             <li><a href="#">Quero ser um Bike Anjo</a></li>
                         </ul>
-                        <a href="#" class="btn btn-warning">Pedir ajuda para pedalar</a>
+                        <a href="#" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
                     </nav>            
                 </div>
-                <div class="feedback">
-                    <p>Como estamos pedalando?<br>
-                    <span></span></p>
+                <div class="feedback hidden-xs">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
                 </div>
             </aside>
 
-            <section class="content col-md-7">
+            <section class="dashboard-content col-sm-8 col-md-7">
 
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -50,14 +50,85 @@
                     Erro! Sua mensagem não foi enviada, estamos com instabilidade no sistema.
                 </div> 
 
-                <article class="card">
-                    <header><h2>Pedidos de ajuda (1)</h2></header>
-                    Pedido #000
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat. 
-                    <footer>Ver mensagem</footer>
+                <article class="card photo big">
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <img src="http://placehold.it/245x325">
+                        </div>
+                        <h2 class="card-subtitle">Apoie o Bike Anjo</h2>
+                        <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="see-more-link" href="#">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                    </footer>
                 </article>
-            </section>
 
+                <article class="card list">
+                    <header class="card-header negative">
+                        <h2 class="card-title">Pedidos de ajuda (1)</h2>
+                    </header>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> Pedido #000</h3>
+                        <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="see-more-link" href="#">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                    </footer>
+                </article>
+
+                <article class="card list">
+                    <header class="card-header negative">
+                        <h2 class="card-title">Eventos na sua cidade</h2>
+                    </header>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> Pedalada em prol do idoso</h3>
+                        <ul class="card-info event-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> Pedalada em prol do idoso</h3>
+                        <ul class="card-info event-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="see-more-link" href="#">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
+                    </footer>
+                </article>
+
+                <article class="card photo small">
+                    <header class="card-header negative">
+                        <h2 class="card-title">Dicas para pedalar</h2>
+                        <button type="button" class="close refresh" aria-label="Refresh">
+                            <span aria-hidden="true"><i class="fa fa-refresh"></i></span>
+                        </button>
+                    </header>
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <img src="http://placehold.it/245x190">
+                        </div>
+                        <h3 class="card-subtitle"></i> Pedalada em prol do idoso</h3>
+                        <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna.</p>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="see-more-link" href="#">Ver todas as dicas <i class="fa fa-arrow-right"></i></a>
+                    </footer>
+                </article>
+
+                <div class="feedback visible-xs">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
+                </div>
+
+            </section>
 
         </div>
         
