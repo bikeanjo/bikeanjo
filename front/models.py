@@ -80,7 +80,6 @@ class Cyclist(models.Model):
 
 
 class Track(models.Model):
-    cyclist = models.ForeignKey(Cyclist)
     user = models.ForeignKey(User)
     start = models.CharField(max_length=128)
     end = models.CharField(max_length=128)
@@ -101,7 +100,6 @@ class Track(models.Model):
 
 
 class Point(models.Model):
-    cyclist = models.ForeignKey(Cyclist)
     user = models.ForeignKey(User)
     address = models.CharField(max_length=128)
     coords = models.PointField()

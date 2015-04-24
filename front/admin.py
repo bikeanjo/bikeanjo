@@ -52,4 +52,4 @@ class CyclistAdmin(admin.ModelAdmin):
 
 @admin.register(models.Track)
 class TrackAdmin(admin.ModelAdmin):
-    list_display = ('cyclist', 'start', 'end', 'track',)
+    list_display = ('user', 'start', 'end', 'track',)
