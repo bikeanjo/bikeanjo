@@ -98,8 +98,13 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
             return reverse('cyclist_registered_routes')
         return reverse('cyclist_register_points')
 
+    def get_form_kwargs(self):
+        kwargs = super(TrackRegisterView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.save(cyclist=self.request.user.cyclist)
+        form.save()
         return super(TrackRegisterView, self).form_valid(form)
 
 
@@ -112,11 +117,11 @@ class TrackListView(LoginRequiredMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super(TrackListView, self).get_form_kwargs()
-        kwargs['cyclist'] = self.request.user.cyclist
+        kwargs['user'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
-        form.save(cyclist=self.request.user.cyclist)
+        form.save()
         return super(TrackListView, self).form_valid(form)
 
 
@@ -126,7 +131,7 @@ class PointsRegisterView(LoginRequiredMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super(PointsRegisterView, self).get_form_kwargs()
-        kwargs['cyclist'] = self.request.user.cyclist
+        kwargs['user'] = self.request.user
         return kwargs
 
     def get_success_url(self):

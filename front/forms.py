@@ -12,6 +12,10 @@ class TrackForm(forms.Form):
     tracks = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                              required=False)
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(TrackForm, self).__init__(*args, **kwargs)
+
     def clean_tracks(self):
         if not self.cleaned_data.get('tracks'):
             return []
@@ -38,9 +42,9 @@ class TrackForm(forms.Form):
         except ValueError, e:
             raise forms.ValidationError(e.message)
 
-    def save(self, cyclist):
+    def save(self):
             for track in self.cleaned_data['tracks']:
-                track.cyclist = cyclist
+                track.user = self.user
                 track.save()
             return self.cleaned_data['tracks']
 
@@ -48,19 +52,18 @@ class TrackForm(forms.Form):
 class TrackReviewForm(TrackForm):
 
     def __init__(self, *args, **kwargs):
-        self.cyclist = kwargs.pop('cyclist', None)
         super(TrackReviewForm, self).__init__(*args, **kwargs)
         self['tracks'].field.initial = self.load_tracks()
 
     def load_tracks(self):
-        tracks = models.Track.objects.filter(cyclist=self.cyclist)
+        tracks = models.Track.objects.filter(user=self.user)
         return json.dumps([t.json() for t in tracks])
 
-    def save(self, cyclist):
-        tracks = super(TrackReviewForm, self).save(cyclist=cyclist)
+    def save(self):
+        tracks = super(TrackReviewForm, self).save()
         do_no_delete = (t.id for t in tracks)
         models.Track.objects\
-            .filter(cyclist=cyclist)\
+            .filter(user=self.user)\
             .exclude(id__in=do_no_delete)\
             .delete()
         return tracks
@@ -71,7 +74,7 @@ class PointsForm(forms.Form):
                              required=False)
 
     def __init__(self, *args, **kwargs):
-        self.cyclist = kwargs.pop('cyclist', None)
+        self.user = kwargs.pop('user', None)
         super(PointsForm, self).__init__(*args, **kwargs)
         self['points'].field.initial = self.load_points()
 
@@ -102,12 +105,12 @@ class PointsForm(forms.Form):
 
     def save(self):
         for point in self.cleaned_data['points']:
-            point.cyclist = self.cyclist
+            point.user = self.user
             point.save()
         return self.cleaned_data['points']
 
     def load_points(self):
-        points = models.Point.objects.filter(cyclist=self.cyclist)
+        points = models.Point.objects.filter(user=self.user)
         return json.dumps([p.json() for p in points])
 
 
