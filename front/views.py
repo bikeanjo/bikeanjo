@@ -8,12 +8,6 @@ import allauth.account.views
 import forms
 
 
-def firstof(*args):
-    for arg in args:
-        if arg:
-            return arg
-
-
 class SignupView(allauth.account.views.SignupView):
     def get_success_url(self):
         if self.kwargs.get('role') == 'volunteer':
