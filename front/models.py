@@ -56,7 +56,19 @@ BIKE_USE = (
 )
 
 
-class Cyclist(models.Model):
+class BaseModel(models.Model):
+    """
+    All models here should extends this. All models will have
+    the created_date and modified_date properties
+    """
+    created_date = models.DateTimeField(_('created date'), auto_now_add=True, editable=False)
+    modified_date = models.DateTimeField(_('modified date'), auto_now=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+
+class Cyclist(BaseModel):
     user = models.OneToOneField(User)
     country = models.CharField(max_length=32, blank=True)
     city = models.CharField(max_length=32, blank=True)
@@ -79,7 +91,7 @@ class Cyclist(models.Model):
                 yield label
 
 
-class Track(models.Model):
+class Track(BaseModel):
     user = models.ForeignKey(User)
     start = models.CharField(max_length=128)
     end = models.CharField(max_length=128)
@@ -99,7 +111,7 @@ class Track(models.Model):
         return d
 
 
-class Point(models.Model):
+class Point(BaseModel):
     user = models.ForeignKey(User)
     address = models.CharField(max_length=128)
     coords = models.PointField()
