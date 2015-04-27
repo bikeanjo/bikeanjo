@@ -20,7 +20,9 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(auto_now_add=True, verbose_name='created date')),
                 ('modified_date', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('help_with', models.IntegerField(default=0)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('status', models.CharField(default=b'new', max_length=16, choices=[(b'new', 'New'), (b'assigned', 'Assigned'), (b'canceled', 'Canceled'), (b'attended', 'Attended')])),
+                ('requester', models.ForeignKey(related_name='helprequested_set', to=settings.AUTH_USER_MODEL)),
+                ('volunteer', models.ForeignKey(related_name='helpvolunteered_set', to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
                 'abstract': False,

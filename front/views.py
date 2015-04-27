@@ -21,6 +21,17 @@ class SignupView(allauth.account.views.SignupView):
         return response
 
 
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+
+class DashBoardView(LoginRequiredMixin, TemplateView):
+    def get_template_names(self):
+        if self.request.user.cyclist.role == 'volunteer':
+            return ['requester_dashboard.html']
+        return ['requester_dashboard.html']
+
+
 class SignupVolunteerView(LoginRequiredMixin, FormView):
     form_class = forms.SignupVolunteerForm
     template_name = 'bikeanjo_complete_signup.html'
@@ -140,7 +151,3 @@ class PointsRegisterView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super(PointsRegisterView, self).form_valid(form)
-
-
-class HomeView(TemplateView):
-    template_name = 'home.html'

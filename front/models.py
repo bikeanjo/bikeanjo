@@ -91,9 +91,33 @@ class Cyclist(BaseModel):
                 yield label
 
 
+class HelpStatusQuerySet(models.QuerySet):
+    def new(self):
+        return self.filter(status='new')
+
+    def assigned(self):
+        return self.filter(status='assigned')
+
+    def canceled(self):
+        return self.filter(status='canceled')
+
+    def attended(self):
+        return self.filter(status='attended')
+
+
 class HelpRequest(BaseModel):
-    user = models.OneToOneField(User)
-    help_with = models.IntegerField(default=0)  # choices=HELP
+    STATUS = (
+        ('new', _('New')),
+        ('assigned', _('Assigned')),
+        ('canceled', _('Canceled')),
+        ('attended', _('Attended')),
+    )
+    requester = models.ForeignKey(User, related_name='helprequested_set')
+    volunteer = models.ForeignKey(User, related_name='helpvolunteered_set', null=True)
+    help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
+    status = models.CharField(max_length=16, choices=STATUS, default=STATUS[0][0])
+
+    objects = HelpStatusQuerySet.as_manager()
 
     def help_labels(self):
         for code, label in HELP:

@@ -199,7 +199,7 @@ class HelpRequestForm(forms.ModelForm):
     def save(self, **kwargs):
         instance = super(HelpRequestForm, self).save(**kwargs)
         models.HelpRequest.objects.create(
-            user=user.instance.user,
+            requester=user.instance.user,
             help_with=instance.help_with
         )
 
