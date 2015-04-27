@@ -83,27 +83,33 @@
             padding: 20px;
         }
     }
-    .close {
+    .card-button {
+        color: @brand-gray;
         font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
         margin: 15px 15px 0 0;
-        opacity: 0.9;
         position: absolute;
         right: 0;
         top: 0;
+        &:hover,
+        &:focus {
+            cursor: pointer;
+        }
     }
-    .refresh {
-        color: #fff;
-        position: absolute;
-        right: 0;
-        text-shadow: none;
-        top: 0;
+    button.card-button {
+        -webkit-appearance: none;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        padding: 0;
     }
     .card-header {
         border-radius: 3px 3px 0 0;
         position: relative;
         &.negative {
             background-color: @brand-gray;
-            .card-title {  
+            .card-button, .card-title {  
                 color: #fff;
             }
         }
@@ -129,12 +135,34 @@
         color: #000;
         overflow: hidden;
         width: 100%;
+        &.old {
+            .card-subtitle {
+                color: @gray-darker;
+            }  
+        }
+        &.finished {
+            .card-subtitle {
+                color: @gray-darker;
+                .fa {
+                    color: @brand-green;
+                }
+            } 
+
+        }
+        &.canceled  {
+            .card-subtitle {
+                color: @gray-darker;
+                .fa {
+                    color: @brand-red;
+                }
+            } 
+        }
     }
     .card-info {
         font-size: 16px;
         font-weight: 300;
         margin-top: 5px;
-        &.event-info {
+        &.list-info {
             li {
                 border-right: 1px solid @gray;
                 float: left;
