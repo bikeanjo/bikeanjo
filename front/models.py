@@ -91,6 +91,18 @@ class Cyclist(BaseModel):
                 yield label
 
 
+class HelpRequest(BaseModel):
+    user = models.OneToOneField(User)
+    help_with = models.IntegerField(default=0)  # choices=HELP
+
+    def help_labels(self):
+        for code, label in HELP:
+            if self.help_with >= code:
+                break
+            if self.help_with & code:
+                yield label
+
+
 class Track(BaseModel):
     user = models.ForeignKey(User)
     start = models.CharField(max_length=128)

@@ -196,6 +196,13 @@ class HelpRequestForm(forms.ModelForm):
         for code, label in models.HELP_REQUEST:
             yield (code, label, bool(value & code))
 
+    def save(self, **kwargs):
+        instance = super(HelpRequestForm, self).save(**kwargs)
+        models.HelpRequest.objects.create(
+            user=user.instance.user,
+            help_with=instance.help_with
+        )
+
     class Meta:
         model = models.Cyclist
         fields = ('help_with',)
