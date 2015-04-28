@@ -71,9 +71,6 @@
     }
     &.list {
         .card-info {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             @media screen and (min-width: @screen-xs-min) {
                 margin-left: 35px;
             }
@@ -260,6 +257,11 @@
             }
 
         }
+    }
+    .card-excerpt {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .card-footer {
         .see-more-link {
