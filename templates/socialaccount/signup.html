@@ -6,24 +6,9 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<div class="signup container">
-    <div class="col-sm-8">
-        <h2>{% trans "Sign Up" %}</h2>
+    <section class="forms signup container">
 
-        <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
-            {% csrf_token %}
-
-            {% include '_signup_inner_form.html' %}
+        {% include '_signup_inner_form.html' with action='socialaccount_signup' sociallogin=True %}
         
-            <div class="pull-right">
-                <button class="btn btn-success btn-lg" type="submit">{% trans "Sign Up" %} &raquo;</button>
-            </div></br></br></br>
-
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
-        </form>
-    </div>
-</div>
-
+    </section>
 {% endblock %}

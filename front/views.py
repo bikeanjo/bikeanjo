@@ -9,6 +9,10 @@ import forms
 
 
 class SignupView(allauth.account.views.SignupView):
+    def get(self, request, **kwargs):
+        request.session['user_role'] = self.kwargs.get('role')
+        return super(SignupView, self).get(request, **kwargs)
+
     def get_success_url(self):
         if self.kwargs.get('role') == 'volunteer':
             return reverse('volunteer_account_signup_complete')
@@ -16,8 +20,8 @@ class SignupView(allauth.account.views.SignupView):
 
     def form_valid(self, form):
         response = super(SignupView, self).form_valid(form)
-        self.request.user.cyclist.role = self.kwargs.get('role')
-        self.request.user.cyclist.save()
+        self.request.user.role = self.kwargs.get('role')
+        self.request.user.save()
         return response
 
 
@@ -27,7 +31,7 @@ class HomeView(TemplateView):
 
 class DashBoardView(LoginRequiredMixin, TemplateView):
     def get_template_names(self):
-        if self.request.user.cyclist.role == 'volunteer':
+        if self.request.user.role == 'volunteer':
             return ['requester_dashboard.html']
         return ['requester_dashboard.html']
 
@@ -41,7 +45,7 @@ class SignupVolunteerView(LoginRequiredMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super(SignupVolunteerView, self).get_form_kwargs()
-        kwargs['instance'] = self.request.user.cyclist
+        kwargs['instance'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -58,7 +62,7 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super(SignupRequesterView, self).get_form_kwargs()
-        kwargs['instance'] = self.request.user.cyclist
+        kwargs['instance'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -75,7 +79,7 @@ class HelpOfferView(LoginRequiredMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super(HelpOfferView, self).get_form_kwargs()
-        kwargs['instance'] = self.request.user.cyclist
+        kwargs['instance'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -92,7 +96,7 @@ class HelpRequestView(LoginRequiredMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super(HelpRequestView, self).get_form_kwargs()
-        kwargs['instance'] = self.request.user.cyclist
+        kwargs['instance'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
@@ -105,7 +109,7 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        if self.request.user.cyclist.role == 'volunteer':
+        if self.request.user.role == 'volunteer':
             return reverse('cyclist_registered_routes')
         return reverse('cyclist_register_points')
 

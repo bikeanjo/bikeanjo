@@ -2,12 +2,12 @@
 
 {% load i18n %}
 {% load account %}
-{% load url from future %}
+{% load socialaccount %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-    
+    {% providers_media_js %}    
     <section class="forms login container">
         <header>
             <h2>Vamos pedalar?</h2>
@@ -15,12 +15,18 @@
         </header>
         <form class="card" method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
+
+
             
             <fieldset>
                 <legend>Faça seu login usando</legend>
                 {# include "socialaccount/snippets/provider_list.html" with process="login" #}
                 <div class="login-social">
-                    <a href="#" class="facebook btn btn-default"><i class="fa fa-facebook"></i>Facebook</a>
+                    {% for provider in socialaccount.providers %}
+                    <a title="{{provider.name}}" class="{{provider.id}} btn btn-default" 
+                       href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
+                       >{{provider.name}}</a>
+                    {% endfor %}
                     <a href="#" class="google btn btn-default"><i class="fa fa-google-plus"></i></i>Google</a>
                     <a href="#" class="twitter btn btn-default"><i class="fa fa-twitter"></i>Twitter</a>
                 </div>

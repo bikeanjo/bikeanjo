@@ -22,14 +22,14 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        {% if user.cyclist.role == 'volunteer' %}
+        {% if user.role == 'volunteer' %}
         <header>
             <h2>Quer marcar pontos avulsos?</h2>
             <p>Quer marcar outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido?</p>
         </header>
         {% endif %}
 
-        {% if user.cyclist.role == 'requester' %}
+        {% if user.role == 'requester' %}
         <header>
             <h2>Onde pode pedalar?</h2>
             <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>

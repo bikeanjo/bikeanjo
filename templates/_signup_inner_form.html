@@ -1,9 +1,12 @@
+{% load socialaccount %}
+{% providers_media_js %}
+
 <header>
     <h2>Cadastre-se agora!</h2>
     <p>Junte-se a uma comunidade que acredita na transformação por meio da bicicleta</p>
 </header>
 
-<form class="signup card" id="signup_form" method="post" >
+<form class="signup card" id="signup_form" method="post" {% if action %}action="{% url action %}"{% endif %}>
     {% csrf_token %}
 
     {% if form.errors and debug %}
@@ -12,17 +15,34 @@
     </div>
     {% endif %}
 
+    {% if request.session.user_role == 'volunteer' %}
+    <input type="hidden" name="next" value="{% url 'volunteer_account_signup_complete' %}" />
+    {% endif %}
+
+    {% if request.session.user_role == 'requester' %}
+    <input type="hidden" name="next" value="{% url 'requester_account_signup_complete' %}" />
+    {% endif %}
+
+    {% if not sociallogin %}
     <fieldset>
         <legend>Crie sua conta usando</legend>
         {# include "socialaccount/snippets/provider_list.html" with process="login" #}
         <div class="login-social">
-            <a href="#" class="facebook btn btn-default"><i class="fa fa-facebook"></i>Facebook</a>
+            {% for provider in socialaccount.providers %}
+             <a title="{{provider.name}}" class="{{provider.id}} btn btn-default" 
+                href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
+                ><i class="fa fa-{{provider.id}}"></i>{{provider.name}}</a>
+            {% endfor %}
             <a href="#" class="google btn btn-default"><i class="fa fa-google-plus"></i></i>Google</a>
             <a href="#" class="twitter btn btn-default"><i class="fa fa-twitter"></i>Twitter</a>
         </div>
     </fieldset>
-    <fieldset>
+    {% endif %}
+
+    <fieldset {% if sociallogin %}style="border:none"{% endif %}>
+        {% if not sociallogin %}
         <legend>ou crie uma conta com seu e-mail</legend>
+        {% endif %}
         <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
             <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
             <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
@@ -113,7 +133,6 @@
     </fieldset>
 
     <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Cadastre-se</button>
-
     <p class="create-account">Já faz parte? <a href="{{ login_url }}">Faça o login</a></p>
 
 </form>

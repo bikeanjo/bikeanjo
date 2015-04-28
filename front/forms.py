@@ -5,6 +5,9 @@ import json
 from django.contrib.gis import forms
 from django.contrib.gis.geos import LineString, Point
 
+from allauth import app_settings
+from allauth.account.utils import user_field
+
 import models
 
 
@@ -114,7 +117,7 @@ class PointsForm(forms.Form):
         return json.dumps([p.json() for p in points])
 
 
-class SignupForm(forms.Form):
+class SignupForm(forms.ModelForm):
     """
     This form will be wrapped by django-allauth. It will receive two password
     fields when user uses the standard signup view. In social signup, these
@@ -122,35 +125,30 @@ class SignupForm(forms.Form):
     """
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-
     country = forms.CharField(max_length=32, required=False)
     city = forms.CharField(max_length=32, required=False)
 
-    def __init__(self, *argz, **kwargz):
-        super(SignupForm, self).__init__(*argz, **kwargz)
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        self.populate_initial_fields_if_sociallogin(*args, **kwargs)
 
+    def populate_initial_fields_if_sociallogin(self, *args, **kwargs):
         if hasattr(self, 'sociallogin'):
-            extra = self.sociallogin.account.extra_data
-
-            # facebook birthday is month/day/year
-            match = re.match('^(\d\d)/(\d\d)/(\d\d\d\d)$', extra.get('birthday'))
-            if match:
-                self['birthday'].value = '{1}/{0}/{2}'.format(*match.groups())
-
-            self['gender'].value = extra.get('gender')
+            user = self.sociallogin.user
+            for key, field in self.fields.items():
+                field.initial = getattr(user, key, '')
+        return self
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.city = self.cleaned_data['city']
+        user.country = self.cleaned_data['country']
         user.save()
 
-        cyclist = models.Cyclist()
-        cyclist.user = user
-        cyclist.city = self.cleaned_data['city']
-        cyclist.country = self.cleaned_data['country']
-        cyclist.save()
-
-        user.cyclist = cyclist
+    class Meta:
+        model = models.User
+        fields = ('first_name', 'last_name', 'email', 'country', 'city',)
 
 
 class SignupVolunteerForm(forms.ModelForm):
@@ -161,7 +159,7 @@ class SignupVolunteerForm(forms.ModelForm):
     initiatives = forms.CharField(required=False, max_length=256)
 
     class Meta:
-        model = models.Cyclist
+        model = models.User
         fields = ('gender', 'birthday', 'ride_experience', 'bike_use', 'initiatives')
 
 
@@ -171,7 +169,7 @@ class SignupRequesterForm(forms.ModelForm):
     ride_experience = forms.ChoiceField(choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
-        model = models.Cyclist
+        model = models.User
         fields = ('gender', 'birthday', 'ride_experience')
 
 
@@ -184,7 +182,7 @@ class HelpOfferForm(forms.ModelForm):
             yield (code, label, bool(value & code))
 
     class Meta:
-        model = models.Cyclist
+        model = models.User
         fields = ('help_with',)
 
 
@@ -204,5 +202,5 @@ class HelpRequestForm(forms.ModelForm):
         )
 
     class Meta:
-        model = models.Cyclist
+        model = models.User
         fields = ('help_with',)

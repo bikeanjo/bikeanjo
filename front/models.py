@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 from datetime import datetime, date
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -68,8 +68,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Cyclist(BaseModel):
-    user = models.OneToOneField(User)
+class User(AbstractUser):
     country = models.CharField(max_length=32, blank=True)
     city = models.CharField(max_length=32, blank=True)
     gender = models.CharField(max_length=24, blank=True)
@@ -79,9 +78,6 @@ class Cyclist(BaseModel):
     help_with = models.IntegerField(default=0)  # choices=HELP
     initiatives = models.CharField(max_length=256, blank=True)
     role = models.CharField(choices=CYCLIST_ROLES, max_length=32, blank=True)
-
-    def __unicode__(self):
-        return self.user.__unicode__()
 
     def help_labels(self):
         for code, label in HELP:
