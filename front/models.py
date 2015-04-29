@@ -79,6 +79,13 @@ class User(AbstractUser):
     initiatives = models.CharField(max_length=256, blank=True)
     role = models.CharField(choices=CYCLIST_ROLES, max_length=32, blank=True)
 
+    def get_avatar_url(self):
+        social = self.socialaccount_set.first()
+        if social:
+            return social.get_avatar_url()
+        # TODO: avatar field
+        return 'http://placehold.it/85x85'
+
     def help_labels(self):
         for code, label in HELP:
             if self.help_with >= code:

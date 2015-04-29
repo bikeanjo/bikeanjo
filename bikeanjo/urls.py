@@ -40,7 +40,7 @@ urlpatterns = [
         front.views.PointsRegisterView.as_view(), name='cyclist_register_points'),
 
     url(r'^dashboard/$',
-        front.views.DashBoardView.as_view(), name='cyclist_register_points'),
+        front.views.DashBoardView.as_view(), name='cyclist_dashboard'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
