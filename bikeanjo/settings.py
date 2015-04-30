@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
     'front',
 )
 
@@ -144,10 +146,13 @@ SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email', 'publish_stream', 'user_birthday',
                   'user_location', 'public_profile'],
-        # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'METHOD': 'js_sdk',  # 'oauth2',
+        'METHOD': 'js_sdk',
         'VERIFIED_EMAIL': False
-    }
+    },
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'}
+    },
 }
 
 LOGIN_REDIRECT_URL = '/'

@@ -125,8 +125,8 @@ class SignupForm(forms.ModelForm):
     """
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-    country = forms.CharField(max_length=32, required=False)
-    city = forms.CharField(max_length=32, required=False)
+    country = forms.CharField(max_length=32)
+    city = forms.CharField(max_length=32)
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)

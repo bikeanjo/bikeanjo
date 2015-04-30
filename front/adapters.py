@@ -35,7 +35,7 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         extra = sociallogin.account.extra_data
         user = sociallogin.user
 
-        user.birthday = FACEBOOK_DATE_PARSER.parse_date(extra.get('birthday'))
+        user.birthday = FACEBOOK_DATE_PARSER.parse_date(extra.get('birthday', ''))
         user.gender = extra.get('gender', '')
         user.role = request.session.pop('user_role')
 
