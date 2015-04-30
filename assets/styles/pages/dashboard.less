@@ -85,7 +85,6 @@
             }
             .btn {
                 margin-top: 20px;
-                padding: 7px 30px 6px;
             }
         }
         .old-messages {
@@ -104,7 +103,7 @@
             display: block;
         }
         a {
-            background: url('../imgs/applicant-feedback.png') no-repeat top center;
+            background: url('../imgs/icon-bike-orange.png') no-repeat top center;
             color: @gray;
             display: block;
             padding-top: 45px;
@@ -145,12 +144,60 @@
             }
         }
     }
+    .finish-request-modal {
+        padding: 0 !important; 
+        .modal-dialog {
+            height: 440px;
+            margin: 10px auto 0;
+            max-width: 440px;
+            text-align: center;
+            @media screen and (min-width: @screen-xs-min) {
+                margin-left: -220px;
+                margin-top: -220px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+            }
+        }
+        .modal-header {
+            border: 0;
+            padding-bottom: 0;
+            .modal-title {
+                color: @brand-orange;
+                font-weight: 600;
+                margin-top: 20px;
+                text-align: center;
+
+            }
+        }
+        .request-rating {
+            li {
+                background-size: contain;
+                cursor: pointer;
+                height: 25px;
+                width: 44px;
+                @media screen and (min-width: @screen-xs-min) {
+                    height: 36px;
+                    width: 64px;
+                }
+            }
+            .on {
+                background-image: url('../imgs/ico-bike-orange.png');
+            }
+            .off {
+                background-image: url('../imgs/ico-bike-gray.png');
+            }
+        }
+        textarea {
+            margin-bottom: 20px;
+        }
+    }
 }
 
 .dashboard {
     &.requester {
         .profile {
-            background-image: url('../imgs/applicant-profile-header.png');
+            background-image: url('../imgs/requester-profile-header.png');
         }
         .alert {
             &.bubble {
