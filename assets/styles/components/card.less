@@ -263,6 +263,16 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+    .card-buttons {
+        margin-top: 10px;
+        .btn {
+            margin: 10px 10px 0 0;
+            width: 100%;
+            @media screen and (min-width: @screen-sm-min) {
+                width: initial;
+            }
+        }
+    }
     .card-footer {
         .see-more-link {
             display: block;
