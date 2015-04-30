@@ -298,13 +298,18 @@
     }
     .request-finished {
         color: @brand-green;
+    }
+    .request-canceled {
+        color: @brand-red;
+    }
+    .request-finished, .request-canceled {
         .fa {
             font-size: 20px;
             margin-right: 5px;
             vertical-align: text-top;
         }
     }
-    .label-finished {
+    .label-finished, .label-canceled  {
         float: right;
         font-size: 16px;
         text-transform: uppercase;
