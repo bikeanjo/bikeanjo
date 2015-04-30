@@ -197,7 +197,12 @@
 .dashboard {
     &.requester {
         .profile {
-            background-image: url('../imgs/requester-profile-header.png');
+            background-image: url('../imgs/requester-profile-header.jpg');
+        }
+        .sidebar-feedback {
+            a {
+                background: url('../imgs/icon-bike-orange.png') no-repeat top center;
+            }
         }
         .alert {
             &.bubble {
@@ -210,6 +215,29 @@
         .card-footer {
             .see-more-link {
                 color: @brand-orange;
+            }
+        }
+    }
+    &.bikeangel {
+        .profile {
+            background-image: url('../imgs/bikeangel-profile-header.jpg');
+        }
+        .sidebar-feedback {
+            a {
+                background: url('../imgs/icon-bike-blue.png') no-repeat top center;
+            }
+        }
+        .alert {
+            &.bubble {
+                background-color: @brand-blue;
+            }
+        }
+        .card-subtitle {
+            color: @brand-blue;
+        }
+        .card-footer {
+            .see-more-link {
+                color: @brand-blue;
             }
         }
     }
