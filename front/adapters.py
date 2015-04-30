@@ -23,13 +23,29 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
             user.country = match.groupdict().get('country', )
         return user
 
+    def __populate_with_twitter(self, sociallogin, user):
+        extra = sociallogin.account.extra_data
+
+        location = extra.get('location', '')
+        match = FACEBOOK_LOCATION_PATTERN.match(location)
+
+        if match:
+            user.city = match.groupdict().get('city', '')
+            user.country = match.groupdict().get('country', )
+        return user
+
     def populate_user(self, request, sociallogin, data):
         '''
         This is a User instance candidate for Social Signup page
         '''
         user = super(BikeanjoSocialAccountAdapter, self).populate_user(request, sociallogin, data)
-        self.__populate_with_facebook(sociallogin, user)
-        return user
+
+        populator = {
+            'twitter': self.__populate_with_twitter,
+            'facebook': self.__populate_with_facebook,
+        }.get(sociallogin.account.provider, lambda l, u: u)
+
+        return populator(sociallogin, user)
 
     def save_user(self, request, sociallogin, form=None):
         extra = sociallogin.account.extra_data
