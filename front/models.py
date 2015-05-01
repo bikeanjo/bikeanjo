@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import json
 from datetime import datetime, date
+from collections import OrderedDict
 from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 GENDER = (
     ('male', _('Male')),
@@ -95,11 +97,17 @@ class User(AbstractUser):
 
 
 class HelpStatusQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(status__in=['new', 'assigned'])
+
     def new(self):
         return self.filter(status='new')
 
     def assigned(self):
         return self.filter(status='assigned')
+
+    def closed(self):
+        return self.filter(status__in=['canceled', 'attended'])
 
     def canceled(self):
         return self.filter(status='canceled')
@@ -109,18 +117,27 @@ class HelpStatusQuerySet(models.QuerySet):
 
 
 class HelpRequest(BaseModel):
-    STATUS = (
+    STATUS = OrderedDict((
         ('new', _('New')),
         ('assigned', _('Assigned')),
         ('canceled', _('Canceled')),
-        ('attended', _('Attended')),
-    )
+        ('finished', _('Finished')),
+    ))
+    HELP_OPTIONS = dict(HELP_REQUEST)
+
     requester = models.ForeignKey(User, related_name='helprequested_set')
     volunteer = models.ForeignKey(User, related_name='helpvolunteered_set', null=True)
     help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
-    status = models.CharField(max_length=16, choices=STATUS, default=STATUS[0][0])
+    status = models.CharField(max_length=16, choices=STATUS.items(), default='new')
+    last_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
 
     objects = HelpStatusQuerySet.as_manager()
+
+    def has_updates(self):
+        return self.last_access < self.modified_date
+
+    def get_help_label(self):
+        return HelpRequest.HELP_OPTIONS.get(self.help_with, '')
 
     def help_labels(self):
         for code, label in HELP:

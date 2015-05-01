@@ -3,9 +3,47 @@ from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 from django.views.generic import FormView, TemplateView
+from django.views.generic.list import ListView
 
 import allauth.account.views
 import forms
+import models
+
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+#
+# Views for Dashboard
+#
+
+
+class DashBoardView(LoginRequiredMixin, TemplateView):
+    def get_template_names(self):
+        if self.request.user.role == 'volunteer':
+            return ['requester_dashboard.html']
+        return ['requester_dashboard.html']
+
+
+class RequesterRequestsListView(LoginRequiredMixin, ListView):
+    template_name = 'requester_dashboard_requests.html'
+    model = models.HelpRequest
+    paginate_by = 10
+
+    def get_queryset(self):
+        qs = super(RequesterRequestsListView, self).get_queryset()
+        qs = qs.filter(requester=self.request.user)
+
+        status = self.request.GET.get('status')
+        if status in models.HelpRequest.STATUS:
+            qs = qs.filter(status=status)
+
+        return qs
+
+
+#
+# Views to register user and his role
+#
 
 
 class SignupView(allauth.account.views.SignupView):
@@ -23,17 +61,6 @@ class SignupView(allauth.account.views.SignupView):
         self.request.user.role = self.kwargs.get('role')
         self.request.user.save()
         return response
-
-
-class HomeView(TemplateView):
-    template_name = 'home.html'
-
-
-class DashBoardView(LoginRequiredMixin, TemplateView):
-    def get_template_names(self):
-        if self.request.user.role == 'volunteer':
-            return ['requester_dashboard.html']
-        return ['requester_dashboard.html']
 
 
 class SignupVolunteerView(LoginRequiredMixin, FormView):
@@ -70,6 +97,11 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
         return super(SignupRequesterView, self).form_valid(form)
 
 
+#
+# Views to get cyclist info
+#
+
+
 class HelpOfferView(LoginRequiredMixin, FormView):
     form_class = forms.HelpOfferForm
     template_name = 'bikeanjo_help_offer.html'
@@ -102,6 +134,11 @@ class HelpRequestView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super(HelpRequestView, self).form_valid(form)
+
+
+#
+# Views to register tracks and places
+#
 
 
 class TrackRegisterView(LoginRequiredMixin, FormView):
@@ -150,7 +187,7 @@ class PointsRegisterView(LoginRequiredMixin, FormView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('cyclist_register_points')
+        return reverse('cyclist_dashboard')
 
     def form_valid(self, form):
         form.save()

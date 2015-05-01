@@ -41,6 +41,8 @@ urlpatterns = [
 
     url(r'^dashboard/$',
         front.views.DashBoardView.as_view(), name='cyclist_dashboard'),
+    url(r'^dashboard/my-requests/$',
+        front.views.RequesterRequestsListView.as_view(), name='cyclist_my_requests'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
