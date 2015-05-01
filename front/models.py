@@ -147,6 +147,19 @@ class HelpRequest(BaseModel):
                 yield label
 
 
+class HelpReply(BaseModel):
+    INTENTION = (
+        ('answer', _('Answer')),
+        ('finish', _('Finish')),
+        ('cancel', _('Cancel')),
+    )
+    author = models.ForeignKey(User)
+    helprequest = models.ForeignKey(HelpRequest)
+    message = models.TextField(_('message'))
+    intention = models.CharField(_('intention'), max_length=16,
+                                 choices=INTENTION, default='answer')
+
+
 class Track(BaseModel):
     user = models.ForeignKey(User)
     start = models.CharField(max_length=128)

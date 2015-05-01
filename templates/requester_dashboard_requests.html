@@ -34,11 +34,13 @@
                         </button>
                     </header>
 
-                    {% for help in helprequest_list %}
-                    <div class="card-content {{help.has_updates|yesno:'old,'}} {{ help.status }}">
-                        <h3 class="card-subtitle"><i class="fa {{ help.status|map:'{"finished":"fa-check-circle","canceled":"fa-times-circle"}'|default:'fa-comment' }}"></i> Pedido #{{ help.id|stringformat:'04d' }}</h3>
+                    {% for helprequest in helprequest_list %}
+                    <div class="card-content {{helprequest.has_updates|yesno:'old,'}} {{ helprequest.status }}">
+                        <h3 class="card-subtitle">
+                            <i class="fa {{ helprequest.status|map:'{"finished":"fa-check-circle","canceled":"fa-times-circle"}'|default:'fa-comment' }}"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">Pedido #{{ helprequest.id|stringformat:'04d' }}</a>
+                        </h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>{{ help.created_date|date:'d/m/Y' }}</li>
+                            <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
                             <li>{{ user.city }}</li>
                         </ul>
                     </div>

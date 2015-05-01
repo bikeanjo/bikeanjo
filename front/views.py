@@ -2,7 +2,7 @@
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
 
 import allauth.account.views
@@ -25,13 +25,13 @@ class DashBoardView(LoginRequiredMixin, TemplateView):
         return ['requester_dashboard.html']
 
 
-class RequesterRequestsListView(LoginRequiredMixin, ListView):
+class RequestsListView(LoginRequiredMixin, ListView):
     template_name = 'requester_dashboard_requests.html'
     model = models.HelpRequest
     paginate_by = 10
 
     def get_queryset(self):
-        qs = super(RequesterRequestsListView, self).get_queryset()
+        qs = super(RequestsListView, self).get_queryset()
         qs = qs.filter(requester=self.request.user)
 
         status = self.request.GET.get('status')
@@ -39,6 +39,11 @@ class RequesterRequestsListView(LoginRequiredMixin, ListView):
             qs = qs.filter(status=status)
 
         return qs
+
+
+class RequestDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'requester_dashboard_request.html'
+    model = models.HelpRequest
 
 
 #

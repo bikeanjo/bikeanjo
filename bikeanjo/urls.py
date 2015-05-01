@@ -42,7 +42,9 @@ urlpatterns = [
     url(r'^dashboard/$',
         front.views.DashBoardView.as_view(), name='cyclist_dashboard'),
     url(r'^dashboard/my-requests/$',
-        front.views.RequesterRequestsListView.as_view(), name='cyclist_my_requests'),
+        front.views.RequestsListView.as_view(), name='cyclist_my_requests'),
+    url(r'^dashboard/request/(?P<pk>[1-9]\d*)/$',
+        front.views.RequestDetailView.as_view(), name='cyclist_request_detail'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
