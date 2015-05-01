@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+
+            <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
+                <div class="card">
+                    <header class="profile">
+                        <div class="profile-icon">
+                            <img src="http://placehold.it/85x85" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="profile-name">Fulano</h2>
+                        <p class="profile-city">São Paulo - SP</p>
+                    </header>
+                    <nav class="sidebar-nav">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Meus pedidos
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Recados
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Fórum de discussão</a></li>
+                            <li><a href="#">Dicas para pedalar</a></li>
+                            <li><a href="#">Editar cadastro</a></li>
+                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                        </ul>
+                    </nav>            
+                </div>
+                <div class="sidebar-feedback">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
+                </div>
+            </aside>
+
+            <section class="dashboard-content col-md-7">
+
+                <div class="dashboard-header">
+                    <select class="requests-filter form-control">
+                        <option>Todos os pedidos</option>
+                    </select>
+                    <ul class="requests-label list-inline">
+                        <li><i class="fa fa-user"></i> Pedido Sem Anjo</li>
+                        <li><i class="fa fa-user-plus"></i> Novo Pedido</li>
+                    </ul>
+                </div>
+
+                <article class="card list">
+                    <header class="card-header negative">
+                        <h2 class="card-title">Novos Pedidos (1)</h2>
+                        <button type="button" class="card-button" aria-label="Informações">
+                            <span aria-hidden="true"><i class="fa fa-info-circle"></i></span>
+                        </button>
+                        
+                    </header>
+
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> Pedido #000</h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> Pedido #000</h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> Pedido #000</h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> Pedido #000</h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card requests-w-ba">
+                    <h3><i class="fa fa-user"></i> Pedidos Sem Anjo</h3>
+                    <p>Existem alguns pedidos que foram abandonados pois o bike anjo não conseguiu ajudar ou nossos sistema não conseguiu achar um bike anjo próximo, você pode pegar quantos desses pedidos quiser e ajudar o máximo de pessoas possíveis.</p>
+                    <p class="text-center"><a href="#" class="btn btn-success">Ver pedidos sem anjos</a></p>
+                </article>
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}
