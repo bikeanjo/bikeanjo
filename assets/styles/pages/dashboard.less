@@ -80,9 +80,6 @@
             margin-bottom: 20px;
         }
         .reply {
-            .card-title {
-                color: @brand-orange;
-            }
             .btn {
                 margin-top: 20px;
             }
@@ -112,7 +109,6 @@
             text-transform: uppercase;
         }
         span {
-            color: @brand-orange;
             font-weight: 600;
         }
     }
@@ -163,7 +159,6 @@
             border: 0;
             padding-bottom: 0;
             .modal-title {
-                color: @brand-orange;
                 font-weight: 600;
                 margin-top: 20px;
                 text-align: center;
@@ -197,11 +192,26 @@
 .dashboard {
     &.requester {
         .profile {
-            background-image: url('../imgs/requester-profile-header.png');
+            background-image: url('../imgs/requester-profile-header.jpg');
+        }
+        .sidebar-feedback {
+            a {
+                background: url('../imgs/ico-bike-orange.png') no-repeat top center;
+            }
+            span {
+                color: @brand-orange;
+            }
         }
         .alert {
             &.bubble {
                 background-color: @brand-orange;
+            }
+        }
+        .dashboard-content {
+            .reply {
+                .card-title {
+                    color: @brand-orange;
+                }
             }
         }
         .card-subtitle {
@@ -210,6 +220,53 @@
         .card-footer {
             .see-more-link {
                 color: @brand-orange;
+            }
+        }
+        .finish-request-modal {
+            .modal-header {
+                .modal-title {
+                    color: @brand-orange;
+                }
+            }
+        }
+    }
+    &.bikeangel {
+        .profile {
+            background-image: url('../imgs/bikeangel-profile-header.jpg');
+        }
+        .sidebar-feedback {
+            a {
+                background: url('../imgs/ico-bike-blue.png') no-repeat top center;
+            }
+            span {
+                color: @brand-blue;
+            }
+        }
+        .alert {
+            &.bubble {
+                background-color: @brand-blue;
+            }
+        }
+        .dashboard-content {
+            .reply {
+                .card-title {
+                    color: @brand-blue;
+                }
+            }
+        }
+        .card-subtitle {
+            color: @brand-blue;
+        }
+        .card-footer {
+            .see-more-link {
+                color: @brand-blue;
+            }
+        }
+        .finish-request-modal {
+            .modal-header {
+                .modal-title {
+                    color: @brand-blue;
+                }
             }
         }
     }

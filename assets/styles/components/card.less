@@ -245,6 +245,7 @@
         font-size: 16px;
         font-weight: 300;
         margin-top: 5px;
+        overflow: hidden;
         &.list-info {
             li {
                 border-right: 1px solid @gray;
@@ -310,8 +311,21 @@
         }
     }
     .label-finished, .label-canceled  {
-        float: right;
         font-size: 16px;
+        margin: 10px 0 0 70px;
         text-transform: uppercase;
+        @media screen and (min-width: @screen-sm-min) {
+            float: right;
+            margin: -30px 0 0 0;
+        }
+        @media screen and (min-width: @screen-md-min) {
+            float: none;
+            margin: 10px 0 0 70px;
+        }
+        @media screen and (min-width: @screen-lg-min) {
+            float: right;
+            margin: -30px 0 0 0;
+        }
+
     }
 }
