@@ -159,6 +159,9 @@ class HelpReply(BaseModel):
     intention = models.CharField(_('intention'), max_length=16,
                                  choices=INTENTION, default='answer')
 
+    class Meta:
+        ordering = ['-created_date']
+
 
 class Track(BaseModel):
     user = models.ForeignKey(User)
