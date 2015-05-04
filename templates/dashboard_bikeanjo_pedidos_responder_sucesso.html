@@ -49,8 +49,8 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="text visible-xs">Finalizar</span>
-                                    <span class="text hidden-xs">Finalizar Pedido</span>
+                                    <span class="text visible-xs">Já atendi</span>
+                                    <span class="text hidden-xs">Já atendi o pedido</span>
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             <li><a href="#"><span class="text">Responder</span> <i class="fa fa-reply"></i></a></li> 
@@ -70,20 +70,36 @@
                     </div>
                 </article>
 
-                <article class="card reply">
-                    <button type="button" class="card-button" aria-label="Close">
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-times"></i></span>
                     </button>
+                    Sua resposta foi enviada com sucesso!
+                </div>
+
+                <article class="card old-messages">
                     <header class="card-header">
                         <div class="card-icon">
                             <img src="http://placehold.it/30x30" alt="Nome do Usuário">
                         </div>
                         <h2 class="card-title">Paulo José</h2>
+                        <div class="card-date">00/00/0000</div>
                     </header>
                     <div class="card-content">
-                        <textarea class="form-control" rows="5" placeholder="Enter text"
-                        ></textarea>
-                        <button class="btn btn-success" type="submit">Enviar</button>
+                        <p class="card-info card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                    </div>
+                </article>
+
+                <article class="card old-messages">
+                    <header class="card-header">
+                        <div class="card-icon">
+                            <img src="http://placehold.it/30x30" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="card-title">Paulo José</h2>
+                        <div class="card-date">00/00/0000</div>
+                    </header>
+                    <div class="card-content">
+                        <p class="card-info card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
                     </div>
                 </article>
 
@@ -131,7 +147,7 @@
                     <p>Se você já ajudou esse pedido feche e marque como resolvido.</p>
                     <p><a href="#" class="btn btn-success">Marcar como atendido</a></p>
                 </div>
-                
+
             </section>
 
         </div>
