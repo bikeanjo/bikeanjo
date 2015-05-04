@@ -84,26 +84,43 @@
                 {% for helpreply in helprequest.helpreply_set.all %}
                 <article class="card {% if not forloop.first %}old-messages{% endif %}">
                     <header class="card-header">
-                        <div class="card-icon">
-                            <img src="{{ helpreply.author.get_avatar_url }}"
-                                 width="30" height="30" 
-                                 title="{{ helpreply.author.get_full_name }}"
-                                 alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
-                        </div>
-                        <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
-                        <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:m' }}</div>
+                        {% if helpreply.intention != 'finish' %}
+                            <div class="card-icon">
+                                <img src="{{ helpreply.author.get_avatar_url }}"
+                                     width="30" height="30" 
+                                     title="{{ helpreply.author.get_full_name }}"
+                                     alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
+                            </div>
+                            <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
+                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:m' }}</div>
+                        {% endif %}
+
+                        {% if helpreply.intention == 'finish' %}
+                            <h2 class="card-title request-finished"><i class="fa fa-check-circle"></i> Pedido finalizado pelo Bike Anjo</h2>
+                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:m' }}</div>
+                        {% endif %}
                     </header>
                     <div class="card-content">
                         <p class="card-info">{{ helpreply.message }}</p>
 
-                        {% if forloop.first and helprequest.status != 'finished' %}
-                        <div class="card-buttons">
-                            <button data-toggle="collapse"
-                                    data-target="#helpreply-form"
-                                    class="btn btn-warning">Responder</button>
-                            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
-                            <a href="#" class="btn btn-default">Cancelar Pedido</a>
-                        </div>
+                        {% if forloop.first %}
+                            {% if helprequest.status = 'finished' %}
+                            <div class="card-buttons">
+                                <a href="#" class="btn btn-warning">Pedido foi atendido</a>
+                                <a href="#" class="btn btn-default">Ainda tenho dúvidas</a>
+                                <a href="#" class="btn btn-default">Reportar problema</a>
+                            </div>
+                            {% endif %}
+                            
+                            {% if helprequest.status != 'finished' %}
+                            <div class="card-buttons">
+                                <button data-toggle="collapse"
+                                        data-target="#helpreply-form"
+                                        class="btn btn-warning">Responder</button>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
+                                <a href="#" class="btn btn-default">Cancelar Pedido</a>
+                            </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </article>
