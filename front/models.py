@@ -160,6 +160,15 @@ class HelpReply(BaseModel):
                                  choices=INTENTION, default='answer')
     rating = models.PositiveSmallIntegerField(_('rating'), default=0)
 
+    def save(self, **kwargs):
+        instance = super(HelpReply, self).save(**kwargs)
+
+        if self.intention == 'finish':
+            self.helprequest.status = 'finished'
+            self.helprequest.save()
+
+        return instance
+
     class Meta:
         ordering = ['-created_date']
 

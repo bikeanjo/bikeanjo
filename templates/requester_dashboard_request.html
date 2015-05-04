@@ -12,8 +12,9 @@
 
                 <article class="card request">
                     <header class="card-header negative">
-                        <a href="#" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                        <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                         <ul class="card-actions list-inline">
+                        {% if helprequest.status != 'finished' %}
                             <li>
                                 <a href="#">
                                     <span class="text visible-xs">Cancelar</span>
@@ -22,12 +23,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="#" data-toggle="modal" data-target="#finishRequest">
                                     <span class="text visible-xs">Finalizar</span>
                                     <span class="text hidden-xs">Finalizar Pedido</span>
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
+                        {% endif %}
                             <li>
                                 <a href="#helpreply-form" data-toggle="collapse">
                                     <span class="text">Responder</span>
@@ -39,13 +41,20 @@
 
                     <div class="card-content">
                         <div class="card-icon">
-                            <img src="http://placehold.it/50x50" alt="Nome do Usuário">
+                            <img src="{{ helprequest.requester.get_avatar_url }}"
+                                 width="50" height="50" 
+                                 title="{{ helprequest.requester.get_full_name }}"
+                                 alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
                         </div>
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
                             <li>{{ user.city }}</li>
                         </ul>
+
+                        {% if helprequest.status = 'finished' %}
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
+                        {% endif %}
                     </div>
                 </article>
 
@@ -57,7 +66,10 @@
                             <span aria-hidden="true"><i class="fa fa-times"></i></span>
                         </button>
                         <div class="card-icon">
-                            <img src="http://placehold.it/30x30" alt="Nome do Usuário">
+                            <img src="{{ user.get_avatar_url }}"
+                                 width="30" height="30" 
+                                 title="{{ user.get_full_name }}"
+                                 alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
                         </div>
                         <h2 class="card-title">{{ user.get_full_name }}</h2>
                     </header>
@@ -84,7 +96,7 @@
                     <div class="card-content">
                         <p class="card-info">{{ helpreply.message }}</p>
 
-                        {% if forloop.first %}
+                        {% if forloop.first and helprequest.status != 'finished' %}
                         <div class="card-buttons">
                             <button data-toggle="collapse"
                                     data-target="#helpreply-form"
