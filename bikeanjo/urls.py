@@ -45,6 +45,8 @@ urlpatterns = [
         front.views.RequestsListView.as_view(), name='cyclist_my_requests'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/$',
         front.views.RequestDetailView.as_view(), name='cyclist_request_detail'),
+    url(r'^dashboard/request/(?P<pk>[1-9]\d*)/reply/$',
+        front.views.RequestReplyFormView.as_view(), name='cyclist_request_reply'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),

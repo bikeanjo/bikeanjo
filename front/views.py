@@ -2,6 +2,8 @@
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
 
@@ -46,6 +48,24 @@ class RequestDetailView(LoginRequiredMixin, DetailView):
     model = models.HelpRequest
 
 
+class RequestReplyFormView(LoginRequiredMixin, FormView):
+    form_class = forms.RequestReplyForm
+
+    def get(self, request, **kwargs):
+        return HttpResponseRedirect(redirect_to=self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('cyclist_request_detail', kwargs=self.kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(RequestReplyFormView, self).get_form_kwargs()
+        kwargs['author'] = self.request.user
+        kwargs['helprequest'] = get_object_or_404(models.HelpRequest, **self.kwargs)
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super(RequestReplyFormView, self).form_valid(form)
 #
 # Views to register user and his role
 #

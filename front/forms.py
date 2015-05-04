@@ -204,3 +204,19 @@ class HelpRequestForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ('help_with',)
+
+
+class RequestReplyForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        author = kwargs.pop('author', None)
+        helprequest = kwargs.pop('helprequest', None)
+
+        super(RequestReplyForm, self).__init__(*args, **kwargs)
+
+        self.instance.author = author
+        self.instance.helprequest = helprequest
+
+    class Meta:
+        model = models.HelpReply
+        fields = ('message',)

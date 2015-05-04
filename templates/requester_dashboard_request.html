@@ -49,7 +49,8 @@
                     </div>
                 </article>
 
-                <form class="card reply collapse" method="post" id="helpreply-form">
+                <form class="card reply collapse" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
+                    {% csrf_token %}
                     <header class="card-header">
                         <button type="button" data-toggle="collapse" data-target="#helpreply-form" 
                                 class="card-button" aria-label="Close">
@@ -61,7 +62,7 @@
                         <h2 class="card-title">{{ user.get_full_name }}</h2>
                     </header>
                     <div class="card-content">
-                        <textarea class="form-control" rows="5" placeholder="Enter text"
+                        <textarea class="form-control" name="message" rows="5" placeholder="Enter text"
                         ></textarea>
                         <button class="btn btn-warning" type="submit">Enviar</button>
                     </div>
@@ -80,7 +81,7 @@
                         <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:m' }}</div>
                     </header>
                     <div class="card-content">
-                        <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                        <p class="card-info">{{ helpreply.message }}</p>
 
                         {% if forloop.first %}
                         <div class="card-buttons">
