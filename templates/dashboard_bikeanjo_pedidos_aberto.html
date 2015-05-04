@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+
+            <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
+                <div class="card">
+                    <header class="profile">
+                        <div class="profile-icon">
+                            <img src="http://placehold.it/85x85" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="profile-name">Fulano</h2>
+                        <p class="profile-city">São Paulo - SP</p>
+                    </header>
+                    <nav class="sidebar-nav">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Meus pedidos
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Recados
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Fórum de discussão</a></li>
+                            <li><a href="#">Dicas para pedalar</a></li>
+                            <li><a href="#">Editar cadastro</a></li>
+                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                        </ul>
+                    </nav>            
+                </div>
+                <div class="sidebar-feedback">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
+                </div>
+            </aside>
+
+            <section class="dashboard-content col-md-7">
+
+                <article class="card request">
+                    <header class="card-header negative">
+                        <a href="#" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                        <ul class="card-actions list-inline">
+                            <li>
+                                <a href="#">
+                                    <span class="text visible-xs">Cancelar</span>
+                                    <span class="text hidden-xs">Cancelar Pedido</span>
+                                    <i class="fa fa-times-circle"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="text visible-xs">Já atendi</span>
+                                    <span class="text hidden-xs">Já atendi o pedido</span>
+                                    <i class="fa fa-check-circle"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="text">Responder</span>
+                                    <i class="fa fa-reply"></i>
+                                </a>
+                            </li> 
+                        </ul>
+                    </header>
+
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <img src="http://placehold.it/50x50" alt="Nome do Usuário">
+                        </div>
+                        <h3 class="card-subtitle">Praticar pedaladas</h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>00/00/0000</li>
+                            <li>São Paulo</li>
+                            <li>Evento Gratuito</li>
+                        </ul>
+                    </div>
+                </article>
+
+
+                <article class="card">
+                    <header class="card-header">
+                        <div class="card-icon">
+                            <img src="http://placehold.it/30x30" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="card-title">Paulo José</h2>
+                        <div class="card-date">00/00/0000</div>
+                    </header>
+                    <div class="card-content">
+                        <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                        <div class="card-buttons">
+                            <a href="#" class="btn btn-success">Responder</a>
+                            <a href="#" class="btn btn-default">Já atendi o pedido</a>
+                            <a href="#" class="btn btn-default">Cancelar pedido</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card old-messages">
+                    <header class="card-header">
+                        <div class="card-icon">
+                            <img src="http://placehold.it/30x30" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="card-title">Paulo José</h2>
+                        <div class="card-date">00/00/0000</div>
+                    </header>
+                    <div class="card-content">
+                        <p class="card-info card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                    </div>
+                </article>
+
+                <article class="card old-messages">
+                    <header class="card-header">
+                        <div class="card-icon">
+                            <img src="http://placehold.it/30x30" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="card-title">Paulo José</h2>
+                        <div class="card-date">00/00/0000</div>
+                    </header>
+                    <div class="card-content">
+                        <p class="card-info card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                    </div>
+                </article>
+
+                <article class="card old-messages">
+                    <header class="card-header">
+                        <div class="card-icon">
+                            <img src="http://placehold.it/30x30" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="card-title">Paulo José</h2>
+                        <div class="card-date">00/00/0000</div>
+                    </header>
+                    <div class="card-content">
+                        <p class="card-info card-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                    </div>
+                </article>
+
+                <div class="message">
+                    <h3>Já ajudou esse pedido?</h3>
+                    <p>Se você já ajudou esse pedido feche e marque como resolvido.</p>
+                    <p><a href="#" class="btn btn-success">Marcar como atendido</a></p>
+                </div>
+
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}
