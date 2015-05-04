@@ -66,6 +66,7 @@
                         ></textarea>
                         <button class="btn btn-warning" type="submit">Enviar</button>
                     </div>
+                    <input type="hidden" name="intention" value="answer" />
                 </form>
 
                 {% for helpreply in helprequest.helpreply_set.all %}
@@ -106,17 +107,32 @@
                         <h4 class="modal-title"><i class="fa fa-check-circle"></i> Nos ajude a melhorar, avalie seu atendimento</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Avalie 1 de 5 bikes:</p>
-                        <ul class="list-inline request-rating">
-                            <li class="on"><span class="sr-only">1</span></li>
-                            <li class="off"><span class="sr-only">2</span></li>
-                            <li class="off"><span class="sr-only">3</span></li>
-                            <li class="off"><span class="sr-only">4</span></li>
-                            <li class="off"><span class="sr-only">5</span></li>
-                        </ul>
-                        <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
-                        <textarea class="form-control" rows="5" placeholder="Enter text"></textarea>
-                        <button class="btn btn-warning" type="submit">Enviar avaliação</button>
+                        <form method="post" action="{% url 'cyclist_request_reply' helprequest.id %}">
+                            {% csrf_token %}
+                            <p>Avalie 1 de 5 bikes:</p>
+                            <div class="request-rating">
+                                <label onclick="this.parentElement.className = 'request-rating rating-1'">
+                                    <span class="sr-only"><input type="radio" name="rating" value="1"/>1</span>
+                                </label>
+                                <label onclick="this.parentElement.className = 'request-rating rating-2'">
+                                    <span class="sr-only"><input type="radio" name="rating" value="2"/>2</span>
+                                </label>
+                                <label onclick="this.parentElement.className = 'request-rating rating-3'">
+                                    <span class="sr-only"><input type="radio" name="rating" value="3"/>3</span>
+                                </label>
+                                <label onclick="this.parentElement.className = 'request-rating rating-4'">
+                                    <span class="sr-only"><input type="radio" name="rating" value="4"/>4</span>
+                                </label>
+                                <label onclick="this.parentElement.className = 'request-rating rating-5'">
+                                    <span class="sr-only"><input type="radio" name="rating" value="5"/>5</span>
+                                </label>
+                            </div>
+
+                            <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
+                            <textarea class="form-control" name="message" rows="5" placeholder="Enter text"></textarea>
+                            <input type="hidden" name="intention" value="finish" />
+                            <button class="btn btn-warning" type="submit">Enviar avaliação</button>
+                        </form>
                     </div>
                 </div>
             </div>

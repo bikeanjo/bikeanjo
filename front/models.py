@@ -158,6 +158,7 @@ class HelpReply(BaseModel):
     message = models.TextField(_('message'))
     intention = models.CharField(_('intention'), max_length=16,
                                  choices=INTENTION, default='answer')
+    rating = models.PositiveSmallIntegerField(_('rating'), default=0)
 
     class Meta:
         ordering = ['-created_date']

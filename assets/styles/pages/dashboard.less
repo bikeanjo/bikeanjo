@@ -166,8 +166,9 @@
             }
         }
         .request-rating {
-            li {
+            label {
                 background-size: contain;
+                background-image: url('../imgs/ico-bike-gray.png');
                 cursor: pointer;
                 height: 25px;
                 width: 44px;
@@ -176,12 +177,13 @@
                     width: 64px;
                 }
             }
-            .on {
-                background-image: url('../imgs/ico-bike-orange.png');
-            }
-            .off {
-                background-image: url('../imgs/ico-bike-gray.png');
-            }
+
+            &.rating-1 label:nth-child(-n + 1){ background-image: url('../imgs/ico-bike-orange.png'); } 
+            &.rating-2 label:nth-child(-n + 2){ background-image: url('../imgs/ico-bike-orange.png'); }
+            &.rating-3 label:nth-child(-n + 3){ background-image: url('../imgs/ico-bike-orange.png'); }
+            &.rating-4 label:nth-child(-n + 4){ background-image: url('../imgs/ico-bike-orange.png'); }
+            &.rating-5 label:nth-child(-n + 5){ background-image: url('../imgs/ico-bike-orange.png'); }
+            &.rating-6 label:nth-child(-n + 6){ background-image: url('../imgs/ico-bike-orange.png'); }
         }
         textarea {
             margin-bottom: 20px;

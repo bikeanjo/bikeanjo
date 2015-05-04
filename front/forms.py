@@ -208,6 +208,8 @@ class HelpRequestForm(forms.ModelForm):
 
 class RequestReplyForm(forms.ModelForm):
 
+    rating = forms.IntegerField(required=False)
+
     def __init__(self, *args, **kwargs):
         author = kwargs.pop('author', None)
         helprequest = kwargs.pop('helprequest', None)
@@ -219,4 +221,4 @@ class RequestReplyForm(forms.ModelForm):
 
     class Meta:
         model = models.HelpReply
-        fields = ('message',)
+        fields = ('message', 'intention', 'rating',)
