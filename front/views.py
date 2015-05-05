@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -14,6 +15,11 @@ import models
 
 class HomeView(TemplateView):
     template_name = 'home.html'
+
+    def get(self, request, **kwargs):
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('cyclist_dashboard'))
+        return super(HomeView, self).get(request, **kwargs)
 
 #
 # Views for Dashboard
@@ -74,7 +80,21 @@ class RequestReplyFormView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
+        messages.add_message(self.request, messages.SUCCESS, 'Sua resposta foi enviada com sucesso!')
         return super(RequestReplyFormView, self).form_valid(form)
+
+
+class RequestCloseFormView(LoginRequiredMixin, FormView):
+    form_class = forms.RequestCloseForm
+
+    def get(self, request, **kwargs):
+        return HttpResponseRedirect(redirect_to=self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('cyclist_request_detail', kwargs=self.kwargs)
+
+
+
 #
 # Views to register user and his role
 #

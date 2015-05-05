@@ -222,3 +222,10 @@ class RequestReplyForm(forms.ModelForm):
     class Meta:
         model = models.HelpReply
         fields = ('message', 'intention', 'rating',)
+
+
+class RequestCloseForm(forms.ModelForm):
+
+    class Meta:
+        model = models.HelpRequest
+        fields = ('status',)

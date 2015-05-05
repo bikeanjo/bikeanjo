@@ -14,9 +14,9 @@
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                         <ul class="card-actions list-inline">
-                        {% if helprequest.status != 'finished' %}
+                        {% if helprequest.status != 'attended' %}
                             <li>
-                                <a href="#">
+                                <a href="#" data-toggle="modal" data-target="#cancelRequest">
                                     <span class="text visible-xs">Cancelar</span>
                                     <span class="text hidden-xs">Cancelar Pedido</span>
                                     <i class="fa fa-times-circle"></i>
@@ -52,18 +52,20 @@
                             <li>{{ user.city }}</li>
                         </ul>
 
-                        {% if helprequest.status = 'finished' %}
+                        {% if helprequest.status = 'attended' %}
                         <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
                         {% endif %}
                     </div>
                 </article>
 
+                {% for message in messages %}
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-times"></i></span>
                     </button>
-                    Sua resposta foi enviada com sucesso!
+                    {{ message }}
                 </div>
+                {% endfor %}
 
                 <form class="card reply collapse" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
@@ -104,20 +106,20 @@
 
                         {% if helpreply.intention == 'finish' %}
                             <h2 class="card-title request-finished"><i class="fa fa-check-circle"></i> Pedido finalizado pelo Bike Anjo</h2>
-                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:m' }}</div>
+                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
                         {% endif %}
                     </header>
                     <div class="card-content">
                         <p class="card-info">{{ helpreply.message }}</p>
 
                         {% if forloop.first %}
-                            {% if helprequest.status != 'finished' %}
+                            {% if helprequest.status != 'attended' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
                                         class="btn btn-warning">Responder</button>
                                 <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Já atendi o pedido</a>
-                                <a href="#" class="btn btn-default">Cancelar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
                             </div>
                             {% endif %}
                         {% endif %}
@@ -126,45 +128,38 @@
                 {% endfor %}
             </section>
         </div>
-        
-        <div class="modal fade finish-request-modal" id="finishRequest" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal fade dashboard-modal confirm-finish-request-modal" id="finishRequest" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> Nos ajude a melhorar, avalie seu atendimento</h4>
+                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> Marcar esse pedido como atendido?</h4>
                     </div>
-                    <div class="modal-body">
-                        <form method="post" action="{% url 'cyclist_request_reply' helprequest.id %}">
-                            {% csrf_token %}
-                            <p>Avalie 1 de 5 bikes:</p>
-                            <div class="request-rating">
-                                <label onclick="this.parentElement.className = 'request-rating rating-1'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="1"/>1</span>
-                                </label>
-                                <label onclick="this.parentElement.className = 'request-rating rating-2'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="2"/>2</span>
-                                </label>
-                                <label onclick="this.parentElement.className = 'request-rating rating-3'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="3"/>3</span>
-                                </label>
-                                <label onclick="this.parentElement.className = 'request-rating rating-4'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="4"/>4</span>
-                                </label>
-                                <label onclick="this.parentElement.className = 'request-rating rating-5'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="5"/>5</span>
-                                </label>
-                            </div>
-
-                            <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
-                            <textarea class="form-control" name="message" rows="5" placeholder="Enter text"></textarea>
-                            <input type="hidden" name="intention" value="finish" />
-                            <button class="btn btn-warning" type="submit">Enviar avaliação</button>
-                        </form>
+                    <div class="modal-body">                      
+                        <p>Tem certeza que deseja marcar esse pedido como atendido?</p>
+                        <button class="btn btn-success" type="submit">Marcar como atendido</button>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+
+        <div class="modal fade dashboard-modal cancel-request-modal" id="cancelRequest" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> Escolha o motivo do cancelamento</h4>
+                    </div>
+                    <div class="modal-body">                      
+                        <p>Para encaminharmos e analisarmos melhor o pedido, escolha uma das opções abaixo</p>
+                        <button class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
+                        <button class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
     </section>
 
 {% endblock %}

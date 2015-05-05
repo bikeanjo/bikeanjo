@@ -14,7 +14,7 @@
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                         <ul class="card-actions list-inline">
-                        {% if helprequest.status != 'finished' %}
+                        {% if helprequest.status != 'attended' %}
                             <li>
                                 <a href="#">
                                     <span class="text visible-xs">Cancelar</span>
@@ -52,11 +52,20 @@
                             <li>{{ user.city }}</li>
                         </ul>
 
-                        {% if helprequest.status = 'finished' %}
+                        {% if helprequest.status = 'attended' %}
                         <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
                         {% endif %}
                     </div>
                 </article>
+
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    {{ message }}
+                </div>
+                {% endfor %}
 
                 <form class="card reply collapse" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
@@ -97,14 +106,14 @@
 
                         {% if helpreply.intention == 'finish' %}
                             <h2 class="card-title request-finished"><i class="fa fa-check-circle"></i> Pedido finalizado pelo Bike Anjo</h2>
-                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:m' }}</div>
+                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
                         {% endif %}
                     </header>
                     <div class="card-content">
                         <p class="card-info">{{ helpreply.message }}</p>
 
                         {% if forloop.first %}
-                            {% if helprequest.status = 'finished' %}
+                            {% if helprequest.status = 'attended' %}
                             <div class="card-buttons">
                                 <a href="#" class="btn btn-warning">Pedido foi atendido</a>
                                 <a href="#" class="btn btn-default">Ainda tenho dúvidas</a>
@@ -112,7 +121,7 @@
                             </div>
                             {% endif %}
                             
-                            {% if helprequest.status != 'finished' %}
+                            {% if helprequest.status != 'attended' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"

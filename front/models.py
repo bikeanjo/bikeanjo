@@ -97,14 +97,11 @@ class User(AbstractUser):
 
 
 class HelpStatusQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(status__in=['new', 'assigned'])
-
     def new(self):
-        return self.filter(status='new')
+        return self.filter(volunteer=None, status='new')
 
     def assigned(self):
-        return self.filter(status='assigned')
+        return self.exclude(volunteer=None).filter(status='new')
 
     def closed(self):
         return self.filter(status__in=['canceled', 'attended'])
@@ -119,9 +116,9 @@ class HelpStatusQuerySet(models.QuerySet):
 class HelpRequest(BaseModel):
     STATUS = OrderedDict((
         ('new', _('New')),
-        ('assigned', _('Assigned')),
         ('canceled', _('Canceled')),
-        ('finished', _('Finished')),
+        ('attended', _('Attended')),
+        ('forwarded', _('Forwarded')),
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
@@ -164,7 +161,7 @@ class HelpReply(BaseModel):
         instance = super(HelpReply, self).save(**kwargs)
 
         if self.intention == 'finish':
-            self.helprequest.status = 'finished'
+            self.helprequest.status = 'attended'
             self.helprequest.save()
 
         return instance

@@ -37,7 +37,7 @@
                     {% for helprequest in helprequest_list %}
                     <div class="card-content {{helprequest.has_updates|yesno:'old,'}} {{ helprequest.status }}">
                         <h3 class="card-subtitle">
-                            <i class="fa {{ helprequest.status|map:'{"finished":"fa-check-circle","canceled":"fa-times-circle"}'|default:'fa-comment' }}"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">Pedido #{{ helprequest.id|stringformat:'04d' }}</a>
+                            <i class="fa {{ helprequest.status|map:'{"attended":"fa-check-circle","canceled":"fa-times-circle"}'|default:'fa-comment' }}"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">Pedido #{{ helprequest.id|stringformat:'04d' }}</a>
                         </h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
