@@ -48,6 +48,15 @@
         font-weight: 500;
     }
 
+    // fix size for large buttons on mobile
+    @media screen and (max-width: @screen-xs-min) {
+        .btn-lg {
+            font-size: 16px;
+            line-height: 1.6;
+            padding: 7px 15px 6px 15px;
+        }
+    }
+
     // class for when you want a label to be pretty and blue
     .primary-label {
         clear: both;
