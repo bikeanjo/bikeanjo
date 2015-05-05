@@ -23,18 +23,23 @@ class HomeView(TemplateView):
 class DashBoardView(LoginRequiredMixin, TemplateView):
     def get_template_names(self):
         if self.request.user.role == 'volunteer':
-            return ['requester_dashboard.html']
+            return ['bikeanjo_dashboard.html']
         return ['requester_dashboard.html']
 
 
 class RequestsListView(LoginRequiredMixin, ListView):
-    template_name = 'requester_dashboard_requests.html'
     model = models.HelpRequest
     paginate_by = 10
 
+    def get_template_names(self):
+        if self.request.user.role == 'volunteer':
+            return ['bikeanjo_dashboard_requests.html']
+        return ['requester_dashboard_requests.html']
+
     def get_queryset(self):
+        user = self.request.user
         qs = super(RequestsListView, self).get_queryset()
-        qs = qs.filter(requester=self.request.user)
+        qs = qs.filter(**{user.role: user})
 
         status = self.request.GET.get('status')
         if status in models.HelpRequest.STATUS:
@@ -44,8 +49,12 @@ class RequestsListView(LoginRequiredMixin, ListView):
 
 
 class RequestDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'requester_dashboard_request.html'
     model = models.HelpRequest
+
+    def get_template_names(self):
+        if self.request.user.role == 'volunteer':
+            return ['bikeanjo_dashboard_request.html']
+        return ['requester_dashboard_request.html']
 
 
 class RequestReplyFormView(LoginRequiredMixin, FormView):

@@ -39,8 +39,12 @@ urlpatterns = [
     url(r'^cyclist/register-free-points/$',
         front.views.PointsRegisterView.as_view(), name='cyclist_register_points'),
 
+    #
+    # Dashboard
+    #
     url(r'^dashboard/$',
         front.views.DashBoardView.as_view(), name='cyclist_dashboard'),
+
     url(r'^dashboard/my-requests/$',
         front.views.RequestsListView.as_view(), name='cyclist_my_requests'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/$',

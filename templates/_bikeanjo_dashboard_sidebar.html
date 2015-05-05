@@ -1,0 +1,32 @@
+{% load i18n %}
+<aside class="dashboard-sidebar col-md-3 col-md-offset-1">
+    <div class="card">
+        <header class="profile">
+            <div class="profile-icon">
+                <img src="{{ user.get_avatar_url }}"
+                     width="85" height="85" 
+                     title="{{ user.get_full_name }}"
+                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+            </div>
+            <h2 class="profile-name">{{ user.first_name }}</h2>
+            <p class="profile-city">{{ user.city }}</p>
+        </header>
+        <nav class="sidebar-nav">
+            <ul class="list-unstyled">
+                <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
+                <span class="alert bubble">{{ user.helpvolunteered_set.active.count }}</span></a></li>
+                <li><a href="#">Recados
+                <span class="alert bubble">1</span></a></li>
+                <li><a href="#">Eventos</a></li>
+                <li><a href="#">Fórum de discussão</a></li>
+                <li><a href="#">Dicas para pedalar</a></li>
+                <li><a href="#">Editar cadastro</a></li>
+                <li><a href="#">Quero ser um Bike Anjo</a></li>
+            </ul>
+        </nav>            
+    </div>
+    <div class="sidebar-feedback">
+        <a href="#"><span>Como estamos pedalando?</span><br>
+        Envie seu feedback</a>
+    </div>
+</aside>

@@ -3,10 +3,10 @@
 
 {% block content %}
 
-    <section class="dashboard requester container">
+    <section class="dashboard bikeangel container">
        
         <div class="row">
-            {% include '_requester_dashboard_sidebar.html' %}
+            {% include '_bikeanjo_dashboard_sidebar.html' %}
 
             <section class="dashboard-content col-md-7">
 
@@ -24,8 +24,8 @@
                             </li>
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#finishRequest">
-                                    <span class="text visible-xs">Finalizar</span>
-                                    <span class="text hidden-xs">Finalizar Pedido</span>
+                                    <span class="text visible-xs">Já atendi</span>
+                                    <span class="text hidden-xs">Já atendi o pedido</span>
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
@@ -57,6 +57,13 @@
                         {% endif %}
                     </div>
                 </article>
+
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    Sua resposta foi enviada com sucesso!
+                </div>
 
                 <form class="card reply collapse" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
@@ -104,20 +111,12 @@
                         <p class="card-info">{{ helpreply.message }}</p>
 
                         {% if forloop.first %}
-                            {% if helprequest.status = 'finished' %}
-                            <div class="card-buttons">
-                                <a href="#" class="btn btn-warning">Pedido foi atendido</a>
-                                <a href="#" class="btn btn-default">Ainda tenho dúvidas</a>
-                                <a href="#" class="btn btn-default">Reportar problema</a>
-                            </div>
-                            {% endif %}
-                            
                             {% if helprequest.status != 'finished' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
                                         class="btn btn-warning">Responder</button>
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Já atendi o pedido</a>
                                 <a href="#" class="btn btn-default">Cancelar Pedido</a>
                             </div>
                             {% endif %}
