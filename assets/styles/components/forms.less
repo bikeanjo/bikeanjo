@@ -28,6 +28,32 @@
         // fix header margin when the header goes inside the form. ie: forms with the map on the background
             margin: 0 0 15px; 
         }
+        &.fullscreen {
+            margin-top: 20px;
+            @media screen and (max-width: @screen-xs-max) {
+                margin-top: 0;
+                padding: 10px;
+                width: 100%;
+                header {
+                    margin-bottom: 5px;
+                }
+                h2 {
+                    font-size: 24px;
+                }
+                p {
+                    font-size: 12px;
+                }
+                .input-lg {
+                    .input-sm;
+                }
+                .btn-lg {
+                    .btn-sm;
+                }
+                .add-route {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 
     // stylish the basics tags and elements
@@ -49,7 +75,7 @@
     }
 
     // fix size for large buttons on mobile
-    @media screen and (max-width: @screen-xs-min) {
+    @media screen and (max-width: @screen-xs-max) {
         .btn-lg {
             font-size: 16px;
             line-height: 1.6;

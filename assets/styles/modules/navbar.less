@@ -7,12 +7,12 @@
     margin-bottom: 0;
     .site-logo {
         margin: 14px 15px;
-        @media scren and (min-width: @screen-xs-min) {
+        @media screen and (min-width: @screen-xs-min) {
             margin: 14px 0;
         }
         a {
-            background: url('../imgs/logo-bike-anjo.png');
-            background-size: cover;
+            background: url('../imgs/logo-bike-anjo.png') no-repeat;
+            background-size: 100%;
             display: block;
             height: 61px;
             width: 169px;
@@ -202,13 +202,23 @@
         }
     }
     &.navbar-forms {
+        @media screen and (max-width: @screen-xs-max) {
+            min-height: 50px;
+        }
         .navbar-header {
             float: none;
-            width: 100%;
         }
         .site-logo {
+            margin: 5px 0;
+            @media screen and (min-width: @screen-xs-min) {
+                margin: 14px 0;
+            }            
             a {
-                margin: 14px auto;
+                margin: 0 auto;
+                @media screen and (max-width: @screen-xs-max) {
+                    height: 61px/1.5;
+                    width: 169px/1.5;
+                }
             }
         }
     }
