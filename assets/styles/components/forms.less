@@ -328,13 +328,17 @@
     // put the map on the page background
     .map {
         position: absolute;
-        top: 91px;
+        top: 51px;
         right: 0;
         bottom: 0;
         right: 0;
-        height: ~"calc(100% - 96px)";
+        height: ~"calc(100% - 51px)";
         width: 100%;
         z-index: -1;
+        @media screen and (min-width: @screen-sm-min) {
+            top: 91px;
+            height: ~"calc(100% - 96px)";
+        }
         iframe {
             height: 100%;
             width: 100%;
