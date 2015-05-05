@@ -273,31 +273,46 @@
     .add-address {
         width: 100%;
         input {
-            width: ~"calc(100% - 60px)";
+            display: inline-block !important;
+            width: ~"calc(100% - 40px)";
         }
         .btn {
             float: right;
-            padding: 11px 12px 3px;
-            .fa {
-                font-size: 30px;
+            padding: 2px 7px 0px;        
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            input {
+                width: ~"calc(100% - 60px)";
             }
+            .btn {
+                padding: 10px 12px 3px;
+                .fa {
+                    font-size: 30px;
+                }
+            }        
         }
     }
 
     // addresses list
     .addresses-list {
-        font-size: 16px;
-        margin: 15px 0;
+        font-size: 12px;
+        margin: 10px 0;
         li {
             margin-bottom: 5px;
             .fa-times {
                 color: #f00;
-                font-size: 20px;
                 margin-right: 5px;
             }
             .fa-arrow-right {
                 margin: 0 5px 0;
                 vertical-align: text-top;
+            }
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            font-size: 16px;
+            margin: 15px 0;
+            .fa-times {
+                font-size: 20px;
             }
         }
     }
