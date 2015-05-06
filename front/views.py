@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
+from django.utils import timezone
 
 import allauth.account.views
 import forms
@@ -56,6 +57,15 @@ class RequestsListView(LoginRequiredMixin, ListView):
 
 class RequestDetailView(LoginRequiredMixin, DetailView):
     model = models.HelpRequest
+
+    def get(self, request, **kwargs):
+        response = super(RequestDetailView, self).get(request, **kwargs)
+
+        if request.user.role in ['volunteer', 'requester']:
+            field = '{0}_access'.format(request.user.role)
+            self.model.objects.filter(id=self.object.id).update(**{field: timezone.now()})
+
+        return response
 
     def get_template_names(self):
         if self.request.user.role == 'volunteer':

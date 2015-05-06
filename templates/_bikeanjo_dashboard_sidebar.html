@@ -8,13 +8,14 @@
                      title="{{ user.get_full_name }}"
                      alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
             </div>
-            <h2 class="profile-name">{{ user.first_name }}</h2>
+            <h2 class="profile-name">{% firstof user.first_name user.username %}</h2>
             <p class="profile-city">{{ user.city }}</p>
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
                 <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
-                <span class="alert bubble">{{ user.helpvolunteered_set.active.count }}</span></a></li>
+                <span class="alert bubble">{{ user.helpvolunteered_set.unread.count }}</span></a></li>
+                <li><a href="#">Novo pedidos</a></li>
                 <li><a href="#">Recados
                 <span class="alert bubble">1</span></a></li>
                 <li><a href="#">Eventos</a></li>

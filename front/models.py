@@ -96,9 +96,9 @@ class User(AbstractUser):
                 yield label
 
 
-class HelpStatusQuerySet(models.QuerySet):
+class HelpStatusManager(models.Manager):
     def new(self):
-        return self.filter(volunteer=None, status='new')
+        return self.filter(status='new')
 
     def assigned(self):
         return self.exclude(volunteer=None).filter(status='new')
@@ -111,6 +111,13 @@ class HelpStatusQuerySet(models.QuerySet):
 
     def attended(self):
         return self.filter(status='attended')
+
+    def unread(self):
+        if 'volunteer' in self.core_filters:
+            return self.filter(last_reply_date__gt=models.F('volunteer_access'))
+        elif 'requester' in self.core_filters:
+            return self.filter(last_reply_date__gt=models.F('requester_access'))
+        return self.none()
 
 
 class HelpRequest(BaseModel):
@@ -126,12 +133,12 @@ class HelpRequest(BaseModel):
     volunteer = models.ForeignKey(User, related_name='helpvolunteered_set', null=True)
     help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
     status = models.CharField(max_length=16, choices=STATUS.items(), default='new')
-    last_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
 
-    objects = HelpStatusQuerySet.as_manager()
+    last_reply_date = models.DateTimeField(_('last reply date'), null=True, editable=False)
+    requester_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
+    volunteer_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
 
-    def has_updates(self):
-        return self.last_access < self.modified_date
+    objects = HelpStatusManager()
 
     def get_help_label(self):
         return HelpRequest.HELP_OPTIONS.get(self.help_with, '')
@@ -158,13 +165,14 @@ class HelpReply(BaseModel):
     rating = models.PositiveSmallIntegerField(_('rating'), default=0)
 
     def save(self, **kwargs):
-        instance = super(HelpReply, self).save(**kwargs)
+        super(HelpReply, self).save(**kwargs)
 
         if self.intention == 'finish':
             self.helprequest.status = 'attended'
-            self.helprequest.save()
 
-        return instance
+        self.helprequest.last_reply_date = timezone.now()
+        self.helprequest.save()
+        return self
 
     class Meta:
         ordering = ['-created_date']
