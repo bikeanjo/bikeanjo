@@ -265,19 +265,20 @@
         margin-top: 5px;
         overflow: hidden;
         &.list-info {
-            li {
-                border-right: 1px solid @gray;
-                float: left;
-                line-height: 1;
-                padding: 0px 8px;
+            @media screen and (min-width: @screen-xs-min) {
+                li {
+                    border-right: 1px solid @gray;
+                    float: left;
+                    line-height: 1;
+                    padding: 0px 8px;
+                }
+                li:first-child {
+                    padding-left: 0;
+                }
+                li:last-child {
+                    border-right: 0;
+                }
             }
-            li:first-child {
-                padding-left: 0;
-            }
-            li:last-child {
-                border-right: 0;
-            }
-
         }
     }
     .card-excerpt {
