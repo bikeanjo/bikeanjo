@@ -78,6 +78,28 @@
     .dashboard-content {
         .card {
             margin-bottom: 20px;
+            &.success-message {
+                background-color: @brand-green;
+                .card-button, .card-subtitle, .card-info, .card-footer .see-more-link {
+                    color: #fff;
+                }
+                .card-subtitle {
+                    font-size: 26px;
+                    margin: 30px 0 15px 0;
+                }
+                .card-content {
+                    border-bottom: 1px solid darken(@brand-green, 5%);
+                }
+                .card-info {
+                    font-weight: 400;
+                }
+                .card-badge {
+                    float: left;
+                    height: 230px;
+                    margin: 10px 30px 0 0;
+                    width: 209px;
+                }
+            }
         }
         .reply {
             .btn {
@@ -257,6 +279,13 @@
             }
         }
         .dashboard-content {
+            .card {
+                &.success-message {
+                    .card-badge {
+                        background: url('../imgs/requester-success-badge.png') no-repeat top center;
+                    }
+                }
+            }
             .reply {
                 .card-title {
                     color: @brand-orange;
@@ -297,6 +326,13 @@
             }
         }
         .dashboard-content {
+            .card {
+                &.success-message {
+                    .card-badge {
+                        background: url('../imgs/bikeangel-success-badge.png') no-repeat top center;
+                    }
+                }
+            }
             .reply {
                 .card-title, .card-title a {
                     color: @brand-blue;

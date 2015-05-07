@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+
+            <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
+                <div class="card">
+                    <header class="profile">
+                        <div class="profile-icon">
+                            <img src="http://placehold.it/85x85" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="profile-name">Fulano</h2>
+                        <p class="profile-city">São Paulo - SP</p>
+                    </header>
+                    <nav class="sidebar-nav">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Meus pedidos
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Recados
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Fórum de discussão</a></li>
+                            <li><a href="#">Dicas para pedalar</a></li>
+                            <li><a href="#">Editar cadastro</a></li>
+                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                        </ul>
+                    </nav>            
+                </div>
+                <div class="sidebar-feedback">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
+                </div>
+            </aside>
+
+            <section class="dashboard-content col-md-7">
+
+                <article class="card success-message big">
+                    <button type="button" class="card-button" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    <div class="card-content">
+                        <div class="card-badge"></div>
+                        <h2 class="card-subtitle">Sucesso!</h2>
+                        <p class="card-info">Seu cadastro foi efetuado com sucesso. Enquanto nossa equipe aprova seu cadstro, aproveite para conhecer sua página personalizada, ver dicas e ler nossa cartilha de melhores práticas para ser um Bike Anjo e atender as pessoas que solicitarem ajuda.</p>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="see-more-link" href="#">Ver cartilha <i class="fa fa-arrow-right"></i></a>
+                    </footer>
+                </article>
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}
