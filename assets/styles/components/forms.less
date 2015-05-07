@@ -230,6 +230,13 @@
             display: inline-block;
             margin-bottom: 10px;
             vertical-align: middle;
+            width: 35%;
+            &:first-child {
+                width: 27%;
+            }
+            &:nth-child(2) {
+                width: 35%;
+            }
             @media screen and (min-width: @screen-xs-min) {
                 margin: 0 10px 0 0;
                 width: 20%;
