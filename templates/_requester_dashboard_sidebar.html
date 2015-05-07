@@ -25,7 +25,7 @@
                 <li><a href="#">Editar cadastro</a></li>
                 <li><a href="#">Quero ser um Bike Anjo</a></li>
             </ul>
-            <a href="#" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
+            <a href="{% url 'requester_help_request' %}?next={% url 'cyclist_dashboard' %}" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
         </nav>            
     </div>
     <div class="sidebar-feedback">

@@ -189,20 +189,17 @@ class HelpOfferForm(forms.ModelForm):
 class HelpRequestForm(forms.ModelForm):
     help_with = forms.IntegerField()
 
-    def get_help_choices(self):
-        value = self.instance.help_with
-        for code, label in models.HELP_REQUEST:
-            yield (code, label, bool(value & code))
+    def __init__(self, *args, **kwargs):
+        requester = kwargs.pop('requester')
+        super(HelpRequestForm, self).__init__(*args, **kwargs)
+        self.instance.requester = requester
 
-    def save(self, **kwargs):
-        instance = super(HelpRequestForm, self).save(**kwargs)
-        models.HelpRequest.objects.create(
-            requester=instance,
-            help_with=instance.help_with
-        )
+    def get_help_choices(self):
+        for code, label in models.HELP_REQUEST:
+            yield (code, label,)
 
     class Meta:
-        model = models.User
+        model = models.HelpRequest
         fields = ('help_with',)
 
 

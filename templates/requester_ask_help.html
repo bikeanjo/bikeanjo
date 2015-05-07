@@ -19,7 +19,7 @@
 
         <div class="form-group">
             {% for code,label in form.get_help_choices %}
-            <button class="btn btn-primary btn-block btn-lg {% if form.help_with.value = code %}active{% endif %}"
+            <button class="btn btn-primary btn-block btn-lg"
                     value="{{ code }}"
                     name="help_with"
                     type="submit">{{ label }}</button>
