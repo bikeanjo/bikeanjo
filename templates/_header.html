@@ -28,7 +28,18 @@
                     <li role="presentation" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="user-icon">
-                            <span class="alert bubble">3</span>
+
+                            {% if user.role == 'volunteer' %}
+                                {% if user.helpvolunteered_set.unread.exists %}
+                                <span class="alert bubble">{{ user.helpvolunteered_set.unread.count }}</span>
+                                {% endif %}
+                            {% endif %}
+                            {% if user.role == 'requester' %}
+                                {% if user.helprequested_set.unread.exists %}
+                                <span class="alert bubble">{{ user.helprequested_set.unread.count }}</span>
+                                {% endif %}
+                            {% endif %}
+
                             <img src="{{ user.get_avatar_url }}"
                                  width="45" height="45" 
                                  title="{{ user.get_full_name }}"

@@ -14,8 +14,10 @@
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
                 <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
+                {% if user.helpvolunteered_set.unread.exists %}
                 <span class="alert bubble">{{ user.helpvolunteered_set.unread.count }}</span></a></li>
-                <li><a href="#">Novo pedidos</a></li>
+                {% endif %}
+                <li><a href="#">Novos pedidos</a></li>
                 <li><a href="#">Recados
                 <span class="alert bubble">1</span></a></li>
                 <li><a href="#">Eventos</a></li>
