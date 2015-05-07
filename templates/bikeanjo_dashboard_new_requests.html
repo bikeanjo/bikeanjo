@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+            {% include '_bikeanjo_dashboard_sidebar.html' %}
+
+            <section class="dashboard-content col-md-7">
+
+                <div class="dashboard-header">
+                    <form method="get">
+                        <select name="filter" class="requests-filter form-control"
+                                onchange="this.parentElement.submit()">
+                            <option>Todos os pedidos</option>
+                            <option {% if filter = 'new' %}selected{% endif %}
+                                    value="new">Novos pedidos</option>
+                            <option {% if filter = 'orphan' %}selected{% endif %}
+                                    value="orphan">Pedidos sem bikeanjo</option>
+                        </select>
+                    </form>
+                    <ul class="requests-label list-inline">
+                        <li><i class="fa fa-user"></i> Pedido Sem Anjo</li>
+                        <li><i class="fa fa-user-plus"></i> Novo Pedido</li>
+                    </ul>
+                </div>
+
+                <article class="card list">
+                    <header class="card-header negative">
+                        <h2 class="card-title">
+                            {% if filter == 'new' %}
+                            <span>Novos Pedidos</span>
+                            {% elif filter == 'orphan' %}
+                            <span>Pedidos sem bikeanjo</span>
+                            {% else %}
+                            <span>Todos os Pedidos</span>
+                            {% endif %}
+                            <span> ({{ helprequest_list.count }})</span>
+                        </h2>
+                        <button type="button" class="card-button" aria-label="Informações">
+                            <span aria-hidden="true"><i class="fa fa-info-circle"></i></span>
+                        </button>
+                        
+                    </header>
+
+                    {% for hr in helprequest_list %}
+                    <div class="card-content">
+                        <h3 class="card-subtitle">
+                            {% if hr.volunteer %}
+                            <i class="fa fa-user-plus"></i>
+                            {% else %}
+                            <i class="fa fa-user"></i>
+                            {% endif %}
+                            <span> Pedido #{{ hr.id|stringformat:'04d' }}</span>
+                        </h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>{{ hr.created_date|date:'d/m/Y' }}</li>
+                            <li>{{ hr.requester.city }}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+
+                {% if filter != 'orphan' %}
+                <article class="card simple">
+                    <h3><i class="fa fa-user"></i> Pedidos Sem Anjo</h3>
+                    <p>Existem alguns pedidos que foram abandonados pois o bike anjo não conseguiu ajudar ou nossos sistema não conseguiu achar um bike anjo próximo, você pode pegar quantos desses pedidos quiser e ajudar o máximo de pessoas possíveis.</p>
+                    <p class="text-center"><a href="#" class="btn btn-success">Ver pedidos sem anjos</a></p>
+                </article>
+                {% endif %}
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}

@@ -97,20 +97,11 @@ class User(AbstractUser):
 
 
 class HelpStatusManager(models.Manager):
-    def new(self):
-        return self.filter(status='new')
+    def matching(self):
+        return self.filter(status='new', accepted=False)
 
-    def assigned(self):
-        return self.exclude(volunteer=None).filter(status='new')
-
-    def closed(self):
-        return self.filter(status__in=['canceled', 'attended'])
-
-    def canceled(self):
-        return self.filter(status='canceled')
-
-    def attended(self):
-        return self.filter(status='attended')
+    def orphan(self):
+        return self.filter(volunteer=None)
 
     def unread(self):
         if 'volunteer' in self.core_filters:
@@ -125,10 +116,10 @@ class HelpRequest(BaseModel):
         ('new', _('New')),
         ('canceled', _('Canceled')),
         ('attended', _('Attended')),
-        ('forwarded', _('Forwarded')),
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
+    accepted = models.BooleanField(_('pedido aceito'), default=False)
     requester = models.ForeignKey(User, related_name='helprequested_set')
     volunteer = models.ForeignKey(User, related_name='helpvolunteered_set', null=True)
     help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST

@@ -47,6 +47,8 @@ urlpatterns = [
 
     url(r'^dashboard/my-requests/$',
         front.views.RequestsListView.as_view(), name='cyclist_my_requests'),
+    url(r'^dashboard/new-requests/$',
+        front.views.NewRequestsListView.as_view(), name='cyclist_new_requests'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/$',
         front.views.RequestDetailView.as_view(), name='cyclist_request_detail'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/reply/$',

@@ -2,6 +2,7 @@
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.db.models import Q
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -52,6 +53,34 @@ class RequestsListView(LoginRequiredMixin, ListView):
         status = self.request.GET.get('status')
         if status in models.HelpRequest.STATUS:
             qs = qs.filter(status=status)
+        return qs
+
+
+class NewRequestsListView(LoginRequiredMixin, ListView):
+    model = models.HelpRequest
+    paginate_by = 10
+    template_name = 'bikeanjo_dashboard_new_requests.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(NewRequestsListView, self).get_context_data(**kwargs)
+        context['filter'] = ''
+
+        _filter = self.request.GET.get('filter')
+        if _filter in ['orphan', 'new']:
+            context['filter'] = _filter
+
+        return context
+
+    def get_queryset(self):
+        qs = super(NewRequestsListView, self).get_queryset().filter(accepted=False)
+        _filter = self.request.GET.get('filter')
+
+        if _filter == 'orphan':
+            qs = qs.filter(volunteer=None)
+        elif _filter == 'new':
+            qs = qs.filter(volunteer=self.request.user)
+        else:
+            qs = qs.filter(Q(volunteer=self.request.user) | Q(volunteer=None))
 
         return qs
 
