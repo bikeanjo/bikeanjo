@@ -27,7 +27,8 @@
         {% if user.role == 'volunteer' %}
         <header>
             <h2>Cadastre suas rotas</h2>
-            <p>Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'. Essas rotas definirão as localidades onde você poderá atender pedidos.</p>
+            <p class="visible-xs">Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'.</p>
+            <p class="hidden-xs">Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'. Essas rotas definirão as localidades onde você poderá atender pedidos.</p>
         </header>
         {% endif %}
         
@@ -40,9 +41,7 @@
         {% endif %}
 
         <div class="add-route">
-            <div class="steps" id="js-addresses">
-                
-            </div>
+            <div class="steps"></div>
             <div class="form-group">
                 <label class="sr-only" for="departing-address">Local de partida</label>
                 <input class="form-control input-lg" type="text" id="departing-address" placeholder="Local de partida"

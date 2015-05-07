@@ -343,11 +343,33 @@
         }
     }
 
+    // steps img on register route page
+    .steps {
+        background: url('../imgs/route-steps.png') no-repeat center;
+        background-size: 100%;
+        position: absolute;
+        height: 60px;
+        width: 15px;
+        top: 5px;
+        @media screen and (min-width: @screen-sm-min) {
+            height: 87px;
+            width: 24px;
+            top: 10px;
+        }
+    }
+
     // wrapper for add route input
     .add-route {
         margin-bottom: 5px;
+        position: relative;
         input {
             margin-bottom: 10px;
+        }
+        .form-group {
+            margin-left: 25px;
+            @media screen and (min-width: @screen-sm-min) {
+                margin-left: 34px;
+            }
         }
     }
 
