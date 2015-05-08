@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+            {% include '_bikeanjo_dashboard_sidebar.html' %}
+
+            <section class="dashboard-content col-md-7">
+                <form method="post">
+                    {% csrf_token %}
+                    <article class="card request">
+                        <header class="card-header negative">
+                            <a href="#" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                            <ul class="card-actions list-inline">
+                                <li>
+                                    <button name="accepted" value="false" class="btn btn-sm btn-unstyled">
+                                        <span class="text visible-xs">Encaminhar</span>
+                                        <span class="text hidden-xs">Encaminhar Pedido</span>
+                                        <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button name="accepted" value="true" class="btn btn-sm btn-unstyled">
+                                        <span class="text visible-xs">Atender</span>
+                                        <span class="text hidden-xs">Atender Pedido</span>
+                                        <i class="fa fa-comment"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </header>
+
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <img src="{{ helprequest.requester.get_avatar_url }}"
+                                     width="50" height="50" 
+                                     title="{{ helprequest.requester.get_full_name }}"
+                                     alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
+                            </div>
+                            <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
+                            <ul class="card-info list-info list-unstyled">
+                                <li>{{ helprequest.requester.get_full_name }}</li>
+                                <li>{{ helprequest.requester.city }}</li>
+                                <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    {% for helpreply in helprequest.helpreply_set.all %}
+                    <article class="card">
+                        <header class="card-header">
+                            <div class="card-icon">
+                                <img src="{{ helpreply.author.get_avatar_url }}"
+                                     width="30" height="30" 
+                                     title="{{ helpreply.author.get_full_name }}"
+                                     alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
+                            </div>
+                            <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
+                            <div class="card-date">{{ helpreply.created|date:'d/m/Y' }}</div>
+                        </header>
+                        <div class="card-content">
+                            <p class="card-info">{{ helpreply.message }}</p>
+                            {% if forloop.first %}
+                            <div class="card-buttons">
+                                <button name="accepted" value="true" class="btn btn-success">Atender Pedido</button>
+                                <button name="accepted" value="false" class="btn btn-default">Encaminhar para outro Bike Anjo</button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </article>
+                    {% endfor %}
+                </form>
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}

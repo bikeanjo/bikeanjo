@@ -73,9 +73,13 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
+        '''
+        Define queryset de acordo com filtro informado em POST.
+        Se o filtro for new, mas não houver nenhum resultado, cria
+        uma flag 'no_new_requests' nesta instância de View
+        '''
         queryset = super(NewRequestsListView, self).get_queryset().filter(accepted=False)
         _filter = self.request.GET.get('filter')
-
         qs = queryset
         if _filter == 'new':
             qs = queryset.filter(volunteer=self.request.user)
@@ -83,13 +87,41 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
             if qs.count() == 0:
                 self.no_new_requests = True
                 qs = queryset.filter(volunteer=None)
-        
+
         elif _filter == 'orphan':
             qs = queryset.filter(volunteer=None)
         else:
             qs = queryset.filter(Q(volunteer=self.request.user) | Q(volunteer=None))
-
         return qs
+
+
+class NewRequestDetailView(LoginRequiredMixin, FormView):
+    form_class = forms.NewRequestForm
+    template_name = 'bikeanjo_dashboard_new_request.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(NewRequestDetailView, self).get_context_data(**kwargs)
+        context['helprequest'] = context['form'].instance
+        return context
+
+    def get_success_url(self):
+        if self.form.instance.accepted:
+            return reverse('cyclist_request_detail', kwargs=self.kwargs)
+        return reverse('cyclist_new_requests')
+
+    def get_form(self, form_class=None):
+        self.form = super(NewRequestDetailView, self).get_form(form_class=form_class)
+        return self.form
+
+    def get_form_kwargs(self):
+        kwargs = super(NewRequestDetailView, self).get_form_kwargs()
+        kwargs['volunteer'] = self.request.user
+        kwargs['instance'] = get_object_or_404(models.HelpRequest, **self.kwargs)
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class RequestDetailView(LoginRequiredMixin, DetailView):
