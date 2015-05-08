@@ -27,11 +27,24 @@
                     </ul>
                 </div>
 
+                {% if filter == 'new' and no_new_requests %}
+                <article class="card simple">
+                    <button type="button" class="card-button" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    <h3>Não existem pedidos novos</h3>
+                    <p>Existem alguns pedidos que foram abandonados pois o bike anjo não conseguiu ajudar ou nossos sistema não conseguiu achar um bike anjo próximo, você pode pegar quantos desses pedidos quiser e ajudar o máximo de pessoas possíveis.</p>
+                </article>
+                {% endif %}
+
+
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">
-                            {% if filter == 'new' %}
+                            {% if filter == 'new' and not no_new_requests %}
                             <span>Novos Pedidos</span>
+                            {% elif filter == 'new' and no_new_requests %}
+                            <span>Pedidos sem bikeanjo</span>
                             {% elif filter == 'orphan' %}
                             <span>Pedidos sem bikeanjo</span>
                             {% else %}
@@ -62,7 +75,7 @@
                     </div>
                     {% endfor %}
 
-                {% if filter != 'orphan' %}
+                {% if filter == 'new' and not no_new_requests %}
                 <article class="card simple">
                     <h3><i class="fa fa-user"></i> Pedidos Sem Anjo</h3>
                     <p>Existem alguns pedidos que foram abandonados pois o bike anjo não conseguiu ajudar ou nossos sistema não conseguiu achar um bike anjo próximo, você pode pegar quantos desses pedidos quiser e ajudar o máximo de pessoas possíveis.</p>

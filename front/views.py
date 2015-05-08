@@ -63,8 +63,9 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(NewRequestsListView, self).get_context_data(**kwargs)
-        context['filter'] = ''
+        context['no_new_requests'] = getattr(self, 'no_new_requests', False)
 
+        context['filter'] = ''
         _filter = self.request.GET.get('filter')
         if _filter in ['orphan', 'new']:
             context['filter'] = _filter
@@ -72,15 +73,21 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        qs = super(NewRequestsListView, self).get_queryset().filter(accepted=False)
+        queryset = super(NewRequestsListView, self).get_queryset().filter(accepted=False)
         _filter = self.request.GET.get('filter')
 
-        if _filter == 'orphan':
-            qs = qs.filter(volunteer=None)
-        elif _filter == 'new':
-            qs = qs.filter(volunteer=self.request.user)
+        qs = queryset
+        if _filter == 'new':
+            qs = queryset.filter(volunteer=self.request.user)
+
+            if qs.count() == 0:
+                self.no_new_requests = True
+                qs = queryset.filter(volunteer=None)
+        
+        elif _filter == 'orphan':
+            qs = queryset.filter(volunteer=None)
         else:
-            qs = qs.filter(Q(volunteer=self.request.user) | Q(volunteer=None))
+            qs = queryset.filter(Q(volunteer=self.request.user) | Q(volunteer=None))
 
         return qs
 
