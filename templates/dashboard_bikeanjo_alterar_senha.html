@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+
+            <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
+                <div class="card">
+                    <header class="profile">
+                        <div class="profile-icon">
+                            <img src="http://placehold.it/85x85" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="profile-name">Fulano</h2>
+                        <p class="profile-city">São Paulo - SP</p>
+                    </header>
+                    <nav class="sidebar-nav">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Meus pedidos
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Recados
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Fórum de discussão</a></li>
+                            <li><a href="#">Dicas para pedalar</a></li>
+                            <li><a href="#">Editar cadastro</a></li>
+                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                        </ul>
+                    </nav>            
+                </div>
+                <div class="sidebar-feedback">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
+                </div>
+            </aside>
+
+            <section class="dashboard-content col-md-7">
+
+                <article class="card list">
+                    <header class="card-header negative">
+                        <h2 class="card-title"><a href="#"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Alterar senha</h2>
+                    </header>
+                    <div class="card-content">
+                        <form class="forms">
+                            
+                            <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.password1.id_for_label }}">Senha antiga</label>
+                                <input class="form-control" type="password" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}" placeholder="Digite sua senha">
+                                <i class="fa fa-lock form-control-icon"></i>
+                                    <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.password1.errors %}
+                                    {% for error in form.password1.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                                <input class="form-control" type="password" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}" placeholder="Digite sua senha">
+                                <i class="fa fa-lock form-control-icon"></i>
+                                    <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.password1.errors %}
+                                    {% for error in form.password1.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                                <input class="form-control" type="password" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}" value="{{ form.password2.value|default:"" }}" placeholder="Confirme sua senha">
+                                <i class="fa fa-lock form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.password2.errors %}
+                                    {% for error in form.password2.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="card-footer save-config">
+                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                    </div>
+                </article>
+
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}

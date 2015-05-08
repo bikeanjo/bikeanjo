@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+
+            <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
+                <div class="card">
+                    <header class="profile">
+                        <div class="profile-icon">
+                            <img src="http://placehold.it/85x85" alt="Nome do Usuário">
+                        </div>
+                        <h2 class="profile-name">Fulano</h2>
+                        <p class="profile-city">São Paulo - SP</p>
+                    </header>
+                    <nav class="sidebar-nav">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Meus pedidos
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Recados
+                            <span class="alert bubble">1</span></a></li>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Fórum de discussão</a></li>
+                            <li><a href="#">Dicas para pedalar</a></li>
+                            <li><a href="#">Editar cadastro</a></li>
+                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                        </ul>
+                    </nav>            
+                </div>
+                <div class="sidebar-feedback">
+                    <a href="#"><span>Como estamos pedalando?</span><br>
+                    Envie seu feedback</a>
+                </div>
+            </aside>
+
+            <section class="dashboard-content col-md-7">
+
+                <article class="card list">
+                    <header class="card-header negative">
+                        <h2 class="card-title"><a href="#"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
+                    </header>
+                    <div class="card-content">
+                        <form class="forms">
+
+                            <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
+                                <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
+                                <i class="fa fa-user form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.first_name.errors %}
+                                    {% for error in form.first_name.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="Digite seu e-mail">
+                                <i class="fa fa-envelope form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.last_name.errors %}
+                                    {% for error in form.last_name.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Confirme seu e-mail">
+                                <i class="fa fa-envelope-o form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.country.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+                                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
+                                <i class="fa fa-globe form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.country.errors %}
+                                    {% for error in form.country.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.city.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                                <input class="form-control" type="tel" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}" placeholder="O nome da sua cidade">
+                                <i class="fa fa-home form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.city.errors %}
+                                    {% for error in form.city.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
+                                <label class="primary-label">{{ form.gender.label }}</label>
+
+                                <div class="select-gender">
+                                    <label class="radio">
+                                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Feminino</span>
+                                    </label>
+                                </div>
+                                <div class="select-gender">
+                                    <label class="radio">
+                                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time"><span class="text">Masculino</span>
+                                    </label>
+                                </div>
+                                <div class="select-gender">
+                                    <label class="radio">
+                                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span><input type="radio" name="time">
+                                        <input type="text" class="form-control" name="" id="" value="" placeholder="Personalize">
+                                    </label>
+                                </div>
+
+                                {% if form.gender.errors %}
+                                    {% for error in form.gender.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+                                <div class="select-birthday">
+                                    <select class="form-control">
+                                        <option>Dia</option>
+                                        <option>1</option>
+                                        <option>1</option>
+                                        <option>1</option>
+                                    </select>
+                                    <select class="form-control">
+                                        <option>Mês</option>
+                                        <option>1</option>
+                                        <option>1</option>
+                                        <option>1</option>
+                                    </select>
+                                    <select class="form-control">
+                                        <option>Ano</option>
+                                        <option>1</option>
+                                        <option>1</option>
+                                        <option>1</option>
+                                    </select>
+                                </div>
+                                {% if form.birthday.errors %}
+                                    {% for error in form.birthday.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="card-footer save-config">
+                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                    </div>
+                </article>
+
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}
