@@ -26,7 +26,7 @@
                     </header>
                     {% for helprequest in user.helpvolunteered_set.active %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> Pedido #{{ helprequest.id|stringformat:'04d' }}</h3>
+                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">Pedido #{{ helprequest.id|stringformat:'04d' }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ helprequest.requester.get_full_name }}</li>
                             <li>{{ helprequest.requester.city }}</li>
@@ -50,7 +50,7 @@
                     </header>
                     {% for helprequest in user.helpvolunteered_set.matching.all %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> Pedido #000</h3>
+                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">Pedido #{{ helprequest.id|stringformat:'04d' }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ helprequest.requester.get_full_name }}</li>
                             <li>{{ helprequest.requester.city }}</li>
