@@ -3,10 +3,10 @@
     <div class="card">
         <header class="profile">
             <div class="profile-icon">
-                <img src="{{ user.get_avatar_url }}"
+                <a href="{% url 'cyclist_dashboard' %}"><img src="{{ user.get_avatar_url }}"
                      width="85" height="85" 
                      title="{{ user.get_full_name }}"
-                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
             </div>
             <h2 class="profile-name">{% firstof user.first_name user.username %}</h2>
             <p class="profile-city">{{ user.city }}</p>

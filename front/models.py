@@ -103,6 +103,9 @@ class HelpStatusManager(models.Manager):
     def orphan(self):
         return self.filter(volunteer=None)
 
+    def active(self):
+        return self.filter(accepted=True, status='new')
+
     def unread(self):
         if 'volunteer' in self.core_filters:
             return self.filter(last_reply_date__gt=models.F('volunteer_access'))
