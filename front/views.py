@@ -262,7 +262,7 @@ class HelpRequestView(LoginRequiredMixin, FormView):
             if is_safe_url(url=next_page, host=self.request.get_host()):
                 return next_page
 
-        return reverse('cyclist_register_routes')
+        return reverse('cyclist_request_detail', args=[self.helprequest.id])
 
     def get_form_kwargs(self):
         kwargs = super(HelpRequestView, self).get_form_kwargs()
@@ -270,7 +270,7 @@ class HelpRequestView(LoginRequiredMixin, FormView):
         return kwargs
 
     def form_valid(self, form):
-        self.object = form.save()
+        self.helprequest = form.save()
         return super(HelpRequestView, self).form_valid(form)
 
 
