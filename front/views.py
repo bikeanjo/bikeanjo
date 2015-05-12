@@ -226,6 +226,7 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
+        self.request.session['next'] = reverse('cyclist_register_routes')
         return super(SignupRequesterView, self).form_valid(form)
 
 
@@ -256,11 +257,12 @@ class HelpRequestView(LoginRequiredMixin, FormView):
     template_name = 'requester_ask_help.html'
 
     def get_success_url(self):
-        if 'next' in self.request.GET or 'next' in self.request.POST:
-            next_page = self.request.GET.get('next', self.request.POST.get('next'))
+        next_page = self.request.session.pop('next', None)\
+            or self.request.POST.get('next', None)\
+            or self.request.GET.get('next', None)
 
-            if is_safe_url(url=next_page, host=self.request.get_host()):
-                return next_page
+        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
+            return next_page
 
         return reverse('cyclist_request_detail', args=[self.helprequest.id])
 
