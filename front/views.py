@@ -48,7 +48,10 @@ class RequestsListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         qs = super(RequestsListView, self).get_queryset()
-        qs = qs.filter(**{user.role: user, 'accepted': True})
+        qs = qs.filter(**{user.role: user})
+
+        if user.role == 'volunteer':
+            qs = qs.filter(accepted=True)
 
         status = self.request.GET.get('status')
         if status in models.HelpRequest.STATUS:
