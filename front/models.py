@@ -107,10 +107,11 @@ class HelpStatusManager(models.Manager):
         return self.filter(accepted=True, status='new')
 
     def unread(self):
+        base = self.filter(accepted=True)
         if 'volunteer' in self.core_filters:
-            return self.filter(last_reply_date__gt=models.F('volunteer_access'))
+            return base.filter(last_reply_date__gt=models.F('volunteer_access'))
         elif 'requester' in self.core_filters:
-            return self.filter(last_reply_date__gt=models.F('requester_access'))
+            return base.filter(last_reply_date__gt=models.F('requester_access'))
         return self.none()
 
 
