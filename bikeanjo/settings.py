@@ -144,7 +144,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_AUTO_SIGNUP = False
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email', 'publish_stream', 'user_birthday',
+        'SCOPE': ['email', 'user_birthday',
                   'user_location', 'public_profile'],
         'METHOD': 'js_sdk',
         'VERIFIED_EMAIL': False
