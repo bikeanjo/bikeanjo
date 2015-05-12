@@ -67,7 +67,7 @@
                 </div>
                 {% endfor %}
 
-                <form class="card reply collapse" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
+                <form class="card reply collapse {{helprequest.helpreply_set.count|yesno:',in'}}" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
                     <header class="card-header">
                         <button type="button" data-toggle="collapse" data-target="#helpreply-form" 
