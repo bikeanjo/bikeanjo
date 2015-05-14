@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.http import is_safe_url
 
@@ -50,9 +51,6 @@ class RequestsListView(LoginRequiredMixin, ListView):
         qs = super(RequestsListView, self).get_queryset()
         qs = qs.filter(**{user.role: user})
 
-        if user.role == 'volunteer':
-            qs = qs.filter(accepted=True)
-
         status = self.request.GET.get('status')
         if status in models.HelpRequest.STATUS:
             qs = qs.filter(status=status)
@@ -81,7 +79,7 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
         Se o filtro for new, mas não houver nenhum resultado, cria
         uma flag 'no_new_requests' nesta instância de View
         '''
-        queryset = super(NewRequestsListView, self).get_queryset().filter(accepted=False)
+        queryset = super(NewRequestsListView, self).get_queryset().filter(status='new')
         _filter = self.request.GET.get('filter')
         qs = queryset
         if _filter == 'new':
@@ -98,46 +96,37 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class NewRequestDetailView(LoginRequiredMixin, FormView):
-    form_class = forms.NewRequestForm
+class NewRequestDetailView(LoginRequiredMixin, UpdateView):
     template_name = 'bikeanjo_dashboard_new_request.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(NewRequestDetailView, self).get_context_data(**kwargs)
-        context['helprequest'] = context['form'].instance
-        return context
+    fields = ['status', ]
+    model = models.HelpRequest
 
     def get_success_url(self):
-        if self.form.instance.accepted:
+        if self.object.status == 'open':
             return reverse('cyclist_request_detail', kwargs=self.kwargs)
         return reverse('cyclist_new_requests')
 
-    def get_form(self, form_class=None):
-        self.form = super(NewRequestDetailView, self).get_form(form_class=form_class)
-        return self.form
-
-    def get_form_kwargs(self):
-        kwargs = super(NewRequestDetailView, self).get_form_kwargs()
-        kwargs['volunteer'] = self.request.user
-        kwargs['instance'] = get_object_or_404(models.HelpRequest, **self.kwargs)
-        return kwargs
-
-    def form_valid(self, form):
-        form.save()
-        return HttpResponseRedirect(self.get_success_url())
+    def get_object(self):
+        instance = super(NewRequestDetailView, self).get_object()
+        instance.volunteer = self.request.user
+        return instance
 
 
-class RequestDetailView(LoginRequiredMixin, DetailView):
+class RequestUpdateView(LoginRequiredMixin, UpdateView):
     model = models.HelpRequest
+    form_class = forms.HelpRequestUpdateForm
 
     def get(self, request, **kwargs):
-        response = super(RequestDetailView, self).get(request, **kwargs)
+        response = super(RequestUpdateView, self).get(request, **kwargs)
 
         if request.user.role in ['volunteer', 'requester']:
             field = '{0}_access'.format(request.user.role)
             self.model.objects.filter(id=self.object.id).update(**{field: timezone.now()})
 
         return response
+
+    def get_success_url(self):
+        return reverse('cyclist_request_detail', kwargs=self.kwargs)
 
     def get_template_names(self):
         if self.request.user.role == 'volunteer':
@@ -162,19 +151,8 @@ class RequestReplyFormView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.add_message(self.request, messages.SUCCESS, 'Sua resposta foi enviada com sucesso!')
+        # messages.add_message(self.request, messages.SUCCESS, 'Sua resposta foi enviada com sucesso!')
         return super(RequestReplyFormView, self).form_valid(form)
-
-
-class RequestCloseFormView(LoginRequiredMixin, FormView):
-    form_class = forms.RequestCloseForm
-
-    def get(self, request, **kwargs):
-        return HttpResponseRedirect(redirect_to=self.get_success_url())
-
-    def get_success_url(self):
-        return reverse('cyclist_request_detail', kwargs=self.kwargs)
-
 
 #
 # Views to register user and his role

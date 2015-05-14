@@ -37,7 +37,12 @@
                     {% for hr in helprequest_list %}
                     <div class="card-content {% if hr.last_reply_date < hr.requester_access %}old{% endif %} {{ hr.status }}">
                         <h3 class="card-subtitle">
-                            <i class="fa {{ hr.status|map:'{"attended":"fa-check-circle","canceled":"fa-times-circle"}'|default:'fa-comment' }}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">Pedido #{{ hr.id|stringformat:'04d' }}</a>
+                            <i class="fa {% spaceless %}
+                                {% if hr.status == "finalized" %}fa-check-circle
+                                {% elif hr.status == "attended" %}fa-check-circle
+                                {% elif hr.status == "canceled" %}fa-times-circle
+                                {% else %}fa-comment
+                                {% endif %}{% endspaceless %}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">Pedido #{{ hr.id|stringformat:'04d' }}</a>
                         </h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ hr.created_date|date:'d/m/Y' }}</li>

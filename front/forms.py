@@ -203,9 +203,16 @@ class HelpRequestForm(forms.ModelForm):
         fields = ('help_with',)
 
 
-class RequestReplyForm(forms.ModelForm):
+class HelpRequestUpdateForm(forms.ModelForm):
+    requester_rating = forms.IntegerField(required=False)
+    requester_eval = forms.CharField(required=False)
 
-    rating = forms.IntegerField(required=False)
+    class Meta:
+        model = models.HelpRequest
+        fields = ('status', 'requester_eval', 'requester_rating',)
+
+
+class RequestReplyForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         author = kwargs.pop('author', None)
@@ -218,28 +225,4 @@ class RequestReplyForm(forms.ModelForm):
 
     class Meta:
         model = models.HelpReply
-        fields = ('message', 'intention', 'rating',)
-
-
-class RequestCloseForm(forms.ModelForm):
-
-    class Meta:
-        model = models.HelpRequest
-        fields = ('status',)
-
-
-class NewRequestForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        self.volunteer = kwargs.pop('volunteer')
-        super(NewRequestForm, self).__init__(*args, **kwargs)
-
-    def save(self, **kwargs):
-        self.instance.volunteer = None
-        if self.instance.accepted:
-            self.instance.volunteer = self.volunteer
-        return super(NewRequestForm, self).save(**kwargs)
-
-    class Meta:
-        model = models.HelpRequest
-        fields = ('accepted',)
+        fields = ('message',)

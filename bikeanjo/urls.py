@@ -52,7 +52,7 @@ urlpatterns = [
     url(r'^dashboard/new-request/(?P<pk>[1-9]\d*)/$',
         front.views.NewRequestDetailView.as_view(), name='cyclist_new_request_detail'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/$',
-        front.views.RequestDetailView.as_view(), name='cyclist_request_detail'),
+        front.views.RequestUpdateView.as_view(), name='cyclist_request_detail'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/reply/$',
         front.views.RequestReplyFormView.as_view(), name='cyclist_request_reply'),
 

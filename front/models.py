@@ -98,16 +98,13 @@ class User(AbstractUser):
 
 class HelpStatusManager(models.Manager):
     def matching(self):
-        return self.filter(status='new', accepted=False)
+        return self.exclude(volunteer=None).filter(status='new')
 
     def orphan(self):
         return self.filter(volunteer=None)
 
-    def active(self):
-        return self.filter(accepted=True, status='new')
-
     def unread(self):
-        base = self.filter(accepted=True)
+        base = self.filter(status='open')
         if 'volunteer' in self.core_filters:
             return base.filter(last_reply_date__gt=models.F('volunteer_access'))
         elif 'requester' in self.core_filters:
@@ -118,14 +115,13 @@ class HelpStatusManager(models.Manager):
 class HelpRequest(BaseModel):
     STATUS = OrderedDict((
         ('new', _('New')),
-        ('opened', _('Opened')),
+        ('open', _('Open')),
         ('attended', _('Attended')),
         ('finalized', _('Finalized')),
         ('canceled', _('Canceled')),
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
-    accepted = models.BooleanField(_('pedido aceito'), default=False)
     requester = models.ForeignKey(User, related_name='helprequested_set')
     volunteer = models.ForeignKey(User, related_name='helpvolunteered_set', null=True)
     help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
@@ -134,6 +130,9 @@ class HelpRequest(BaseModel):
     last_reply_date = models.DateTimeField(_('last reply date'), null=True, editable=False)
     requester_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
     volunteer_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
+
+    requester_rating = models.PositiveSmallIntegerField(_('rating'), default=0)
+    requester_eval = models.TextField(_('message'), blank=True)
 
     objects = HelpStatusManager()
 
@@ -149,26 +148,13 @@ class HelpRequest(BaseModel):
 
 
 class HelpReply(BaseModel):
-    INTENTION = (
-        ('answer', _('Answer')),
-        ('finish', _('Finish')),
-        ('cancel', _('Cancel')),
-    )
     author = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
     message = models.TextField(_('message'))
-    intention = models.CharField(_('intention'), max_length=16,
-                                 choices=INTENTION, default='answer')
-    rating = models.PositiveSmallIntegerField(_('rating'), default=0)
 
     def save(self, **kwargs):
         super(HelpReply, self).save(**kwargs)
-
-        if self.intention == 'finish':
-            self.helprequest.status = 'attended'
-
         self.helprequest.last_reply_date = timezone.now()
-        self.helprequest.save()
         return self
 
     class Meta:

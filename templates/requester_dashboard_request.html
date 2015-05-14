@@ -13,8 +13,8 @@
                 <article class="card request">
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                        {% if helprequest.status = 'open' %}
                         <ul class="card-actions list-inline">
-                        {% if helprequest.status != 'attended' %}
                             <li>
                                 <a href="#">
                                     <span class="text visible-xs">Cancelar</span>
@@ -29,7 +29,6 @@
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
-                        {% endif %}
                             <li>
                                 <a href="#helpreply-form" data-toggle="collapse">
                                     <span class="text">Responder</span>
@@ -37,6 +36,7 @@
                                 </a>
                             </li> 
                         </ul>
+                        {% endif %}
                     </header>
 
                     <div class="card-content">
@@ -54,6 +54,9 @@
 
                         {% if helprequest.status = 'attended' %}
                         <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
+                        {% endif %}
+                        {% if helprequest.status = 'finalized' %}
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Finalizado</div>
                         {% endif %}
                     </div>
                 </article>
@@ -87,27 +90,24 @@
                         ></textarea>
                         <button class="btn btn-warning" type="submit">Enviar</button>
                     </div>
-                    <input type="hidden" name="intention" value="answer" />
                 </form>
 
                 {% for helpreply in helprequest.helpreply_set.all %}
                 <article class="card {% if not forloop.first %}old-messages{% endif %}">
                     <header class="card-header">
-                        {% if helpreply.intention != 'finish' %}
-                            <div class="card-icon">
-                                <img src="{{ helpreply.author.get_avatar_url }}"
-                                     width="30" height="30" 
-                                     title="{{ helpreply.author.get_full_name }}"
-                                     alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
-                            </div>
-                            <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
-                            <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
-                        {% endif %}
+                        <div class="card-icon">
+                            <img src="{{ helpreply.author.get_avatar_url }}"
+                                 width="30" height="30" 
+                                 title="{{ helpreply.author.get_full_name }}"
+                                 alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
+                        </div>
+                        <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
+                        <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
 
-                        {% if helpreply.intention == 'finish' %}
+                        {% comment %}
                             <h2 class="card-title request-finished"><i class="fa fa-check-circle"></i> Pedido finalizado pelo Bike Anjo</h2>
                             <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
-                        {% endif %}
+                        {% endcomment %}
                     </header>
                     <div class="card-content">
                         <p class="card-info">{{ helpreply.message }}</p>
@@ -115,13 +115,13 @@
                         {% if forloop.first %}
                             {% if helprequest.status = 'attended' %}
                             <div class="card-buttons">
-                                <a href="#" class="btn btn-warning">Pedido foi atendido</a>
+                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#finishRequest">Pedido foi atendido</a>
                                 <a href="#" class="btn btn-default">Ainda tenho dúvidas</a>
                                 <a href="#" class="btn btn-default">Reportar problema</a>
                             </div>
                             {% endif %}
                             
-                            {% if helprequest.status != 'attended' %}
+                            {% if helprequest.status = 'open' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
@@ -145,30 +145,30 @@
                         <h4 class="modal-title"><i class="fa fa-check-circle"></i> Nos ajude a melhorar, avalie seu atendimento</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="{% url 'cyclist_request_reply' helprequest.id %}">
+                        <form method="post">
                             {% csrf_token %}
                             <p>Avalie 1 de 5 bikes:</p>
                             <div class="request-rating">
                                 <label onclick="this.parentElement.className = 'request-rating rating-1'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="1"/>1</span>
+                                    <span class="sr-only"><input type="radio" name="requester_rating" value="1"/>1</span>
                                 </label>
                                 <label onclick="this.parentElement.className = 'request-rating rating-2'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="2"/>2</span>
+                                    <span class="sr-only"><input type="radio" name="requester_rating" value="2"/>2</span>
                                 </label>
                                 <label onclick="this.parentElement.className = 'request-rating rating-3'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="3"/>3</span>
+                                    <span class="sr-only"><input type="radio" name="requester_rating" value="3"/>3</span>
                                 </label>
                                 <label onclick="this.parentElement.className = 'request-rating rating-4'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="4"/>4</span>
+                                    <span class="sr-only"><input type="radio" name="requester_rating" value="4"/>4</span>
                                 </label>
                                 <label onclick="this.parentElement.className = 'request-rating rating-5'">
-                                    <span class="sr-only"><input type="radio" name="rating" value="5"/>5</span>
+                                    <span class="sr-only"><input type="radio" name="requester_rating" value="5"/>5</span>
                                 </label>
                             </div>
 
                             <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
-                            <textarea class="form-control" name="message" rows="5" placeholder="Enter text"></textarea>
-                            <input type="hidden" name="intention" value="finish" />
+                            <textarea class="form-control" name="requester_eval" rows="5" placeholder="Enter text"></textarea>
+                            <input type="hidden" name="status" value="finalized" />
                             <button class="btn btn-warning" type="submit">Enviar avaliação</button>
                         </form>
                     </div>

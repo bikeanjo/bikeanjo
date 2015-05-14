@@ -13,8 +13,8 @@
                 <article class="card request">
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                        {% if helprequest.status == 'open' %}
                         <ul class="card-actions list-inline">
-                        {% if helprequest.status != 'attended' %}
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#cancelRequest">
                                     <span class="text visible-xs">Cancelar</span>
@@ -29,7 +29,6 @@
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
-                        {% endif %}
                             <li>
                                 <a href="#helpreply-form" data-toggle="collapse">
                                     <span class="text">Responder</span>
@@ -37,6 +36,7 @@
                                 </a>
                             </li> 
                         </ul>
+                        {% endif %}
                     </header>
 
                     <div class="card-content">
@@ -87,13 +87,11 @@
                         ></textarea>
                         <button class="btn btn-warning" type="submit">Enviar</button>
                     </div>
-                    <input type="hidden" name="intention" value="answer" />
                 </form>
 
                 {% for helpreply in helprequest.helpreply_set.all %}
                 <article class="card {% if not forloop.first %}old-messages{% endif %}">
                     <header class="card-header">
-                        {% if helpreply.intention != 'finish' %}
                             <div class="card-icon">
                                 <img src="{{ helpreply.author.get_avatar_url }}"
                                      width="30" height="30" 
@@ -102,12 +100,11 @@
                             </div>
                             <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
                             <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
-                        {% endif %}
 
-                        {% if helpreply.intention == 'finish' %}
+                        {% comment %}
                             <h2 class="card-title request-finished"><i class="fa fa-check-circle"></i> Pedido finalizado pelo Bike Anjo</h2>
                             <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
-                        {% endif %}
+                        {% endcomment %}
                     </header>
                     <div class="card-content">
                         <p class="card-info">{{ helpreply.message }}</p>
@@ -136,10 +133,10 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                         <h4 class="modal-title"><i class="fa fa-check-circle"></i> Marcar esse pedido como atendido?</h4>
                     </div>
-                    <div class="modal-body">                      
+                    <form class="modal-body" method="POST">{% csrf_token %}               
                         <p>Tem certeza que deseja marcar esse pedido como atendido?</p>
-                        <button class="btn btn-success" type="submit">Marcar como atendido</button>
-                    </div>
+                        <button name="status" value="attended" class="btn btn-success" type="submit">Marcar como atendido</button>
+                    </form>
                 </div>
             </div>
         </div>
