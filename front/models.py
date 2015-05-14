@@ -118,8 +118,10 @@ class HelpStatusManager(models.Manager):
 class HelpRequest(BaseModel):
     STATUS = OrderedDict((
         ('new', _('New')),
-        ('canceled', _('Canceled')),
+        ('opened', _('Opened')),
         ('attended', _('Attended')),
+        ('finalized', _('Finalized')),
+        ('canceled', _('Canceled')),
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
