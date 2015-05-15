@@ -132,7 +132,7 @@ class HelpRequest(BaseModel):
     volunteer_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
 
     requester_rating = models.PositiveSmallIntegerField(_('rating'), default=0)
-    requester_eval = models.TextField(_('message'), blank=True)
+    requester_eval = models.TextField(_('evaluation'), blank=True)
 
     objects = HelpStatusManager()
 
