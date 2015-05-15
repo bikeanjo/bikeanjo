@@ -137,8 +137,8 @@
             </label>
             {% endfor %}
 
-            {% if form.help_with.errors %}
-                {% for error in form.help_with.errors %}
+            {% if form.ride_experience.errors %}
+                {% for error in form.ride_experience.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             {% endif %}
@@ -158,8 +158,8 @@
             </label>
             {% endfor %}
 
-            {% if form.help_with.errors %}
-                {% for error in form.help_with.errors %}
+            {% if form.bike_use.errors %}
+                {% for error in form.bike_use.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             {% endif %}
@@ -169,8 +169,8 @@
             <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
             <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
 
-            {% if form.help_with.errors %}
-                {% for error in form.help_with.errors %}
+            {% if form.initiatives.errors %}
+                {% for error in form.initiatives.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             {% endif %}
