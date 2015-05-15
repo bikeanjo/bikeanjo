@@ -31,16 +31,25 @@ class RawTemplateView(LoginRequiredMixin, TemplateView):
         tpl = '%s.html' % self.kwargs.get('tpl')
         return [tpl]
 
-#
-# Views for Dashboard
-#
-
 
 class DashBoardView(LoginRequiredMixin, TemplateView):
     def get_template_names(self):
         if self.request.user.role == 'volunteer':
             return ['bikeanjo_dashboard.html']
         return ['requester_dashboard.html']
+
+#
+# Views about user Profile on Dashboard
+#
+
+
+class UserRegisterView(LoginRequiredMixin, TemplateView):
+    template_name = 'bikeanjo_dashboard_userregister.html'
+
+
+#
+# Views about HelpRequest and HelpReply on Dashboard
+#
 
 
 class RequestsListView(LoginRequiredMixin, ListView):

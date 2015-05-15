@@ -41,7 +41,7 @@ urlpatterns = [
         front.views.PointsRegisterView.as_view(), name='cyclist_register_points'),
 
     #
-    # Dashboard
+    # Dashboard HelpRequest and HelpReply
     #
     url(r'^dashboard/$',
         front.views.DashBoardView.as_view(), name='cyclist_dashboard'),
@@ -56,6 +56,12 @@ urlpatterns = [
         front.views.RequestUpdateView.as_view(), name='cyclist_request_detail'),
     url(r'^dashboard/request/(?P<pk>[1-9]\d*)/reply/$',
         front.views.RequestReplyFormView.as_view(), name='cyclist_request_reply'),
+
+    #
+    # Dashboard User Info and Profile
+    #
+    url(r'^dashboard/register/$',
+        front.views.UserRegisterView.as_view(), name='userregister'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
