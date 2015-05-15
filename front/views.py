@@ -25,6 +25,12 @@ class HomeView(TemplateView):
             return HttpResponseRedirect(reverse('cyclist_dashboard'))
         return super(HomeView, self).get(request, **kwargs)
 
+
+class RawTemplateView(LoginRequiredMixin, TemplateView):
+    def get_template_names(self):
+        tpl = '%s.html' % self.kwargs.get('tpl')
+        return [tpl]
+
 #
 # Views for Dashboard
 #
