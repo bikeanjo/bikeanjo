@@ -207,6 +207,13 @@ class HelpRequestUpdateForm(forms.ModelForm):
     requester_rating = forms.IntegerField(required=False)
     requester_eval = forms.CharField(required=False)
 
+    def save(self, **kwargs):
+        if self.instance.status == 'new':
+            if 'status' in self.changed_data:
+                self.instance.volunteer = None
+
+        return super(HelpRequestUpdateForm, self).save(self, **kwargs)
+
     class Meta:
         model = models.HelpRequest
         fields = ('status', 'requester_eval', 'requester_rating',)

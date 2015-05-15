@@ -151,11 +151,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                         <h4 class="modal-title"><i class="fa fa-check-circle"></i> Escolha o motivo do cancelamento</h4>
                     </div>
-                    <div class="modal-body">                      
+                    <form method="post" class="modal-body">{% csrf_token %}
                         <p>Para encaminharmos e analisarmos melhor o pedido, escolha uma das opções abaixo</p>
-                        <button class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
-                        <button class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
-                    </div>
+                        <button name="status" value="new" class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
+                        <button name="status" value="canceled" class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
+                    </form>
                 </div>
             </div>
         </div> 
