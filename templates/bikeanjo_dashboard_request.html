@@ -54,9 +54,10 @@
 
                         {% if helprequest.status = 'attended' %}
                         <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
-                        {% endif %}
-                        {% if helprequest.status = 'finalized' %}
+                        {% elif helprequest.status = 'finalized' %}
                         <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Finalizado</div>
+                        {% elif helprequest.status = 'canceled' %}
+                        <div class="label-canceled request-canceled"><i class="fa fa-times-circle"></i> Pedido Cancelado</div>
                         {% endif %}
                     </div>
                 </article>
