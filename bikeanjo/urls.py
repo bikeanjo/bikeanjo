@@ -61,7 +61,9 @@ urlpatterns = [
     # Dashboard User Info and Profile
     #
     url(r'^dashboard/register/$',
-        front.views.UserRegisterView.as_view(), name='userregister'),
+        front.views.UserRegisterView.as_view(), name='user_register'),
+    url(r'^dashboard/register/user/$',
+        front.views.UserInfoUpdateView.as_view(), name='user_info_update'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),

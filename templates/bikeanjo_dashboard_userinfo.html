@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <section class="dashboard bikeangel container">
+       
+        <div class="row">
+            {% include '_bikeanjo_dashboard_sidebar.html' %}
+
+            <section class="dashboard-content col-md-7">
+
+                <form class="card list" method="POST">{% csrf_token %}
+                    <header class="card-header negative">
+                        <h2 class="card-title"><a href="#"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
+                    </header>
+                    <div class="card-content">
+                        <div class="forms">
+                            {% csrf_token %}
+                            <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
+                                <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
+                                <i class="fa fa-user form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.first_name.errors %}
+                                    {% for error in form.first_name.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="Digite seu e-mail">
+                                <i class="fa fa-envelope form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.last_name.errors %}
+                                    {% for error in form.last_name.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Confirme seu e-mail">
+                                <i class="fa fa-envelope-o form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.country.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+                                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
+                                <i class="fa fa-globe form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.country.errors %}
+                                    {% for error in form.country.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.city.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                                <input class="form-control" type="tel" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}" placeholder="O nome da sua cidade">
+                                <i class="fa fa-home form-control-icon"></i>
+                                <i class="fa fa-times form-control-feedback"></i>
+                                {% if form.city.errors %}
+                                    {% for error in form.city.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
+                                <label class="primary-label">{{ form.gender.label }}</label>
+
+                                <div class="select-gender">
+                                    <label class="radio {% if form.gender.value = 'female' %}checked{% endif %}">
+                                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                                        <input type="radio" name="{{ form.gender.html_name }}" value="female"
+                                               {% if form.gender.value = 'female' %}checked="checked"{% endif %}>
+                                        <span class="text">{% trans 'Female' %}</span>
+                                    </label>
+                                </div>
+                                <div class="select-gender">
+                                    <label class="radio {% if form.gender.value = 'male' %}checked{% endif %}">
+                                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                                        <input type="radio" name="{{ form.gender.html_name }}" value="male"
+                                               {% if form.gender.value = 'male' %}checked="checked"{% endif %}>
+                                        <span class="text">{% trans 'Male' %}</span>
+                                    </label>
+                                </div>
+                                <div class="select-gender">
+                                    <label class="radio {% if form.gender.value not in 'male,female' %}checked{% endif %}">
+                                        <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+
+                                        <input type="radio" data-bind-to="#{{ form.gender.auto_id }}_custom"
+                                               {% if form.gender.value not in 'male,female' %}checked="checked"{% endif %}
+                                               name="{{ form.gender.html_name }}" value="{{ form.gender.value|default:'' }}">
+
+                                        <input type="text" class="form-control" id="{{ form.gender.auto_id }}_custom"
+                                               value="{% if form.gender.value not in 'male,female' %}{{ form.gender.value|default:''}}{% endif %}"
+                                               placeholder="{% firstof form.gender.value 'Personalize' %}">
+
+                                    </label>
+                                </div>
+
+                                {% if form.gender.errors %}
+                                    {% for error in form.gender.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+                                
+                                <div class="select-birthday">
+                                    <select class="form-control">
+                                        <option>{% trans 'Day' %}</option>
+                                        <script type="text/javascript">
+                                        var birthday = "{% firstof form.birthday.value|date:'d/m/Y' form.birthday.value '' %}";
+                                        var birthday_match = birthday.match(/^(\d\d)\/(\d\d)\/(\d\d\d\d)$/);
+
+                                        for(var i = 1; i <= 31; i++){
+                                            document.write('<option value="'+i+'"');
+                                            if(birthday_match && i == birthday_match[1]) {
+                                                document.write(' selected="selected"');
+                                            }
+                                            document.write('>'+i+'</option>');
+                                        }
+                                        </script>
+                                    </select>
+                                    <select class="form-control">
+                                        <option>{% trans 'Month' %}</option>
+                                        <script type="text/javascript">(function(){
+                                        for(var i = 1; i <= 12; i++){
+                                            var m = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                                                     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                                            document.write('<option value="'+i+'"');
+                                            if(birthday_match && i == birthday_match[2]) {
+                                                document.write(' selected="selected"');
+                                            }
+                                            document.write('>'+m[i-1]+'</option>');
+                                        }})();</script>
+                                    </select>
+                                    <select class="form-control">
+                                        <option>{% trans 'Year' %}</option>
+                                        <script type="text/javascript">
+                                        for(var i = 1950; i <= (new Date()).getFullYear(); i++){
+                                            document.write('<option value="'+i+'"');
+                                            if(birthday_match && i == birthday_match[3]) {
+                                                document.write(' selected="selected"');
+                                            }
+                                            document.write('>'+i+'</option>');
+                                        }
+                                        </script>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="{{ form.birthday.html_name }}"
+                                       data-composed-bind=".select-birthday select"
+                                       data-composed-format="%02d/%02d/%04d"
+                                       value="{% firstof form.birthday.value|date:'d/m/Y' form.birthday.value '' %}">
+
+                                {% if form.birthday.errors %}
+                                    {% for error in form.birthday.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-footer save-config">
+                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                    </div>
+                </form>
+
+            </section>
+
+        </div>
+        
+    </section>
+{% endblock %}

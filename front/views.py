@@ -47,6 +47,16 @@ class UserRegisterView(LoginRequiredMixin, TemplateView):
     template_name = 'bikeanjo_dashboard_userregister.html'
 
 
+class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'bikeanjo_dashboard_userinfo.html'
+    fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('user_info_update')
+
 #
 # Views about HelpRequest and HelpReply on Dashboard
 #
