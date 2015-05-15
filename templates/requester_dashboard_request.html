@@ -16,7 +16,7 @@
                         {% if helprequest.status = 'open' %}
                         <ul class="card-actions list-inline">
                             <li>
-                                <a href="#">
+                                <a href="#" data-toggle="modal" data-target="#cancelRequest">
                                     <span class="text visible-xs">Cancelar</span>
                                     <span class="text hidden-xs">Cancelar Pedido</span>
                                     <i class="fa fa-times-circle"></i>
@@ -124,13 +124,17 @@
                             </div>
                             {% endif %}
                             
-                            {% if helprequest.status = 'open' %}
+                            {% if helprequest.status in 'open,new' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
                                         class="btn btn-warning">Responder</button>
+
+                                {% if helprequest.status == 'open' %}
                                 <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
-                                <a href="#" class="btn btn-default">Cancelar Pedido</a>
+                                {% endif %}
+
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
                             </div>
                             {% endif %}
                         {% endif %}
@@ -177,7 +181,23 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+
+        <div class="modal fade dashboard-modal cancel-request-modal" id="cancelRequest" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                        <h4 class="modal-title"><i class="fa fa-times-circle"></i> Cancelar pedido</h4>
+                    </div>
+                    <form method="post" class="modal-body">{% csrf_token %}
+                        <p>Tem certeza que deseja cancelar o pedido?</p>
+                        <button name="status" value="canceled" class="btn btn-danger" type="submit">Sim</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Não</button>
+                    </form>
+                </div>
+            </div>
+        </div> 
     </section>
 
 {% endblock %}
