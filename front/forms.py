@@ -186,6 +186,22 @@ class HelpOfferForm(forms.ModelForm):
         fields = ('help_with',)
 
 
+class VolunteerExperienceForm(forms.ModelForm):
+    ride_experience = forms.ChoiceField(choices=models.VOLUNTEER_EXPERIENCE)
+    bike_use = forms.ChoiceField(choices=models.BIKE_USE)
+    initiatives = forms.CharField(required=False, max_length=256)
+    help_with = forms.IntegerField()
+
+    def get_help_choices(self):
+        value = self.instance.help_with
+        for code, label in models.HELP_OFFER:
+            yield (code, label, bool(value & code))
+
+    class Meta:
+        model = models.User
+        fields = ('ride_experience', 'bike_use', 'initiatives', 'help_with',)
+
+
 class HelpRequestForm(forms.ModelForm):
     help_with = forms.IntegerField()
 

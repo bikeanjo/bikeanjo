@@ -57,6 +57,17 @@ class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('user_info_update')
 
+
+class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'bikeanjo_dashboard_experience.html'
+    form_class = forms.VolunteerExperienceForm
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('user_experience_update')
+
 #
 # Views about HelpRequest and HelpReply on Dashboard
 #

@@ -11,7 +11,7 @@
 
                 <form class="card list" method="POST">{% csrf_token %}
                     <header class="card-header negative">
-                        <h2 class="card-title"><a href="#"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
+                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
                     </header>
                     <div class="card-content">
                         <div class="forms">
@@ -119,7 +119,7 @@
 
                             <div class="form-group {% if form.birthday.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
-                                
+
                                 <div class="select-birthday">
                                     <select class="form-control">
                                         <option>{% trans 'Day' %}</option>
