@@ -55,6 +55,9 @@
                         {% if helprequest.status = 'attended' %}
                         <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
                         {% endif %}
+                        {% if helprequest.status = 'finalized' %}
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Finalizado</div>
+                        {% endif %}
                     </div>
                 </article>
 
@@ -110,7 +113,7 @@
                         <p class="card-info">{{ helpreply.message }}</p>
 
                         {% if forloop.first %}
-                            {% if helprequest.status != 'attended' %}
+                            {% if helprequest.status == 'open' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
