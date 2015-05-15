@@ -116,8 +116,10 @@
                             {% if helprequest.status = 'attended' %}
                             <div class="card-buttons">
                                 <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#finishRequest">Pedido foi atendido</a>
-                                <a href="#" class="btn btn-default">Ainda tenho dúvidas</a>
+                                <form method="post" class="inline-block">{% csrf_token %}
+                                <button name="status" value="open" class="btn btn-default">Ainda tenho dúvidas</button>
                                 <a href="#" class="btn btn-default">Reportar problema</a>
+                                </form>
                             </div>
                             {% endif %}
                             
