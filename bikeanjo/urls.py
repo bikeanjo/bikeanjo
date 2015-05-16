@@ -20,16 +20,16 @@ urlpatterns = [
     # bikeanjo urls
     url(r'^$', front.views.HomeView.as_view(), name='home'),
 
-    url(r'^(?P<role>volunteer|requester)/signup/$',
+    url(r'^(?P<role>bikeanjo|requester)/signup/$',
         front.views.SignupView.as_view(), name='cyclist_account_signup'),
 
-    url(r'^volunteer/signup/complete/$',
-        front.views.SignupVolunteerView.as_view(), name='volunteer_account_signup_complete'),
+    url(r'^bikeanjo/signup/complete/$',
+        front.views.SignupBikeanjoView.as_view(), name='bikeanjo_account_signup_complete'),
     url(r'^requester/signup/complete/$',
         front.views.SignupRequesterView.as_view(), name='requester_account_signup_complete'),
 
-    url(r'^volunteer/offer-help/$',
-        front.views.HelpOfferView.as_view(), name='volunteer_help_offer'),
+    url(r'^bikeanjo/offer-help/$',
+        front.views.HelpOfferView.as_view(), name='bikeanjo_help_offer'),
     url(r'^requester/request-help/$',
         front.views.HelpRequestView.as_view(), name='requester_help_request'),
 

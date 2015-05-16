@@ -24,7 +24,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        {% if user.role == 'volunteer' %}
+        {% if user.role == 'bikeanjo' %}
         <header>
             <h2>Cadastre suas rotas</h2>
             <p class="visible-xs">Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'.</p>

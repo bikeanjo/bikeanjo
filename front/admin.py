@@ -23,14 +23,14 @@ class HelpReplyInline(admin.TabularInline):
 @admin.register(models.HelpRequest)
 class HelpRequestAdmin(admin.ModelAdmin):
     inlines = [HelpReplyInline]
-    list_display = ('requester_name', 'volunteer_name', 'get_help_label',
+    list_display = ('requester_name', 'bikeanjo_name', 'get_help_label',
                     'status', 'last_reply_date', 'requester_rating',
                     'requester_eval',)
 
     def requester_name(self, obj):
         return obj.requester.get_full_name()
 
-    def volunteer_name(self, obj):
-        if obj.volunteer is None:
+    def bikeanjo_name(self, obj):
+        if obj.bikeanjo is None:
             return ''
-        return obj.volunteer.get_full_name()
+        return obj.bikeanjo.get_full_name()

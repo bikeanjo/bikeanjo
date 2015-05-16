@@ -29,9 +29,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="user-icon">
 
-                            {% if user.role == 'volunteer' %}
-                                {% if user.helpvolunteered_set.unread.exists %}
-                                <span class="alert bubble">{{ user.helpvolunteered_set.unread.count }}</span>
+                            {% if user.role == 'bikeanjo' %}
+                                {% if user.helpbikeanjo_set.unread.exists %}
+                                <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span>
                                 {% endif %}
                             {% endif %}
                             {% if user.role == 'requester' %}

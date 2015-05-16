@@ -15,8 +15,8 @@
     </div>
     {% endif %}
 
-    {% if request.session.user_role == 'volunteer' %}
-    <input type="hidden" name="next" value="{% url 'volunteer_account_signup_complete' %}" />
+    {% if request.session.user_role == 'bikeanjo' %}
+    <input type="hidden" name="next" value="{% url 'bikeanjo_account_signup_complete' %}" />
     {% endif %}
 
     {% if request.session.user_role == 'requester' %}

@@ -13,7 +13,7 @@ GENDER = (
 )
 
 CYCLIST_ROLES = (
-    ('volunteer', _('Volunteer')),
+    ('bikeanjo', _('Bikeanjo')),
     ('requester', _('Requester')),
 )
 
@@ -34,7 +34,7 @@ HELP_REQUEST = (
 
 HELP = HELP_OFFER + HELP_REQUEST
 
-VOLUNTEER_EXPERIENCE = (
+BIKEANJO_EXPERIENCE = (
     ('less than 1 year', _('Less than 1 year')),
     ('from 1 to 2 years', _('From 1 to 2 years')),
     ('from 2 to 4 years', _('From 2 to 4 years')),
@@ -48,7 +48,7 @@ REQUESTER_EXPERIENCE = (
     ('use bike almost every day', _('I use bike almost every day')),
 )
 
-EXPERIENCE = VOLUNTEER_EXPERIENCE + REQUESTER_EXPERIENCE
+EXPERIENCE = BIKEANJO_EXPERIENCE + REQUESTER_EXPERIENCE
 
 BIKE_USE = (
     ('everyday', _('Everyday'),),
@@ -98,15 +98,15 @@ class User(AbstractUser):
 
 class HelpStatusManager(models.Manager):
     def matching(self):
-        return self.exclude(volunteer=None).filter(status='new')
+        return self.exclude(bikeanjo=None).filter(status='new')
 
     def orphan(self):
-        return self.filter(volunteer=None)
+        return self.filter(bikeanjo=None)
 
     def unread(self):
         base = self.filter(status='open')
-        if 'volunteer' in self.core_filters:
-            return base.filter(last_reply_date__gt=models.F('volunteer_access'))
+        if 'bikeanjo' in self.core_filters:
+            return base.filter(last_reply_date__gt=models.F('bikeanjo_access'))
         elif 'requester' in self.core_filters:
             return base.filter(last_reply_date__gt=models.F('requester_access'))
         return self.none()
@@ -123,13 +123,13 @@ class HelpRequest(BaseModel):
     HELP_OPTIONS = dict(HELP_REQUEST)
 
     requester = models.ForeignKey(User, related_name='helprequested_set')
-    volunteer = models.ForeignKey(User, related_name='helpvolunteered_set', null=True)
+    bikeanjo = models.ForeignKey(User, related_name='helpbikeanjo_set', null=True)
     help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
     status = models.CharField(max_length=16, choices=STATUS.items(), default='new')
 
     last_reply_date = models.DateTimeField(_('last reply date'), null=True, editable=False)
     requester_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
-    volunteer_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
+    bikeanjo_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
 
     requester_rating = models.PositiveSmallIntegerField(_('rating'), default=0)
     requester_eval = models.TextField(_('evaluation'), blank=True)

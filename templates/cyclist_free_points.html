@@ -22,7 +22,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        {% if user.role == 'volunteer' %}
+        {% if user.role == 'bikeanjo' %}
         <header>
             <h2>Quer marcar pontos avulsos?</h2>
             <p>Quer marcar outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido?</p>

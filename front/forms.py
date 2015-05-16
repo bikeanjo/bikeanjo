@@ -152,10 +152,10 @@ class SignupForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'email', 'country', 'city',)
 
 
-class SignupVolunteerForm(forms.ModelForm):
+class SignupBikeanjoForm(forms.ModelForm):
     gender = forms.CharField()
     birthday = forms.DateField()
-    ride_experience = forms.ChoiceField(choices=models.VOLUNTEER_EXPERIENCE)
+    ride_experience = forms.ChoiceField(choices=models.BIKEANJO_EXPERIENCE)
     bike_use = forms.ChoiceField(choices=models.BIKE_USE)
     initiatives = forms.CharField(required=False, max_length=256)
 
@@ -187,8 +187,8 @@ class HelpOfferForm(forms.ModelForm):
         fields = ('help_with',)
 
 
-class VolunteerExperienceForm(forms.ModelForm):
-    ride_experience = forms.ChoiceField(choices=models.VOLUNTEER_EXPERIENCE)
+class BikeanjoExperienceForm(forms.ModelForm):
+    ride_experience = forms.ChoiceField(choices=models.BIKEANJO_EXPERIENCE)
     bike_use = forms.ChoiceField(choices=models.BIKE_USE)
     initiatives = forms.CharField(required=False, max_length=256)
     help_with = forms.IntegerField()
@@ -227,7 +227,7 @@ class HelpRequestUpdateForm(forms.ModelForm):
     def save(self, **kwargs):
         if self.instance.status == 'new':
             if 'status' in self.changed_data:
-                self.instance.volunteer = None
+                self.instance.bikeanjo = None
 
         return super(HelpRequestUpdateForm, self).save(self, **kwargs)
 

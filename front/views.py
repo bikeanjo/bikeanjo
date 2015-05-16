@@ -34,7 +34,7 @@ class RawTemplateView(LoginRequiredMixin, TemplateView):
 
 class DashBoardView(LoginRequiredMixin, TemplateView):
     def get_template_names(self):
-        if self.request.user.role == 'volunteer':
+        if self.request.user.role == 'bikeanjo':
             return ['bikeanjo_dashboard.html']
         return ['requester_dashboard.html']
 
@@ -60,7 +60,7 @@ class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
 
 class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'bikeanjo_dashboard_experience.html'
-    form_class = forms.VolunteerExperienceForm
+    form_class = forms.BikeanjoExperienceForm
 
     def get_object(self):
         return self.request.user
@@ -94,7 +94,7 @@ class RequestsListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_template_names(self):
-        if self.request.user.role == 'volunteer':
+        if self.request.user.role == 'bikeanjo':
             return ['bikeanjo_dashboard_requests.html']
         return ['requester_dashboard_requests.html']
 
@@ -135,16 +135,16 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
         _filter = self.request.GET.get('filter')
         qs = queryset
         if _filter == 'new':
-            qs = queryset.filter(volunteer=self.request.user)
+            qs = queryset.filter(bikeanjo=self.request.user)
 
             if qs.count() == 0:
                 self.no_new_requests = True
-                qs = queryset.filter(volunteer=None)
+                qs = queryset.filter(bikeanjo=None)
 
         elif _filter == 'orphan':
-            qs = queryset.filter(volunteer=None)
+            qs = queryset.filter(bikeanjo=None)
         else:
-            qs = queryset.filter(Q(volunteer=self.request.user) | Q(volunteer=None))
+            qs = queryset.filter(Q(bikeanjo=self.request.user) | Q(bikeanjo=None))
         return qs
 
 
@@ -160,7 +160,7 @@ class NewRequestDetailView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         instance = super(NewRequestDetailView, self).get_object()
-        instance.volunteer = self.request.user
+        instance.bikeanjo = self.request.user
         return instance
 
 
@@ -171,7 +171,7 @@ class RequestUpdateView(LoginRequiredMixin, UpdateView):
     def get(self, request, **kwargs):
         response = super(RequestUpdateView, self).get(request, **kwargs)
 
-        if request.user.role in ['volunteer', 'requester']:
+        if request.user.role in ['bikeanjo', 'requester']:
             field = '{0}_access'.format(request.user.role)
             self.model.objects.filter(id=self.object.id).update(**{field: timezone.now()})
 
@@ -181,7 +181,7 @@ class RequestUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('cyclist_request_detail', kwargs=self.kwargs)
 
     def get_template_names(self):
-        if self.request.user.role == 'volunteer':
+        if self.request.user.role == 'bikeanjo':
             return ['bikeanjo_dashboard_request.html']
         return ['requester_dashboard_request.html']
 
@@ -217,8 +217,8 @@ class SignupView(allauth.account.views.SignupView):
         return super(SignupView, self).get(request, **kwargs)
 
     def get_success_url(self):
-        if self.kwargs.get('role') == 'volunteer':
-            return reverse('volunteer_account_signup_complete')
+        if self.kwargs.get('role') == 'bikeanjo':
+            return reverse('bikeanjo_account_signup_complete')
         return reverse('requester_account_signup_complete')
 
     def form_valid(self, form):
@@ -228,21 +228,21 @@ class SignupView(allauth.account.views.SignupView):
         return response
 
 
-class SignupVolunteerView(LoginRequiredMixin, FormView):
-    form_class = forms.SignupVolunteerForm
+class SignupBikeanjoView(LoginRequiredMixin, FormView):
+    form_class = forms.SignupBikeanjoForm
     template_name = 'bikeanjo_complete_signup.html'
 
     def get_success_url(self):
-        return reverse('volunteer_help_offer')
+        return reverse('bikeanjo_help_offer')
 
     def get_form_kwargs(self):
-        kwargs = super(SignupVolunteerView, self).get_form_kwargs()
+        kwargs = super(SignupBikeanjoView, self).get_form_kwargs()
         kwargs['instance'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
         form.save()
-        return super(SignupVolunteerView, self).form_valid(form)
+        return super(SignupBikeanjoView, self).form_valid(form)
 
 
 class SignupRequesterView(LoginRequiredMixin, FormView):
@@ -319,7 +319,7 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        if self.request.user.role == 'volunteer':
+        if self.request.user.role == 'bikeanjo':
             return reverse('cyclist_registered_routes')
         return reverse('cyclist_register_points')
 
