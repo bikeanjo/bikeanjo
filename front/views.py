@@ -338,6 +338,13 @@ class TrackListView(LoginRequiredMixin, FormView):
     form_class = forms.TrackReviewForm
 
     def get_success_url(self):
+        next_page = self.request.session.pop('next', None)\
+            or self.request.POST.get('next', None)\
+            or self.request.GET.get('next', None)
+
+        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
+            return next_page
+
         return reverse('cyclist_register_points')
 
     def get_form_kwargs(self):
@@ -360,6 +367,13 @@ class PointsRegisterView(LoginRequiredMixin, FormView):
         return kwargs
 
     def get_success_url(self):
+        next_page = self.request.session.pop('next', None)\
+            or self.request.POST.get('next', None)\
+            or self.request.GET.get('next', None)
+
+        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
+            return next_page
+
         return reverse('cyclist_dashboard')
 
     def form_valid(self, form):
