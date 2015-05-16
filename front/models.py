@@ -26,10 +26,10 @@ HELP_OFFER = (
 )
 
 HELP_REQUEST = (
-    (16, _('Learn to ride a bike')),  # Aprender a pedalar
-    (32, _('Pratice cycling')),  # Praticar pedaladas
-    (64, _('Monitoring on traffic')),  # Acompanhamento no trânsito
-    (128, _('Route recomendation')),  # Recomendar rota
+    (1, _('Learn to ride a bike')),  # Aprender a pedalar
+    (2, _('Pratice cycling')),  # Praticar pedaladas
+    (4, _('Route recomendation')),  # Recomendar rota
+    (8, _('Monitoring on traffic')),  # Acompanhamento no trânsito
 )
 
 HELP = HELP_OFFER + HELP_REQUEST
