@@ -3,10 +3,10 @@
     <div class="card">
         <header class="profile">
             <div class="profile-icon">
-                <img src="{{ user.get_avatar_url }}"
+                <a href="{% url 'cyclist_dashboard' %}"><img src="{{ user.get_avatar_url }}"
                      width="85" height="85" 
                      title="{{ user.get_full_name }}"
-                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
             </div>
             <h2 class="profile-name">{% firstof user.first_name user.username %}</h2>
             <p class="profile-city">{{ user.city }}</p>
@@ -14,18 +14,17 @@
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
                 <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
-                {% if user.helprequested_set.unread.exists %}
-                <span class="alert bubble">{{ user.helprequested_set.unread.count }}</span></a></li>
+                {% if user.helpbikeanjo_set.unread.exists %}
+                <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span></a></li>
                 {% endif %}
+                <li><a href="{% url 'cyclist_new_requests' %}?filter=new">Novos pedidos</a></li>
                 <li><a href="#">Recados
                 <span class="alert bubble">1</span></a></li>
                 <li><a href="#">Eventos</a></li>
                 <li><a href="#">Fórum de discussão</a></li>
                 <li><a href="#">Dicas para pedalar</a></li>
-                <li><a href="#">Editar cadastro</a></li>
-                <li><a href="#">Quero ser um Bike Anjo</a></li>
+                <li><a href="{% url 'user_register' %}">Editar cadastro</a></li>
             </ul>
-            <a href="{% url 'requester_help_request' %}" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
         </nav>            
     </div>
     <div class="sidebar-feedback">

@@ -34,9 +34,8 @@ class RawTemplateView(LoginRequiredMixin, TemplateView):
 
 class DashBoardView(LoginRequiredMixin, TemplateView):
     def get_template_names(self):
-        if self.request.user.role == 'bikeanjo':
-            return ['bikeanjo_dashboard.html']
-        return ['requester_dashboard.html']
+        tpl = '%s_dashboard.html' % self.request.user.role
+        return [tpl]
 
 #
 # Views about user Profile on Dashboard
