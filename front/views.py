@@ -2,6 +2,7 @@
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
@@ -11,7 +12,6 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.http import is_safe_url
-
 import allauth.account.views
 import forms
 import models
@@ -68,6 +68,22 @@ class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('user_experience_update')
 
+
+class PasswordResetView(LoginRequiredMixin, UpdateView):
+    template_name = 'bikeanjo_dashboard_changepassword.html'
+    form_class = forms.PasswordResetForm
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('user_password_change')
+
+    def form_valid(self, form):
+        result = super(PasswordResetView, self).form_valid(form)
+        update_session_auth_hash(self.request, form.instance)
+        messages.success(self.request, 'Senha alterada!')
+        return result
 #
 # Views about HelpRequest and HelpReply on Dashboard
 #

@@ -4,6 +4,7 @@ import json
 
 from django.contrib.gis import forms
 from django.contrib.gis.geos import LineString, Point
+from django.utils.translation import ugettext_lazy as _
 
 from allauth import app_settings
 from allauth.account.utils import user_field
@@ -249,3 +250,50 @@ class RequestReplyForm(forms.ModelForm):
     class Meta:
         model = models.HelpReply
         fields = ('message',)
+
+
+class PasswordResetForm(forms.Form):
+
+    old_password = forms.CharField(label=_('Password'),
+                                   widget=forms.PasswordInput, required=False)
+    password1 = forms.CharField(label=_('Password'),
+                                widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Password (again)'),
+                                widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        self.instance = kwargs.pop('instance')
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get('old_password')
+
+        if not self.instance.has_usable_password() or\
+           self.instance.check_password(old_password):
+            return old_password
+
+        raise forms.ValidationError('A senha antiga está incorreta.')
+
+    def clean_password1(self):
+        pass1 = self.cleaned_data.get('password1')
+
+        if self.instance.has_usable_password() and\
+           self.instance.check_password(pass1):
+            raise forms.ValidationError('A nova senha é igual a antiga')
+
+        return pass1
+
+    def clean_password2(self):
+        pass1 = self.cleaned_data.get('password1')
+        pass2 = self.cleaned_data.get('password2')
+
+        if pass1 == pass2:
+            return pass1
+
+        raise forms.ValidationError('As senhas devem ser iguais')
+
+    def save(self, **kwargs):
+        password = self.cleaned_data.get('password2')
+        self.instance.set_password(password)
+        self.instance.save()
+        return self.instance
