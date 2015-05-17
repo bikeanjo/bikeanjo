@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+{% endblock %}
+
+{% block js %}{{ block.super }}
+<script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
+{% endblock %}
+
 
 {% block content %}
     <section class="dashboard bikeanjo container">
@@ -27,8 +38,8 @@
                             <ul class="card-actions list-inline">
                                 <li>
                                     <button name="status" value="new" class="btn btn-sm btn-unstyled">
-                                        <span class="text visible-xs">Encaminhar</span>
-                                        <span class="text hidden-xs">Encaminhar Pedido</span>
+                                        <span class="text visible-xs">Não posso atender</span>
+                                        <span class="text hidden-xs">Não posso atender</span>
                                         <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </li>
@@ -73,14 +84,55 @@
                         <div class="card-content">
                             <p class="card-info">{{ helpreply.message }}</p>
                             {% if forloop.first %}
+
+                            <div id="js-map" style="height: 150px"></div>
+                            <p>
+                                <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
+                                <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
+                                <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
+                            </p>
+                            <input type="hidden" bikeanjo-geojson="lines" 
+                                   value="[{{ helprequest.requester.track_set.reverse.first.json }}]"/>
+
+
                             <div class="card-buttons">
                                 <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
-                                <button name="status" value="new" class="btn btn-default">Encaminhar para outro Bike Anjo</button>
+                                <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
                             </div>
                             {% endif %}
                         </div>
                     </article>
                     {% endfor %}
+
+                    {% if not helprequest.helpreply_set.exists %}
+                    <article class="card">
+                        <header class="card-header">
+                            <div class="card-icon">
+                                <img src="{{ helprequest.requester.get_avatar_url }}"
+                                     width="30" height="30" 
+                                     title="{{ helpreply.author.get_full_name }}"
+                                     alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
+                            </div>
+                            <h2 class="card-title">{{ helprequest.requester.get_full_name }}</h2>
+                        </header>
+                        <div class="card-content">
+                            <div id="js-map" style="height: 150px"></div>
+                            <p>
+                                <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
+                                <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
+                                <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
+                            </p>
+
+                            <input type="hidden" bikeanjo-geojson="lines" 
+                                   value="[{{ helprequest.requester.track_set.reverse.first.json }}]"/>
+
+                            <div class="card-buttons">
+                                <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
+                                <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
+                            </div>
+                        </div>
+                    </article>
+                    {% endif %}
                 </form>
             </section>
 

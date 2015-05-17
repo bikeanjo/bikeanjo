@@ -178,7 +178,7 @@ class Track(BaseModel):
         }
         if self.id:
             d['properties']['id'] = self.id
-        return d
+        return json.dumps(d)
 
 
 class Point(BaseModel):
@@ -188,7 +188,7 @@ class Point(BaseModel):
 
     def json(self):
         d = {
-            'type': 'LineString',
+            'type': 'Point',
             'coordinates': self.coords.get_coords(),
             'properties': {
                 'address': self.address,
@@ -196,4 +196,4 @@ class Point(BaseModel):
         }
         if self.id:
             d['properties']['id'] = self.id
-        return d
+        return json.dumps(d)

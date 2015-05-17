@@ -134,7 +134,10 @@
                     this.addMarker(p2[0], p2[1], l.properties.end)
                 ];
             }
-            var paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
+            var paddingTop = 10;
+            if($('.card.signup').length > 0){
+                paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
+            }
             map.fitBounds(bounds, {paddingTopLeft: [0, paddingTop]});
             return map;
         };

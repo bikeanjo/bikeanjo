@@ -61,7 +61,7 @@ class TrackReviewForm(TrackForm):
 
     def load_tracks(self):
         tracks = models.Track.objects.filter(user=self.user)
-        return json.dumps([t.json() for t in tracks])
+        return '[%s]' % ','.join([t.json() for t in tracks])
 
     def save(self):
         tracks = super(TrackReviewForm, self).save()
@@ -115,7 +115,7 @@ class PointsForm(forms.Form):
 
     def load_points(self):
         points = models.Point.objects.filter(user=self.user)
-        return json.dumps([p.json() for p in points])
+        return '[%s]' % ','.join([p.json() for p in points])
 
 
 class SignupForm(forms.ModelForm):
