@@ -12,6 +12,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.http import is_safe_url
+from django.utils.translation import ugettext_lazy as _
 import allauth.account.views
 import forms
 import models
@@ -43,11 +44,13 @@ class DashBoardView(LoginRequiredMixin, TemplateView):
 
 
 class UserRegisterView(LoginRequiredMixin, TemplateView):
-    template_name = 'bikeanjo_dashboard_userregister.html'
+    def get_template_names(self):
+        tpl = '%s_dashboard_userregister.html' % self.request.user.role
+        return [tpl]
 
 
 class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'bikeanjo_dashboard_userinfo.html'
+    template_name = 'cyclist_dashboard_userinfo.html'
     fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
 
     def get_object(self):
@@ -56,10 +59,17 @@ class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('user_info_update')
 
+    def form_valid(self, form):
+        messages.success(self.request, _('Your information has been updated!'))
+        return super(UserInfoUpdateView, self).form_valid(form)
+
 
 class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'bikeanjo_dashboard_experience.html'
     form_class = forms.BikeanjoExperienceForm
+
+    def get_template_names(self):
+        tpl = '%s_dashboard_experience.html' % self.request.user.role
+        return [tpl]
 
     def get_object(self):
         return self.request.user
@@ -69,7 +79,7 @@ class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class PasswordResetView(LoginRequiredMixin, UpdateView):
-    template_name = 'bikeanjo_dashboard_changepassword.html'
+    template_name = 'cyclist_dashboard_changepassword.html'
     form_class = forms.PasswordResetForm
 
     def get_object(self):

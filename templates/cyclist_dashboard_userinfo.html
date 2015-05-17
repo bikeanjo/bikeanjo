@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-    <section class="dashboard bikeanjo container">
+    <section class="dashboard {{ user.role }} container">
        
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
@@ -14,6 +14,16 @@
                         <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
                     </header>
                     <div class="card-content">
+                    
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.level_tag }}" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+
                         <div class="forms">
                             {% csrf_token %}
                             <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
