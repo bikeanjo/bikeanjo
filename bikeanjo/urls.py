@@ -61,6 +61,8 @@ urlpatterns = [
         front.views.RequestReplyFormView.as_view(), name='cyclist_request_reply'),
     url(r'^dashboard/messages/$',
         front.views.MessageListView.as_view(), name='dashboard_message_list'),
+    url(r'^dashboard/messages/(?P<pk>[1-9]\d*)/$',
+        front.views.MessageDetailView.as_view(), name='dashboard_message_detail'),
 
     #
     # Dashboard User Info and Profile
