@@ -62,23 +62,33 @@ class RawTemplateView(LoginRequiredMixin, TemplateView):
         return [tpl]
 
 
-class DashBoardView(RegisteredUserMixin, TemplateView):
+#
+# Views about user Profile on Dashboard
+#
+class DashboardMixin(RegisteredUserMixin):
+
+    def get_context_data(self, **kwargs):
+        data = super(DashboardMixin, self).get_context_data(**kwargs)
+        data['unread'] = {
+            'messages': models.Message.objects.exclude(readed_by__user=self.request.user),
+            'events': models.Event.objects.exclude(readed_by__user=self.request.user),
+        }
+        return data
+
+
+class DashBoardView(DashboardMixin, TemplateView):
     def get_template_names(self):
         tpl = '%s_dashboard.html' % self.request.user.role
         return [tpl]
 
-#
-# Views about user Profile on Dashboard
-#
 
-
-class UserRegisterView(RegisteredUserMixin, TemplateView):
+class UserRegisterView(DashboardMixin, TemplateView):
     def get_template_names(self):
         tpl = '%s_dashboard_userregister.html' % self.request.user.role
         return [tpl]
 
 
-class UserInfoUpdateView(RegisteredUserMixin, UpdateView):
+class UserInfoUpdateView(DashboardMixin, UpdateView):
     template_name = 'cyclist_dashboard_userinfo.html'
     fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
 
@@ -93,7 +103,7 @@ class UserInfoUpdateView(RegisteredUserMixin, UpdateView):
         return super(UserInfoUpdateView, self).form_valid(form)
 
 
-class ExperienceUpdateView(RegisteredUserMixin, UpdateView):
+class ExperienceUpdateView(DashboardMixin, UpdateView):
     form_class = forms.BikeanjoExperienceForm
 
     def get_template_names(self):
@@ -107,7 +117,7 @@ class ExperienceUpdateView(RegisteredUserMixin, UpdateView):
         return reverse('user_experience_update')
 
 
-class PasswordResetView(RegisteredUserMixin, UpdateView):
+class PasswordResetView(DashboardMixin, UpdateView):
     template_name = 'cyclist_dashboard_changepassword.html'
     form_class = forms.PasswordResetForm
 
@@ -123,11 +133,11 @@ class PasswordResetView(RegisteredUserMixin, UpdateView):
         messages.success(self.request, 'Senha alterada!')
         return result
 #
-# Views about HelpRequest and HelpReply on Dashboard
+# Views about Dashboard
 #
 
 
-class RequestsListView(RegisteredUserMixin, ListView):
+class RequestsListView(DashboardMixin, ListView):
     model = models.HelpRequest
     paginate_by = 10
 
@@ -147,7 +157,7 @@ class RequestsListView(RegisteredUserMixin, ListView):
         return qs
 
 
-class NewRequestsListView(RegisteredUserMixin, ListView):
+class NewRequestsListView(DashboardMixin, ListView):
     model = models.HelpRequest
     paginate_by = 10
     template_name = 'bikeanjo_dashboard_new_requests.html'
@@ -186,7 +196,7 @@ class NewRequestsListView(RegisteredUserMixin, ListView):
         return qs
 
 
-class NewRequestDetailView(RegisteredUserMixin, UpdateView):
+class NewRequestDetailView(DashboardMixin, UpdateView):
     template_name = 'bikeanjo_dashboard_new_request.html'
     fields = ['status', ]
     model = models.HelpRequest
@@ -202,7 +212,7 @@ class NewRequestDetailView(RegisteredUserMixin, UpdateView):
         return instance
 
 
-class RequestUpdateView(RegisteredUserMixin, UpdateView):
+class RequestUpdateView(DashboardMixin, UpdateView):
     model = models.HelpRequest
     form_class = forms.HelpRequestUpdateForm
 
@@ -245,24 +255,38 @@ class RequestReplyFormView(RegisteredUserMixin, FormView):
         return super(RequestReplyFormView, self).form_valid(form)
 
 
-class MessageListView(RegisteredUserMixin, ListView):
+class MessageListView(DashboardMixin, ListView):
     model = models.Message
     template_name = 'dashboard_message_list.html'
 
 
-class MessageDetailView(RegisteredUserMixin, DetailView):
+class MessageDetailView(DashboardMixin, DetailView):
     model = models.Message
     template_name = 'dashboard_message_detail.html'
 
+    def get(self, request, **kwargs):
+        response = super(MessageDetailView, self).get(request, **kwargs)
+        user = request.user
+        if not self.object.readed_by.filter(user=user).exists():
+            self.object.readed_by.create(user=user)
+        return response
 
-class EventListView(RegisteredUserMixin, ListView):
+
+class EventListView(DashboardMixin, ListView):
     model = models.Event
     template_name = 'dashboard_event_list.html'
 
 
-class EventDetailView(RegisteredUserMixin, DetailView):
+class EventDetailView(DashboardMixin, DetailView):
     model = models.Event
     template_name = 'dashboard_event_detail.html'
+
+    def get(self, request, **kwargs):
+        response = super(EventDetailView, self).get(request, **kwargs)
+        user = request.user
+        if not self.object.readed_by.filter(user=user).exists():
+            self.object.readed_by.create(user=user)
+        return response
 
 #
 # Views to register user and his role

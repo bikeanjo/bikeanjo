@@ -18,9 +18,21 @@
                 <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span></a></li>
                 {% endif %}
                 <li><a href="{% url 'cyclist_new_requests' %}?filter=new">Novos pedidos</a></li>
-                <li><a href="{% url 'dashboard_message_list' %}">Recados
-                <span class="alert bubble">1</span></a></li>
-                <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
+
+                <li>
+                    <a href="{% url 'dashboard_message_list' %}">Recados</a>
+                    {% if unread.messages.count %}
+                        <span class="alert bubble">{{ unread.messages.count }}</span>
+                    {% endif %}
+                </li>
+
+                <li>
+                    <a href="{% url 'dashboard_event_list' %}">Eventos</a>
+                    {% if unread.events.count %}
+                        <span class="alert bubble">{{ unread.events.count }}</span>
+                    {% endif %}
+                </li>
+
                 <li><a href="#">Fórum de discussão</a></li>
                 <li><a href="#">Dicas para pedalar</a></li>
                 <li><a href="{% url 'user_register' %}">Editar cadastro</a></li>

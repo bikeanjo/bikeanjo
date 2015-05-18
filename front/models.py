@@ -3,6 +3,9 @@ import json
 from datetime import datetime, date
 from collections import OrderedDict
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -162,31 +165,6 @@ class HelpReply(BaseModel):
         ordering = ['-created_date']
 
 
-class Message(BaseModel):
-    title = models.CharField(max_length=128)
-    content = models.TextField()
-    image = models.ImageField(upload_to='messages', null=True, blank=True)
-
-    class Meta:
-        ordering = ['-created_date']
-
-
-class Event(BaseModel):
-    title = models.CharField(max_length=128)
-    content = models.TextField()
-    image = models.ImageField(upload_to='events', null=True, blank=True)
-    start_date = models.DateTimeField(_('start date'))
-    end_date = models.DateTimeField(_('end date'), null=True, blank=True)
-    city = models.CharField(_('city'), max_length='64')
-    address = models.CharField(_('address'), max_length='128', blank=True)
-    address_link = models.CharField(_('address link'), max_length='255', blank=True)
-    link = models.CharField(_('link'), max_length='255', blank=True)
-    price = models.IntegerField(_('price'), default=0, blank=True)
-
-    class Meta:
-        ordering = ['-created_date']
-
-
 class Track(BaseModel):
     user = models.ForeignKey(User)
     start = models.CharField(max_length=128)
@@ -223,3 +201,40 @@ class Point(BaseModel):
         if self.id:
             d['properties']['id'] = self.id
         return json.dumps(d)
+
+
+class ContentReadLog(models.Model):
+    user = models.ForeignKey(User)
+    created_date = models.DateTimeField(_('created date'), auto_now_add=True, editable=False)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+
+class Message(BaseModel):
+    title = models.CharField(max_length=128)
+    content = models.TextField()
+    image = models.ImageField(upload_to='messages', null=True, blank=True)
+
+    readed_by = GenericRelation(ContentReadLog, related_query_name='messages')
+
+    class Meta:
+        ordering = ['-created_date']
+
+
+class Event(BaseModel):
+    title = models.CharField(max_length=128)
+    content = models.TextField()
+    image = models.ImageField(upload_to='events', null=True, blank=True)
+    start_date = models.DateTimeField(_('start date'))
+    end_date = models.DateTimeField(_('end date'), null=True, blank=True)
+    city = models.CharField(_('city'), max_length='64')
+    address = models.CharField(_('address'), max_length='128', blank=True)
+    address_link = models.CharField(_('address link'), max_length='255', blank=True)
+    link = models.CharField(_('link'), max_length='255', blank=True)
+    price = models.IntegerField(_('price'), default=0, blank=True)
+
+    readed_by = GenericRelation(ContentReadLog, related_query_name='events')
+
+    class Meta:
+        ordering = ['-created_date']
