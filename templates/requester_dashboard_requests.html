@@ -35,7 +35,7 @@
                     </header>
 
                     {% for hr in helprequest_list %}
-                    <div class="card-content {% if hr.last_reply_date < hr.requester_access %}old{% endif %} {{ hr.status }}">
+                    <div class="card-content {% if hr.last_reply < hr.requester_access %}old{% endif %} {{ hr.status }}">
                         <h3 class="card-subtitle">
                             <i class="fa {% spaceless %}
                                 {% if hr.status == "finalized" %}fa-check-circle

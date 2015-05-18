@@ -24,8 +24,7 @@ class HelpReplyInline(admin.TabularInline):
 class HelpRequestAdmin(admin.ModelAdmin):
     inlines = [HelpReplyInline]
     list_display = ('requester_name', 'bikeanjo_name', 'get_help_label',
-                    'status', 'last_reply_date', 'requester_rating',
-                    'requester_eval',)
+                    'status', 'requester_rating', 'requester_eval',)
 
     def requester_name(self, obj):
         return obj.requester.get_full_name()

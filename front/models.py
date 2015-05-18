@@ -110,9 +110,9 @@ class HelpStatusManager(models.Manager):
     def unread(self):
         base = self.filter(status='open')
         if 'bikeanjo' in self.core_filters:
-            return base.filter(last_reply_date__gt=models.F('bikeanjo_access'))
+            return base.filter(bikeanjo_access__lt=models.F('helpreply__created_date'))
         elif 'requester' in self.core_filters:
-            return base.filter(last_reply_date__gt=models.F('requester_access'))
+            return base.filter(requester_access__lt=models.F('helpreply__created_date'))
         return self.none()
 
 
@@ -131,7 +131,6 @@ class HelpRequest(BaseModel):
     help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
     status = models.CharField(max_length=16, choices=STATUS.items(), default='new')
 
-    last_reply_date = models.DateTimeField(_('last reply date'), null=True, editable=False)
     requester_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
     bikeanjo_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
 
@@ -155,11 +154,6 @@ class HelpReply(BaseModel):
     author = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
     message = models.TextField(_('message'))
-
-    def save(self, **kwargs):
-        super(HelpReply, self).save(**kwargs)
-        self.helprequest.last_reply_date = timezone.now()
-        return self
 
     class Meta:
         ordering = ['-created_date']

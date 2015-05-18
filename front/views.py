@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
-from django.db.models import Q
+from django.db.models import Q, Max
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -154,7 +154,8 @@ class RequestsListView(DashboardMixin, ListView):
         status = self.request.GET.get('status')
         if status in models.HelpRequest.STATUS:
             qs = qs.filter(status=status)
-        return qs
+
+        return qs.annotate(last_reply=Max('helpreply__created_date'))
 
 
 class NewRequestsListView(DashboardMixin, ListView):
