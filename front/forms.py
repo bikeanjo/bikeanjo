@@ -297,3 +297,21 @@ class PasswordResetForm(forms.Form):
         self.instance.set_password(password)
         self.instance.save()
         return self.instance
+
+
+class SignupAgreementForm(forms.ModelForm):
+    check1 = forms.BooleanField()
+    check2 = forms.BooleanField()
+    check3 = forms.BooleanField()
+    accepted_agreement = forms.BooleanField()
+
+    def clean(self):
+        cleaned_data = super(SignupAgreementForm, self).clean()
+        msg = 'Você deve aceitar os termos para usar o site'
+        for field, value in cleaned_data.items():
+            if not value:
+                self.add_error(field, msg)
+
+    class Meta:
+        model = models.User
+        fields = ('accepted_agreement',)

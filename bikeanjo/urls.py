@@ -40,6 +40,9 @@ urlpatterns = [
     url(r'^cyclist/register-free-points/$',
         front.views.PointsRegisterView.as_view(), name='cyclist_register_points'),
 
+    url(r'^cyclist/signup/agreement/$',
+        front.views.SignupAgreementView.as_view(), name='cyclist_agreement'),
+
     #
     # Dashboard HelpRequest and HelpReply
     #

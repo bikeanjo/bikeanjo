@@ -80,6 +80,7 @@ class User(AbstractUser):
     help_with = models.IntegerField(default=0)  # choices=HELP
     initiatives = models.CharField(max_length=256, blank=True)
     role = models.CharField(choices=CYCLIST_ROLES, max_length=32, blank=True)
+    accepted_agreement = models.BooleanField(default=False)
 
     def get_avatar_url(self):
         social = self.socialaccount_set.first()

@@ -2,6 +2,7 @@
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from django.forms.formsets import formset_factory
@@ -11,11 +12,44 @@ from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
-from django.utils.http import is_safe_url
+from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
 import allauth.account.views
 import forms
 import models
+
+
+class RegisteredUserMixin(LoginRequiredMixin):
+
+    def get_agreement_url(self):
+        url = reverse('cyclist_agreement')
+        if REDIRECT_FIELD_NAME:
+            url += '?' + urlencode({REDIRECT_FIELD_NAME: self.request.get_full_path()})
+        return url
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return self.handle_no_permission(request)
+
+        if not request.user.accepted_agreement:
+            return HttpResponseRedirect(self.get_agreement_url())
+
+        return super(RegisteredUserMixin, self).dispatch(
+            request, *args, **kwargs)
+
+
+class RedirectUrlMixin(object):
+
+    def get_redirect_url(self):
+        field_name = self.get_redirect_field_name()
+        next_page = self.request.session.pop(field_name, None)\
+            or self.request.POST.get(field_name, None)\
+            or self.request.GET.get(field_name, None)
+
+        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
+            return next_page
+
+        return None
 
 
 class HomeView(TemplateView):
@@ -33,7 +67,7 @@ class RawTemplateView(LoginRequiredMixin, TemplateView):
         return [tpl]
 
 
-class DashBoardView(LoginRequiredMixin, TemplateView):
+class DashBoardView(RegisteredUserMixin, TemplateView):
     def get_template_names(self):
         tpl = '%s_dashboard.html' % self.request.user.role
         return [tpl]
@@ -43,13 +77,13 @@ class DashBoardView(LoginRequiredMixin, TemplateView):
 #
 
 
-class UserRegisterView(LoginRequiredMixin, TemplateView):
+class UserRegisterView(RegisteredUserMixin, TemplateView):
     def get_template_names(self):
         tpl = '%s_dashboard_userregister.html' % self.request.user.role
         return [tpl]
 
 
-class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
+class UserInfoUpdateView(RegisteredUserMixin, UpdateView):
     template_name = 'cyclist_dashboard_userinfo.html'
     fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
 
@@ -64,7 +98,7 @@ class UserInfoUpdateView(LoginRequiredMixin, UpdateView):
         return super(UserInfoUpdateView, self).form_valid(form)
 
 
-class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
+class ExperienceUpdateView(RegisteredUserMixin, UpdateView):
     form_class = forms.BikeanjoExperienceForm
 
     def get_template_names(self):
@@ -78,7 +112,7 @@ class ExperienceUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('user_experience_update')
 
 
-class PasswordResetView(LoginRequiredMixin, UpdateView):
+class PasswordResetView(RegisteredUserMixin, UpdateView):
     template_name = 'cyclist_dashboard_changepassword.html'
     form_class = forms.PasswordResetForm
 
@@ -98,7 +132,7 @@ class PasswordResetView(LoginRequiredMixin, UpdateView):
 #
 
 
-class RequestsListView(LoginRequiredMixin, ListView):
+class RequestsListView(RegisteredUserMixin, ListView):
     model = models.HelpRequest
     paginate_by = 10
 
@@ -118,7 +152,7 @@ class RequestsListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class NewRequestsListView(LoginRequiredMixin, ListView):
+class NewRequestsListView(RegisteredUserMixin, ListView):
     model = models.HelpRequest
     paginate_by = 10
     template_name = 'bikeanjo_dashboard_new_requests.html'
@@ -157,7 +191,7 @@ class NewRequestsListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class NewRequestDetailView(LoginRequiredMixin, UpdateView):
+class NewRequestDetailView(RegisteredUserMixin, UpdateView):
     template_name = 'bikeanjo_dashboard_new_request.html'
     fields = ['status', ]
     model = models.HelpRequest
@@ -173,7 +207,7 @@ class NewRequestDetailView(LoginRequiredMixin, UpdateView):
         return instance
 
 
-class RequestUpdateView(LoginRequiredMixin, UpdateView):
+class RequestUpdateView(RegisteredUserMixin, UpdateView):
     model = models.HelpRequest
     form_class = forms.HelpRequestUpdateForm
 
@@ -195,7 +229,7 @@ class RequestUpdateView(LoginRequiredMixin, UpdateView):
         return ['requester_dashboard_request.html']
 
 
-class RequestReplyFormView(LoginRequiredMixin, FormView):
+class RequestReplyFormView(RegisteredUserMixin, FormView):
     form_class = forms.RequestReplyForm
 
     def get(self, request, **kwargs):
@@ -268,9 +302,23 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        self.request.session['next'] = reverse('cyclist_register_routes')
+        self.request.session[REDIRECT_FIELD_NAME] = reverse('cyclist_register_routes')
         return super(SignupRequesterView, self).form_valid(form)
 
+
+class SignupAgreementView(LoginRequiredMixin, UpdateView):
+    form_class = forms.SignupAgreementForm
+    model = models.User
+
+    def get_template_names(self):
+        tpl = '%s_signup_terms.html' % self.request.user.role
+        return [tpl]
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('cyclist_dashboard')
 
 #
 # Views to get cyclist info
@@ -294,19 +342,13 @@ class HelpOfferView(LoginRequiredMixin, FormView):
         return super(HelpOfferView, self).form_valid(form)
 
 
-class HelpRequestView(LoginRequiredMixin, FormView):
+class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     form_class = forms.HelpRequestForm
     template_name = 'requester_ask_help.html'
 
     def get_success_url(self):
-        next_page = self.request.session.pop('next', None)\
-            or self.request.POST.get('next', None)\
-            or self.request.GET.get('next', None)
-
-        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
-            return next_page
-
-        return reverse('cyclist_request_detail', args=[self.helprequest.id])
+        return self.get_redirect_url() or\
+            reverse('cyclist_request_detail', args=[self.helprequest.id])
 
     def get_form_kwargs(self):
         kwargs = super(HelpRequestView, self).get_form_kwargs()
@@ -342,19 +384,13 @@ class TrackRegisterView(LoginRequiredMixin, FormView):
         return super(TrackRegisterView, self).form_valid(form)
 
 
-class TrackListView(LoginRequiredMixin, FormView):
+class TrackListView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     template_name = 'cyclist_routes_list.html'
     form_class = forms.TrackReviewForm
 
     def get_success_url(self):
-        next_page = self.request.session.pop('next', None)\
-            or self.request.POST.get('next', None)\
-            or self.request.GET.get('next', None)
-
-        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
-            return next_page
-
-        return reverse('cyclist_register_points')
+        return self.get_redirect_url() or\
+            reverse('cyclist_register_points')
 
     def get_form_kwargs(self):
         kwargs = super(TrackListView, self).get_form_kwargs()
@@ -366,7 +402,7 @@ class TrackListView(LoginRequiredMixin, FormView):
         return super(TrackListView, self).form_valid(form)
 
 
-class PointsRegisterView(LoginRequiredMixin, FormView):
+class PointsRegisterView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     template_name = 'cyclist_free_points.html'
     form_class = forms.PointsForm
 
@@ -376,14 +412,8 @@ class PointsRegisterView(LoginRequiredMixin, FormView):
         return kwargs
 
     def get_success_url(self):
-        next_page = self.request.session.pop('next', None)\
-            or self.request.POST.get('next', None)\
-            or self.request.GET.get('next', None)
-
-        if next_page and is_safe_url(url=next_page, host=self.request.get_host()):
-            return next_page
-
-        return reverse('cyclist_dashboard')
+        return self.get_redirect_url() or\
+            reverse('cyclist_dashboard')
 
     def form_valid(self, form):
         form.save()
