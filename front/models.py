@@ -165,7 +165,7 @@ class HelpReply(BaseModel):
 class Message(BaseModel):
     title = models.CharField(max_length=128)
     content = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to='messages')
 
     class Meta:
         ordering = ['-created_date']
