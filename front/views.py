@@ -244,6 +244,11 @@ class RequestReplyFormView(RegisteredUserMixin, FormView):
         # messages.add_message(self.request, messages.SUCCESS, 'Sua resposta foi enviada com sucesso!')
         return super(RequestReplyFormView, self).form_valid(form)
 
+
+class MessageListView(RegisteredUserMixin, ListView):
+    model = models.Message
+    template_name = 'dashboard_message_list.html'
+
 #
 # Views to register user and his role
 #

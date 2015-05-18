@@ -34,3 +34,8 @@ class HelpRequestAdmin(admin.ModelAdmin):
         if obj.bikeanjo is None:
             return ''
         return obj.bikeanjo.get_full_name()
+
+
+@admin.register(models.Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('created_date', 'title',)

@@ -162,6 +162,15 @@ class HelpReply(BaseModel):
         ordering = ['-created_date']
 
 
+class Message(BaseModel):
+    title = models.CharField(max_length=128)
+    content = models.TextField()
+    image = models.ImageField()
+
+    class Meta:
+        ordering = ['-created_date']
+
+
 class Track(BaseModel):
     user = models.ForeignKey(User)
     start = models.CharField(max_length=128)
