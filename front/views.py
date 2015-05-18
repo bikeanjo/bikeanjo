@@ -254,6 +254,16 @@ class MessageDetailView(RegisteredUserMixin, DetailView):
     model = models.Message
     template_name = 'dashboard_message_detail.html'
 
+
+class EventListView(RegisteredUserMixin, ListView):
+    model = models.Event
+    template_name = 'dashboard_event_list.html'
+
+
+class EventDetailView(RegisteredUserMixin, DetailView):
+    model = models.Event
+    template_name = 'dashboard_event_detail.html'
+
 #
 # Views to register user and his role
 #

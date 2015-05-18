@@ -176,10 +176,12 @@ class Event(BaseModel):
     content = models.TextField()
     image = models.ImageField(upload_to='events', null=True, blank=True)
     start_date = models.DateTimeField(_('start date'))
-    end_date = models.DateTimeField(_('end date'))
+    end_date = models.DateTimeField(_('end date'), null=True, blank=True)
+    city = models.CharField(_('city'), max_length='64')
     address = models.CharField(_('address'), max_length='128', blank=True)
     address_link = models.CharField(_('address link'), max_length='255', blank=True)
     link = models.CharField(_('link'), max_length='255', blank=True)
+    price = models.IntegerField(_('price'), default=0, blank=True)
 
     class Meta:
         ordering = ['-created_date']
