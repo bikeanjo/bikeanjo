@@ -38,7 +38,9 @@
             <p class="visible-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)'.</p>
             <p class="hidden-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a partir dessa informação vamos achar um bike anjo para te ajudar.</p>
         </header>
-        <input type="hidden" name="next" value="{% url 'cyclist_register_points' %}" />
+            {% if view.get_redirect_field_name not in request.GET %}
+                <input type="hidden" name="next" value="{% url 'cyclist_register_points' %}" />
+            {% endif %}
         {% endif %}
 
         <div class="add-route">
