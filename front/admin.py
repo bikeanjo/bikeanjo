@@ -39,3 +39,8 @@ class HelpRequestAdmin(admin.ModelAdmin):
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ('created_date', 'title',)
+
+
+@admin.register(models.Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'start_date', 'end_date', 'address',)

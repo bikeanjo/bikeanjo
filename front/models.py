@@ -165,7 +165,21 @@ class HelpReply(BaseModel):
 class Message(BaseModel):
     title = models.CharField(max_length=128)
     content = models.TextField()
-    image = models.ImageField(upload_to='messages')
+    image = models.ImageField(upload_to='messages', null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_date']
+
+
+class Event(BaseModel):
+    title = models.CharField(max_length=128)
+    content = models.TextField()
+    image = models.ImageField(upload_to='messages', null=True, blank=True)
+    start_date = models.DateTimeField(_('start date'))
+    end_date = models.DateTimeField(_('end date'))
+    address = models.CharField(_('address'), max_length='128', blank=True)
+    address_link = models.CharField(_('address link'), max_length='255', blank=True)
+    link = models.CharField(_('link'), max_length='255', blank=True)
 
     class Meta:
         ordering = ['-created_date']
