@@ -369,8 +369,16 @@ class TrackRegisterView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        return self.get_redirect_url() or\
-            reverse('cyclist_registered_routes')
+        url = reverse('cyclist_registered_routes')
+        redirect = self.get_redirect_url()
+
+        if redirect:
+            url = '%s?%s=%s' % (
+                url,
+                self.get_redirect_field_name(),
+                redirect,
+            )
+        return url
 
     def get_form_kwargs(self):
         kwargs = super(TrackRegisterView, self).get_form_kwargs()

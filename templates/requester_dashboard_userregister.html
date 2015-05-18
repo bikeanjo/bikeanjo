@@ -24,11 +24,11 @@
                         <div class="card-info">Tempo de pedal, frequência, etc...</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'cyclist_registered_routes' %}"><i class="fa fa-location-arrow"></i> Minhas rotas</a></h3>
+                        <h3 class="card-subtitle"><a href="{% url 'cyclist_register_routes' %}?{{view.get_redirect_field_name}}={{request.get_full_path}}"><i class="fa fa-location-arrow"></i> Minhas rotas</a></h3>
                         <div class="card-info">Rota onde você gostaria de pedalar</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'cyclist_register_points' %}"><i class="fa fa-map-marker"></i> Pontos avulsos</a></h3>
+                        <h3 class="card-subtitle"><a href="{% url 'cyclist_register_points' %}?{{view.get_redirect_field_name}}={{request.get_full_path}}"><i class="fa fa-map-marker"></i> Pontos avulsos</a></h3>
                         <div class="card-info">Ponto avulsos onde você gostaria de praticar</div>
                     </div>
                 </article>
