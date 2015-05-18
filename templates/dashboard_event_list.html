@@ -15,7 +15,16 @@
                     <div class="card-content">
                         <h3 class="card-subtitle"><a href="{% url 'dashboard_event_detail' event.id %}"><i class="fa fa-calendar-o"></i> {{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>{{ event.start_date|date:'d/m/Y H:i:s' }}{% if event.end_date %} - {{ event.end_date|date:'d/m/Y H:i:s' }}{% endif %}</li>
+                            <li>
+                                <span>{{ event.start_date|date:'d/m/Y, H:i:s' }}</span>
+                                {% if event.end_date %}
+                                    <span> - </span>
+                                    {% if event.end_date.date = event.start_date.date %}
+                                        <span>{{ event.end_date|date:'H:i:s' }}</span>
+                                    {% else %}
+                                        <span>{{ event.end_date|date:'d/m/Y, H:i:s' }}</span>
+                                    {% endif %}
+                                {% endif %}                            </li>
                             <li>{{ event.city }}</li>
                             <li>{{ event.price|default:'Evento gratuito' }}</li>
                         </ul>
