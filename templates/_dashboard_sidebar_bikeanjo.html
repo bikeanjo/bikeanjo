@@ -18,7 +18,7 @@
                 <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span></a></li>
                 {% endif %}
                 <li><a href="{% url 'cyclist_new_requests' %}?filter=new">Novos pedidos</a></li>
-                <li><a href="#">Recados
+                <li><a href="{% url 'dashboard_message_list' %}">Recados
                 <span class="alert bubble">1</span></a></li>
                 <li><a href="#">Eventos</a></li>
                 <li><a href="#">Fórum de discussão</a></li>

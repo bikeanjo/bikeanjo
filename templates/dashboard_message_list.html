@@ -14,7 +14,7 @@
                     {% for message in message_list %}
                     <div class="card-content">
                         <h3 class="card-subtitle"><a href="{% url 'dashboard_message_detail' message.id %}"><i class="fa fa-envelope"></i> {{ message.title }}</a></h3>
-                        <div class="card-info">{{ message.content|truncatewords:11 }}</div>
+                        <div class="card-info">{{ message.content|truncatewords:12|striptags }}</div>
                     </div>
                     {% endfor %}
                 </article>

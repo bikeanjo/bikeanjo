@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load i18n %}
 
 {% block content %}
@@ -15,7 +16,7 @@
                     </header>
                     {% if message.image %}
                     <div>
-                        <img src="/static/imgs/bg-jumbotron.jpg" class="img-responsive"/>
+                        <img src="{{ message.image.url }}" class="img-responsive"/>
                     </div>
                     {% endif %}
                     <div class="card-content">
