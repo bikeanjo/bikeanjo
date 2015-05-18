@@ -364,14 +364,13 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
 #
 
 
-class TrackRegisterView(LoginRequiredMixin, FormView):
+class TrackRegisterView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     template_name = 'cyclist_routes_register_form.html'
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        if self.request.user.role == 'bikeanjo':
-            return reverse('cyclist_registered_routes')
-        return reverse('cyclist_register_points')
+        return self.get_redirect_url() or\
+            reverse('cyclist_registered_routes')
 
     def get_form_kwargs(self):
         kwargs = super(TrackRegisterView, self).get_form_kwargs()
