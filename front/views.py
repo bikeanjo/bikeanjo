@@ -259,6 +259,9 @@ class MessageListView(DashboardMixin, ListView):
     model = models.Message
     template_name = 'dashboard_message_list.html'
 
+    def get_queryset(self):
+        return models.Message.user_access_annotated(user=self.request.user)
+
 
 class MessageDetailView(DashboardMixin, DetailView):
     model = models.Message
@@ -275,6 +278,9 @@ class MessageDetailView(DashboardMixin, DetailView):
 class EventListView(DashboardMixin, ListView):
     model = models.Event
     template_name = 'dashboard_event_list.html'
+
+    def get_queryset(self):
+        return models.Event.user_access_annotated(user=self.request.user)
 
 
 class EventDetailView(DashboardMixin, DetailView):

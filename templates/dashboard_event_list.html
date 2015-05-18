@@ -9,11 +9,11 @@
             <section class="dashboard-content col-md-7">
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Eventos ({{event_list.count}})</h2>
+                        <h2 class="card-title">Eventos ({{unread.events.count}})</h2>
                     </header>
                     {% for event in event_list %}
-                    <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'dashboard_event_detail' event.id %}"><i class="fa fa-calendar-o"></i> {{ event.title }}</a></h3>
+                    <div class="card-content {% if event.readed_date %}old{% endif %}">
+                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>
                                 <span>{{ event.start_date|date:'d/m/Y, H:i:s' }}</span>

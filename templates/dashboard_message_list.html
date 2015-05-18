@@ -9,11 +9,11 @@
             <section class="dashboard-content col-md-7">
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Recados ({{message_list.count}})</h2>
+                        <h2 class="card-title">Recados ({{unread.messages.count}})</h2>
                     </header>
                     {% for message in message_list %}
-                    <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'dashboard_message_detail' message.id %}"><i class="fa fa-envelope"></i> {{ message.title }}</a></h3>
+                    <div class="card-content {% if message.readed_date %}old{% endif %}">
+                        <h3 class="card-subtitle"><i class="fa fa-envelope"></i> <a href="{% url 'dashboard_message_detail' message.id %}">{{ message.title }}</a></h3>
                         <div class="card-info">{{ message.content|truncatewords:12|striptags }}</div>
                     </div>
                     {% endfor %}

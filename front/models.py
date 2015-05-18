@@ -211,7 +211,38 @@ class ContentReadLog(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
 
-class Message(BaseModel):
+class ReadedAnnotationMixin(object):
+    @classmethod
+    def user_access_annotated(cls, user):
+        this_table = cls._meta.db_table
+        that_table = ContentReadLog._meta.db_table
+        type_id = ContentType.objects.get_for_model(cls).id
+
+        select_fields = ['%s.%s' % (this_table, field.column) for field in cls._meta.fields]
+        select_fields.append('%s.created_date AS readed_date' % that_table)
+        select_fields = ','.join(select_fields)
+
+        join_fields = '%(this_table)s.id = %(that_table)s.object_id\
+                       AND %(that_table)s.content_type_id = %(type_id)s\
+                       AND %(that_table)s.user_id IN (%(user_id)d, NULL)' % ({
+            'this_table': this_table,
+            'that_table': that_table,
+            'user_id': user.id,
+            'type_id': type_id,
+        })
+
+        query = 'SELECT %(select_fields)s FROM %(this_table)s\
+                 LEFT OUTER JOIN %(that_table)s ON %(join_fields)s' % ({
+            'select_fields': select_fields,
+            'this_table': this_table,
+            'that_table': that_table,
+            'join_fields': join_fields,
+        })
+
+        return cls.objects.raw(query)
+
+
+class Message(BaseModel, ReadedAnnotationMixin):
     title = models.CharField(max_length=128)
     content = models.TextField()
     image = models.ImageField(upload_to='messages', null=True, blank=True)
@@ -222,7 +253,7 @@ class Message(BaseModel):
         ordering = ['-created_date']
 
 
-class Event(BaseModel):
+class Event(BaseModel, ReadedAnnotationMixin):
     title = models.CharField(max_length=128)
     content = models.TextField()
     image = models.ImageField(upload_to='events', null=True, blank=True)
