@@ -28,14 +28,9 @@ class RegisteredUserMixin(LoginRequiredMixin):
         return url
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            return self.handle_no_permission(request)
-
-        if not request.user.accepted_agreement:
+        if request.user.is_authenticated() and not request.user.accepted_agreement:
             return HttpResponseRedirect(self.get_agreement_url())
-
-        return super(RegisteredUserMixin, self).dispatch(
-            request, *args, **kwargs)
+        return super(RegisteredUserMixin, self).dispatch(request, *args, **kwargs)
 
 
 class RedirectUrlMixin(object):
@@ -255,7 +250,10 @@ class RequestReplyFormView(RegisteredUserMixin, FormView):
 
 
 class SignupView(allauth.account.views.SignupView):
+
     def get(self, request, **kwargs):
+        if 'role' not in self.kwargs:
+            return HttpResponseRedirect(reverse('home'))
         request.session['user_role'] = self.kwargs.get('role')
         return super(SignupView, self).get(request, **kwargs)
 
@@ -306,7 +304,7 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
         return super(SignupRequesterView, self).form_valid(form)
 
 
-class SignupAgreementView(LoginRequiredMixin, UpdateView):
+class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
     form_class = forms.SignupAgreementForm
     model = models.User
 
@@ -318,7 +316,8 @@ class SignupAgreementView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        return reverse('cyclist_dashboard')
+        return self.get_redirect_url() or\
+            reverse('cyclist_dashboard')
 
 #
 # Views to get cyclist info
