@@ -17,61 +17,63 @@
                 </div>
                 {% endfor %}
 
-                <article class="card photo big">
+                {% if unread.messages.first %}
+                <article class="card {% if unread.messages.first.image %}photo{% endif %} big">
                     <button type="button" class="card-button" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-times"></i></span>
                     </button>
                     <div class="card-content">
+                        {% if unread.messages.first.image %}
                         <div class="card-photo">
-                            <img src="http://placehold.it/245x325">
+                            <img src="{{unread.messages.first.image.url}}">
                         </div>
-                        <h2 class="card-subtitle">Apoie o Bike Anjo</h2>
+                        {% endif %}
+                        <h2 class="card-subtitle">{{unread.messages.first.title}}</h2>
                         <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
                     </div>
                     <footer class="card-footer">
-                        <a class="see-more-link" href="#">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'dashboard_message_detail' unread.messages.first.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
+                {% endif %}
 
+                {% if user.helprequested_set.active.exists %}
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">Pedidos de ajuda ({{user.helprequested_set.active.count}})</h2>
                     </header>
                     {% for help in user.helprequested_set.active %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> {% trans 'Pedido' %} #{{ help.id|stringformat:"04d" }}</h3>
+                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' help.id %}">{% trans 'Pedido' %} #{{ help.id|stringformat:"04d" }}</a></h3>
                         <p class="card-info">{{ help.get_help_label }}</p>
                     </div>
                     {% endfor %}
                     <footer class="card-footer">
-                        <a class="see-more-link" href="#">Ver pedidos <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'cyclist_my_requests' %}">Ver pedidos <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
+                {% endif %}
 
+                {% if unread.events.exists %}
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">Eventos na sua cidade</h2>
                     </header>
+                    {% for event in unread.events %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> Pedalada em prol do idoso</h3>
+                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>00/00/0000</li>
-                            <li>São Paulo</li>
-                            <li>Evento Gratuito</li>
+                            <li>{{ event.start_date }}</li>
+                            <li>{{ event.city }}</li>
+                            <li>{{ event.price|default:'Evento Gratuito'}}</li>
                         </ul>
                     </div>
-                    <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> Pedalada em prol do idoso</h3>
-                        <ul class="card-info list-info list-unstyled">
-                            <li>00/00/0000</li>
-                            <li>São Paulo</li>
-                            <li>Evento Gratuito</li>
-                        </ul>
-                    </div>
+                    {% endfor %}
                     <footer class="card-footer">
-                        <a class="see-more-link" href="#">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'dashboard_event_list' %}">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
+                {% endif %}
 
                 <article class="card photo small">
                     <header class="card-header negative">
