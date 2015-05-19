@@ -397,8 +397,17 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     template_name = 'requester_ask_help.html'
 
     def get_success_url(self):
-        return self.get_redirect_url() or\
-            reverse('cyclist_request_detail', args=[self.helprequest.id])
+        url = self.get_redirect_url()
+        if url:
+            return url
+
+        if self.helprequest.help_with & 3 > 0:
+            url = reverse('cyclist_register_points')
+        elif self.helprequest.help_with & 12 > 0:
+            url = reverse('requester_help_request_route',
+                          args=[self.helprequest.id])
+
+        return url or reverse('cyclist_request_detail')
 
     def get_form_kwargs(self):
         kwargs = super(HelpRequestView, self).get_form_kwargs()
@@ -408,6 +417,16 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     def form_valid(self, form):
         self.helprequest = form.save()
         return super(HelpRequestView, self).form_valid(form)
+
+
+class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
+    model = models.HelpRequest
+    form_class = forms.HelpRequestRouteForm
+    template_name = 'requester_ask_help_route.html'
+
+    def get_success_url(self):
+        return self.get_redirect_url() or\
+            reverse('cyclist_request_detail', args=[self.object.id])
 
 
 #

@@ -1,0 +1,48 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+{% endblock %}
+
+{% block js %}{{ block.super }}
+<script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
+{% endblock %}
+
+{% block content %}
+<section class="forms signup container">
+
+    <div class="map" id="js-map"></div>
+
+    <form class="signup fullscreen card" id="signup_form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <header>
+            <h2>Qual é a sua rota?</h2>
+            <p class="visible-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)'.</p>
+            <p class="hidden-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a partir dessa informação vamos achar um bike anjo para te ajudar.</p>
+        </header>
+
+        <div class="add-route">
+            <div class="steps"></div>
+            <div class="form-group">
+                <label class="sr-only" for="departing-address">Local de partida</label>
+                <input class="form-control input-lg" type="text" id="departing-address" placeholder="Local de partida"
+                       bikeanjo-track="start"/>
+                <label class="sr-only" for="destination-address">Local de destino</label>
+                <input class="form-control input-lg" type="text" id="destination-address" placeholder="Local de destino"
+                       bikeanjo-track="end"/>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>
+
+    </form>
+</section>
+{% endblock %}

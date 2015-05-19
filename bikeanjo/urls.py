@@ -31,8 +31,11 @@ urlpatterns = [
 
     url(r'^bikeanjo/offer-help/$',
         front.views.HelpOfferView.as_view(), name='bikeanjo_help_offer'),
+
     url(r'^requester/request-help/$',
         front.views.HelpRequestView.as_view(), name='requester_help_request'),
+    url(r'^requester/request-help/(?P<pk>\d+)/route/$',
+        front.views.HelpRequestRouteView.as_view(), name='requester_help_request_route'),
 
     url(r'^cyclist/register-routes-to-help/$',
         front.views.TrackRegisterView.as_view(), name='cyclist_register_routes'),

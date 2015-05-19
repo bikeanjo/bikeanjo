@@ -220,6 +220,35 @@ class HelpRequestForm(forms.ModelForm):
         fields = ('help_with',)
 
 
+class HelpRequestRouteForm(forms.ModelForm):
+    track = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
+                            required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(HelpRequestRouteForm, self).__init__(*args, **kwargs)
+        self._original_track = self.instance.track
+
+    def clean_track(self):
+        track = self._original_track
+        try:
+            lines = json.loads(self.cleaned_data.get('track'))
+            if type(lines) in (list, tuple) and len(lines) > 0:
+                track = track or models.Track()
+                line = lines[0]
+                track.user = self.instance.requester
+                track.track = LineString([c for c in line.get('coordinates')])
+                track.start = line.get('properties').get('start')
+                track.end = line.get('properties').get('end')
+                track.save()
+        except ValueError, e:
+            raise forms.ValidationError(e.message)
+        return track
+
+    class Meta:
+        model = models.HelpRequest
+        fields = ('track',)
+
+
 class HelpRequestUpdateForm(forms.ModelForm):
     requester_rating = forms.IntegerField(required=False)
     requester_eval = forms.CharField(required=False)
