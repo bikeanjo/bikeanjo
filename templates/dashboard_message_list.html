@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <section class="dashboard bikeanjo container">
+    <section class="dashboard {{ user.role }} container">
        
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
