@@ -351,7 +351,6 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        self.request.session[REDIRECT_FIELD_NAME] = reverse('cyclist_register_routes')
         return super(SignupRequesterView, self).form_valid(form)
 
 
@@ -398,9 +397,9 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
 
     def get_success_url(self):
         url = self.get_redirect_url()
+
         if url:
             return url
-
         if self.helprequest.help_with & 3 > 0:
             url = reverse('cyclist_register_points')
         elif self.helprequest.help_with & 12 > 0:
