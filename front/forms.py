@@ -265,6 +265,17 @@ class HelpRequestUpdateForm(forms.ModelForm):
         fields = ('status', 'requester_eval', 'requester_rating',)
 
 
+class BikeanjoAcceptRequestForm(forms.ModelForm):
+    def save(self, **kwargs):
+        if self.instance.status == 'new':
+            self.instance.bikeanjo = None
+        return super(BikeanjoAcceptRequestForm, self).save(self, **kwargs)
+
+    class Meta:
+        model = models.HelpRequest
+        fields = ('status',)
+
+
 class RequestReplyForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):

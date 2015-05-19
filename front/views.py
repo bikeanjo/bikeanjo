@@ -199,7 +199,7 @@ class NewRequestsListView(DashboardMixin, ListView):
 
 class NewRequestDetailView(DashboardMixin, UpdateView):
     template_name = 'bikeanjo_dashboard_new_request.html'
-    fields = ['status', ]
+    form_class = forms.BikeanjoAcceptRequestForm
     model = models.HelpRequest
 
     def get_success_url(self):
