@@ -136,9 +136,11 @@ class HelpRequest(BaseModel):
 
     requester_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
     bikeanjo_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
-
     requester_rating = models.PositiveSmallIntegerField(_('rating'), default=0)
     requester_eval = models.TextField(_('evaluation'), blank=True)
+
+    track = models.ForeignKey('Track', null=True, blank=True)
+    point = models.ForeignKey('Point', null=True, blank=True)
 
     objects = HelpStatusManager()
 
