@@ -101,6 +101,9 @@ class User(AbstractUser):
 
 
 class HelpStatusManager(models.Manager):
+    def active(self):
+        return self.filter(status__in=['new', 'open'])
+
     def matching(self):
         return self.exclude(bikeanjo=None).filter(status='new')
 
