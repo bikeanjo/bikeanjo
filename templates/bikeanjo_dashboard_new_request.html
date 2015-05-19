@@ -101,10 +101,9 @@
                                     <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
                                 {% endfor %}
                                 </ul>
-                                
+
                                 <input type="hidden" bikeanjo-geojson="points" 
                                        value="[{% for point in helprequest.requester.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
-
                            {% endif %}
 
 
@@ -130,14 +129,25 @@
                         </header>
                         <div class="card-content">
                             <div id="js-map" style="height: 150px"></div>
-                            <p>
-                                <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
-                                <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
-                                <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
-                            </p>
 
-                            <input type="hidden" bikeanjo-geojson="lines" 
-                                   value="[{{ helprequest.requester.track_set.reverse.first.json }}]"/>
+                            {% if helprequest.track %}
+                                <p>
+                                    <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
+                                    <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
+                                    <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
+                                </p>
+                                <input type="hidden" bikeanjo-geojson="lines" 
+                                       value="[{{ helprequest.track.json }}]"/>                           
+                           {% else %}
+                                <ul class="fa-ul">
+                                {% for point in helprequest.requester.point_set.all %}
+                                    <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
+                                {% endfor %}
+                                </ul>
+
+                                <input type="hidden" bikeanjo-geojson="points" 
+                                       value="[{% for point in helprequest.requester.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
+                           {% endif %}
 
                             <div class="card-buttons">
                                 <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
