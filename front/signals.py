@@ -14,7 +14,8 @@ from front import models
 def assign_bike_anjo(sender, instance, **kwargs):
     if instance.bikeanjo is None:
         result = instance.find_bikeanjo()
-        if len(result) != 3:
+
+        if not (result and len(result) == 3):
             return
 
         score, track, bikeanjo = result

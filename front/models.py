@@ -166,14 +166,13 @@ class HelpRequest(BaseModel):
 
     def find_bikeanjo(self):
         city = self.requester.city
-        bikeanjos = User.objects.filter(role='bikeanjo').exclude(match__isnull=False)
+        bikeanjos = User.objects.filter(role='bikeanjo').exclude(match__isnull=False, match__helprequest=self)
         notas = []
         # 3 ponto, 12 rota
         if self.help_with | 12 and self.track:
             saida_pedido = self.track.track[0]
             chegada_pedido = self.track.track[-1]
             for bikeanjo in bikeanjos:
-                pedidos_aberto = bikeanjo.helpbikeanjo_set.active().count()
                 nota = 999999999
                 caminho = None
                 for track in bikeanjo.track_set.all():
