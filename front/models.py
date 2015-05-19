@@ -153,6 +153,40 @@ class HelpRequest(BaseModel):
             if self.help_with & code:
                 yield label
 
+    @staticmethod
+    def distance(points):
+        total = 0
+        last = points[0]
+
+        for point in points:
+            total += abs(last[0] - point[0]) + abs(last[1] - point[1])
+            last = point
+
+        return total
+
+    def find_bikeanjo(self):
+        city = self.requester.city
+        bikeanjos = User.objects.filter(role='bikeanjo').exclude(match__isnull=False)
+        notas = []
+        # 3 ponto, 12 rota
+        if self.help_with | 12 and self.track:
+            saida_pedido = self.track.track[0]
+            chegada_pedido = self.track.track[-1]
+            for bikeanjo in bikeanjos:
+                pedidos_aberto = bikeanjo.helpbikeanjo_set.active().count()
+                nota = 999999999
+                caminho = None
+                for track in bikeanjo.track_set.all():
+                    distancia = self.distance([track.track[0], track.track[-1]])
+                    d2 = self.distance([track.track[0], saida_pedido, chegada_pedido, track.track[-1]])
+                    total = abs(d2 - distancia)
+                    if total < nota:
+                        nota = total
+                        caminho = track
+                notas.append([nota, caminho, bikeanjo])
+            notas.sort(key=lambda nota: nota[0])
+            return notas[0]
+
 
 class HelpReply(BaseModel):
     author = models.ForeignKey(User)
@@ -168,6 +202,8 @@ class Track(BaseModel):
     start = models.CharField(max_length=128)
     end = models.CharField(max_length=128)
     track = models.LineStringField()
+
+    objects = models.GeoManager()
 
     def json(self):
         d = {
@@ -188,6 +224,8 @@ class Point(BaseModel):
     address = models.CharField(max_length=128)
     coords = models.PointField()
 
+    objects = models.GeoManager()
+
     def json(self):
         d = {
             'type': 'Point',
@@ -204,9 +242,9 @@ class Point(BaseModel):
 class Match(BaseModel):
     bikeanjo = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
-    score = models.IntegerField(default=0)
+    score = models.FloatField(default=0)
     rejected_date = models.DateTimeField(null=True)
-    reason = models.CharField(max_length=128)
+    reason = models.CharField(max_length=128, blank=True)
 
 
 class ContentReadLog(models.Model):
