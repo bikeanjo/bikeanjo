@@ -102,7 +102,10 @@
                 marker.id = p.properties.id;
                 bounds.extend(marker.getLatLng());
             }
-            var paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
+            var paddingTop = 10;
+            if($('.card.signup').length > 0){
+                paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
+            }
             map.fitBounds(bounds, {paddingTopLeft: [0, paddingTop]});
             return map;
         };
