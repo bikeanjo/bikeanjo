@@ -201,6 +201,14 @@ class Point(BaseModel):
         return json.dumps(d)
 
 
+class Match(BaseModel):
+    bikeanjo = models.ForeignKey(User)
+    helprequest = models.ForeignKey(HelpRequest)
+    score = models.IntegerField(default=0)
+    rejected_date = models.DateTimeField(null=True)
+    reason = models.CharField(max_length=128)
+
+
 class ContentReadLog(models.Model):
     user = models.ForeignKey(User)
     created_date = models.DateTimeField(_('created date'), auto_now_add=True, editable=False)
