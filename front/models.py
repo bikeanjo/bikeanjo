@@ -267,3 +267,8 @@ class Event(BaseModel, ReadedAnnotationMixin):
 
     class Meta:
         ordering = ['-created_date']
+
+
+class Feedback(BaseModel):
+    author = models.ForeignKey(User)
+    message = models.CharField(_('message'), max_length=255)

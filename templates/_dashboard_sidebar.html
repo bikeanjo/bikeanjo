@@ -3,3 +3,25 @@
 {% elif user.role == 'requester' %}
     {% include '_dashboard_sidebar_requester.html' %}
 {% endif %}
+
+
+<div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                <h4 class="modal-title"><i class="fa fa-check-circle"></i> Nos ajude a melhorar, envie um feedback</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'user_feedback' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
+                    <textarea class="form-control" name="message" rows="5" placeholder="Enter text"></textarea>
+                    <input type="hidden" name="{{ view.get_redirect_field_name }}" value="{{ request.get_full_path }}" />
+                    </div><button class="btn btn-warning" type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

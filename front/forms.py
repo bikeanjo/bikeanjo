@@ -356,3 +356,14 @@ class SignupAgreementForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ('accepted_agreement',)
+
+
+class FeedbackForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        author = kwargs.pop('author', None)
+        super(FeedbackForm, self).__init__(*args, **kwargs)
+        self.instance.author = author
+
+    class Meta:
+        model = models.Feedback
+        fields = ('message',)

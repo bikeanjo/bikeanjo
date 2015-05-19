@@ -84,6 +84,9 @@ urlpatterns = [
     url(r'^dashboard/register/change-password/',
         front.views.PasswordResetView.as_view(), name='user_password_change'),
 
+    url(r'^feedback/$',
+        front.views.FeedbackView.as_view(), name='user_feedback'),
+
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

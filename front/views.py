@@ -493,3 +493,24 @@ class PointsRegisterView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super(PointsRegisterView, self).form_valid(form)
+
+
+class FeedbackView(LoginRequiredMixin, RedirectUrlMixin, FormView):
+    form_class = forms.FeedbackForm
+
+    def get(self, request, **kwargs):
+        return HttpResponseRedirect(redirect_to=self.get_success_url())
+
+    def get_success_url(self):
+        return self.get_redirect_url() or\
+            reverse('cyclist_dashboard')
+
+    def get_form_kwargs(self):
+        kwargs = super(FeedbackView, self).get_form_kwargs()
+        kwargs['author'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 'Seu feedback foi enviado. Obrigado!')
+        return super(FeedbackView, self).form_valid(form)
