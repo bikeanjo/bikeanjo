@@ -1,9 +1,9 @@
 .PHONY: pre-ci setup-ci all tests
 .SILENT: all
 
-GRUNT=grunt
-BOWER=bower
-NOINPUT=
+GRUNT=./node_modules/grunt-cli/bin/grunt
+BOWER=./node_modules/bower/bin/bower
+NOINPUT=--noinput
 
 PIP="${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/pip"
 PYTHON="${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/python"
