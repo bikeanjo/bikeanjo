@@ -1,0 +1,25 @@
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+SECRET_KEY = 'SECRET_KEYSECRET_KEYSECRET_KEYSECRET_KEY'
+DEBUG = False
+TEMPLATE_DEBUG = False
+
+ADMINS = (
+    ('Fabio Montefuscolo', 'fabio.montefuscolo@hacklab.com.br'),
+)
+
+ALLOWED_HOSTS = [
+    '.hacklab.com.br',
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'bikeanjo',
+    }
+}
+
+STATICFILES_DIRS = ()
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
