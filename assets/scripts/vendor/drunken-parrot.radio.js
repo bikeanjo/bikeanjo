@@ -26,6 +26,11 @@
   , setState: function () {
       var $el = this.$element
         , $parent = $el.closest('.radio');
+        
+//         if($el.attr('checked') === 'checked') {
+//             $el.prop('checked', true) ;
+//         }
+// console.log($el, $el.prop('checked'));
 
         $el.prop('disabled') && $parent.addClass('disabled');
         $el.prop('checked') && $parent.addClass('checked');
@@ -51,7 +56,7 @@
         });
 
         if ($el.prop(d) == false) {
-          if (checked == false) $parent.addClass(ch) && $el.attr(ch, true);
+          if (checked == false) $parent.addClass(ch) && $el.attr(ch, true) && $el.prop(ch, true);
           $el.trigger(e);
 
           if (checked !== $el.prop(ch)) {
