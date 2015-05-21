@@ -59,7 +59,7 @@
                     <header class="card-header negative">
                         <h2 class="card-title">Eventos na sua cidade</h2>
                     </header>
-                    {% for event in unread.events %}
+                    {% for event in unread.events|slice:'5:' %}
                     <div class="card-content">
                         <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">

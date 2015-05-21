@@ -64,30 +64,28 @@
                 </article>
                 {% endif %}
 
+                {% if unread.events.count %}
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">Eventos na sua cidade</h2>
                     </header>
+
+                    {% for event in unread.events.all|slice:':5' %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> Pedalada em prol do idoso</h3>
+                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>00/00/0000</li>
-                            <li>São Paulo</li>
-                            <li>Evento Gratuito</li>
+                            <li>{{ event.start_date }}</li>
+                            <li>{{ event.city }}</li>
+                            <li>{{ event.price|default:'Evento Gratuito'}}</li>
                         </ul>
                     </div>
-                    <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> Pedalada em prol do idoso</h3>
-                        <ul class="card-info list-info list-unstyled">
-                            <li>00/00/0000</li>
-                            <li>São Paulo</li>
-                            <li>Evento Gratuito</li>
-                        </ul>
-                    </div>
+                    {% endfor %}
+
                     <footer class="card-footer">
                         <a class="see-more-link" href="#">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
+                {% endif %}
 
                 <article class="card photo small">
                     <header class="card-header negative">

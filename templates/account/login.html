@@ -15,9 +15,7 @@
         </header>
         <form class="card" method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
-
-
-            
+         
             <fieldset>
                 <legend>Faça seu login usando</legend>
                 {# include "socialaccount/snippets/provider_list.html" with process="login" #}
@@ -59,6 +57,14 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+
+                {% if form.non_field_errors %}
+                <ul class="list-unstyled text-center">
+                    {% for error in form.non_field_errors %}
+                    <li class="text-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </fieldset>
 
             {% if redirect_field_value %}
