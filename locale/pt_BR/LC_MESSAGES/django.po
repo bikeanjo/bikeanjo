@@ -1,0 +1,545 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-21 14:10-0300\n"
+"PO-Revision-Date: 2015-05-21 14:13-0300\n"
+"Last-Translator:   <a@b.cd>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
+
+#: front/forms.py:16 front/models.py:214
+#, fuzzy
+#| msgid "Track"
+msgid "Tracks"
+msgstr "Rota"
+
+#: front/forms.py:78 front/models.py:240
+msgid "Points"
+msgstr "Pontos"
+
+#: front/forms.py:129
+msgid "First name"
+msgstr "Primeiro nome"
+
+#: front/forms.py:130
+msgid "Last name"
+msgstr "Último nome"
+
+#: front/forms.py:131 front/models.py:81
+msgid "Country"
+msgstr "País"
+
+#: front/forms.py:132 front/models.py:82 front/models.py:340
+msgid "City"
+msgstr "Cidade"
+
+#: front/forms.py:158 front/forms.py:170 front/models.py:83
+msgid "Gender"
+msgstr "Gênero"
+
+#: front/forms.py:159 front/forms.py:171 front/models.py:84
+msgid "Birthday"
+msgstr "Data de nascimento"
+
+#: front/forms.py:160 front/forms.py:193 front/models.py:85
+msgid "Ride experience"
+msgstr "Experiência"
+
+#: front/forms.py:161
+msgid "Bike user"
+msgstr "Uso da bike"
+
+#: front/forms.py:162 front/forms.py:195 front/models.py:88
+msgid "Initiatives"
+msgstr "Iniciativas"
+
+#: front/forms.py:180 front/forms.py:196 front/models.py:87
+#: front/models.py:142
+msgid "Help with"
+msgstr "Ajuda com"
+
+#: front/forms.py:194 front/models.py:86
+msgid "Bike use"
+msgstr "Uso da bike"
+
+#: front/forms.py:226 front/models.py:213 front/templates/help_offer.html:14
+msgid "Track"
+msgstr "Rota"
+
+#: front/forms.py:256
+#, fuzzy
+#| msgid "Requester"
+msgid "Requester rating"
+msgstr "Solicitante"
+
+#: front/forms.py:257
+#, fuzzy
+#| msgid "evaluation"
+msgid "Requester evaluation"
+msgstr "avaliação"
+
+#: front/forms.py:300 front/forms.py:302 templates/account/login.html:51
+msgid "Password"
+msgstr "Password"
+
+#: front/forms.py:304
+msgid "Password (again)"
+msgstr "Password (novamente)"
+
+#: front/models.py:14 templates/bikeanjo_complete_signup.html:43
+#: templates/cyclist_dashboard_userinfo.html:105
+#: templates/requester_complete_signup.html:43
+msgid "Male"
+msgstr "Masculino"
+
+#: front/models.py:15 templates/bikeanjo_complete_signup.html:35
+#: templates/cyclist_dashboard_userinfo.html:97
+#: templates/requester_complete_signup.html:35
+msgid "Female"
+msgstr "Feminino"
+
+#: front/models.py:19
+msgid "Bikeanjo"
+msgstr "Bikeanjo"
+
+#: front/models.py:20
+msgid "Requester"
+msgstr "Solicitante"
+
+#: front/models.py:25
+msgid "Teach someone to ride a bike"
+msgstr "Ensinar alguém a pedalar"
+
+#: front/models.py:26
+msgid "Follow beginners on cycling"
+msgstr "Acompanhar iniciante na pedalada"
+
+#: front/models.py:27
+msgid "Advice about safe routes"
+msgstr "Sugerir rotas seguras"
+
+#: front/models.py:28
+msgid "Participating in the events of Bike Anjos"
+msgstr "Participar de eventos dos Bikeanjos"
+
+#: front/models.py:32
+msgid "Learn to ride a bike"
+msgstr "Aprender a pedalar"
+
+#: front/models.py:33
+msgid "Pratice cycling"
+msgstr "Praticar pedaladas"
+
+#: front/models.py:34
+msgid "Route recomendation"
+msgstr "Recomendação de rotas"
+
+#: front/models.py:35
+msgid "Monitoring on traffic"
+msgstr "Acompanhamento do trânsito"
+
+#: front/models.py:41
+msgid "Less than 1 year"
+msgstr "Menos de 1 ano"
+
+#: front/models.py:42
+msgid "From 1 to 2 years"
+msgstr "De 1 a 2 anos"
+
+#: front/models.py:43
+msgid "From 2 to 4 years"
+msgstr "De 2 a 4 anos"
+
+#: front/models.py:44
+msgid "More than 4 years"
+msgstr "Mais de 4 anos"
+
+#: front/models.py:48
+msgid "I do not know pedaling yet"
+msgstr "Eu não sei pedalar ainda"
+
+#: front/models.py:49
+msgid "I know cycling, but have no experience in traffic"
+msgstr "Eu sei pedalar, mas não tenho experiência no trânsio"
+
+#: front/models.py:50
+msgid "Already ride a long time but not daily"
+msgstr "Sempre pedalo, mas não diariamente"
+
+#: front/models.py:51
+msgid "I use bike almost every day"
+msgstr "Eu uso a bike quase todos os dias"
+
+#: front/models.py:57
+msgid "Everyday"
+msgstr "Diariamente"
+
+#: front/models.py:58
+msgid "Just few days a week/month"
+msgstr "Somente alguns dias por semana/mês"
+
+#: front/models.py:59
+msgid "Once a week"
+msgstr "1 vez por semana"
+
+#: front/models.py:60
+msgid "No, I use for leisure"
+msgstr "Só uso a bike para lazer"
+
+#: front/models.py:69 front/models.py:279
+#, fuzzy
+#| msgid "created date"
+msgid "Created date"
+msgstr "data de criação"
+
+#: front/models.py:70
+#, fuzzy
+#| msgid "modified date"
+msgid "Modified date"
+msgstr "data de modificação"
+
+#: front/models.py:78 front/models.py:79
+msgid "User"
+msgstr "Usuário"
+
+#: front/models.py:89
+msgid "Role"
+msgstr "Função"
+
+#: front/models.py:90
+#, fuzzy
+#| msgid "Signup agreement"
+msgid "Accepted agreement"
+msgstr "Termos para cadastro"
+
+#: front/models.py:128
+#, fuzzy
+#| msgid "Help requests"
+msgid "Help request"
+msgstr "Solicitações de ajuda"
+
+#: front/models.py:129 templates/_header.html:52
+msgid "Help requests"
+msgstr "Solicitações de ajuda"
+
+#: front/models.py:132
+msgid "New"
+msgstr "Novo"
+
+#: front/models.py:133
+msgid "Open"
+msgstr "Aberto"
+
+#: front/models.py:134
+msgid "Attended"
+msgstr "Atendido"
+
+#: front/models.py:135
+msgid "Finalized"
+msgstr "Finalizado"
+
+#: front/models.py:136
+msgid "Canceled"
+msgstr "Cancelado"
+
+#: front/models.py:143
+msgid "Status"
+msgstr "Status"
+
+#: front/models.py:145 front/models.py:146
+#, fuzzy
+#| msgid "access date"
+msgid "Access date"
+msgstr "data de acesso"
+
+#: front/models.py:147
+#, fuzzy
+#| msgid "rating"
+msgid "Rating"
+msgstr "nota"
+
+#: front/models.py:148
+#, fuzzy
+#| msgid "evaluation"
+msgid "Evaluation"
+msgstr "avaliação"
+
+#: front/models.py:200
+#, fuzzy
+#| msgid "Help requests"
+msgid "Help reply"
+msgstr "Solicitações de ajuda"
+
+#: front/models.py:201
+#, fuzzy
+#| msgid "Help requests"
+msgid "Help replies"
+msgstr "Solicitações de ajuda"
+
+#: front/models.py:205 front/models.py:318 front/models.py:355
+#, fuzzy
+#| msgid "Messages"
+msgid "Message"
+msgstr "Recados"
+
+#: front/models.py:217
+msgid "Start"
+msgstr "Início"
+
+#: front/models.py:218
+msgid "End"
+msgstr "Fim"
+
+#: front/models.py:239
+msgid "Point"
+msgstr "Ponto"
+
+#: front/models.py:243 front/models.py:341
+#, fuzzy
+#| msgid "address"
+msgid "Address"
+msgstr "endereço"
+
+#: front/models.py:263
+msgid "Match"
+msgstr "Combinação"
+
+#: front/models.py:264
+msgid "Matches"
+msgstr "Combinações"
+
+#: front/models.py:268
+msgid "Score"
+msgstr "Escore"
+
+#: front/models.py:269
+#, fuzzy
+#| msgid "created date"
+msgid "Rejected date"
+msgstr "data de criação"
+
+#: front/models.py:270
+msgid "Reason"
+msgstr "Razão"
+
+#: front/models.py:275
+msgid "Content read log"
+msgstr "Log de leitura de conteúdo"
+
+#: front/models.py:276
+msgid "Content read logs"
+msgstr "Logs de leitura de conteúdo"
+
+#: front/models.py:319 templates/_header.html:53
+msgid "Messages"
+msgstr "Recados"
+
+#: front/models.py:331
+msgid "Event"
+msgstr "Evento"
+
+#: front/models.py:332
+msgid "Events"
+msgstr "Eventos"
+
+#: front/models.py:335
+msgid "Title"
+msgstr "Título"
+
+#: front/models.py:336
+msgid "Content"
+msgstr "Conteúdo"
+
+#: front/models.py:337
+msgid "Image"
+msgstr "Imagem"
+
+#: front/models.py:338
+#, fuzzy
+#| msgid "start date"
+msgid "Start date"
+msgstr "data de início"
+
+#: front/models.py:339
+#, fuzzy
+#| msgid "end date"
+msgid "End date"
+msgstr "data de fim"
+
+#: front/models.py:342
+#, fuzzy
+#| msgid "address link"
+msgid "Address link"
+msgstr "link do endereço"
+
+#: front/models.py:343
+msgid "Link"
+msgstr "Link"
+
+#: front/models.py:344
+#, fuzzy
+#| msgid "price"
+msgid "Price"
+msgstr "preço"
+
+#: front/models.py:351
+msgid "Feedback"
+msgstr "Feedback"
+
+#: front/models.py:352
+msgid "Feedbacks"
+msgstr "Feedbacks"
+
+#: front/templates/help_offer.html:21
+msgid ""
+"Type the addresses that you use to ride, type 'Enter' to see the address on "
+"map and confirm pressing 'Add address' button"
+msgstr ""
+"Digite o endereço que você costuma pedalar, tecle 'Enter' para ver esse "
+"endereço no mapa e confirme clicando no botão 'Adicionar endereço'"
+
+#: front/templates/help_offer.html:30
+msgid "Add address"
+msgstr "Adicionar Endereço"
+
+#: front/templates/help_offer.html:37
+msgid "Next"
+msgstr "Próximo"
+
+#: front/views.py:102
+msgid "Your information has been updated!"
+msgstr "Suas informações foram atualizadas!"
+
+#: templates/_dashboard_sidebar_bikeanjo.html:9
+#: templates/_dashboard_sidebar_requester.html:9 templates/_header.html:46
+#: templates/bikeanjo_dashboard_new_request.html:61
+#: templates/bikeanjo_dashboard_new_request.html:79
+#: templates/bikeanjo_dashboard_new_request.html:126
+#: templates/bikeanjo_dashboard_request.html:47
+#: templates/bikeanjo_dashboard_request.html:85
+#: templates/bikeanjo_dashboard_request.html:103
+#: templates/requester_dashboard_request.html:47
+#: templates/requester_dashboard_request.html:85
+#: templates/requester_dashboard_request.html:103
+msgid "Photo from"
+msgstr "Foto de"
+
+#: templates/_header.html:51
+msgid "Panel"
+msgstr "Painel"
+
+#: templates/_header.html:54
+msgid "Edit profile"
+msgstr "Editar perfile"
+
+#: templates/_header.html:55
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/_header.html:56
+msgid "I want help to ride"
+msgstr "Eu quero ajudar para pedalar"
+
+#: templates/_header.html:110
+msgid "Sign in"
+msgstr "Entrar"
+
+#: templates/account/login.html:7 templates/account/login.html.py:74
+msgid "Sign In"
+msgstr "Entrar"
+
+#: templates/account/login.html:32
+msgid "or"
+msgstr "ou"
+
+#: templates/account/login.html:36
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: templates/account/login.html:49
+msgid "Forgot Password?"
+msgstr "Esqueceu sua senha?"
+
+#: templates/account/login.html:76
+#, python-format
+msgid "Não tem uma conta? <a href=\"%(signup_url)s\">Cadastre-se</a>"
+msgstr ""
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_from_key.html:6
+#: templates/account/password_reset_from_key_done.html:6
+msgid "Password Reset"
+msgstr "Redefinir senha"
+
+#: templates/account/signup.html:6 templates/bikeanjo_complete_signup.html:6
+#: templates/bikeanjo_help_offer.html:6 templates/cyclist_free_points.html:7
+#: templates/cyclist_routes_list.html:7
+#: templates/cyclist_routes_register_form.html:7
+#: templates/requester_ask_help.html:6
+#: templates/requester_ask_help_route.html:7
+#: templates/requester_complete_signup.html:6
+#: templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "Cadastra-se"
+
+#: templates/bikeanjo_complete_signup.html:74
+#: templates/cyclist_dashboard_userinfo.html:135
+#: templates/requester_complete_signup.html:74
+msgid "Day"
+msgstr "Dia"
+
+#: templates/bikeanjo_complete_signup.html:89
+#: templates/cyclist_dashboard_userinfo.html:150
+#: templates/requester_complete_signup.html:89
+msgid "Month"
+msgstr "Mês"
+
+#: templates/bikeanjo_complete_signup.html:102
+#: templates/cyclist_dashboard_userinfo.html:163
+#: templates/requester_complete_signup.html:102
+msgid "Year"
+msgstr "Ano"
+
+#: templates/bikeanjo_complete_signup.html:128
+#: templates/bikeanjo_dashboard_experience.html:20
+#: templates/requester_complete_signup.html:128
+#: templates/requester_dashboard_experience.html:20
+msgid "How long have you cycling?"
+msgstr "Há quanto tempo você pedala?"
+
+#: templates/bikeanjo_complete_signup.html:149
+#: templates/bikeanjo_dashboard_experience.html:42
+#: templates/requester_dashboard_experience.html:42
+msgid "Do you use the bicycle as a means of transportation?"
+msgstr "Você usa a bike como meio de transporte?"
+
+#: templates/bikeanjo_signup_terms.html:5
+#: templates/requester_signup_terms.html:5
+msgid "Signup agreement"
+msgstr "Termos para cadastro"
+
+#: templates/requester_dashboard.html:47
+msgid "Pedido"
+msgstr ""
+
+#~ msgid "message"
+#~ msgstr "recado"
+
+#~ msgid "city"
+#~ msgstr "cidade"
+
+#~ msgid "link"
+#~ msgstr "link"

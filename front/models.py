@@ -66,24 +66,28 @@ class BaseModel(models.Model):
     All models here should extends this. All models will have
     the created_date and modified_date properties
     """
-    created_date = models.DateTimeField(_('created date'), auto_now_add=True, editable=False)
-    modified_date = models.DateTimeField(_('modified date'), auto_now=True, editable=False)
+    created_date = models.DateTimeField(_('Created date'), auto_now_add=True, editable=False)
+    modified_date = models.DateTimeField(_('Modified date'), auto_now=True, editable=False)
 
     class Meta:
         abstract = True
 
 
 class User(AbstractUser):
-    country = models.CharField(max_length=32, blank=True)
-    city = models.CharField(max_length=32, blank=True)
-    gender = models.CharField(max_length=24, blank=True)
-    birthday = models.DateField(default=date.today, null=True)
-    ride_experience = models.CharField(choices=EXPERIENCE, max_length=32, blank=True)
-    bike_use = models.CharField(choices=BIKE_USE, max_length=32, blank=True)
-    help_with = models.IntegerField(default=0)  # choices=HELP
-    initiatives = models.CharField(max_length=256, blank=True)
-    role = models.CharField(choices=CYCLIST_ROLES, max_length=32, blank=True)
-    accepted_agreement = models.BooleanField(default=False)
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('User')
+
+    country = models.CharField(_('Country'), max_length=32, blank=True)
+    city = models.CharField(_('City'), max_length=32, blank=True)
+    gender = models.CharField(_('Gender'), max_length=24, blank=True)
+    birthday = models.DateField(_('Birthday'), default=date.today, null=True)
+    ride_experience = models.CharField(_('Ride experience'), choices=EXPERIENCE, max_length=32, blank=True)
+    bike_use = models.CharField(_('Bike use'), choices=BIKE_USE, max_length=32, blank=True)
+    help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP
+    initiatives = models.CharField(_('Initiatives'), max_length=256, blank=True)
+    role = models.CharField(_('Role'), choices=CYCLIST_ROLES, max_length=32, blank=True)
+    accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
 
     def get_avatar_url(self):
         social = self.socialaccount_set.first()
@@ -120,6 +124,10 @@ class HelpStatusManager(models.Manager):
 
 
 class HelpRequest(BaseModel):
+    class Meta:
+        verbose_name = _('Help request')
+        verbose_name_plural = _('Help requests')
+
     STATUS = OrderedDict((
         ('new', _('New')),
         ('open', _('Open')),
@@ -131,13 +139,13 @@ class HelpRequest(BaseModel):
 
     requester = models.ForeignKey(User, related_name='helprequested_set')
     bikeanjo = models.ForeignKey(User, related_name='helpbikeanjo_set', null=True)
-    help_with = models.IntegerField(default=0)  # choices=HELP_REQUEST
-    status = models.CharField(max_length=16, choices=STATUS.items(), default='new')
+    help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP_REQUEST
+    status = models.CharField(_('Status'), max_length=16, choices=STATUS.items(), default='new')
 
-    requester_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
-    bikeanjo_access = models.DateTimeField(_('access date'), default=timezone.now, editable=False)
-    requester_rating = models.PositiveSmallIntegerField(_('rating'), default=0)
-    requester_eval = models.TextField(_('evaluation'), blank=True)
+    requester_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)
+    bikeanjo_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)
+    requester_rating = models.PositiveSmallIntegerField(_('Rating'), default=0)
+    requester_eval = models.TextField(_('Evaluation'), blank=True)
 
     track = models.ForeignKey('Track', null=True, blank=True)
 
@@ -188,18 +196,26 @@ class HelpRequest(BaseModel):
 
 
 class HelpReply(BaseModel):
+    class Meta:
+        verbose_name = _('Help reply')
+        verbose_name_plural = _('Help replies')
+
     author = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
-    message = models.TextField(_('message'))
+    message = models.TextField(_('Message'))
 
     class Meta:
         ordering = ['-created_date']
 
 
 class Track(BaseModel):
+    class Meta:
+        verbose_name = _('Track')
+        verbose_name_plural = _('Tracks')
+
     user = models.ForeignKey(User)
-    start = models.CharField(max_length=128)
-    end = models.CharField(max_length=128)
+    start = models.CharField(_('Start'), max_length=128)
+    end = models.CharField(_('End'), max_length=128)
     track = models.LineStringField()
 
     objects = models.GeoManager()
@@ -219,8 +235,12 @@ class Track(BaseModel):
 
 
 class Point(BaseModel):
+    class Meta:
+        verbose_name = _('Point')
+        verbose_name_plural = _('Points')
+
     user = models.ForeignKey(User)
-    address = models.CharField(max_length=128)
+    address = models.CharField(_('Address'), max_length=128)
     coords = models.PointField()
 
     objects = models.GeoManager()
@@ -239,16 +259,24 @@ class Point(BaseModel):
 
 
 class Match(BaseModel):
+    class Meta:
+        verbose_name = _('Match')
+        verbose_name_plural = _('Matches')
+
     bikeanjo = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
-    score = models.FloatField(default=0)
-    rejected_date = models.DateTimeField(null=True)
-    reason = models.CharField(max_length=128, blank=True)
+    score = models.FloatField(_('Score'), default=0)
+    rejected_date = models.DateTimeField(_('Rejected date'), null=True)
+    reason = models.CharField(_('Reason'), max_length=128, blank=True)
 
 
 class ContentReadLog(models.Model):
+    class Meta:
+        verbose_name = _('Content read log')
+        verbose_name_plural = _('Content read logs')
+
     user = models.ForeignKey(User)
-    created_date = models.DateTimeField(_('created date'), auto_now_add=True, editable=False)
+    created_date = models.DateTimeField(_('Created date'), auto_now_add=True, editable=False)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -286,34 +314,42 @@ class ReadedAnnotationMixin(object):
 
 
 class Message(BaseModel, ReadedAnnotationMixin):
+    class Meta:
+        verbose_name = _('Message')
+        verbose_name_plural = _('Messages')
+        ordering = ['-created_date']
+
     title = models.CharField(max_length=128)
     content = models.TextField()
     image = models.ImageField(upload_to='messages', null=True, blank=True)
 
     readed_by = GenericRelation(ContentReadLog, related_query_name='messages')
 
-    class Meta:
-        ordering = ['-created_date']
-
 
 class Event(BaseModel, ReadedAnnotationMixin):
-    title = models.CharField(max_length=128)
-    content = models.TextField()
-    image = models.ImageField(upload_to='events', null=True, blank=True)
-    start_date = models.DateTimeField(_('start date'))
-    end_date = models.DateTimeField(_('end date'), null=True, blank=True)
-    city = models.CharField(_('city'), max_length='64')
-    address = models.CharField(_('address'), max_length='128', blank=True)
-    address_link = models.CharField(_('address link'), max_length='255', blank=True)
-    link = models.CharField(_('link'), max_length='255', blank=True)
-    price = models.IntegerField(_('price'), default=0, blank=True)
+    class Meta:
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
+        ordering = ['-created_date']
+
+    title = models.CharField(_('Title'), max_length=128)
+    content = models.TextField(_('Content'))
+    image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
+    start_date = models.DateTimeField(_('Start date'))
+    end_date = models.DateTimeField(_('End date'), null=True, blank=True)
+    city = models.CharField(_('City'), max_length='64')
+    address = models.CharField(_('Address'), max_length='128', blank=True)
+    address_link = models.CharField(_('Address link'), max_length='255', blank=True)
+    link = models.CharField(_('Link'), max_length='255', blank=True)
+    price = models.IntegerField(_('Price'), default=0, blank=True)
 
     readed_by = GenericRelation(ContentReadLog, related_query_name='events')
 
-    class Meta:
-        ordering = ['-created_date']
-
 
 class Feedback(BaseModel):
+    class Meta:
+        verbose_name = _('Feedback')
+        verbose_name_plural = _('Feedbacks')
+
     author = models.ForeignKey(User)
-    message = models.CharField(_('message'), max_length=255)
+    message = models.CharField(_('Message'), max_length=255)

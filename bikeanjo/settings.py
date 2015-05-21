@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'django_extensions',
     'debug_toolbar',
+    'rosetta',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

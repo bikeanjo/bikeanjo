@@ -13,7 +13,8 @@ import models
 
 
 class TrackForm(forms.Form):
-    tracks = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
+    tracks = forms.CharField(label=_('Tracks'),
+                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                              required=False)
 
     def __init__(self, *args, **kwargs):
@@ -74,7 +75,8 @@ class TrackReviewForm(TrackForm):
 
 
 class PointsForm(forms.Form):
-    points = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'points'}),
+    points = forms.CharField(label=_('Points'),
+                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'points'}),
                              required=False)
 
     def __init__(self, *args, **kwargs):
@@ -124,10 +126,10 @@ class SignupForm(forms.ModelForm):
     fields when user uses the standard signup view. In social signup, these
     password fields does not appear
     """
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
-    country = forms.CharField(max_length=32)
-    city = forms.CharField(max_length=32)
+    first_name = forms.CharField(label=_('First name'), max_length=30)
+    last_name = forms.CharField(label=_('Last name'), max_length=30)
+    country = forms.CharField(label=_('Country'), max_length=32)
+    city = forms.CharField(label=_('City'), max_length=32)
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -153,11 +155,11 @@ class SignupForm(forms.ModelForm):
 
 
 class SignupBikeanjoForm(forms.ModelForm):
-    gender = forms.CharField()
-    birthday = forms.DateField()
-    ride_experience = forms.ChoiceField(choices=models.BIKEANJO_EXPERIENCE)
-    bike_use = forms.ChoiceField(choices=models.BIKE_USE)
-    initiatives = forms.CharField(required=False, max_length=256)
+    gender = forms.CharField(label=_('Gender'))
+    birthday = forms.DateField(label=_('Birthday'))
+    ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.BIKEANJO_EXPERIENCE)
+    bike_use = forms.ChoiceField(label=_('Bike user'), choices=models.BIKE_USE)
+    initiatives = forms.CharField(label=_('Initiatives'), required=False, max_length=256)
 
     class Meta:
         model = models.User
@@ -165,8 +167,8 @@ class SignupBikeanjoForm(forms.ModelForm):
 
 
 class SignupRequesterForm(forms.ModelForm):
-    gender = forms.CharField()
-    birthday = forms.DateField()
+    gender = forms.CharField(label=_('Gender'))
+    birthday = forms.DateField(label=_('Birthday'))
     ride_experience = forms.ChoiceField(choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
@@ -175,7 +177,7 @@ class SignupRequesterForm(forms.ModelForm):
 
 
 class HelpOfferForm(forms.ModelForm):
-    help_with = forms.IntegerField()
+    help_with = forms.IntegerField(label=_('Help with'))
 
     def get_help_choices(self):
         value = self.instance.help_with
@@ -188,10 +190,10 @@ class HelpOfferForm(forms.ModelForm):
 
 
 class BikeanjoExperienceForm(forms.ModelForm):
-    ride_experience = forms.ChoiceField(choices=models.BIKEANJO_EXPERIENCE)
-    bike_use = forms.ChoiceField(choices=models.BIKE_USE)
-    initiatives = forms.CharField(required=False, max_length=256)
-    help_with = forms.IntegerField()
+    ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.BIKEANJO_EXPERIENCE)
+    bike_use = forms.ChoiceField(label=_('Bike use'), choices=models.BIKE_USE)
+    initiatives = forms.CharField(label=_('Initiatives'), required=False, max_length=256)
+    help_with = forms.IntegerField(label=_('Help with'))
 
     def get_help_choices(self):
         value = self.instance.help_with
@@ -221,7 +223,8 @@ class HelpRequestForm(forms.ModelForm):
 
 
 class HelpRequestRouteForm(forms.ModelForm):
-    track = forms.CharField(widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
+    track = forms.CharField(label=_('Track'),
+                            widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                             required=False)
 
     def __init__(self, *args, **kwargs):
@@ -250,8 +253,8 @@ class HelpRequestRouteForm(forms.ModelForm):
 
 
 class HelpRequestUpdateForm(forms.ModelForm):
-    requester_rating = forms.IntegerField(required=False)
-    requester_eval = forms.CharField(required=False)
+    requester_rating = forms.IntegerField(label=_('Requester rating'), required=False)
+    requester_eval = forms.CharField(label=_('Requester evaluation'), required=False)
 
     def save(self, **kwargs):
         if self.instance.status == 'new':

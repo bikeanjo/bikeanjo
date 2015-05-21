@@ -12,6 +12,7 @@ admin.autodiscover()
 urlpatterns = [
     # the django admin
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^rosetta/', include('rosetta.urls')),
 
     # django allauth
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
