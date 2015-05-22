@@ -1,0 +1,10 @@
+{% extends 'admin:admin/base_site.html' %}
+{% load static %}
+
+{% block extrahead %}
+<style type="text/css">
+#header #branding h1 {
+    background: transparent url("{% static 'imgs/logo-bike-anjo.png' %}") no-repeat scroll 10px 5px / 90px auto;
+}
+</style>
+{% endblock %}

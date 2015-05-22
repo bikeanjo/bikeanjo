@@ -3,10 +3,45 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 from front import models
 
+admin.site.site_title = _('Bikeanjo')
+admin.site.site_header = _('Bikeanjo administration')
+admin.site.index_title = _('Site administration')
+
 
 @admin.register(models.User)
 class CustomUserAdmin(UserAdmin):
-    list_filter = UserAdmin.list_filter + ('role',)
+    list_display = ('full_name', 'city', 'role', 'active_requests', 'finalized_requests', 'service_rating')
+
+    def full_name(self, obj):
+        return obj.get_full_name() or obj.username
+
+    def active_requests(self, obj):
+        counter = '-'
+        if obj.role == 'bikeanjo':
+            counter = obj.helpbikeanjo_set.active().count()
+        elif obj.role == 'requester':
+            counter = obj.helprequested_set.active().count()
+        return counter
+    active_requests.short_description = _('Active requests')
+
+    def finalized_requests(self, obj):
+        counter = '-'
+        if obj.role == 'bikeanjo':
+            counter = obj.helpbikeanjo_set.filter(status='finalized').count()
+        elif obj.role == 'requester':
+            counter = obj.helprequested_set.filter(status='finalized').count()
+        return counter
+    finalized_requests.short_description = _('Finalized requests')
+
+    def service_rating(self, obj):
+        if obj.role != 'bikeanjo':
+            return '-'
+        rating = obj.helpbikeanjo_set\
+                    .filter(status='finalized')\
+                    .aggregate(avg_rating=models.models.Avg('requester_rating'))\
+                    .values()[0]
+        return rating or 0
+    service_rating.short_description = _('Service rating')
 
 
 @admin.register(models.Track)
