@@ -10,7 +10,8 @@ admin.site.index_title = _('Site administration')
 
 @admin.register(models.User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ('full_name', 'city', 'role', 'active_requests', 'finalized_requests', 'service_rating')
+    list_display = ('full_name', 'is_active', 'city', 'role', 'active_requests',
+                    'finalized_requests', 'service_rating')
 
     def full_name(self, obj):
         return obj.get_full_name() or obj.username
