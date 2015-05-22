@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-22 12:31-0300\n"
-"PO-Revision-Date: 2015-05-22 12:34-0300\n"
+"POT-Creation-Date: 2015-05-22 18:27-0300\n"
+"PO-Revision-Date: 2015-05-22 18:31-0300\n"
 "Last-Translator:   <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,13 +19,61 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: front/forms.py:16 front/models.py:214
+#: front/admin.py:9 front/models.py:19
+msgid "Bikeanjo"
+msgstr "Bikeanjo"
+
+#: front/admin.py:10
+msgid "Bikeanjo administration"
+msgstr "Administração do Bikeanjo"
+
+#: front/admin.py:11
+msgid "Site administration"
+msgstr "Adminitração do site"
+
+#: front/admin.py:21
+#| msgid "First name"
+msgid "Full name"
+msgstr "Nome completo"
+
+#: front/admin.py:40 front/admin.py:62 front/admin.py:87 front/admin.py:101
+#: front/admin.py:172
+msgid "List"
+msgstr "Listar"
+
+#: front/admin.py:44
+msgid "Active requests"
+msgstr "Solicitações ativas"
+
+#: front/admin.py:66
+msgid "Finalized requests"
+msgstr "Solicitações finalizadas"
+
+#: front/admin.py:76
+msgid "Service rating"
+msgstr "Nota do atendimento"
+
+#: front/admin.py:90 front/forms.py:16 front/models.py:214
 msgid "Tracks"
 msgstr "Rotas"
 
-#: front/forms.py:78 front/models.py:240
+#: front/admin.py:104 front/forms.py:78 front/models.py:240
 msgid "Points"
 msgstr "Pontos"
+
+#: front/admin.py:145
+#| msgid "Requester"
+msgid "Requester name"
+msgstr "Nome do solicitante"
+
+#: front/admin.py:151
+#| msgid "Bikeanjo"
+msgid "Bikeanjo name"
+msgstr "Nome do Bikeanjo"
+
+#: front/admin.py:175
+msgid "Readed by"
+msgstr "Lido por"
 
 #: front/forms.py:129
 msgid "First name"
@@ -77,12 +125,10 @@ msgid "Track"
 msgstr "Rota"
 
 #: front/forms.py:256
-#| msgid "Requester"
 msgid "Requester rating"
 msgstr "Nota do solicitante"
 
 #: front/forms.py:257
-#| msgid "evaluation"
 msgid "Requester evaluation"
 msgstr "Avaliação do solicitante"
 
@@ -105,10 +151,6 @@ msgstr "Masculino"
 #: templates/requester_complete_signup.html:35
 msgid "Female"
 msgstr "Feminino"
-
-#: front/models.py:19
-msgid "Bikeanjo"
-msgstr "Bikeanjo"
 
 #: front/models.py:20
 msgid "Requester"
@@ -195,12 +237,10 @@ msgid "No, I use for leisure"
 msgstr "Só uso a bike para lazer"
 
 #: front/models.py:69 front/models.py:279
-#| msgid "created date"
 msgid "Created date"
 msgstr "Data de criação"
 
 #: front/models.py:70
-#| msgid "modified date"
 msgid "Modified date"
 msgstr "Data de modificação"
 
@@ -217,12 +257,10 @@ msgid "Role"
 msgstr "Função"
 
 #: front/models.py:90
-#| msgid "Signup agreement"
 msgid "Accepted agreement"
 msgstr "Aceitou os termos"
 
 #: front/models.py:128
-#| msgid "Help requests"
 msgid "Help request"
 msgstr "Solicitação de ajuda"
 
@@ -255,32 +293,26 @@ msgid "Status"
 msgstr "Status"
 
 #: front/models.py:145 front/models.py:146
-#| msgid "access date"
 msgid "Access date"
 msgstr "Data de acesso"
 
 #: front/models.py:147
-#| msgid "rating"
 msgid "Rating"
 msgstr "Nota"
 
 #: front/models.py:148
-#| msgid "evaluation"
 msgid "Evaluation"
 msgstr "Avaliação"
 
 #: front/models.py:200
-#| msgid "Help requests"
 msgid "Help reply"
 msgstr "Solicitações de ajuda"
 
 #: front/models.py:201
-#| msgid "Help requests"
 msgid "Help replies"
 msgstr "Respostas do pedido de ajuda"
 
 #: front/models.py:205 front/models.py:318 front/models.py:355
-#| msgid "Messages"
 msgid "Message"
 msgstr "Recado"
 
@@ -297,7 +329,6 @@ msgid "Point"
 msgstr "Ponto"
 
 #: front/models.py:243 front/models.py:341
-#| msgid "address"
 msgid "Address"
 msgstr "Endereço"
 
@@ -314,7 +345,6 @@ msgid "Score"
 msgstr "Escore"
 
 #: front/models.py:269
-#| msgid "created date"
 msgid "Rejected date"
 msgstr "Data de rejeição"
 
@@ -355,17 +385,14 @@ msgid "Events"
 msgstr "Eventos"
 
 #: front/models.py:338
-#| msgid "start date"
 msgid "Start date"
 msgstr "Data de início"
 
 #: front/models.py:339
-#| msgid "end date"
 msgid "End date"
 msgstr "Data de término"
 
 #: front/models.py:342
-#| msgid "address link"
 msgid "Address link"
 msgstr "Link do endereço"
 
@@ -374,7 +401,6 @@ msgid "Link"
 msgstr "Link"
 
 #: front/models.py:344
-#| msgid "price"
 msgid "Price"
 msgstr "Preço"
 
@@ -398,7 +424,7 @@ msgstr ""
 msgid "Add address"
 msgstr "Adicionar Endereço"
 
-#: front/templates/help_offer.html:37
+#: front/templates/help_offer.html:37 templates/admin/change_form.html:13
 msgid "Next"
 msgstr "Próximo"
 
@@ -478,6 +504,18 @@ msgstr "Redefinir senha"
 #: templates/socialaccount/signup.html:6
 msgid "Signup"
 msgstr "Cadastra-se"
+
+#: templates/admin/change_form.html:10
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/admin/change_form.html:18
+msgid "History"
+msgstr "Histórico"
+
+#: templates/admin/change_form.html:20
+msgid "View on site"
+msgstr "Ver no site"
 
 #: templates/bikeanjo_complete_signup.html:74
 #: templates/cyclist_dashboard_userinfo.html:135
