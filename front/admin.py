@@ -21,11 +21,13 @@ class CustomUserAdmin(UserAdmin):
     full_name.short_description = _('Full name')
 
     def active_requests(self, obj):
-        counter = '-'
+        counter = 0
         if obj.role == 'bikeanjo':
             counter = obj.helpbikeanjo_set.active().count()
         elif obj.role == 'requester':
             counter = obj.helprequested_set.active().count()
+        else:
+            return '-'
 
         if counter > 0:
             query = {
@@ -44,11 +46,14 @@ class CustomUserAdmin(UserAdmin):
     active_requests.short_description = _('Active requests')
 
     def finalized_requests(self, obj):
-        counter = '-'
+        counter = 0
         if obj.role == 'bikeanjo':
             counter = obj.helpbikeanjo_set.filter(status='finalized').count()
         elif obj.role == 'requester':
             counter = obj.helprequested_set.filter(status='finalized').count()
+        else:
+            return '-'
+
         if counter > 0:
             query = {
                 obj.role: obj.id,
