@@ -32,6 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.gis',
     'django_extensions',
-    'debug_toolbar',
+#    'debug_toolbar',
     'rosetta',
     'allauth',
     'allauth.account',
@@ -72,7 +76,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
         ],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -82,6 +86,11 @@ TEMPLATES = [
                 'allauth.account.context_processors.account',
                 'allauth.socialaccount.context_processors.socialaccount',
             ],
+            'loaders': [
+                'bikeanjo.template.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ]
         },
     },
 ]

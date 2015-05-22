@@ -11,6 +11,7 @@ admin.autodiscover()
 
 urlpatterns = [
     # the django admin
+    url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rosetta/', include('rosetta.urls')),
 

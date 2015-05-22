@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import ugettext_lazy as _
 from front import models
 
 
@@ -37,7 +38,12 @@ class HelpRequestAdmin(admin.ModelAdmin):
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('created_date', 'title',)
+    list_display = ('title', 'created_date', 'readed_by_')
+    search_fields = ('title',)
+
+    def readed_by_(self, obj):
+        return obj.readed_by.count()
+    readed_by_.short_description = _('Readed by')
 
 
 @admin.register(models.Event)

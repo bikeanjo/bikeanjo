@@ -76,7 +76,7 @@ class BaseModel(models.Model):
 class User(AbstractUser):
     class Meta:
         verbose_name = _('User')
-        verbose_name_plural = _('User')
+        verbose_name_plural = _('Users')
 
     country = models.CharField(_('Country'), max_length=32, blank=True)
     city = models.CharField(_('City'), max_length=32, blank=True)
@@ -319,9 +319,9 @@ class Message(BaseModel, ReadedAnnotationMixin):
         verbose_name_plural = _('Messages')
         ordering = ['-created_date']
 
-    title = models.CharField(max_length=128)
-    content = models.TextField()
-    image = models.ImageField(upload_to='messages', null=True, blank=True)
+    title = models.CharField(_('Title'), max_length=128)
+    content = models.TextField(_('Content'))
+    image = models.ImageField(_('Image'), upload_to='messages', null=True, blank=True)
 
     readed_by = GenericRelation(ContentReadLog, related_query_name='messages')
 
