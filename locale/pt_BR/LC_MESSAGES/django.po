@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-22 18:27-0300\n"
-"PO-Revision-Date: 2015-05-22 18:31-0300\n"
+"POT-Creation-Date: 2015-05-22 19:08-0300\n"
+"PO-Revision-Date: 2015-05-22 19:08-0300\n"
 "Last-Translator:   <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: front/admin.py:9 front/models.py:19
+#: front/admin.py:9 front/models.py:19 front/models.py:119
 msgid "Bikeanjo"
 msgstr "Bikeanjo"
 
@@ -31,47 +31,49 @@ msgstr "Administração do Bikeanjo"
 msgid "Site administration"
 msgstr "Adminitração do site"
 
-#: front/admin.py:21
-#| msgid "First name"
+#: front/admin.py:17
 msgid "Full name"
 msgstr "Nome completo"
 
-#: front/admin.py:40 front/admin.py:62 front/admin.py:87 front/admin.py:101
-#: front/admin.py:172
+#: front/admin.py:38 front/admin.py:63 front/admin.py:112 front/admin.py:126
+#: front/admin.py:189
 msgid "List"
 msgstr "Listar"
 
-#: front/admin.py:44
+#: front/admin.py:42
 msgid "Active requests"
 msgstr "Solicitações ativas"
 
-#: front/admin.py:66
+#: front/admin.py:67
 msgid "Finalized requests"
 msgstr "Solicitações finalizadas"
 
-#: front/admin.py:76
+#: front/admin.py:101
 msgid "Service rating"
 msgstr "Nota do atendimento"
 
-#: front/admin.py:90 front/forms.py:16 front/models.py:214
+#: front/admin.py:115 front/forms.py:16 front/models.py:240
 msgid "Tracks"
 msgstr "Rotas"
 
-#: front/admin.py:104 front/forms.py:78 front/models.py:240
+#: front/admin.py:129 front/forms.py:78 front/models.py:266
 msgid "Points"
 msgstr "Pontos"
 
-#: front/admin.py:145
-#| msgid "Requester"
+#: front/admin.py:158 front/forms.py:180 front/forms.py:196 front/models.py:87
+#: front/models.py:168
+msgid "Help with"
+msgstr "Ajuda com"
+
+#: front/admin.py:162
 msgid "Requester name"
 msgstr "Nome do solicitante"
 
-#: front/admin.py:151
-#| msgid "Bikeanjo"
+#: front/admin.py:168
 msgid "Bikeanjo name"
 msgstr "Nome do Bikeanjo"
 
-#: front/admin.py:175
+#: front/admin.py:192
 msgid "Readed by"
 msgstr "Lido por"
 
@@ -87,7 +89,7 @@ msgstr "Último nome"
 msgid "Country"
 msgstr "País"
 
-#: front/forms.py:132 front/models.py:82 front/models.py:340
+#: front/forms.py:132 front/models.py:82 front/models.py:366
 msgid "City"
 msgstr "Cidade"
 
@@ -111,16 +113,11 @@ msgstr "Uso da bike"
 msgid "Initiatives"
 msgstr "Iniciativas"
 
-#: front/forms.py:180 front/forms.py:196 front/models.py:87
-#: front/models.py:142
-msgid "Help with"
-msgstr "Ajuda com"
-
 #: front/forms.py:194 front/models.py:86
 msgid "Bike use"
 msgstr "Uso da bike"
 
-#: front/forms.py:226 front/models.py:213 front/templates/help_offer.html:14
+#: front/forms.py:226 front/models.py:239 front/templates/help_offer.html:14
 msgid "Track"
 msgstr "Rota"
 
@@ -152,7 +149,7 @@ msgstr "Masculino"
 msgid "Female"
 msgstr "Feminino"
 
-#: front/models.py:20
+#: front/models.py:20 front/models.py:127
 msgid "Requester"
 msgstr "Solicitante"
 
@@ -236,7 +233,7 @@ msgstr "1 vez por semana"
 msgid "No, I use for leisure"
 msgstr "Só uso a bike para lazer"
 
-#: front/models.py:69 front/models.py:279
+#: front/models.py:69 front/models.py:305
 msgid "Created date"
 msgstr "Data de criação"
 
@@ -260,155 +257,165 @@ msgstr "Função"
 msgid "Accepted agreement"
 msgstr "Aceitou os termos"
 
+#: front/models.py:120
+#| msgid "Bikeanjo"
+msgid "Bikeanjos"
+msgstr "Bikeanjos"
+
 #: front/models.py:128
+#| msgid "Requester"
+msgid "Requesters"
+msgstr "Solicitantes"
+
+#: front/models.py:154
 msgid "Help request"
 msgstr "Solicitação de ajuda"
 
-#: front/models.py:129 templates/_header.html:52
+#: front/models.py:155 templates/_header.html:52
 msgid "Help requests"
 msgstr "Solicitações de ajuda"
 
-#: front/models.py:132
+#: front/models.py:158
 msgid "New"
 msgstr "Novo"
 
-#: front/models.py:133
+#: front/models.py:159
 msgid "Open"
 msgstr "Aberto"
 
-#: front/models.py:134
+#: front/models.py:160
 msgid "Attended"
 msgstr "Atendido"
 
-#: front/models.py:135
+#: front/models.py:161
 msgid "Finalized"
 msgstr "Finalizado"
 
-#: front/models.py:136
+#: front/models.py:162
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: front/models.py:143
+#: front/models.py:169
 msgid "Status"
 msgstr "Status"
 
-#: front/models.py:145 front/models.py:146
+#: front/models.py:171 front/models.py:172
 msgid "Access date"
 msgstr "Data de acesso"
 
-#: front/models.py:147
+#: front/models.py:173
 msgid "Rating"
 msgstr "Nota"
 
-#: front/models.py:148
+#: front/models.py:174
 msgid "Evaluation"
 msgstr "Avaliação"
 
-#: front/models.py:200
+#: front/models.py:226
 msgid "Help reply"
 msgstr "Solicitações de ajuda"
 
-#: front/models.py:201
+#: front/models.py:227
 msgid "Help replies"
 msgstr "Respostas do pedido de ajuda"
 
-#: front/models.py:205 front/models.py:318 front/models.py:355
+#: front/models.py:231 front/models.py:344 front/models.py:381
 msgid "Message"
 msgstr "Recado"
 
-#: front/models.py:217
+#: front/models.py:243
 msgid "Start"
 msgstr "Início"
 
-#: front/models.py:218
+#: front/models.py:244
 msgid "End"
 msgstr "Fim"
 
-#: front/models.py:239
+#: front/models.py:265
 msgid "Point"
 msgstr "Ponto"
 
-#: front/models.py:243 front/models.py:341
+#: front/models.py:269 front/models.py:367
 msgid "Address"
 msgstr "Endereço"
 
-#: front/models.py:263
+#: front/models.py:289
 msgid "Match"
 msgstr "Combinação"
 
-#: front/models.py:264
+#: front/models.py:290
 msgid "Matches"
 msgstr "Combinações"
 
-#: front/models.py:268
+#: front/models.py:294
 msgid "Score"
 msgstr "Escore"
 
-#: front/models.py:269
+#: front/models.py:295
 msgid "Rejected date"
 msgstr "Data de rejeição"
 
-#: front/models.py:270
+#: front/models.py:296
 msgid "Reason"
 msgstr "Razão"
 
-#: front/models.py:275
+#: front/models.py:301
 msgid "Content read log"
 msgstr "Log de leitura de conteúdo"
 
-#: front/models.py:276
+#: front/models.py:302
 msgid "Content read logs"
 msgstr "Logs de leitura de conteúdo"
 
-#: front/models.py:319 templates/_header.html:53
+#: front/models.py:345 templates/_header.html:53
 msgid "Messages"
 msgstr "Recados"
 
-#: front/models.py:322 front/models.py:335
+#: front/models.py:348 front/models.py:361
 msgid "Title"
 msgstr "Título"
 
-#: front/models.py:323 front/models.py:336
+#: front/models.py:349 front/models.py:362
 msgid "Content"
 msgstr "Conteúdo"
 
-#: front/models.py:324 front/models.py:337
+#: front/models.py:350 front/models.py:363
 msgid "Image"
 msgstr "Imagem"
 
-#: front/models.py:331
+#: front/models.py:357
 msgid "Event"
 msgstr "Evento"
 
-#: front/models.py:332
+#: front/models.py:358
 msgid "Events"
 msgstr "Eventos"
 
-#: front/models.py:338
+#: front/models.py:364
 msgid "Start date"
 msgstr "Data de início"
 
-#: front/models.py:339
+#: front/models.py:365
 msgid "End date"
 msgstr "Data de término"
 
-#: front/models.py:342
+#: front/models.py:368
 msgid "Address link"
 msgstr "Link do endereço"
 
-#: front/models.py:343
+#: front/models.py:369
 msgid "Link"
 msgstr "Link"
 
-#: front/models.py:344
+#: front/models.py:370
 msgid "Price"
 msgstr "Preço"
 
-#: front/models.py:351
+#: front/models.py:377
 msgid "Feedback"
 msgstr "Feedback"
 
-#: front/models.py:352
+#: front/models.py:378
 msgid "Feedbacks"
 msgstr "Feedbacks"
 

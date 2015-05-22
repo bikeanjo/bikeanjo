@@ -104,6 +104,32 @@ class User(AbstractUser):
                 yield label
 
 
+class BikeanjoManager(models.Manager):
+    def get_queryset(self):
+        return super(BikeanjoManager, self).get_queryset().filter(role='bikeanjo')
+
+
+class RequesterManager(models.Manager):
+    def get_queryset(self):
+        return super(RequesterManager, self).get_queryset().filter(role='requester')
+
+
+class Bikeanjo(User):
+    class Meta:
+        verbose_name = _('Bikeanjo')
+        verbose_name_plural = _('Bikeanjos')
+        proxy = True
+    objects = BikeanjoManager()
+
+
+class Requester(User):
+    class Meta:
+        verbose_name = _('Requester')
+        verbose_name_plural = _('Requesters')
+        proxy = True
+    objects = RequesterManager()
+
+
 class HelpStatusManager(models.Manager):
     def active(self):
         return self.filter(status__in=['new', 'open'])

@@ -11,11 +11,7 @@ admin.site.site_header = _('Bikeanjo administration')
 admin.site.index_title = _('Site administration')
 
 
-@admin.register(models.User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ('full_name', 'is_active', 'city', 'role', 'active_requests',
-                    'finalized_requests', 'service_rating', 'tracks', 'points')
-
     def full_name(self, obj):
         return obj.get_full_name() or obj.username
     full_name.short_description = _('Full name')
@@ -70,6 +66,30 @@ class CustomUserAdmin(UserAdmin):
         return counter
     finalized_requests.short_description = _('Finalized requests')
 
+    def lookup_allowed(self, lookup, value):
+        allow = [
+            'contentreadlog__object_id',
+            'contentreadlog__content_type__model',
+            'contentreadlog__content_type__app_label',
+        ]
+
+        if lookup in allow:
+            return True
+
+        return super(CustomUserAdmin, self).lookup_allowed(lookup, value)
+
+
+@admin.register(models.Requester)
+class Requester(CustomUserAdmin):
+    list_display = ('full_name', 'is_active', 'city', 'active_requests',
+                    'finalized_requests',)
+
+
+@admin.register(models.Bikeanjo)
+class Bikenjo(CustomUserAdmin):
+    list_display = ('full_name', 'is_active', 'city', 'active_requests',
+                    'finalized_requests', 'service_rating', 'tracks', 'points')
+
     def service_rating(self, obj):
         if obj.role != 'bikeanjo':
             return '-'
@@ -107,18 +127,6 @@ class CustomUserAdmin(UserAdmin):
             )
         return counter
     points.short_description = _('Points')
-
-    def lookup_allowed(self, lookup, value):
-        allow = [
-            'contentreadlog__object_id',
-            'contentreadlog__content_type__model',
-            'contentreadlog__content_type__app_label',
-        ]
-
-        if lookup in allow:
-            return True
-
-        return super(CustomUserAdmin, self).lookup_allowed(lookup, value)
 
 
 @admin.register(models.Track)
@@ -166,21 +174,7 @@ class MessageAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
     def readed_by_(self, obj):
-        counter = obj.readed_by.count()
-        if counter > 0:
-            query = {
-                'contentreadlog__object_id': obj.id,
-                'contentreadlog__content_type__model': obj._meta.model_name,
-                'contentreadlog__content_type__app_label': obj._meta.app_label,
-            }
-            return format_html(
-                '{} <small><a href="{}?{}">{}</a></small>',
-                counter,
-                reverse('admin:front_user_changelist'),
-                urlencode(query),
-                _('List')
-            )
-        return counter
+        return obj.readed_by.count()
     readed_by_.short_description = _('Readed by')
 
 
