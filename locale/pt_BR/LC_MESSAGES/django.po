@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-21 14:10-0300\n"
-"PO-Revision-Date: 2015-05-21 14:13-0300\n"
+"POT-Creation-Date: 2015-05-22 12:31-0300\n"
+"PO-Revision-Date: 2015-05-22 12:34-0300\n"
 "Last-Translator:   <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -20,10 +20,8 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: front/forms.py:16 front/models.py:214
-#, fuzzy
-#| msgid "Track"
 msgid "Tracks"
-msgstr "Rota"
+msgstr "Rotas"
 
 #: front/forms.py:78 front/models.py:240
 msgid "Points"
@@ -79,16 +77,14 @@ msgid "Track"
 msgstr "Rota"
 
 #: front/forms.py:256
-#, fuzzy
 #| msgid "Requester"
 msgid "Requester rating"
-msgstr "Solicitante"
+msgstr "Nota do solicitante"
 
 #: front/forms.py:257
-#, fuzzy
 #| msgid "evaluation"
 msgid "Requester evaluation"
-msgstr "avaliação"
+msgstr "Avaliação do solicitante"
 
 #: front/forms.py:300 front/forms.py:302 templates/account/login.html:51
 msgid "Password"
@@ -199,36 +195,36 @@ msgid "No, I use for leisure"
 msgstr "Só uso a bike para lazer"
 
 #: front/models.py:69 front/models.py:279
-#, fuzzy
 #| msgid "created date"
 msgid "Created date"
-msgstr "data de criação"
+msgstr "Data de criação"
 
 #: front/models.py:70
-#, fuzzy
 #| msgid "modified date"
 msgid "Modified date"
-msgstr "data de modificação"
+msgstr "Data de modificação"
 
-#: front/models.py:78 front/models.py:79
+#: front/models.py:78
 msgid "User"
 msgstr "Usuário"
+
+#: front/models.py:79
+msgid "Users"
+msgstr "Usuários"
 
 #: front/models.py:89
 msgid "Role"
 msgstr "Função"
 
 #: front/models.py:90
-#, fuzzy
 #| msgid "Signup agreement"
 msgid "Accepted agreement"
-msgstr "Termos para cadastro"
+msgstr "Aceitou os termos"
 
 #: front/models.py:128
-#, fuzzy
 #| msgid "Help requests"
 msgid "Help request"
-msgstr "Solicitações de ajuda"
+msgstr "Solicitação de ajuda"
 
 #: front/models.py:129 templates/_header.html:52
 msgid "Help requests"
@@ -259,40 +255,34 @@ msgid "Status"
 msgstr "Status"
 
 #: front/models.py:145 front/models.py:146
-#, fuzzy
 #| msgid "access date"
 msgid "Access date"
-msgstr "data de acesso"
+msgstr "Data de acesso"
 
 #: front/models.py:147
-#, fuzzy
 #| msgid "rating"
 msgid "Rating"
-msgstr "nota"
+msgstr "Nota"
 
 #: front/models.py:148
-#, fuzzy
 #| msgid "evaluation"
 msgid "Evaluation"
-msgstr "avaliação"
+msgstr "Avaliação"
 
 #: front/models.py:200
-#, fuzzy
 #| msgid "Help requests"
 msgid "Help reply"
 msgstr "Solicitações de ajuda"
 
 #: front/models.py:201
-#, fuzzy
 #| msgid "Help requests"
 msgid "Help replies"
-msgstr "Solicitações de ajuda"
+msgstr "Respostas do pedido de ajuda"
 
 #: front/models.py:205 front/models.py:318 front/models.py:355
-#, fuzzy
 #| msgid "Messages"
 msgid "Message"
-msgstr "Recados"
+msgstr "Recado"
 
 #: front/models.py:217
 msgid "Start"
@@ -307,10 +297,9 @@ msgid "Point"
 msgstr "Ponto"
 
 #: front/models.py:243 front/models.py:341
-#, fuzzy
 #| msgid "address"
 msgid "Address"
-msgstr "endereço"
+msgstr "Endereço"
 
 #: front/models.py:263
 msgid "Match"
@@ -325,10 +314,9 @@ msgid "Score"
 msgstr "Escore"
 
 #: front/models.py:269
-#, fuzzy
 #| msgid "created date"
 msgid "Rejected date"
-msgstr "data de criação"
+msgstr "Data de rejeição"
 
 #: front/models.py:270
 msgid "Reason"
@@ -346,6 +334,18 @@ msgstr "Logs de leitura de conteúdo"
 msgid "Messages"
 msgstr "Recados"
 
+#: front/models.py:322 front/models.py:335
+msgid "Title"
+msgstr "Título"
+
+#: front/models.py:323 front/models.py:336
+msgid "Content"
+msgstr "Conteúdo"
+
+#: front/models.py:324 front/models.py:337
+msgid "Image"
+msgstr "Imagem"
+
 #: front/models.py:331
 msgid "Event"
 msgstr "Evento"
@@ -354,45 +354,29 @@ msgstr "Evento"
 msgid "Events"
 msgstr "Eventos"
 
-#: front/models.py:335
-msgid "Title"
-msgstr "Título"
-
-#: front/models.py:336
-msgid "Content"
-msgstr "Conteúdo"
-
-#: front/models.py:337
-msgid "Image"
-msgstr "Imagem"
-
 #: front/models.py:338
-#, fuzzy
 #| msgid "start date"
 msgid "Start date"
-msgstr "data de início"
+msgstr "Data de início"
 
 #: front/models.py:339
-#, fuzzy
 #| msgid "end date"
 msgid "End date"
-msgstr "data de fim"
+msgstr "Data de término"
 
 #: front/models.py:342
-#, fuzzy
 #| msgid "address link"
 msgid "Address link"
-msgstr "link do endereço"
+msgstr "Link do endereço"
 
 #: front/models.py:343
 msgid "Link"
 msgstr "Link"
 
 #: front/models.py:344
-#, fuzzy
 #| msgid "price"
 msgid "Price"
-msgstr "preço"
+msgstr "Preço"
 
 #: front/models.py:351
 msgid "Feedback"
