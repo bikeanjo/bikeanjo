@@ -4,7 +4,9 @@ from django.contrib.auth.admin import UserAdmin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+
 from front import models
+import cyclists
 
 admin.site.site_title = _('Bikeanjo')
 admin.site.site_header = _('Bikeanjo administration')
@@ -79,13 +81,13 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).lookup_allowed(lookup, value)
 
 
-@admin.register(models.Requester)
+@admin.register(cyclists.models.Requester)
 class Requester(CustomUserAdmin):
     list_display = ('full_name', 'is_active', 'city', 'active_requests',
                     'finalized_requests',)
 
 
-@admin.register(models.Bikeanjo)
+@admin.register(cyclists.models.Bikeanjo)
 class Bikenjo(CustomUserAdmin):
     list_display = ('full_name', 'is_active', 'city', 'active_requests',
                     'finalized_requests', 'service_rating', 'tracks', 'points')

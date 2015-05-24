@@ -32,10 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +50,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
+    'cyclists',
     'front',
 )
 
@@ -150,7 +148,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SITE_ID = 1
 
-AUTH_USER_MODEL = 'front.User'
+AUTH_USER_MODEL = 'cyclists.User'
 
 ACCOUNT_SIGNUP_FORM_CLASS = 'front.forms.SignupForm'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'

@@ -10,6 +10,8 @@ from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+from cyclists.models import User
+
 GENDER = (
     ('male', _('Male')),
     ('female', _('Female')),
@@ -71,63 +73,6 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
-
-
-class User(AbstractUser):
-    class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
-
-    country = models.CharField(_('Country'), max_length=32, blank=True)
-    city = models.CharField(_('City'), max_length=32, blank=True)
-    gender = models.CharField(_('Gender'), max_length=24, blank=True)
-    birthday = models.DateField(_('Birthday'), default=date.today, null=True)
-    ride_experience = models.CharField(_('Ride experience'), choices=EXPERIENCE, max_length=32, blank=True)
-    bike_use = models.CharField(_('Bike use'), choices=BIKE_USE, max_length=32, blank=True)
-    help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP
-    initiatives = models.CharField(_('Initiatives'), max_length=256, blank=True)
-    role = models.CharField(_('Role'), choices=CYCLIST_ROLES, max_length=32, blank=True)
-    accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
-
-    def get_avatar_url(self):
-        social = self.socialaccount_set.first()
-        if social:
-            return social.get_avatar_url()
-        # TODO: avatar field
-        return 'http://placehold.it/85x85'
-
-    def help_labels(self):
-        for code, label in HELP:
-            if self.help_with >= code:
-                break
-            if self.help_with & code:
-                yield label
-
-
-class BikeanjoManager(models.Manager):
-    def get_queryset(self):
-        return super(BikeanjoManager, self).get_queryset().filter(role='bikeanjo')
-
-
-class RequesterManager(models.Manager):
-    def get_queryset(self):
-        return super(RequesterManager, self).get_queryset().filter(role='requester')
-
-
-class Bikeanjo(User):
-    class Meta:
-        verbose_name = _('Bikeanjo')
-        verbose_name_plural = _('Bikeanjos')
-        proxy = True
-    objects = BikeanjoManager()
-
-
-class Requester(User):
-    class Meta:
-        verbose_name = _('Requester')
-        verbose_name_plural = _('Requesters')
-        proxy = True
-    objects = RequesterManager()
 
 
 class HelpStatusManager(models.Manager):
