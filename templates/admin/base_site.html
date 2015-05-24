@@ -1,14 +1,15 @@
 {% extends 'admin:admin/base_site.html' %}
 {% load static %}
 
+{% block branding %}{{ site_header|default:_('Django administration') }}{% endblock %}
+
 {% block extrahead %}
 <style type="text/css">
 #header #branding h1 {
     background: transparent url("{% static 'imgs/logo-bike-anjo.png' %}") no-repeat scroll 10px 5px / 90px auto;
     text-indent: 0;
-}
-#header #branding h1 a {
     color: transparent;
+    text-shadow: none;
 }
 </style>
 {% endblock %}

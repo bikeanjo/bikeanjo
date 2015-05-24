@@ -1,6 +1,5 @@
 dj-database-url==0.3.0
-Django==1.8
-django-admin-tools==0.5.2
+Django==1.8.2
 django-allauth==0.19.1
 django-braces==1.4.0
 django-crispy-forms==1.4.0
@@ -9,6 +8,7 @@ django-extensions==1.4.9
 django-pipeline==1.4.2
 django-rosetta==0.7.6
 django-sitetree==1.4.0
+django-suit==0.2.13
 fhurl==0.1.7
 flake8==2.2.5
 futures==2.2.0
