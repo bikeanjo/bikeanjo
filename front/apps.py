@@ -1,8 +1,10 @@
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 
 class FrontConfig(AppConfig):
     name = 'front'
+    verbose_name = _('Main')
 
     def ready(self):
         import signals
