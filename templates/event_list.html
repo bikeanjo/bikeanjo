@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="top" class="static events">
+
+    <section class="jumbotron">
+        <div class="container">
+            <h2>Eventos</h2>
+        </div>
+    </section>
+
+    <section class="events-filter">
+        <form class="form-group container">
+            <select class="form-control input-lg">
+                <option>Filtrar por cidade</option>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </form>
+    </section>
+
+    <section class="event-list container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                {% for event in event_list %}
+                <div class="card">
+                    {% if event.image %}
+                    <div class="event-image" style="background-image: url('{{ event.image.url }}');">
+                        <ul class="event-info">
+                            <li class="event-date">
+                                <span><i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}</span>
+                                <!-- {% if event.end_date %}
+                                    <span> - </span>
+                                    {% if event.end_date.date = event.start_date.date %}
+                                        <span>{{ event.end_date|date:'H:i:s' }}</span>
+                                    {% else %}
+                                        <span>{{ event.end_date|date:'d/m/Y, H:i:s' }}</span>
+                                    {% endif %}
+                                {% endif %} -->
+                            </li>
+                            <li class="event-price">{{ event.price|default:'Evento gratuito' }}</li>
+                            <li class="event-city">{{ event.city }}</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="card-content {% if event.readed_date %}old{% endif %}">
+                        <h3 class="card-subtitle"><a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
+                        <div class="card-info">{{ event.content|safe }}</div>             
+                    </div>
+                </div>
+                {% endfor %}
+
+                <p class="load-more"><a class="btn btn-lg btn-success">Carregar mais</a></p>
+            </div>
+        </div>
+    </section>
+    <section class="events-categories container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                <h3>Categorias</h3>
+                <ul class="category-list">
+                    <li><a href="#">EBA</a></li>
+                    <li><a href="#">PASSEIOS</a></li>
+                    <li><a href="#">DESAFIOS</a></li>
+                    <li><a href="#">OFICINAS</a></li>
+                    <li><a href="#">EVENTOS</a></li>
+                    <li><a href="#">TURISMO</a></li>
+                    <li><a href="#">BICLETADA</a></li>
+                    <li><a href="#">VIAGENS</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}

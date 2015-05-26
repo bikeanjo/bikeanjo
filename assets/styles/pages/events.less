@@ -1,0 +1,131 @@
+//== Events
+// --------------------------------------------------
+
+.events {
+
+    //## Jumbotron section
+    .jumbotron {
+        background-image: url('../imgs/bg-jumbotron-events.jpg');
+        background-position: center;
+        height: 210px;
+        @media screen and (min-width: @screen-sm-min) {
+            height: 430px;
+        }
+        h2 {
+            font-size: 46px;
+            margin-top: 50px;
+            @media screen and (min-width: @screen-sm-min) {
+                font-size: 58px; 
+                margin-top: 130px;
+            }
+        }    
+    }
+
+    .events-filter {
+        background-color: @brand-green;
+        padding: 25px 0;
+        .form-group {
+            margin-bottom: 0;
+        }
+        select {
+            margin: 0 auto;
+            max-width: 465px;
+        }
+    }
+
+    .event-list {
+        margin-top: 50px;
+        @media screen and (min-width: @screen-sm-min) {
+            margin-top: 70px;
+        }
+        .card {
+            margin-bottom: 25px;
+            .card-subtitle {
+                font-size: 52px;
+            }
+            .card-info {
+                display: none;
+                max-height: 45px;
+                @media screen and (min-width: @screen-xs-min) {
+                    display: block;
+                }
+            }
+        }
+        .event-image {
+            background-size: cover;
+            height: 340px;
+            overflow: hidden;
+        }
+        .event-info {
+            color: #fff;
+            font-weight: 600;
+            list-style: none;
+            margin: 30px 20px 0;
+            padding: 0; 
+            .event-date {
+                font-size: 24px;
+                line-height: 1;
+                margin-bottom: 20px;
+                @media screen and (min-width: @screen-xs-min) {
+                    float: left;
+                }
+                .fa {
+                    font-size: 22px;
+                    margin-right: 5px; 
+                }
+            }
+        }
+        .event-price, .event-city {
+            background-color: @brand-blue;
+            display: inline-block;
+            font-size: 16px;
+            padding: 2px 6px 0;
+            text-transform: uppercase;
+            @media screen and (min-width: @screen-xs-min) {
+                float: right;
+            }
+        }
+        .event-city {
+            margin-right: 10px;
+        }
+        .load-more {
+            margin: 60px 0 90px;
+            @media screen and (min-width: @screen-sm-min) {
+                margin: 70px 0 120px;
+            }
+            text-align: center;
+            .btn {
+                font-size: 24px;
+            }
+        }
+    }
+    .events-categories {
+        margin-bottom: 30px;
+        @media screen and (min-width: @screen-sm-min) {
+            margin-bottom: 50px;
+        }
+        h3 {
+            color: @brand-blue;
+            font-size: 50px;
+            margin: 0 0 30px;
+            text-align: center;
+        }
+        .category-list {
+            .list-inline;
+            font-size: 24px;
+            text-align: center;
+            text-transform: uppercase;
+            > li {
+                padding: 0 15px;
+            }
+            a {
+                color: @brand-gray;
+                font-weight: 300;
+                &:hover,&:active {
+                    color: @brand-blue;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
