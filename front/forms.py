@@ -126,8 +126,8 @@ class SignupForm(forms.ModelForm):
     fields when user uses the standard signup view. In social signup, these
     password fields does not appear
     """
-    first_name = forms.CharField(label=_('First name'), max_length=30)
-    last_name = forms.CharField(label=_('Last name'), max_length=30)
+    full_name = forms.CharField(label=_('Full name'), max_length=60)
+    email2 = forms.CharField(label=_('E-mail (again)'), max_length=30)
     country = forms.CharField(label=_('Country'), max_length=32)
     city = forms.CharField(label=_('City'), max_length=32)
 
@@ -142,9 +142,19 @@ class SignupForm(forms.ModelForm):
                 field.initial = getattr(user, key, '')
         return self
 
+    def clean_email2(self):
+        email = self.cleaned_data.get('email')
+        email2 = self.cleaned_data.get('email2')
+
+        if email != email2:
+            raise forms.ValidationError(_('The informed emails are different.'))
+        return email
+
     def signup(self, request, user):
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
+        full_name = self.cleaned_data['first_name'].split(' ')
+        user.first_name = full_name[0]
+        user.last_name = ' '.join(full_name[1:])
+
         user.city = self.cleaned_data['city']
         user.country = self.cleaned_data['country']
         user.save()
