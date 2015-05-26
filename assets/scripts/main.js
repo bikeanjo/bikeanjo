@@ -64,6 +64,16 @@
 
         });
 
+        $('.form-group .radio .icons,:input:visible').each(function(i) {
+            var $this = $(this);
+            $this.prop('tabindex', i + 1);
+        });
+
+    });
+    $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
+        if( e.type === 'keydown' && e.keyCode === 32 ){
+            $(this).trigger('click.radio.data-api');
+        }
     });
 
     window.onscroll = function() {
