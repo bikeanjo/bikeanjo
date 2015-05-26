@@ -223,6 +223,12 @@ class HelpRequestForm(forms.ModelForm):
         super(HelpRequestForm, self).__init__(*args, **kwargs)
         self.instance.requester = requester
 
+        if not requester.accepted_agreement:
+            last_request = requester.helprequested_set.first()
+
+            if last_request:
+                self.instance = last_request
+
     def get_help_choices(self):
         for code, label in models.HELP_REQUEST:
             yield (code, label,)
