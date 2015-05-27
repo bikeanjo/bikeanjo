@@ -140,6 +140,8 @@ class SignupForm(forms.ModelForm):
             user = self.sociallogin.user
             for key, field in self.fields.items():
                 field.initial = getattr(user, key, '')
+            self.fields['full_name'].initial = user.get_full_name()
+            self.fields['email2'].initial = user.email
         return self
 
     def clean_email2(self):
@@ -151,7 +153,7 @@ class SignupForm(forms.ModelForm):
         return email
 
     def signup(self, request, user):
-        full_name = self.cleaned_data['first_name'].split(' ')
+        full_name = self.cleaned_data['full_name'].split(' ')
         user.first_name = full_name[0]
         user.last_name = ' '.join(full_name[1:])
 
