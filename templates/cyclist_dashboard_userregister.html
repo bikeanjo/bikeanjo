@@ -19,14 +19,21 @@
                         <h3 class="card-subtitle"><a href="{% url 'user_password_change' %}"><i class="fa fa-lock"></i> Senha</a></h3>
                         <div class="card-info">Cadastrar nova senha</div>
                     </div>
+
+                    {% if user.role == 'bikeanjo' %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'user_experience_update' %}"><i class="fa fa-bicycle"></i> Dados de suas pedaladas</a></h3>
-                        <div class="card-info">Tempo de pedal, frequência, etc...</div>
+                        <h3 class="card-subtitle"><a href="{% url 'user_experience_update' %}"><i class="fa fa-bicycle"></i> Dados Bike Anjo</a></h3>
+                        <div class="card-info">Como você pode ajudar, tempo de pedal, frequência, etc...</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-subtitle"><a href="{% url 'cyclist_register_routes' %}?{{view.get_redirect_field_name}}={{request.get_full_path}}"><i class="fa fa-location-arrow"></i> Minhas rotas</a></h3>
+                        <div class="card-info">Rotas onde você pode atender</div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-subtitle"><a href="{% url 'cyclist_register_points' %}?{{view.get_redirect_field_name}}={{request.get_full_path}}"><i class="fa fa-map-marker"></i> Pontos avulsos</a></h3>
-                        <div class="card-info">Ponto avulsos onde você gostaria de praticar</div>
+                        <div class="card-info">Ponto avulsos onde você pode atender</div>
                     </div>
+                    {% endif %}
                 </article>
 
             </section>

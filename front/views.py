@@ -78,19 +78,27 @@ class DashboardMixin(RegisteredUserMixin):
 
 class DashBoardView(DashboardMixin, TemplateView):
     def get_template_names(self):
-        tpl = '%s_dashboard.html' % self.request.user.role
+        role = self.request.user.role or 'requester'
+        tpl = '%s_dashboard.html' % role
         return [tpl]
 
 
 class UserRegisterView(DashboardMixin, TemplateView):
-    def get_template_names(self):
-        tpl = '%s_dashboard_userregister.html' % self.request.user.role
-        return [tpl]
+    template_name = 'cyclist_dashboard_userregister.html'
 
 
 class UserInfoUpdateView(DashboardMixin, UpdateView):
-    template_name = 'cyclist_dashboard_userinfo.html'
     fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
+
+    def get_template_names(self):
+        role = self.request.user.role or 'requester'
+        tpl = '%s_dashboard_userinfo.html' % role
+        return [tpl]
+
+    def get_form_class(self):
+        if self.request.user.role == 'bikeanjo':
+            return forms.BikeanjoUserInforForm
+        return forms.RequesterUserInforForm
 
     def get_object(self):
         return self.request.user

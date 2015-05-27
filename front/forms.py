@@ -215,6 +215,22 @@ class BikeanjoExperienceForm(forms.ModelForm):
         fields = ('ride_experience', 'bike_use', 'initiatives', 'help_with',)
 
 
+class BikeanjoUserInforForm(forms.ModelForm):
+    class Meta:
+        fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
+        model = models.User
+
+
+class RequesterUserInforForm(forms.ModelForm):
+    ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.REQUESTER_EXPERIENCE)
+    bike_use = forms.ChoiceField(label=_('Bike user'), choices=models.BIKE_USE)
+
+    class Meta:
+        fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',
+                  'ride_experience', 'bike_use', 'initiatives',)
+        model = models.User
+
+
 class HelpRequestForm(forms.ModelForm):
     help_with = forms.IntegerField()
 
