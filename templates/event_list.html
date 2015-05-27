@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section id="top" class="static events">
+<section id="top" class="static event event-list">
 
     <section class="jumbotron">
         <div class="container">
@@ -9,7 +9,7 @@
         </div>
     </section>
 
-    <section class="events-filter">
+    <section class="event-filter">
         <form class="form-group container">
             <select class="form-control input-lg">
                 <option>Filtrar por cidade</option>
@@ -21,7 +21,7 @@
         </form>
     </section>
 
-    <section class="event-list container">
+    <section class="container all-events">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                 {% for event in event_list %}
@@ -30,7 +30,7 @@
                     <div class="event-image" style="background-image: url('{{ event.image.url }}');">
                         <ul class="event-info">
                             <li class="event-date">
-                                <span><i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}</span>
+                                <i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}
                                 <!-- {% if event.end_date %}
                                     <span> - </span>
                                     {% if event.end_date.date = event.start_date.date %}
@@ -40,7 +40,7 @@
                                     {% endif %}
                                 {% endif %} -->
                             </li>
-                            <li class="event-price">{{ event.price|default:'Evento gratuito' }}</li>
+                            <li class="event-category">Categoria</li>
                             <li class="event-city">{{ event.city }}</li>
                         </ul>
                     </div>
@@ -56,11 +56,11 @@
             </div>
         </div>
     </section>
-    <section class="events-categories container">
+    <section class="event-categories-list container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                 <h3>Categorias</h3>
-                <ul class="category-list">
+                <ul>
                     <li><a href="#">EBA</a></li>
                     <li><a href="#">PASSEIOS</a></li>
                     <li><a href="#">DESAFIOS</a></li>

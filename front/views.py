@@ -294,7 +294,7 @@ class EventListView(DashboardMixin, ListView):
 
 class EventDetailView(DashboardMixin, DetailView):
     model = models.Event
-    template_name = 'dashboard_event_detail.html'
+    template_name = 'event_detail.html'
 
     def get(self, request, **kwargs):
         response = super(EventDetailView, self).get(request, **kwargs)

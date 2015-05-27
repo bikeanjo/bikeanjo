@@ -1,0 +1,168 @@
+//== Event
+// --------------------------------------------------
+
+.event {
+    .event-filter {
+        background-color: @brand-green;
+        padding: 25px 0;
+        .form-group {
+            margin-bottom: 0;
+        }
+        select {
+            margin: 0 auto;
+            max-width: 465px;
+        }
+    }
+    .event-image {
+        background-size: cover;
+        height: 340px;
+        overflow: hidden;
+    }
+    .event-info {
+        color: #fff;
+        font-weight: 600;
+        list-style: none;
+        margin: 30px 20px 0;
+        padding: 0; 
+    }
+    .event-date {
+        font-size: 24px;
+        line-height: 1;
+        .fa {
+            font-size: 22px;
+            margin-right: 5px; 
+        }
+    }
+    .event-category, .event-city {
+        background-color: @brand-blue;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 2px 6px 0;
+        text-transform: uppercase;
+    }
+    .load-more {
+        margin: 60px 0 90px;
+        @media screen and (min-width: @screen-sm-min) {
+            margin: 70px 0 120px;
+        }
+        text-align: center;
+        .btn {
+            font-size: 24px;
+        }
+    }
+    .event-categories-list {
+        margin-bottom: 30px;
+        @media screen and (min-width: @screen-sm-min) {
+            margin-bottom: 50px;
+        }
+        h3 {
+            color: @brand-blue;
+            font-size: 50px;
+            margin: 0 0 30px;
+            text-align: center;
+        }
+        ul {
+            .list-inline;
+            font-size: 24px;
+            text-align: center;
+            text-transform: uppercase;
+            > li {
+                padding: 0 15px;
+            }
+            a {
+                color: @brand-gray;
+                font-weight: 300;
+                &:hover,&:active {
+                    color: @brand-blue;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    &.event-list {
+        .jumbotron {
+            h2 {
+                margin-top: 50px;
+                @media screen and (min-width: @screen-sm-min) {
+                    margin-top: 130px;
+                }
+            }    
+        }
+        .all-events {
+            margin-top: 50px;
+            @media screen and (min-width: @screen-sm-min) {
+                margin-top: 70px;
+            }
+        }
+        .card {
+            margin-bottom: 25px;
+            .card-subtitle {
+                font-size: 52px;
+            }
+            .card-info {
+                display: none;
+                max-height: 45px;
+                @media screen and (min-width: @screen-xs-min) {
+                    display: block;
+                }
+            }
+        }
+        .event-date {
+            margin-bottom: 20px;
+            @media screen and (min-width: @screen-xs-min) {
+                float: left;
+            }
+        }
+        .event-category, .event-city {
+            @media screen and (min-width: @screen-xs-min) {
+                float: right;
+            }
+        }
+        .event-city {
+            margin-right: 10px;
+        }
+    }
+    &.event-detail {
+        .jumbotron {
+            div {
+                text-align: center;
+            }
+            .event-date {
+                margin-top: 85px;
+            }
+            h2 {
+                line-height: 1.1;
+                margin: 30px 0 35px;
+                max-height: 56px;
+                overflow: hidden;
+            }
+        }
+        .event-enroll {
+            margin: 70px 0;
+            text-align: center;
+        }
+        .event-description {
+            color: #000;
+            font-size: 19px;
+            font-weight: 300;
+            line-height: 30px;
+            p {
+                margin-bottom: 40px;
+            }
+        }
+        .see-all-events {
+            margin-top: 60px;
+            text-align: center;
+            a {
+                color: #000;
+                font-weight: 400;
+                text-decoration: underline;
+                &:hover, &:active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

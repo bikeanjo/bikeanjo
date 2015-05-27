@@ -14,3 +14,76 @@
         text-align: center;
     }
 }
+
+.home {
+    .jumbotron {
+        background-image: url('../imgs/bg-jumbotron.jpg'); 
+        background-position: -415px 0px;
+        height: 385px;
+        @media screen and (min-width: @screen-xs-min) {
+            background-position: top right;
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            height: 610px;
+        }
+        h2 {
+            font-size: 26px;
+            @media screen and (min-width: 360px) {
+                font-size: 28px;
+            }
+            @media screen and (min-width: @screen-xs-min) {
+                font-size: 30px;
+                margin-top: 60px;
+            }
+            @media screen and (min-width: @screen-xs-min) and (max-width: 560px) {
+                margin-top: 20px;
+            }
+            @media screen and (min-width: @screen-sm-min) {
+                font-size: 42px;
+                margin-top: 120px;
+                margin-bottom: 40px;
+            }
+            @media screen and (min-width: @screen-md-min) {
+                font-size: 40px;
+                margin-top: 160px;
+            }
+            @media screen and (min-width: @screen-lg-min) {
+                font-size: 44px;
+            }
+        }
+        .btn {
+            margin-bottom: 10px;
+            @media (max-width: 359px) {
+                .btn-sm;
+            }
+            @media (min-width: @screen-sm-min) {
+                .btn-lg;
+            }
+        }
+        @media (min-width: 560px) {
+            .btn-warning {
+                .pull-left;
+            }
+            .btn-success {
+                .pull-right;
+            }
+        }
+    }
+}
+
+.event {
+    .jumbotron {
+        background-image: url('../imgs/bg-jumbotron-events.jpg');
+        background-position: center;
+        height: 210px;
+        @media screen and (min-width: @screen-sm-min) {
+            height: 430px;
+        }
+        h2 {
+            font-size: 46px;
+            @media screen and (min-width: @screen-sm-min) {
+                font-size: 58px; 
+            }
+        }    
+    }
+}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<section id="top" class="static event event-detail">
+
+    <section class="jumbotron" style="background-image: url({{ event.image.url }});">
+        <div class="container">
+            <div class="event-date">
+                <i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}
+            </div>
+            <h2>{{ event.title }}</h2>
+            <div class="event-category">Categoria</div>
+            <div class="event-city">{{ event.city }}</div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+                <p class="event-enroll"><a href="" class="btn btn-lg btn-primary">Inscreva-se no evento</a></p>
+
+                <div class="event-description">
+                    <p>{{ event.content|safe }}</p>
+
+                    <ul class="fa-ul">
+                        {% if event.address_link %}
+                        <li><i class="fa-li fa fa-map-marker"></i>
+                            <a target="blank" href="{{ event.address_link }}">{{ event.address }}</a>
+                        {% else %}
+                            <span>{{ event.address }}</span>
+                        </li>
+                        {% endif %}
+                        {% if event.end_date %}
+                        <li><i class="fa-li fa fa-calendar"></i>
+                            <span>{{ event.start_date|date:'d/m/Y, H:i:s' }}</span>
+                                <span> - </span>
+                                {% if event.end_date.date = event.start_date.date %}
+                                    <span>{{ event.end_date|date:'H:i:s' }}</span>
+                                {% else %}
+                                    <span>{{ event.end_date|date:'d/m/Y, H:i:s' }}</span>
+                                {% endif %}
+                        </li>
+                        {% endif %}
+                        <li><i class="fa-li fa fa-dollar"></i>{{ event.price|default:'Evento gratuito' }}</li>
+                    </ul>
+
+                    <p class="see-all-events"><a href="{% url 'dashboard_event_list' %}">Ver todos os eventos</a></p>
+                    </div>
+            </section>
+
+        </div>
+    </div>
+
+    <div class="social-buttons"></div>
+{% endblock %}
