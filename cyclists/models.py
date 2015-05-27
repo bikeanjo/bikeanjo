@@ -59,6 +59,8 @@ BIKE_USE = (
 
 
 class AvatarStorage(FileSystemStorage):
+    subfolder = 'avatars'
+
     def get_available_name(self, name):
         if self.exists(name):
             os.remove(name)
@@ -70,16 +72,12 @@ class AvatarStorage(FileSystemStorage):
         relative = os.path.join(subfolder, basename)
         return super(AvatarStorage, self).url(relative)
 
-    @classmethod
-    def set_folder(cls, subfolder=''):
-        cls.subfolder = subfolder
-        base_folder = os.path.join(settings.MEDIA_ROOT, subfolder)
 
-        def _path_gen(user, filename):
-            extension = filename.rsplit('.', 1)[-1]
-            new_name = '%s.%s' % (user.username, extension)
-            return os.path.join(base_folder, new_name)
-        return _path_gen
+def get_upload_path(user, filename):
+    base_folder = os.path.join(settings.MEDIA_ROOT, AvatarStorage.subfolder)
+    extension = filename.rsplit('.', 1)[-1]
+    new_name = '%s.%s' % (user.username, extension)
+    return os.path.join(base_folder, new_name)
 
 
 class User(AbstractUser):
@@ -87,7 +85,7 @@ class User(AbstractUser):
         verbose_name = _('User')
         verbose_name_plural = _('Users')
 
-    avatar = models.ImageField(_('Avatar'), upload_to=AvatarStorage.set_folder('avatars'),
+    avatar = models.ImageField(_('Avatar'), upload_to=get_upload_path,
                                storage=AvatarStorage(), blank=True)
     country = models.CharField(_('Country'), max_length=32, blank=True)
     city = models.CharField(_('City'), max_length=32, blank=True)
