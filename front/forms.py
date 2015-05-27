@@ -217,7 +217,7 @@ class BikeanjoExperienceForm(forms.ModelForm):
 
 class BikeanjoUserInforForm(forms.ModelForm):
     class Meta:
-        fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
+        fields = ('avatar', 'first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
         model = models.User
 
 
@@ -226,7 +226,7 @@ class RequesterUserInforForm(forms.ModelForm):
     bike_use = forms.ChoiceField(label=_('Bike user'), choices=models.BIKE_USE)
 
     class Meta:
-        fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',
+        fields = ('avatar', 'first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',
                   'ride_experience', 'bike_use', 'initiatives',)
         model = models.User
 

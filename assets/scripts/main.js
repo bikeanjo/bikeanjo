@@ -73,6 +73,20 @@
             $this.prop('tabindex', i + 1);
         });
 
+        $('[data-file-preview]').each(function(){
+            var $image = $(this);
+            var $target = $($image.attr('data-file-preview'));
+
+            $target.change(function(evt){
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $image.attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
     });
     $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
         if( e.type === 'keydown' && e.keyCode === 32 ){

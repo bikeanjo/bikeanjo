@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
 from datetime import date
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.files.storage import FileSystemStorage
 
 GENDER = (
     ('male', _('Male')),
@@ -55,11 +58,37 @@ BIKE_USE = (
 )
 
 
+class AvatarStorage(FileSystemStorage):
+    def get_available_name(self, name):
+        if self.exists(name):
+            os.remove(name)
+        return name
+
+    def url(self, name):
+        basename = os.path.basename(name)
+        subfolder = getattr(type(self), 'subfolder', '')
+        relative = os.path.join(subfolder, basename)
+        return super(AvatarStorage, self).url(relative)
+
+    @classmethod
+    def set_folder(cls, subfolder=''):
+        cls.subfolder = subfolder
+        base_folder = os.path.join(settings.MEDIA_ROOT, subfolder)
+
+        def _path_gen(user, filename):
+            extension = filename.rsplit('.', 1)[-1]
+            new_name = '%s.%s' % (user.username, extension)
+            return os.path.join(base_folder, new_name)
+        return _path_gen
+
+
 class User(AbstractUser):
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
 
+    avatar = models.ImageField(_('Avatar'), upload_to=AvatarStorage.set_folder('avatars'),
+                               storage=AvatarStorage(), blank=True)
     country = models.CharField(_('Country'), max_length=32, blank=True)
     city = models.CharField(_('City'), max_length=32, blank=True)
     gender = models.CharField(_('Gender'), max_length=24, blank=True)
@@ -72,6 +101,9 @@ class User(AbstractUser):
     accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
 
     def get_avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+
         social = self.socialaccount_set.first()
         if social:
             return social.get_avatar_url()

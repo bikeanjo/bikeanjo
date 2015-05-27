@@ -9,7 +9,7 @@
 
             <section class="dashboard-content col-md-7">
 
-                <form class="card list" method="POST">{% csrf_token %}
+                <form class="card list" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <header class="card-header negative">
                         <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
                     </header>
@@ -26,6 +26,25 @@
 
                         <div class="forms">
                             {% csrf_token %}
+                            <div class="form-group">
+                                <label class="primary-label">Avatar</label>
+                                <span class="user-icon">
+                                    <img src="{{ user.get_avatar_url }}"
+                                         data-file-preview="#{{ form.avatar.auto_id }}"
+                                         class="img-circle"
+                                         width="85" height="85" 
+                                         title="{{ user.get_full_name }}"
+                                         alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                </span>
+
+                                <label  for="{{ form.avatar.auto_id }}" 
+                                        class="col-sm-offset-2 btn btn-success">Adicionar</label>
+                                
+                                <div class="hidden">
+                                    <input id="{{ form.avatar.auto_id }}" name="{{ form.avatar.html_name }}" type="file"/>
+                                </div>
+                            </div>
+
                             <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
                                 <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
                                 <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
