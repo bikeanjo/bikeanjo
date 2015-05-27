@@ -3,7 +3,7 @@
 {% load map %}
 
 {% block content %}
-    <section class="dashboard bikeanjo container">
+    <section class="dashboard {{ user.role }} container">
        
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
@@ -14,10 +14,12 @@
                     <select name="status" class="requests-filter form-control"
                             onchange="this.parentElement.submit()">
                         <option>Todos os pedidos</option>
-                        {% for value,label in helprequest_list.model.STATUS.items %}
-                        <option {% if request.GET.status = value %}selected="selected"{% endif %}
-                                value="{{ value }}">{{ label }}</option>
-                        {% endfor %}
+                        
+                        <option {% if request.GET.status = "open" %}selected="selected" {% endif %}value="open">Abertos</option>
+                        
+                        <option {% if request.GET.status = "attended" %}selected="selected" {% endif %}value="attended">Atendidos</option>
+                        
+                        <option {% if request.GET.status = "canceled" %}selected="selected" {% endif %}value="canceled">Cancelados</option>
                     </select>
                     <ul class="requests-label list-inline">
                         <li><i class="fa fa-times-circle"></i> Pedido Cancelado</li>
@@ -42,11 +44,13 @@
                                 {% elif hr.status == "attended" %}fa-check-circle
                                 {% elif hr.status == "canceled" %}fa-times-circle
                                 {% else %}fa-comment
-                                {% endif %}{% endspaceless %}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">Pedido #{{ hr.id|stringformat:'04d' }}</a>
+                                {% endif %}{% endspaceless %}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a>
                         </h3>
                         <ul class="card-info list-info list-unstyled">
+                            <li>#{{ hr.id|stringformat:'04d' }}</li>
+                            <li>{{ hr.requester.get_full_name }}</li>
+                            <li>{{ hr.requester.city }}</li>
                             <li>{{ hr.created_date|date:'d/m/Y' }}</li>
-                            <li>{{ user.city }}</li>
                         </ul>
                     </div>
                     {% endfor %}

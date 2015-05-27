@@ -13,7 +13,7 @@
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
-                <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
+                <li><a href="{% url 'cyclist_my_requests' %}?status=open">Meus pedidos
                 {% if user.helpbikeanjo_set.unread.exists %}
                 <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span></a></li>
                 {% endif %}

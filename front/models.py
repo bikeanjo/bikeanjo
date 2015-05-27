@@ -76,6 +76,9 @@ class BaseModel(models.Model):
 
 
 class HelpStatusManager(models.Manager):
+    def open(self):
+        return self.filter(status='open')
+
     def active(self):
         return self.filter(status__in=['new', 'open'])
 
