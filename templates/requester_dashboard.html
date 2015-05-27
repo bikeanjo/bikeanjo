@@ -19,7 +19,7 @@
 
                 {% if unread.messages.first %}
                 <article class="card {% if unread.messages.first.image %}photo{% endif %} big">
-                    <button type="button" class="card-button" aria-label="Close">
+                    <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-times"></i></span>
                     </button>
                     <div class="card-content">
@@ -29,7 +29,7 @@
                         </div>
                         {% endif %}
                         <h2 class="card-subtitle">{{unread.messages.first.title}}</h2>
-                        <p class="card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed ipsum venenatis turpis efficitur fringilla ac vel urna. Phasellus ac nibh imperdiet, convallis massa non, lacinia libero. Aliquam in sagittis nulla. Cras aliquet auctor neque ut fermentum. Fusce condimentum nulla non velit tristique consequat.</p>
+                        <p class="card-info">{{unread.messages.first.content|striptags|truncatewords:32}}</p>
                     </div>
                     <footer class="card-footer">
                         <a class="see-more-link" href="{% url 'dashboard_message_detail' unread.messages.first.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>

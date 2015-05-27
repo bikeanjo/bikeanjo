@@ -64,6 +64,10 @@
 
         });
 
+        $('[data-dismiss=card]').click(function(evt){
+            $(this).parents('.card').hide();
+        });
+
         $('.form-group .radio .icons,:input:visible').each(function(i) {
             var $this = $(this);
             $this.prop('tabindex', i + 1);
