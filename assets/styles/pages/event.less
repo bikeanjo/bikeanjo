@@ -82,14 +82,6 @@
     }
 
     &.event-list {
-        .jumbotron {
-            h2 {
-                margin-top: 50px;
-                @media screen and (min-width: @screen-sm-min) {
-                    margin-top: 130px;
-                }
-            }    
-        }
         .all-events {
             margin-top: 50px;
             @media screen and (min-width: @screen-sm-min) {
@@ -125,20 +117,6 @@
         }
     }
     &.event-detail {
-        .jumbotron {
-            div {
-                text-align: center;
-            }
-            .event-date {
-                margin-top: 85px;
-            }
-            h2 {
-                line-height: 1.1;
-                margin: 30px 0 35px;
-                max-height: 56px;
-                overflow: hidden;
-            }
-        }
         .event-enroll {
             margin: 70px 0;
             text-align: center;
@@ -148,12 +126,9 @@
             font-size: 19px;
             font-weight: 300;
             line-height: 30px;
-            p {
-                margin-bottom: 40px;
-            }
         }
         .see-all-events {
-            margin-top: 60px;
+            margin: 60px 0 70px;
             text-align: center;
             a {
                 color: #000;
@@ -161,6 +136,61 @@
                 text-decoration: underline;
                 &:hover, &:active {
                     text-decoration: none;
+                }
+            }
+        }
+    }
+    .social-share {
+        border-bottom: 1px solid #d8d9da;
+        border-top: 1px solid #d8d9da;
+        padding: 20px 0;
+        ul {
+            .list-unstyled;
+            @media screen and (min-width: @screen-sm-min) {
+                .list-inline;
+                margin: 0 auto;
+                max-width: 650px;
+            }
+            @media screen and (min-width: @screen-sm-min) {
+                text-align: center;
+            }
+            li {
+                margin: 0 auto 10px;
+                max-width: 165px;
+                @media screen and (min-width: @screen-sm-min) {
+                    margin-bottom: 0;
+                    max-width: initial;
+                    width: 32%;
+                }
+            }
+            a {
+                border-radius: 3px;
+                color: #fff;
+                display: block;
+                font-size: 20px;
+                font-weight: bold;
+                padding: 10px 0;
+                text-decoration: none;
+                text-transform: uppercase;
+                .fa {
+                    font-size: 24px;
+                    margin: 0 15px 0 15px;
+                    vertical-align: text-top;
+                    @media screen and (min-width: @screen-sm-min) {
+                        margin: 0 15px 0 0;
+                    }
+                }
+            }
+            .facebook {
+                background-color: #306199;
+            }
+            .twitter {
+                background-color: #26c4f1;
+            }
+            .google {
+                background-color: #e93f2e;
+                .fa {
+                    font-size: 24px;
                 }
             }
         }

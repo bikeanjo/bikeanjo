@@ -86,4 +86,41 @@
             }
         }    
     }
+    &.event-list {
+        .jumbotron {
+            h2 {
+                margin-top: 50px;
+                @media screen and (min-width: @screen-sm-min) {
+                    margin-top: 130px;
+                }
+            }    
+        }
+    }
+    &.event-detail {
+        .jumbotron {
+            height: 315px;
+            @media screen and (min-width: @screen-sm-min) {
+                height: 430px;
+            }
+            div {
+                text-align: center;
+            }
+            .event-date {
+                margin-top: 20px;
+                @media screen and (min-width: @screen-sm-min) {
+                    margin-top: 85px;
+                }   
+            }
+            h2 {
+                line-height: 1.1;
+                margin: 30px 0;
+                max-height: 100px;
+                overflow: hidden;
+                @media screen and (min-width: @screen-sm-min) {
+                    margin: 30px 0 35px;
+                    max-height: 56px;
+                }
+            }
+        }
+    }
 }
