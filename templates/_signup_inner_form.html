@@ -28,7 +28,7 @@
         <legend>Crie sua conta usando</legend>
         {# include "socialaccount/snippets/provider_list.html" with process="login" #}
         <div class="login-social">
-            {% for provider in socialaccount.providers %}
+            {% for provider in socialaccount.providers reversed %}
              <a title="{{provider.name}}" class="{{provider.id}} btn btn-default" 
                 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
                 ><i class="fa fa-{{provider.id}}"></i>{{provider.name}}</a>
