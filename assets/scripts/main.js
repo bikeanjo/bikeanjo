@@ -87,6 +87,19 @@
                 }
             });
         });
+
+        $('[data-fake-counter]').each(function(i){
+            var $this = $(this);
+            var value = parseInt($this.attr('data-fake-counter'), 10) || 1;
+            var timeout_factor = (parseInt($this.attr('data-timeout-factor'), 10) || 1) * 1000;
+
+            function increment() {
+                $this.text(value++);
+                var timeout = Math.floor(Math.random() * timeout_factor);
+                setTimeout(increment, timeout);
+            }
+            increment();
+        });
     });
     $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
         if( e.type === 'keydown' && e.keyCode === 32 ){
