@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section id="top" class="contact">
+    <section class="jumbotron">
+        <div class="container">
+            <h2>Contato</h2>
+        </div>
+    </section>
+
+    <div class="forms container">
+        <form class="" id="contact_form" method="post" action="#">
+
+            <fieldset>
+                <div class="form-group">
+                    <label class="primary-label" for="full-name">Nome completo</label>
+                    <input class="form-control" type="text" name="full-name" id="full-name" value="" placeholder="Seu nome completo">
+                    <i class="fa fa-user form-control-icon"></i>
+                </div>
+
+                <div class="form-group">
+                    <label class="primary-label" for="email">E-email</label>
+                    <input class="form-control" type="email" name="" id="" value="" placeholder="Seu e-mail">
+                    <i class="fa fa-envelope-o form-control-icon"></i>
+                </div>
+
+                <div class="form-group">
+                    <label class="primary-label" for="email">Como podemos te ajudar?</label>
+                    <select class="form-control">
+                        <option>Ajuda de um Bike Anjo</option>
+                        <option>-</option>
+                        <option>-</option>
+                        <option>-</option>
+                        <option>-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="primary-label" for="email">Escreva sua mensagem</label>
+                    <textarea class="form-control" rows="10"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="send-form">
+                <button class="btn btn-primary btn-lg" type="submit">Enviar mensagem</button>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+{% endblock %}
