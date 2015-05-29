@@ -18,7 +18,9 @@ class StateViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CityViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id', 'name', 'state__acronym', 'state__country',)
+    filter_fields = ('id', 'name', 'state__acronym', 'state__country',
+                     'state__country__name',)
+
     queryset = City.objects.all()\
         .select_related('state')\
         .order_by('state__acronym', 'name')

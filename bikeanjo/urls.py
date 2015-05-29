@@ -11,7 +11,7 @@ admin.autodiscover()
 
 urlpatterns = [
     # drf api
-    # url(r'^api/', include('cities.api_urls')),
+    url(r'^api/', include('cities.api_urls')),
 
     # the django admin
     url(r'^admin/', include(admin.site.urls)),

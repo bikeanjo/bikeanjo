@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from allauth import app_settings
 from allauth.account.utils import user_field
 
-from cities.models import City, Country
+from cities.models import Country
 import models
 
 
@@ -129,12 +129,8 @@ class SignupForm(forms.ModelForm):
     """
     full_name = forms.CharField(label=_('Full name'), max_length=60)
     email2 = forms.CharField(label=_('E-mail (again)'), max_length=30)
-    country = forms.ModelChoiceField(label=_('Country'),
-                                     initial=Country.objects.first(),
-                                     queryset=Country.objects.all())
-    city = forms.ModelChoiceField(label=_('City'),
-                                  initial=City.objects.first(),
-                                  queryset=City.objects.all().select_related('state'))
+    country = forms.CharField(label=_('Country'), max_length=32)
+    city = forms.CharField(label=_('City'), max_length=32)
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
