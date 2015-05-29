@@ -79,7 +79,13 @@
 
         <div class="form-group {% if form.country.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-            <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
+            
+            <select class="form-control" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" autocomplete>
+            {% for id,label in form.country.field.choices %}
+                <option value="{{id}}"{% if form.country.value == id %} selected="selected"{% endif %}>{{label}}</option>
+            {% endfor %}
+            </select>
+            
             <i class="fa fa-globe form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.country.errors %}
@@ -91,7 +97,13 @@
 
         <div class="form-group {% if form.city.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
-            <input class="form-control" type="tel" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}" placeholder="O nome da sua cidade">
+            <select class="form-control" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" autocomplete>
+            {% for city in form.city.field.queryset %}
+                <option value="{{city.id}}" desc="{{city.state.acronym}}"
+                        {% if form.city.value == id %} selected="selected"{% endif %}>{{city.name}}</option>
+            {% endfor %}
+            </select>
+
             <i class="fa fa-home form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.city.errors %}

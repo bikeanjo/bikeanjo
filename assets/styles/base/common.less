@@ -44,3 +44,46 @@ label.btn,
 .has-error .checkbox .icons .second-icon{
   border-color: #cc0000;
 }
+
+
+.ac_results {
+    padding: 0px;
+    background-color: white;
+    overflow: hidden;
+    z-index: 99999;
+    position: absolute;
+    box-shadow: 0 0 1px grey;
+
+    ul {
+        position: relative;
+        width: 100%;
+        list-style-position: outside;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin: 0px;
+        padding: 2px 5px;
+        cursor: default;
+        display: block;
+        font: menu;
+        font-size: 12px;
+        line-height: 16px;
+        overflow: hidden;
+
+        &:nth-child(odd) {
+            background-color: whitesmoke;
+        }
+
+        &:hover,
+        &.ui-state-focus,
+        &.ui-state-hover,
+        &.ui-state-active {
+            cursor: pointer;
+            background-color: gray;
+            color: white;
+        }
+    }
+}
