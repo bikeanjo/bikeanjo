@@ -32,7 +32,7 @@
                 <legend>{% trans 'or' %}</legend>
 
                 <div class="form-group">
-                    <label for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
+                    <label class="primary-label" for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
                     <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value|default:'' }}" placeholder="{% trans 'E-Mail' %}" tabindex="1">
                     <i class="fa fa-envelope form-control-icon"></i>
                     <i class="fa fa-times form-control-feedback"></i>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                    <label class="primary-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
 
                     <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
                         
