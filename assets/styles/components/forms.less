@@ -89,13 +89,24 @@
         color: #00aeef;
         font-size: 18px;
         font-weight: 600;
-        width: 100%;
+    }
+
+    .form-control {
+        border-color: #bdbebf;
+    }
+
+    input, select {
+        height: 50px;
+    }
+
+    .form-group.focus .form-control, .form-control:focus {
+        border-color: @brand-blue;
     }
 
     // input icon class
     .form-control-icon {
         position: absolute;
-        right: 0;
+        right: 10px;
         z-index: 2;
         display: block;
         width: 34px;
@@ -104,20 +115,23 @@
         text-align: center;
         pointer-events: none;
         color: @brand-gray;
-        font-size: 22px;
-        top: 26px;
-        &.fa-lock {
-            font-size: 26px;
-        }
+        font-size: 28px;
+        top: 31px;
     }
     // input error icon class
     .form-control-feedback {
+        color: @brand-red;
         display: none;
-        font-size: 25px;
-        top: 30px;
+        font-size: 28px;
+        right: 10px;
+        top: 32px !important;
+    }
+    .text-danger {
+        color: @brand-red;
     }
     // fix some issues with the bootstrap classes
     .has-error, .has-feedback {
+        margin-bottom: 10px !important;
         .form-control-icon {
             display: none;
         }
@@ -128,7 +142,7 @@
     // fix some issues with the bootstrap form-group class
     .form-group {
         clear: both;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         overflow: hidden;
         position: relative;
         &:last-child {
