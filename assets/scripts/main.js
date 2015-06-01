@@ -100,6 +100,96 @@
             }
             increment();
         });
+
+        $('select[autocomplete]').each(function(i){
+            var $select = $(this).hide();
+            var $ac_results = $('<div class="ac_results">')
+                .appendTo(document.body);
+
+            var $input = $('<input type="text">')
+                .attr('class', $select.attr('class'))
+                .attr('tabindex', $select.attr('tabindex'))
+                .val($select.find(':selected').text())
+                .insertAfter($select);
+
+            var options = $select.find('option').map(function(i,e){
+                return {
+                    label: $(e).text(),
+                    value: $(e).attr('value'),
+                    desc: $(e).attr('desc')
+                };
+            }).toArray();
+
+            $(window).resize(function(){
+                $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
+                $ac_results.css('left', ($input.offset().left) + 'px');
+            });
+            $(window).trigger('resize');
+
+            $input.autocomplete({
+                'source': options,
+                'minLength': 3,
+                'appendTo': $ac_results,
+                'focus': function( event, ui ) {
+                    $input.val(ui.item.label);
+                    return false;
+                },
+                'select': function( event, ui ) {
+                    $select.val(ui.item.value);
+                    return false;
+                }
+            }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+              return $( "<li>" )
+                .append(item.label + (item.desc?" ("+item.desc+")":''))
+                .appendTo( ul );
+            };
+
+            $input.blur(function(evt){
+                var selected = $select.find('option:selected').text();
+                if(selected !== $input.val()) {
+                    $input.val(selected);
+                }
+            });
+        });
+
+        $('input[suggests]').each(function(i){
+            var $input = $(this);
+            var $ac_results = $('<div class="ac_results">')
+                .appendTo(document.body);
+
+            var filter_key = $input.attr('suggests-filter-key');
+            var $filter_value = $($input.attr('suggests-filter-value'));
+            var json_key = 'suggests-json-key';
+            
+            var url = $input.attr('suggests');
+            var query = {};
+            var suggests = [];
+            query[filter_key] = $filter_value.val();
+
+            $(window).resize(function(){setTimeout(function(){
+                $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
+                $ac_results.css('left', ($input.offset().left) + 'px');
+            }, 500)}).trigger('resize');
+
+            $filter_value.change(function(evt){
+                suggests.splice(0);
+
+                $.ajax({
+                    'url': url,
+                    'data': query
+                }).success(function(response){
+                    response.forEach(function(r){
+                        suggests.push(r.name);
+                    });
+                });
+            }).trigger('change');
+
+            $input.autocomplete({
+                'source': suggests,
+                'minLength': 3,
+                'appendTo': $ac_results
+            });
+        });
     });
     $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
         if( e.type === 'keydown' && e.keyCode === 32 ){

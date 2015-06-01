@@ -1,0 +1,123 @@
+//== How it Works
+// --------------------------------------------------
+
+.how-it-works {
+    //## Common styles for all page sections
+    section {
+        margin-top: 70px;
+        @media screen and (min-width: @screen-sm-min) {
+            margin-top: 120px;
+        }
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+            h2 {
+                color: @brand-blue;
+                font-size: 44px;
+                margin: 0;
+            }
+            p {
+
+                font-size: 27px;
+                font-weight: 300;
+            }
+        }
+        .icon {
+            background: center no-repeat;
+            height: 270px;
+            width: 100%;
+        }
+        .text {
+            color: #7d7d7d;
+            font-size: 20px;
+            font-weight: 300;
+            padding-top: 15px;
+            text-align: center;
+            @media screen and (min-width: @screen-sm-min) {
+                padding-top: 70px;
+                text-align: left;
+            }
+            p {
+                margin-bottom: 30px;
+            }
+        }
+        footer {
+            border-bottom: 1px solid #d8d9da;
+            border-top: 1px solid #d8d9da;
+            color: #7d7d7d;
+            font-weight: 300;
+            margin-top: 30px;
+            padding: 25px 0;
+            text-align: center;
+            p {
+                font-size: 20px;
+                margin: 0;
+            }
+            a {
+                color: #7d7d7d;
+                font-weight: 600;
+                text-decoration: underline;
+                &:hover, &:active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .navigation {
+        @media screen and (min-width: @screen-sm-min) {
+            background: @brand-green;
+            height: 105px;
+        }
+        ul {
+            .list-unstyled;
+            text-align: center; 
+            @media screen and (min-width: @screen-sm-min) {
+                .list-inline;
+                height: 105px;
+            }
+            a {
+                border-bottom: 2px solid @brand-green; 
+                color: @brand-green;
+                display: block;
+                font-size: 17px;
+                font-weight: 600;
+                padding: 10px 0;
+                text-decoration: none;
+                text-transform: uppercase;
+                @media screen and (min-width: @screen-sm-min) {
+                    border: 0;
+                    color: #fff;
+                    font-size: 20px;
+                    height: 105px;
+                    padding: 38px 15px;
+                }
+                @media screen and (min-width: @screen-md-min) {
+                    padding: 38px 20px;
+                }   
+                &:hover, &:active, &.active {
+                    color: #fff;
+                    background: darken(@brand-green, 5%);
+                }
+            }
+        }
+    }
+
+    #learn-to-cycle {
+        .icon {
+            background-image: url('../imgs/how-it-works-page-01.png');
+        }
+    }
+
+    #use-the-platform {
+        .icon {
+            background-image: url('../imgs/how-it-works-page-02.png');
+        }
+    }
+
+    #bike-angel {
+        .icon {
+            background-image: url('../imgs/how-it-works-page-03.png');
+        }
+    } 
+}

@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from allauth import app_settings
 from allauth.account.utils import user_field
 
+from cities.models import Country
 import models
 
 

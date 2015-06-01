@@ -9,29 +9,19 @@
             {% include '_dashboard_sidebar.html' %}
 
             <section class="dashboard-content col-md-7">
-                <div class="card">
+                <div class="card messages">
                     <header class="card-header negative">
                         <h2 class="card-title"><a href="{% url 'dashboard_message_list' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a></h2>
                     </header>
                     {% if message.image %}
-                    <div>
-                        <img src="{{ message.image.url }}" class="img-responsive"/>
+                    <div class="card-image" style="background-image: url({{ message.image.url }});">
                     </div>
                     {% endif %}
                     <div class="card-content">
                         <h3 class="card-subtitle">{{ message.title }}</h3>
                         <div class="card-info">{{ message.content|safe }}</div>
-                    </div>
-                    <div class="card-footer previous-next">
-                        {% if message.get_previous_by_created_date %}
-                        <a class="btn btn-sm btn-default"
-                           href="{% url 'dashboard_message_detail' message.get_previous_by_created_date.id %}">&laquo; Anterior</a>
-                        {% endif %}
 
-                        {% if message.get_next_by_created_date %}
-                        <a class="btn btn-sm btn-default"
-                           href="{% url 'dashboard_message_detail' message.get_next_by_created_date.id %}">Próximo &raquo;</a>
-                        {% endif %}
+                        <a href="#" class="btn btn-default">Lorem ipsum dolor</a>
                     </div>
                 </div>
             </section>
