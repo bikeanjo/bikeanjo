@@ -301,7 +301,8 @@ class EventDetailView(DetailView):
     def get(self, request, **kwargs):
         response = super(EventDetailView, self).get(request, **kwargs)
         user = request.user
-        if not self.object.readed_by.filter(user=user).exists():
+        if request.user.is_authenticated() and\
+           not self.object.readed_by.filter(user=user).exists():
             self.object.readed_by.create(user=user)
         return response
 
