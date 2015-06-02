@@ -367,7 +367,8 @@ class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
     model = models.User
 
     def get_template_names(self):
-        tpl = '%s_signup_terms.html' % self.request.user.role
+        role = self.request.user.role or 'requester'
+        tpl = '%s_signup_terms.html' % role
         return [tpl]
 
     def get_object(self):
