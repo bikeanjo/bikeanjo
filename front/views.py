@@ -284,15 +284,17 @@ class MessageDetailView(DashboardMixin, DetailView):
         return response
 
 
-class EventListView(DashboardMixin, ListView):
+class EventListView(ListView):
     model = models.Event
     template_name = 'event_list.html'
 
     def get_queryset(self):
-        return models.Event.user_access_annotated(user=self.request.user)
+        if self.request.user.is_authenticated():
+            return models.Event.user_access_annotated(user=self.request.user)
+        return models.Event.objects.all()
 
 
-class EventDetailView(DashboardMixin, DetailView):
+class EventDetailView(DetailView):
     model = models.Event
     template_name = 'event_detail.html'
 
