@@ -64,45 +64,6 @@
         }
     }
 
-    .navigation {
-        @media screen and (min-width: @screen-sm-min) {
-            background: @brand-green;
-            height: 105px;
-        }
-        ul {
-            .list-unstyled;
-            text-align: center; 
-            @media screen and (min-width: @screen-sm-min) {
-                .list-inline;
-                height: 105px;
-            }
-            a {
-                border-bottom: 2px solid @brand-green; 
-                color: @brand-green;
-                display: block;
-                font-size: 17px;
-                font-weight: 600;
-                padding: 10px 0;
-                text-decoration: none;
-                text-transform: uppercase;
-                @media screen and (min-width: @screen-sm-min) {
-                    border: 0;
-                    color: #fff;
-                    font-size: 20px;
-                    height: 105px;
-                    padding: 38px 15px;
-                }
-                @media screen and (min-width: @screen-md-min) {
-                    padding: 38px 20px;
-                }   
-                &:hover, &:active, &.active {
-                    color: #fff;
-                    background: darken(@brand-green, 5%);
-                }
-            }
-        }
-    }
-
     #learn-to-cycle {
         .icon {
             background-image: url('../imgs/how-it-works-page-01.png');
