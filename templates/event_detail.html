@@ -56,9 +56,14 @@
     <div class="social-share">
         <div class="container">
             <ul>
-                <li><a href="" class="facebook"><i class="fa fa-facebook-square"></i> Facebook</a></li>
-                <li><a href="" class="twitter"><i class="fa fa-twitter"></i>Twitter</a></li>
-                <li><a href="" class="google"><i class="fa fa-google-plus"></i>Google+</a></li>
+                <li><a target="_popup" href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}"
+                       class="facebook"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+
+                <li><a target="_popup" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}"
+                       class="twitter"><i class="fa fa-twitter"></i>Twitter</a></li>
+
+                <li><a target="_popup" href="https://plus.google.com/share?url={{ request.build_absolute_uri }}"
+                       class="google"><i class="fa fa-google-plus"></i>Google+</a></li>
             </ul>
         </div>
     </div>

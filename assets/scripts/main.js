@@ -190,6 +190,18 @@
                 'appendTo': $ac_results
             });
         });
+
+        $('a[target=_popup]').click(function(evt){
+            var href = $(this).attr('href');
+            var title = $(this).attr('title') || 'Share';
+            var left = Math.floor(($(window).width() - 500) / 2);
+            var top = Math.floor(($(window).height() - 300) / 2);
+            var win = window.open(href, title, 'left='+left+',top='+top+',width=500,height=300,toolbar=no,location=no');
+
+            if(win) {
+                evt.preventDefault();
+            }
+        });
     });
     $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
         if( e.type === 'keydown' && e.keyCode === 32 ){
