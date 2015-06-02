@@ -73,9 +73,11 @@ urlpatterns = [
         front.views.MessageListView.as_view(), name='dashboard_message_list'),
     url(r'^dashboard/messages/(?P<pk>[1-9]\d*)/$',
         front.views.MessageDetailView.as_view(), name='dashboard_message_detail'),
-    url(r'^dashboard/events/$',
+
+    # Events
+    url(r'^events/$',
         front.views.EventListView.as_view(), name='dashboard_event_list'),
-    url(r'^dashboard/events/(?P<pk>[1-9]\d*)/$',
+    url(r'^events/(?P<pk>[1-9]\d*)/$',
         front.views.EventDetailView.as_view(), name='dashboard_event_detail'),
 
     #
