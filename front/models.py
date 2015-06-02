@@ -214,6 +214,7 @@ class Point(BaseModel):
         verbose_name_plural = _('Points')
 
     user = models.ForeignKey(User)
+    helprequest = models.ForeignKey(HelpRequest, blank=True, null=True)
     address = models.CharField(_('Address'), max_length=128)
     coords = models.PointField()
 

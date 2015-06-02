@@ -436,6 +436,16 @@ class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
             reverse('cyclist_request_detail', args=[self.object.id])
 
 
+class HelpRequestPointView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
+    model = models.HelpRequest
+    form_class = forms.HelpRequestPointForm
+    template_name = 'requester_ask_help_points.html'
+
+    def get_success_url(self):
+        return self.get_redirect_url() or\
+            reverse('cyclist_request_detail', args=[self.object.id])
+
+
 #
 # Views to register tracks and places
 #

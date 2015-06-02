@@ -235,6 +235,7 @@
                     $li.append($('<i class="fa fa-times">')
                                     .click(marker.remove)
                                     .click(function(){ $li.remove(); })
+                                    .click(function(){ bikemap.write_points_to_output(); })
                                     )
                        .append($('<span>')
                                    .text(marker.getPopup().getContent()));
