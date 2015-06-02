@@ -308,6 +308,7 @@ class Event(BaseModel, ReadedAnnotationMixin):
         ordering = ['-created_date']
 
     title = models.CharField(_('Title'), max_length=128)
+    slug = models.SlugField(_('Slug'), max_length=128, editable=False)
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
     start_date = models.DateTimeField(_('Start date'))

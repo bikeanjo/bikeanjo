@@ -13,10 +13,6 @@
         <form class="form-group container">
             <select class="form-control input-lg">
                 <option>Filtrar por cidade</option>
-                <option></option>
-                <option></option>
-                <option></option>
-                <option></option>
             </select>
         </form>
     </section>
@@ -46,7 +42,7 @@
                     </div>
                     {% endif %}
                     <div class="card-content {% if event.readed_date %}old{% endif %}">
-                        <h3 class="card-subtitle"><a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
+                        <h3 class="card-subtitle"><a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a></h3>
                         <div class="card-info">{{ event.content|safe }}</div>             
                     </div>
                 </div>

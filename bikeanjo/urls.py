@@ -77,7 +77,7 @@ urlpatterns = [
     # Events
     url(r'^events/$',
         front.views.EventListView.as_view(), name='dashboard_event_list'),
-    url(r'^events/(?P<pk>[1-9]\d*)/$',
+    url(r'^events/(?P<slug>[\w-]+)/$',
         front.views.EventDetailView.as_view(), name='dashboard_event_detail'),
 
     #
