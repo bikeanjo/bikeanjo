@@ -409,7 +409,8 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         if url:
             return url
         if self.helprequest.help_with & 3 > 0:
-            url = reverse('cyclist_register_points')
+            url = reverse('requester_help_request_points',
+                          args=[self.helprequest.id])
         elif self.helprequest.help_with & 12 > 0:
             url = reverse('requester_help_request_route',
                           args=[self.helprequest.id])
