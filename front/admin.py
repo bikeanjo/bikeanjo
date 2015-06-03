@@ -189,3 +189,8 @@ class EventAdmin(admin.ModelAdmin):
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+
+@admin.register(models.Testimony)
+class TestimonyAdmin(admin.ModelAdmin):
+    list_display = ('author', 'message',)

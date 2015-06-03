@@ -50,6 +50,11 @@ class RedirectUrlMixin(object):
 class HomeView(TemplateView):
     template_name = 'home.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['testimonies'] = models.Testimony.objects.select_related('author').reverse()[:5]
+        return context
+
     def get(self, request, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('cyclist_dashboard'))

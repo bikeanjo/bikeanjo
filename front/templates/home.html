@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 
 <section id="top" class="home">
@@ -106,39 +106,22 @@
         <div id="carousel-who-used" class="carousel slide" data-ride="carousel"  data-interval="false">
 
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
+                {% for testimony in testimonies %}
+                <div class="item {% if forloop.first %}active{% endif %}">
                     <div class="carousel-content">
                     <div class="card">
                         <div class="icon">
-                            <img src="http://placehold.it/85x85">
+                            <img src="{{ testimony.author.get_avatar_url }}"
+                                 width="85" height="85" 
+                                 title="{{ testimony.author.get_full_name }}"
+                                 alt="{% trans "Photo from" %} {{ testimony.author.get_full_name }}"/>
                         </div>
-                        <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula. Aliquam semper fringilla neque nec tristique. Ut porta facilisis purus, quis dignissim urna sollicitudin vitae. Integer nec turpis at dolor blandit accumsan vel in quam.</p>
-                        <p class="author">Lorem ipsum dolor</p>
+                        <p class="testimonial">{{ testimony.message }}</p>
+                        <p class="author">{{ testimony.author.get_full_name }}</p>
                     </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="carousel-content">
-                    <div class="card">
-                        <div class="icon">
-                            <img src="http://placehold.it/85x85">
-                        </div>
-                        <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula.</p>
-                        <p class="author">Lorem ipsum dolor</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="carousel-content">
-                    <div class="card">
-                        <div class="icon">
-                            <img src="http://placehold.it/86x86">
-                        </div>
-                        <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula. Aliquam semper fringilla neque nec tristique. Ut porta facilisis purus, quis dignissim urna sollicitudin vitae. Integer nec turpis at dolor blandit accumsan vel in quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula. Aliquam semper fringilla neque nec tristique. Ut porta facilisis purus, quis dignissim urna sollicitudin vitae. Integer nec turpis at dolor blandit accumsan vel in quam.</p>
-                        <p class="author">Lorem ipsum dolor</p>
-                    </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
             <a class="left carousel-control" href="#carousel-who-used" role="button" data-slide="prev">

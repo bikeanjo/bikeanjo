@@ -347,3 +347,12 @@ class Feedback(BaseModel):
 
     author = models.ForeignKey(User)
     message = models.CharField(_('Message'), max_length=255)
+
+
+class Testimony(BaseModel):
+    class Meta:
+        verbose_name = _('Testimony')
+        verbose_name_plural = _('Testimonies')
+
+    author = models.ForeignKey(User)
+    message = models.CharField(_('Message'), max_length=255)
