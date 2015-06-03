@@ -11,8 +11,12 @@
 
     <section class="event-filter">
         <form class="form-group container">
-            <select class="form-control input-lg">
+            <select class="form-control input-lg" name="city" onchange="this.parentElement.submit()">
                 <option>Filtrar por cidade</option>
+                {% for city in cities %}
+                <option value="{{ city }}"
+                        {% if request.GET.city = city %}selected="selected"{% endif %}>{{ city }}</option>
+                {% endfor %}
             </select>
         </form>
     </section>
@@ -36,7 +40,7 @@
                                     {% endif %}
                                 {% endif %} -->
                             </li>
-                            <li class="event-category">Categoria</li>
+                            <li class="event-category">{{ event.category }}</li>
                             <li class="event-city">{{ event.city }}</li>
                         </ul>
                     </div>
@@ -57,14 +61,9 @@
             <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                 <h3>Categorias</h3>
                 <ul>
-                    <li><a href="#">EBA</a></li>
-                    <li><a href="#">PASSEIOS</a></li>
-                    <li><a href="#">DESAFIOS</a></li>
-                    <li><a href="#">OFICINAS</a></li>
-                    <li><a href="#">EVENTOS</a></li>
-                    <li><a href="#">TURISMO</a></li>
-                    <li><a href="#">BICLETADA</a></li>
-                    <li><a href="#">VIAGENS</a></li>
+                {% for category in categories %}
+                    <li><a href="?category={{ category.id }}">{{ category|upper }}</a></li>
+                {% endfor %}
                 </ul>
             </div>
         </div>

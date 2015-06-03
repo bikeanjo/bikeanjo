@@ -182,4 +182,10 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'start_date', 'end_date', 'address',)
+    list_display = ('title', 'date', 'address',)
+    prepopulated_fields = {"slug": ("title",)}
+
+
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)

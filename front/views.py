@@ -71,7 +71,6 @@ class DashboardMixin(RegisteredUserMixin):
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
             'messages': models.Message.objects.exclude(readed_by__user=self.request.user),
-            'events': models.Event.objects.exclude(readed_by__user=self.request.user),
         }
         return data
 
@@ -288,23 +287,24 @@ class EventListView(ListView):
     model = models.Event
     template_name = 'event_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+        context['categories'] = models.Category.objects.all()
+        context['cities'] = models.Event.objects\
+                                        .order_by('city')\
+                                        .distinct('city')\
+                                        .values_list('city', flat=True)
+        return context
+
     def get_queryset(self):
-        if self.request.user.is_authenticated():
-            return models.Event.user_access_annotated(user=self.request.user)
-        return models.Event.objects.all()
+        qs = super(EventListView, self).get_queryset()
+        filters = self.request.GET.dict()
+        return qs.filter(**filters)
 
 
 class EventDetailView(DetailView):
     model = models.Event
     template_name = 'event_detail.html'
-
-    def get(self, request, **kwargs):
-        response = super(EventDetailView, self).get(request, **kwargs)
-        user = request.user
-        if request.user.is_authenticated() and\
-           not self.object.readed_by.filter(user=user).exists():
-            self.object.readed_by.create(user=user)
-        return response
 
 #
 # Views to register user and his role

@@ -5,13 +5,13 @@
 {% block content %}
 <section id="top" class="static event event-detail">
 
-    <section class="jumbotron" style="background-image: url({{ event.image.url }});">
+    <section class="jumbotron" style="background-image: url({{ event.get_image_url|default:'none' }});">
         <div class="container">
             <div class="event-date">
                 <i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}
             </div>
             <h2>{{ event.title }}</h2>
-            <div class="event-category">Categoria</div>
+            <div class="event-category">{{ event.category }}</div>
             <div class="event-city">{{ event.city }}</div>
         </div>
     </section>

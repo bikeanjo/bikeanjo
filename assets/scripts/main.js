@@ -169,7 +169,7 @@
             $(window).resize(function(){setTimeout(function(){
                 $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
                 $ac_results.css('left', ($input.offset().left) + 'px');
-            }, 500)}).trigger('resize');
+            }, 500);}).trigger('resize');
 
             $filter_value.change(function(evt){
                 suggests.splice(0);
