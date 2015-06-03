@@ -56,7 +56,7 @@ class HomeView(TemplateView):
         return super(HomeView, self).get(request, **kwargs)
 
 
-class RawTemplateView(LoginRequiredMixin, TemplateView):
+class RawTemplateView(TemplateView):
     def get_template_names(self):
         tpl = '%s.html' % self.kwargs.get('tpl')
         return [tpl]
