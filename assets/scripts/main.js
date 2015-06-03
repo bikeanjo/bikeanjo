@@ -88,15 +88,24 @@
             });
         });
 
-        $('[data-fake-counter]').each(function(i){
+        $('[data-counter]').each(function(i){
             var $this = $(this);
-            var value = parseInt($this.attr('data-fake-counter'), 10) || 1;
-            var timeout_factor = (parseInt($this.attr('data-timeout-factor'), 10) || 1) * 1000;
+            var value = parseInt($this.attr('data-counter'), 10) || 1;
+            var duration = parseInt($this.attr('data-counter-duration'), 10) || 500;
+            var timeout = duration / (value > 0 ? value : 1);
+            var factor = Math.pow(10, Math.floor(Math.log10(value)));
+            var current = 0;
+            $this.text(current);
 
             function increment() {
-                $this.text(value++);
-                var timeout = Math.floor(Math.random() * timeout_factor);
-                setTimeout(increment, timeout);
+                current += Math.ceil(Math.random() * factor);
+
+                if(current < value) {
+                    $this.text(current);
+                    setTimeout(increment, timeout);
+                } else {
+                    $this.text(value);
+                }
             }
             increment();
         });

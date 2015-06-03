@@ -14,9 +14,12 @@ from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
+
 import allauth.account.views
 import forms
 import models
+
+import cyclists.models
 
 
 class RegisteredUserMixin(LoginRequiredMixin):
@@ -53,6 +56,12 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['testimonies'] = models.Testimony.objects.select_related('author').reverse()[:5]
+        context['counters'] = {
+            'bikeanjos': cyclists.models.Bikeanjo.objects.count(),
+            'requests': models.HelpRequest.objects.count(),
+            'cities': cyclists.models.Bikeanjo.objects.order_by('city').distinct('city').count(),
+            'countries': cyclists.models.Bikeanjo.objects.order_by('country').distinct('country').count(),
+        }
         return context
 
     def get(self, request, **kwargs):
