@@ -1,0 +1,45 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+{% endblock %}
+
+{% block js %}{{ block.super }}
+<script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
+{% endblock %}
+
+{% block content %}
+<section class="forms signup container">
+    <div class="map" id="js-map"></div>
+    <form class="signup fullscreen card" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+
+        <header>
+            <h2>Onde pode pedalar?</h2>
+            <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>
+        </header>
+
+        <div class="form-inline">
+            <div class="form-group add-address">
+                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="Adicione pontos de ajuda">
+                <button bikeanjo-add="point" class="btn btn-success">
+                <i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+
+        <ul class="addresses-list list-unstyled" bikeanjo-list="points"></ul>
+
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+
+    </form>
+</section>
+{% endblock %}

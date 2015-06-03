@@ -23,5 +23,5 @@ class CityViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = City.objects.all()\
         .select_related('state')\
-        .order_by('state__acronym', 'name')
+        .order_by('name')
     serializer_class = CitySerializer

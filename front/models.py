@@ -214,6 +214,7 @@ class Point(BaseModel):
         verbose_name_plural = _('Points')
 
     user = models.ForeignKey(User)
+    helprequest = models.ForeignKey(HelpRequest, blank=True, null=True)
     address = models.CharField(_('Address'), max_length=128)
     coords = models.PointField()
 
@@ -300,6 +301,17 @@ class Message(BaseModel, ReadedAnnotationMixin):
     readed_by = GenericRelation(ContentReadLog, related_query_name='messages')
 
 
+class Category(models.Model):
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+
+    name = models.CharField(max_length=32)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Event(BaseModel, ReadedAnnotationMixin):
     class Meta:
         verbose_name = _('Event')
@@ -307,23 +319,40 @@ class Event(BaseModel, ReadedAnnotationMixin):
         ordering = ['-created_date']
 
     title = models.CharField(_('Title'), max_length=128)
+    slug = models.SlugField(_('Slug'), max_length=128)
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
-    start_date = models.DateTimeField(_('Start date'))
-    end_date = models.DateTimeField(_('End date'), null=True, blank=True)
+    date = models.DateField(_('Date'))
     city = models.CharField(_('City'), max_length='64')
     address = models.CharField(_('Address'), max_length='128', blank=True)
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
     link = models.CharField(_('Link'), max_length='255', blank=True)
     price = models.IntegerField(_('Price'), default=0, blank=True)
 
+    category = models.ForeignKey(Category, null=True, blank=True)
     readed_by = GenericRelation(ContentReadLog, related_query_name='events')
+
+    def get_image_url():
+        if self.image:
+            return self.image.url
+
+    def __unicode__(self):
+        return self.title
 
 
 class Feedback(BaseModel):
     class Meta:
         verbose_name = _('Feedback')
         verbose_name_plural = _('Feedbacks')
+
+    author = models.ForeignKey(User)
+    message = models.CharField(_('Message'), max_length=255)
+
+
+class Testimony(BaseModel):
+    class Meta:
+        verbose_name = _('Testimony')
+        verbose_name_plural = _('Testimonies')
 
     author = models.ForeignKey(User)
     message = models.CharField(_('Message'), max_length=255)

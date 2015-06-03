@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 
 <section id="top" class="home">
@@ -22,26 +22,22 @@
             </header>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-timeout-factor="10"
-                      data-fake-counter="1450">1450</span>
+                      data-counter="{{counters.bikeanjos}}"></span>
                 <span class="info">Bike Anjos</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-timeout-factor="3"
-                      data-fake-counter="5887">5887</span>
+                      data-counter="{{counters.requests}}"></span>
                 <span class="info">Pedidos</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-timeout-factor="50"
-                      data-fake-counter="231">231</span>
+                      data-counter="{{counters.cities}}"></span>
                 <span class="info">cidades</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-timeout-factor="100"
-                      data-fake-counter="1">1</span>
+                      data-counter="{{counters.countries}}"></span>
                 <span class="info">Países</span>
             </div>
         </div>
@@ -106,39 +102,22 @@
         <div id="carousel-who-used" class="carousel slide" data-ride="carousel"  data-interval="false">
 
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
+                {% for testimony in testimonies %}
+                <div class="item {% if forloop.first %}active{% endif %}">
                     <div class="carousel-content">
                     <div class="card">
                         <div class="icon">
-                            <img src="http://placehold.it/85x85">
+                            <img src="{{ testimony.author.get_avatar_url }}"
+                                 width="85" height="85" 
+                                 title="{{ testimony.author.get_full_name }}"
+                                 alt="{% trans "Photo from" %} {{ testimony.author.get_full_name }}"/>
                         </div>
-                        <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula. Aliquam semper fringilla neque nec tristique. Ut porta facilisis purus, quis dignissim urna sollicitudin vitae. Integer nec turpis at dolor blandit accumsan vel in quam.</p>
-                        <p class="author">Lorem ipsum dolor</p>
+                        <p class="testimonial">{{ testimony.message }}</p>
+                        <p class="author">{{ testimony.author.get_full_name }}</p>
                     </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="carousel-content">
-                    <div class="card">
-                        <div class="icon">
-                            <img src="http://placehold.it/85x85">
-                        </div>
-                        <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula.</p>
-                        <p class="author">Lorem ipsum dolor</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="carousel-content">
-                    <div class="card">
-                        <div class="icon">
-                            <img src="http://placehold.it/86x86">
-                        </div>
-                        <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula. Aliquam semper fringilla neque nec tristique. Ut porta facilisis purus, quis dignissim urna sollicitudin vitae. Integer nec turpis at dolor blandit accumsan vel in quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat a est at vehicula. Aliquam semper fringilla neque nec tristique. Ut porta facilisis purus, quis dignissim urna sollicitudin vitae. Integer nec turpis at dolor blandit accumsan vel in quam.</p>
-                        <p class="author">Lorem ipsum dolor</p>
-                    </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
             <a class="left carousel-control" href="#carousel-who-used" role="button" data-slide="prev">

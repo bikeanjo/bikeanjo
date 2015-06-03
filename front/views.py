@@ -14,9 +14,12 @@ from django.views.generic.edit import UpdateView
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
+
 import allauth.account.views
 import forms
 import models
+
+import cyclists.models
 
 
 class RegisteredUserMixin(LoginRequiredMixin):
@@ -50,6 +53,17 @@ class RedirectUrlMixin(object):
 class HomeView(TemplateView):
     template_name = 'home.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['testimonies'] = models.Testimony.objects.select_related('author').reverse()[:5]
+        context['counters'] = {
+            'bikeanjos': cyclists.models.Bikeanjo.objects.count(),
+            'requests': models.HelpRequest.objects.count(),
+            'cities': cyclists.models.Bikeanjo.objects.order_by('city').distinct('city').count(),
+            'countries': cyclists.models.Bikeanjo.objects.order_by('country').distinct('country').count(),
+        }
+        return context
+
     def get(self, request, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('cyclist_dashboard'))
@@ -71,7 +85,6 @@ class DashboardMixin(RegisteredUserMixin):
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
             'messages': models.Message.objects.exclude(readed_by__user=self.request.user),
-            'events': models.Event.objects.exclude(readed_by__user=self.request.user),
         }
         return data
 
@@ -284,24 +297,28 @@ class MessageDetailView(DashboardMixin, DetailView):
         return response
 
 
-class EventListView(DashboardMixin, ListView):
+class EventListView(ListView):
     model = models.Event
     template_name = 'event_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+        context['categories'] = models.Category.objects.all()
+        context['cities'] = models.Event.objects\
+                                        .order_by('city')\
+                                        .distinct('city')\
+                                        .values_list('city', flat=True)
+        return context
+
     def get_queryset(self):
-        return models.Event.user_access_annotated(user=self.request.user)
+        qs = super(EventListView, self).get_queryset()
+        filters = self.request.GET.dict()
+        return qs.filter(**filters)
 
 
-class EventDetailView(DashboardMixin, DetailView):
+class EventDetailView(DetailView):
     model = models.Event
     template_name = 'event_detail.html'
-
-    def get(self, request, **kwargs):
-        response = super(EventDetailView, self).get(request, **kwargs)
-        user = request.user
-        if not self.object.readed_by.filter(user=user).exists():
-            self.object.readed_by.create(user=user)
-        return response
 
 #
 # Views to register user and his role
@@ -367,7 +384,8 @@ class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
     model = models.User
 
     def get_template_names(self):
-        tpl = '%s_signup_terms.html' % self.request.user.role
+        role = self.request.user.role or 'requester'
+        tpl = '%s_signup_terms.html' % role
         return [tpl]
 
     def get_object(self):
@@ -409,7 +427,8 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         if url:
             return url
         if self.helprequest.help_with & 3 > 0:
-            url = reverse('cyclist_register_points')
+            url = reverse('requester_help_request_points',
+                          args=[self.helprequest.id])
         elif self.helprequest.help_with & 12 > 0:
             url = reverse('requester_help_request_route',
                           args=[self.helprequest.id])
@@ -430,6 +449,16 @@ class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
     model = models.HelpRequest
     form_class = forms.HelpRequestRouteForm
     template_name = 'requester_ask_help_route.html'
+
+    def get_success_url(self):
+        return self.get_redirect_url() or\
+            reverse('cyclist_request_detail', args=[self.object.id])
+
+
+class HelpRequestPointView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
+    model = models.HelpRequest
+    form_class = forms.HelpRequestPointForm
+    template_name = 'requester_ask_help_points.html'
 
     def get_success_url(self):
         return self.get_redirect_url() or\

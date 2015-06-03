@@ -287,6 +287,52 @@ class HelpRequestRouteForm(forms.ModelForm):
         fields = ('track',)
 
 
+class HelpRequestPointForm(forms.Form):
+    points = forms.CharField(label=_('Points'),
+                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'points'}),
+                             required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.instance = kwargs.pop('instance')
+        super(HelpRequestPointForm, self).__init__(*args, **kwargs)
+        self['points'].field.initial = self.load_points()
+
+    def clean_points(self):
+        try:
+            points = []
+            json_points = json.loads(self.cleaned_data.get('points'))
+            if type(json_points) in (list, tuple) and len(json_points) > 0:
+                for json_p in json_points:
+                    point = models.Point()
+                    point.coords = Point(json_p.get('coordinates'))
+                    point.address = json_p.get('properties').get('address')
+                    point.id = json_p.get('properties').get('id', None)
+                    points.append(point)
+            return points
+        except ValueError, e:
+            raise forms.ValidationError(e.message)
+        return []
+
+    def save(self):
+        points = self.cleaned_data['points']
+
+        models.Point.objects\
+            .exclude(id__in=[p.id for p in points if p.id])\
+            .delete()
+
+        for point in points:
+            if not point.id:
+                point.user = self.instance.requester
+                point.helprequest = self.instance
+                point.save()
+
+        return self.instance
+
+    def load_points(self):
+        points = models.Point.objects.filter(helprequest=self.instance)
+        return '[%s]' % ','.join([p.json() for p in points])
+
+
 class HelpRequestUpdateForm(forms.ModelForm):
     requester_rating = forms.IntegerField(label=_('Requester rating'), required=False)
     requester_eval = forms.CharField(label=_('Requester evaluation'), required=False)

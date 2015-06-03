@@ -88,15 +88,24 @@
             });
         });
 
-        $('[data-fake-counter]').each(function(i){
+        $('[data-counter]').each(function(i){
             var $this = $(this);
-            var value = parseInt($this.attr('data-fake-counter'), 10) || 1;
-            var timeout_factor = (parseInt($this.attr('data-timeout-factor'), 10) || 1) * 1000;
+            var value = parseInt($this.attr('data-counter'), 10) || 1;
+            var duration = parseInt($this.attr('data-counter-duration'), 10) || 500;
+            var timeout = duration / (value > 0 ? value : 1);
+            var factor = Math.pow(10, Math.floor(Math.log10(value)));
+            var current = 0;
+            $this.text(current);
 
             function increment() {
-                $this.text(value++);
-                var timeout = Math.floor(Math.random() * timeout_factor);
-                setTimeout(increment, timeout);
+                current += Math.ceil(Math.random() * factor);
+
+                if(current < value) {
+                    $this.text(current);
+                    setTimeout(increment, timeout);
+                } else {
+                    $this.text(value);
+                }
             }
             increment();
         });
@@ -169,7 +178,7 @@
             $(window).resize(function(){setTimeout(function(){
                 $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
                 $ac_results.css('left', ($input.offset().left) + 'px');
-            }, 500)}).trigger('resize');
+            }, 500);}).trigger('resize');
 
             $filter_value.change(function(evt){
                 suggests.splice(0);
@@ -189,6 +198,18 @@
                 'minLength': 3,
                 'appendTo': $ac_results
             });
+        });
+
+        $('a[target=_popup]').click(function(evt){
+            var href = $(this).attr('href');
+            var title = $(this).attr('title') || 'Share';
+            var left = Math.floor(($(window).width() - 500) / 2);
+            var top = Math.floor(($(window).height() - 300) / 2);
+            var win = window.open(href, title, 'left='+left+',top='+top+',width=500,height=300,toolbar=no,location=no');
+
+            if(win) {
+                evt.preventDefault();
+            }
         });
     });
     $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
