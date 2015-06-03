@@ -1,68 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width"/>
-<style type="text/css">
-    body {margin: 0; padding: 0; min-width: 100%!important;}
-    .content {width: 100%; max-width: 550px;}
-</style>
-</head>
-<body yahoo bgcolor="#E3E3E3" style="font-family:Helvetica,Arial,sans-serif;font-size:16px;">
+{% extends 'emails/base_email.html' %}
+{% load static %}
 
-<table bgcolor="#E3E3E3" border="0" width="100%" cellpadding="0" cellspacing="0" align="center" style="border-spacing: 0px;">
-    <tbody>
-        <tr>
-            <td style="padding: 70px 0px;">
-                <table class="content" align="center" border="0" cellpadding="0" cellspacing="0">
-                     <tbody style="">
-                        <tr>
-                            <td align="center" style="padding: 0px 0px 20px;">
-                                <img src="img/logo-bikeanjo.png">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="padding: 20px 0px 15px;" bgcolor="#F26522">
-                                <img src="img/new_found_angel.png">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;" class="header" bgcolor="#FFFFFF">
-                                <table style="width: 100%;">
-                                    <tbody>
-                                        <tr>
-                                            <td style="padding: 40px 0px 30px;"><img src="img/text_new_found_angel.png"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999;">Nosso sistema achou um Bike Anjo para cuidar do seu pedido de ajuda e em breve ele entrará em contato</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">Nome do Bike Anjo</h3>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a style="display: inline-block; padding: 0 0 35px;" href="#">
-                                                    <img style="max-width: 100%; display: inline-block;" src="img/button_view_new_found_angel.png">
-                                                </a>
-                                          </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 100%;" align="center"><a href="#" style="font-weight: bold;display: inline-block; text-decoration: none; padding: 25px 0px; text-align: center; font-size: 16px; color: #898989;">Ver essa mensagem no navegador</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-
-
-</body>
-</html>
+{% block content %}
+<tr>
+    <td align="center" style="padding: 20px 0px 15px;" bgcolor="#F26522">
+        <img src="{% static 'imgs/email/new_found_angel.png' %}">
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;" class="header" bgcolor="#FFFFFF">
+        <table style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td style="padding: 40px 0px 30px;"><img src="{% static 'imgs/email/text_new_found_angel.png' %}"></td>
+                </tr>
+                <tr>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999;">Nosso sistema achou um Bike Anjo para cuidar do seu pedido de ajuda e em breve ele entrará em contato</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">Nome do Bike Anjo</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a style="display: inline-block; padding: 0 0 35px;" href="#">
+                            <img style="max-width: 100%; display: inline-block;" src="{% static 'imgs/email/button_view_new_found_angel.png' %}">
+                        </a>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>
+{% endblock %}
