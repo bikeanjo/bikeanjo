@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.conf.urls import include, url
-from django.contrib import admin
-from django.views.generic import TemplateView
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.contrib.staticfiles import views
+from django.views.generic import TemplateView
 
 import front.views
 
@@ -97,10 +98,12 @@ urlpatterns = [
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [
         url(r'^tpl/(?P<tpl>.*)$',
             front.views.RawTemplateView.as_view(), name='raw_tpl_view'),
+        url(r'^static/(?P<path>.*)$', views.serve),
     ]
