@@ -6,8 +6,10 @@ from django.contrib import admin
 from django.contrib.staticfiles import views
 from django.views.generic import TemplateView
 
+from djrill import DjrillAdminSite
 import front.views
 
+#admin.site = DjrillAdminSite()
 admin.autodiscover()
 
 urlpatterns = [

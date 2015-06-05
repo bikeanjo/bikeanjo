@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
+    'djrill',
     'rest_framework',
     'cities',
     'cyclists',
@@ -179,7 +180,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 LOGIN_REDIRECT_URL = '/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MANDRILL_API_KEY = "brack3t-is-awesome"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 
 try:
     from .settings_local import *
