@@ -19,15 +19,15 @@
                 </tr>
                 <tr>
                     <td>
-                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">Acompanhamento no Trânsito</h3>
+                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">{{ helprequest.get_help_label }}</h3>
                     </td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding:0 30px 35px 30px; color: #999999;">Foi marcado como atendido pelo Bike Anjo, para ajudar em nosso controle interno, confirme em nosso sistema se ele realmente está finalizado ou envie uma nova mensagem se ainda houver dúvida.</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding:0 30px 35px 30px; color: #999999;">Foi marcado como atendido pelo BikeAnjo, para ajudar em nosso controle interno, confirme em nosso sistema se ele realmente está finalizado ou envie uma nova mensagem se ainda houver dúvida.</p></td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="display: inline-block; padding: 0 0 35px;" href="#">
+                        <a style="display: inline-block; padding: 0 0 35px;" href="http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}">
                             <img style="max-width: 100%; display: inline-block;" src="{% static 'imgs/email/button_confirm completion.png' %}">
                         </a>
                   </td>
