@@ -6,6 +6,9 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import select_template
 from django.utils.timezone import now
+
+from fieldsignals import post_save_changed
+
 from front import models
 
 # {'update_fields': None,
@@ -53,7 +56,7 @@ def notify_new_reply_by_email(sender, instance, **kwargs):
         return
 
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Você recebeu uma nova mensagem'
+    subject = 'Você recebeu uma nova mensagem!'
     from_email = settings.DEFAULT_FROM_EMAIL
     data = {
         'helprequest': helprequest,
@@ -71,3 +74,57 @@ def notify_new_reply_by_email(sender, instance, **kwargs):
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
     msg.send()
+
+
+@receiver(post_save_changed, fields=['bikeanjo'], sender=models.HelpRequest)
+def notify_requester_about_found_bikeanjo(sender, instance, changed_fields, **kwargs):
+    old_val, new_val = changed_fields.values()[0]
+
+    if not old_val and new_val and instance.status == 'new':
+        site = Site.objects.filter(id=settings.SITE_ID).first()
+        subject = 'Achamos um bikeanjo para seu pedido!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient = instance.requester
+
+        data = {
+            'helprequest': instance,
+            'recipient': recipient,
+            'site': site,
+        }
+
+        template_name = 'emails/found_bikeanjo.html'
+        html = select_template([template_name]).render(data)
+
+        template_name = 'emails/found_bikeanjo.txt'
+        text = select_template([template_name]).render(data)
+
+        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+        msg.attach_alternative(html, "text/html")
+        msg.send()
+
+
+@receiver(post_save_changed, fields=['bikeanjo'], sender=models.HelpRequest)
+def notify_bikeanjo_about_new_request(sender, instance, changed_fields, **kwargs):
+    old_val, new_val = changed_fields.values()[0]
+
+    if not old_val and new_val and instance.status == 'new':
+        site = Site.objects.filter(id=settings.SITE_ID).first()
+        subject = 'Você recebeu um pedido de ajuda!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient = instance.bikeanjo
+
+        data = {
+            'helprequest': instance,
+            'recipient': recipient,
+            'site': site,
+        }
+
+        template_name = 'emails/new_request.html'
+        html = select_template([template_name]).render(data)
+
+        template_name = 'emails/new_request.txt'
+        text = select_template([template_name]).render(data)
+
+        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+        msg.attach_alternative(html, "text/html")
+        msg.send()

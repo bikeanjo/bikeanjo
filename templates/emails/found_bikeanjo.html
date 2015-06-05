@@ -19,12 +19,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">Nome do Bike Anjo</h3>
+                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">{{ helprequest.bikeanjo.get_full_name }}</h3>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="display: inline-block; padding: 0 0 35px;" href="#">
+                        <a style="display: inline-block; padding: 0 0 35px;" href="http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}">
                             <img style="max-width: 100%; display: inline-block;" src="{% static 'imgs/email/button_view_new_found_angel.png' %}">
                         </a>
                   </td>

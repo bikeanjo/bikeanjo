@@ -1,0 +1,10 @@
+Olá {{ recipient.first_name }},
+
+Nosso sistema achou um BikeAnjo para cuidar do seu pedido de ajuda e em breve ele entrará em contato!
+
+O nome do BikeAnjo é {{ helprequest.bikeanjo.get_full_name }}.
+
+Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+
+Att,
+Equipe Bikeanjo
