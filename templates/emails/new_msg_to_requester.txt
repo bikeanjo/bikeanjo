@@ -1,0 +1,9 @@
+Olá {{ recipient.first_name }},
+
+Uma nova mensagem foi enviada para você no seu painel referente ao seu pedido de ajuda!
+Pedido: {{ helprequest.get_help_label }}
+
+Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+
+Att,
+Equipe Bikeanjo

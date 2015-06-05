@@ -19,13 +19,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 10px;">Oseias Hacklaber Unix Systems</h3>
-                        <p style="text-transform: uppercase; font-size: 14px; color: #3c4143; margin: 0; padding: 0 0 30px;">São Paulo - SP</p>
+                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 10px;">{{ sender.get_full_name }}</h3>
+                        <p style="text-transform: uppercase; font-size: 14px; color: #3c4143; margin: 0; padding: 0 0 30px;">{{ sender.city }}</p>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="display: inline-block; padding: 0 0 35px;" href="#">
+                        <a style="display: inline-block; padding: 0 0 35px;" href="http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}">
                             <img style="max-width: 100%; display: inline-block;" src="{% static 'imgs/email/button_view_new_msg.png' %}">
                         </a>
                   </td>
