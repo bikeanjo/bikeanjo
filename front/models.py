@@ -108,6 +108,7 @@ class HelpRequest(BaseModel):
         ('attended', _('Attended')),
         ('finalized', _('Finalized')),
         ('canceled', _('Canceled')),
+        ('rejected', _('Rejected')),
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
@@ -166,7 +167,11 @@ class HelpRequest(BaseModel):
                         caminho = track
                 notas.append([nota, caminho, bikeanjo])
             notas.sort(key=lambda nota: nota[0])
-            return notas[0]
+
+            if len(notas > 0):
+                return notas[0]
+
+        return None, None, None
 
 
 class HelpReply(BaseModel):
@@ -237,6 +242,7 @@ class Match(BaseModel):
     class Meta:
         verbose_name = _('Match')
         verbose_name_plural = _('Matches')
+        unique_together = (('bikeanjo', 'helprequest',),)
 
     bikeanjo = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
