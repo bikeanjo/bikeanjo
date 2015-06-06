@@ -128,7 +128,7 @@ class SignupForm(forms.ModelForm):
     password fields does not appear
     """
     full_name = forms.CharField(label=_('Full name'), max_length=60)
-    email2 = forms.CharField(label=_('E-mail (again)'), max_length=30)
+    email2 = forms.CharField(label=_('E-mail (again)'))
     country = forms.CharField(label=_('Country'), max_length=32)
     city = forms.CharField(label=_('City'), max_length=32)
 
