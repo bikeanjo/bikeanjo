@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
@@ -50,8 +50,10 @@ class RedirectUrlMixin(object):
         return None
 
 
-class HomeView(TemplateView):
+class HomeView(CreateView):
     template_name = 'home.html'
+    model = models.Subscriber
+    fields = ['email']
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
@@ -68,6 +70,9 @@ class HomeView(TemplateView):
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('cyclist_dashboard'))
         return super(HomeView, self).get(request, **kwargs)
+
+    def get_success_url(self):
+        return reverse('home')
 
 
 class RawTemplateView(TemplateView):
@@ -551,3 +556,20 @@ class FeedbackView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         form.save()
         messages.success(self.request, 'Seu feedback foi enviado. Obrigado!')
         return super(FeedbackView, self).form_valid(form)
+
+
+class ConfirmSubscriptionView(DetailView):
+    template_name = 'subscription_confirmed.html'
+    model = models.Subscriber
+
+    def get_context_data(self, **kwargs):
+        context = super(ConfirmSubscriptionView, self).get_context_data(**kwargs)
+        return context
+
+    def get(self, request, **kwargs):
+        response = super(ConfirmSubscriptionView, self).get(request, **kwargs)
+        self.model.objects.filter(id=self.object.id).update(valid=True)
+        return response
+
+    def get_object(self):
+        return get_object_or_404(self.model, **self.kwargs)

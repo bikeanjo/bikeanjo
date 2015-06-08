@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import json
 from datetime import datetime, date
 from collections import OrderedDict
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
@@ -366,3 +368,17 @@ class Testimony(BaseModel):
 
     author = models.ForeignKey(User)
     message = models.CharField(_('Message'), max_length=255)
+
+
+class Subscriber(BaseModel):
+    class Meta:
+        verbose_name = _('Subscriber')
+        verbose_name_plural = _('Subscribers')
+
+    email = models.EmailField(_('email'), unique=True)
+    token = models.CharField(_('token'), max_length=64, editable=False)
+    valid = models.BooleanField(_('valid'), default=False)
+
+    def save(self, *args, **kwargs):
+        self.token = hashlib.sha256(settings.SECRET_KEY + self.email).hexdigest()
+        super(Subscriber, self).save(*args, **kwargs)

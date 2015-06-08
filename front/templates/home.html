@@ -144,9 +144,13 @@
                     <h2>Receba Novidades</h2>
                     <p>Fique por dentro de todas nossas novidades</p>
                 </header>
-                <form class="form-inline" action="/fhurl/" method="post" id="mailing">
+                <form class="form-inline" method="post">{% csrf_token %}
                     <div class="form-group">
-                        <input type="email" placeholder="Digite seu e-mail" class="form-control" name="email">
+                        <input type="email"
+                               placeholder="Digite seu e-mail"
+                               class="form-control"
+                               name="{{form.email.html_name}}"
+                               value="{{form.email.value|default:''}}">
                         <input type="submit" class="btn btn-info btn-lg" value="Enviar">
                     </div>
                 </form>

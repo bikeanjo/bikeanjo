@@ -1,0 +1,9 @@
+Olá,
+
+Alguém (com muita sorte você) uso o "{{subscriber.email}}" para se inscrever no boletim do Bikeanjo!
+
+Se foi você mesmo que se inscreveu, por favor, confirme sua inscrição vistando o seguinte endereço:
+--> http://{{ site.domain }}{% url 'confirm_subscription_view' subscriber.email subscriber.token %}
+
+Att,
+Equipe Bikeanjo

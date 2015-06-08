@@ -98,6 +98,9 @@ urlpatterns = [
     url(r'^feedback/$',
         front.views.FeedbackView.as_view(), name='user_feedback'),
 
+    url(r'^newsletter/confirm/(?P<email>[^/]{6,254})/(?P<token>\w{64,64})/$',
+        front.views.ConfirmSubscriptionView.as_view(), name='confirm_subscription_view'),
+
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
     url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
 ]

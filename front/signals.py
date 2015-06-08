@@ -176,3 +176,23 @@ def notify_requester_about_attended_request(sender, instance, changed_fields, **
         msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
         msg.attach_alternative(html, "text/html")
         msg.send()
+
+
+@receiver(post_save, sender=models.Subscriber)
+def notify_user_subscribed_in_newsletter(sender, instance, created, **kwargs):
+    if created:
+        site = Site.objects.filter(id=settings.SITE_ID).first()
+        subject = 'Você se inscreveu para o boletim do Bikeanjo!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient = instance
+
+        data = {
+            'site': site,
+            'subscriber': instance,
+        }
+
+        template_name = 'emails/newsletter_subscription.txt'
+        text = select_template([template_name]).render(data)
+
+        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+        msg.send()
