@@ -64,6 +64,8 @@ class HomeView(CreateView):
             'cities': cyclists.models.Bikeanjo.objects.order_by('city').distinct('city').count(),
             'countries': cyclists.models.Bikeanjo.objects.order_by('country').distinct('country').count(),
         }
+        context['force_header'] = True
+        context['force_footer'] = True
         return context
 
     def get(self, request, **kwargs):

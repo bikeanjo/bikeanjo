@@ -14,7 +14,7 @@
         {% block extrahead %}{% endblock %}
     </head>
     <body>
-        {% if form %}
+        {% if form and not force_header %}
             {% include '_header-form.html' %}
         {% else %}
             {% include '_header.html' %}
@@ -27,7 +27,7 @@
         </div>
 
         {% block footer %}        
-            {% if not form %}
+            {% if not form or force_footer %}
                 {% include '_footer.html' %}
             {% endif %}
         {% endblock %}
