@@ -44,7 +44,7 @@
                     </header>
                     {% for help in user.helprequested_set.active %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' help.id %}">{% trans 'Pedido' %} #{{ help.id|stringformat:"04d" }}</a></h3>
+                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' help.id %}">{% trans 'Request' %} #{{ help.id|stringformat:"04d" }}</a></h3>
                         <p class="card-info">{{ help.get_help_label }}</p>
                     </div>
                     {% endfor %}

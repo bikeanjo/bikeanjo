@@ -49,11 +49,13 @@
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{% url 'cyclist_dashboard' %}">{% trans "Panel" %}</a></li>
-                            <li><a href="#">{% trans "Help requests" %}</a></li>
-                            <li><a href="#">{% trans "Messages" %}</a></li>
-                            <li><a href="#">{% trans "Edit profile" %}</a></li>
+                            <li><a href="{% url 'cyclist_my_requests' %}">{% trans "Help requests" %}</a></li>
+                            <li><a href="{% url 'dashboard_message_list' %}">{% trans "Messages" %}</a></li>
+                            <li><a href="{% url 'user_register' %}">{% trans "Edit profile" %}</a></li>
                             <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-                            <li class="btn btn-default"><a href="#">{% trans "I want help to ride" %}</a></li>
+                            {% if user.role == 'requester' %}
+                            <li class="btn btn-default"><a href="{% url 'requester_help_request' %}">{% trans "I want help to ride" %}</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>
