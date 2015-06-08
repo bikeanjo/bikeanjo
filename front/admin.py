@@ -194,3 +194,8 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(models.Testimony)
 class TestimonyAdmin(admin.ModelAdmin):
     list_display = ('author', 'message',)
+
+
+@admin.register(models.Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'token', 'valid',)
