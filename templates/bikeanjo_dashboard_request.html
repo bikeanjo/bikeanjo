@@ -152,11 +152,18 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                         <h4 class="modal-title"><i class="fa fa-check-circle"></i> Escolha o motivo do cancelamento</h4>
                     </div>
-                    <form method="post" class="modal-body">{% csrf_token %}
+                    <div class="modal-body">
                         <p>Para encaminharmos e analisarmos melhor o pedido, escolha uma das opções abaixo</p>
-                        <button name="status" value="new" class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
-                        <button name="status" value="canceled" class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
-                    </form>
+                        <form method="post">{% csrf_token %}
+                            <button name="status" value="new" class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
+                            <input type="hidden" name="reason" value="bikeanjo forwarded the request" />
+                        </form>
+                        <br/>
+                        <form method="post">{% csrf_token %}
+                            <button name="status" value="canceled" class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
+                            <input type="hidden" name="reason" value="bikeanjo canceled the request due inactivity" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div> 

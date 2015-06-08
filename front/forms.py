@@ -337,15 +337,17 @@ class HelpRequestPointForm(forms.Form):
 class HelpRequestUpdateForm(forms.ModelForm):
     requester_rating = forms.IntegerField(label=_('Requester rating'), required=False)
     requester_eval = forms.CharField(label=_('Requester evaluation'), required=False)
+    reason = forms.CharField(label=_('Reason'), widget=forms.HiddenInput, required=False)
 
     def save(self, **kwargs):
+        data = self.cleaned_data
         req = self.instance
 
-        if req.status == 'new' and 'status' in self.changed_data:
+        if 'status' in self.changed_data and req.status in ['new', 'canceled']:
             if req.bikeanjo:
                 match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
                 match.rejected_date = now()
-                match.reason = 'user canceled the request'
+                match.reason = data.get('reason', 'user canceled request')
                 match.save()
             req.bikeanjo = None
 
@@ -357,14 +359,17 @@ class HelpRequestUpdateForm(forms.ModelForm):
 
 
 class BikeanjoAcceptRequestForm(forms.ModelForm):
+    reason = forms.CharField(label=_('Reason'), widget=forms.HiddenInput, required=False)
+
     def save(self, **kwargs):
+        data = self.cleaned_data
         req = self.instance
 
-        if req.status == 'new' and 'status' in self.changed_data:
+        if req.status == 'new':
             if req.bikeanjo:
                 match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
                 match.rejected_date = now()
-                match.reason = 'bikeanjo canceled the request'
+                match.reason = data.get('reason')
                 match.save()
             req.bikeanjo = None
 
