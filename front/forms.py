@@ -5,6 +5,7 @@ import json
 from django.contrib.gis import forms
 from django.contrib.gis.geos import LineString, Point
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 
 from allauth import app_settings
 from allauth.account.utils import user_field
@@ -338,9 +339,15 @@ class HelpRequestUpdateForm(forms.ModelForm):
     requester_eval = forms.CharField(label=_('Requester evaluation'), required=False)
 
     def save(self, **kwargs):
-        if self.instance.status == 'new':
-            if 'status' in self.changed_data:
-                self.instance.bikeanjo = None
+        req = self.instance
+
+        if req.status == 'new' and 'status' in self.changed_data:
+            if req.bikeanjo:
+                match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
+                match.rejected_date = now()
+                match.reason = 'user canceled the request'
+                match.save()
+            req.bikeanjo = None
 
         return super(HelpRequestUpdateForm, self).save(self, **kwargs)
 
@@ -351,8 +358,16 @@ class HelpRequestUpdateForm(forms.ModelForm):
 
 class BikeanjoAcceptRequestForm(forms.ModelForm):
     def save(self, **kwargs):
-        if self.instance.status == 'new':
-            self.instance.bikeanjo = None
+        req = self.instance
+
+        if req.status == 'new' and 'status' in self.changed_data:
+            if req.bikeanjo:
+                match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
+                match.rejected_date = now()
+                match.reason = 'bikeanjo canceled the request'
+                match.save()
+            req.bikeanjo = None
+
         return super(BikeanjoAcceptRequestForm, self).save(self, **kwargs)
 
     class Meta:

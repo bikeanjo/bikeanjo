@@ -168,7 +168,7 @@ class HelpRequest(BaseModel):
                 notas.append([nota, caminho, bikeanjo])
             notas.sort(key=lambda nota: nota[0])
 
-            if len(notas > 0):
+            if len(notas) > 0:
                 return notas[0]
 
         return None, None, None
@@ -249,6 +249,10 @@ class Match(BaseModel):
     score = models.FloatField(_('Score'), default=0)
     rejected_date = models.DateTimeField(_('Rejected date'), null=True)
     reason = models.CharField(_('Reason'), max_length=128, blank=True)
+
+    def __repr__(self):
+        return u'Match(helprequest_id=%s, bikeanjo_id=%s, rejected_date=%.10s)'\
+            % (self.helprequest_id, self.bikeanjo_id, self.rejected_date)
 
 
 class ContentReadLog(models.Model):
