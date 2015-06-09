@@ -8,7 +8,7 @@
                      title="{{ user.get_full_name }}"
                      alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
             </div>
-            <h2 class="profile-name">{% firstof user.first_name user.username %}</h2>
+            <h2 class="profile-name"><a href="{% url 'cyclist_dashboard' %}">{% firstof user.first_name user.username %}</a></h2>
             <p class="profile-city">{{ user.city }}</p>
         </header>
         <nav class="sidebar-nav">
