@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-08 19:39-0300\n"
-"PO-Revision-Date: 2015-06-08 19:39-0300\n"
+"POT-Creation-Date: 2015-06-08 21:00-0300\n"
+"PO-Revision-Date: 2015-06-08 21:01-0300\n"
 "Last-Translator:   <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -368,7 +368,7 @@ msgid "Help replies"
 msgstr "Respostas do pedido de ajuda"
 
 #: front/models.py:186 front/models.py:305 front/models.py:361
-#: front/models.py:370
+#: front/models.py:370 front/models.py:379
 msgid "Message"
 msgstr "Recado"
 
@@ -473,32 +473,45 @@ msgid "Feedbacks"
 msgstr "Feedbacks"
 
 #: front/models.py:366
+#| msgid "message"
+msgid "Contact message"
+msgstr "Mensagem do contato"
+
+#: front/models.py:367
+#| msgid "message"
+msgid "Contact messages"
+msgstr "Mensagens do contato"
+
+#: front/models.py:369 front/models.py:387
+#| msgid "email"
+msgid "Email"
+msgstr "Email"
+
+#: front/models.py:375
 msgid "Testimony"
 msgstr "Depoimento"
 
-#: front/models.py:367
+#: front/models.py:376
 msgid "Testimonies"
 msgstr "Depoimentos"
 
-#: front/models.py:375
+#: front/models.py:384
 msgid "Subscriber"
 msgstr "Inscrito"
 
-#: front/models.py:376
+#: front/models.py:385
 msgid "Subscribers"
 msgstr "Inscritos"
 
-#: front/models.py:378
-msgid "email"
-msgstr "email"
+#: front/models.py:388
+#| msgid "token"
+msgid "Token"
+msgstr "Token"
 
-#: front/models.py:379
-msgid "token"
-msgstr "token"
-
-#: front/models.py:380
-msgid "valid"
-msgstr "valido"
+#: front/models.py:389
+#| msgid "valid"
+msgid "Valid"
+msgstr "Valido"
 
 #: front/templates/help_offer.html:21
 msgid ""
@@ -653,6 +666,11 @@ msgstr "Você usa a bike como meio de transporte?"
 msgid "Signup agreement"
 msgstr "Termos para cadastro"
 
+#: templates/contact_form.html:5
+#| msgid "Content"
+msgid "Contact"
+msgstr "Contato"
+
 #: templates/requester_dashboard.html:47
 msgid "Request"
 msgstr "Pedido"
@@ -671,9 +689,6 @@ msgstr "Pedido"
 
 #~ msgid "Django administration"
 #~ msgstr "Administração do Bikeanjo"
-
-#~ msgid "message"
-#~ msgstr "recado"
 
 #~ msgid "city"
 #~ msgstr "cidade"

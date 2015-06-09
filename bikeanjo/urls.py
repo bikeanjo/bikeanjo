@@ -97,7 +97,8 @@ urlpatterns = [
 
     url(r'^feedback/$',
         front.views.FeedbackView.as_view(), name='user_feedback'),
-
+    url(r'^contact/$',
+        front.views.ContactView.as_view(), name='contact_view'),
     url(r'^newsletter/confirm/(?P<email>[^/]{6,254})/(?P<token>\w{64,64})/$',
         front.views.ConfirmSubscriptionView.as_view(), name='confirm_subscription_view'),
 

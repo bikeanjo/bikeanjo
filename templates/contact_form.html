@@ -1,0 +1,48 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Contact" %}{% endblock %}
+
+{% block content %}
+<section class="forms login container">
+    <header>
+        <h2>Deixe sua mensagem!</h2>
+        <p>Diga-nos quais são suas dúvidas, sugestões ou críticas.</p>
+    </header>
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.level_tag }}" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="fa fa-times"></i></span>
+        </button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <form method="POST" class="password card">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label class="primary-label" for="email">Seu e-mail</label>
+            <input class="form-control" type="email"
+                   name="{{ form.email.html_name }}" id="email" value="{{ form.email.value|default:'' }}"
+                   placeholder="Digite seu e-mail">
+            <i class="fa fa-envelope form-control-icon"></i>
+        </div>
+
+        <div class="form-group">
+            <label class="primary-label" for="message">Mensagem</label>
+            <textarea class="form-control" rows="7"
+                   name="{{ form.message.html_name }}" id="message" value="{{ form.message.value|default:'' }}"
+                   placeholder="Digite seu e-mail"></textarea>
+            <i class="fa fa-pencil-square-o form-control-icon"></i>
+        </div>
+
+        <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Enviar</button>
+        {% if not user.is_authenticated %}
+        <p class="create-account">Não tem uma conta? <a href="{{ signup_url }}">Cadastre-se</a></p>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}

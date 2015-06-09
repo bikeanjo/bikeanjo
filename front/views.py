@@ -575,3 +575,18 @@ class ConfirmSubscriptionView(DetailView):
 
     def get_object(self):
         return get_object_or_404(self.model, **self.kwargs)
+
+
+class ContactView(CreateView):
+    fields = ('email', 'message',)
+    model = models.ContactMessage
+    template_name = 'contact_form.html'
+
+    def form_valid(self, form):
+        clean = [message for message in messages.get_messages(self.request)]
+        form.save()
+        messages.success(self.request, 'Sua mensagem foi enviada!')
+        return super(ContactView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('contact_view')

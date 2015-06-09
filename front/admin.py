@@ -199,3 +199,8 @@ class TestimonyAdmin(admin.ModelAdmin):
 @admin.register(models.Subscriber)
 class SubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'token', 'valid',)
+
+
+@admin.register(models.ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('email', 'message',)

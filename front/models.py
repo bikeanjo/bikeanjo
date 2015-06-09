@@ -361,6 +361,15 @@ class Feedback(BaseModel):
     message = models.CharField(_('Message'), max_length=255)
 
 
+class ContactMessage(BaseModel):
+    class Meta:
+        verbose_name = _('Contact message')
+        verbose_name_plural = _('Contact messages')
+
+    email = models.EmailField(_('Email'))
+    message = models.CharField(_('Message'), max_length=255)
+
+
 class Testimony(BaseModel):
     class Meta:
         verbose_name = _('Testimony')
@@ -375,9 +384,9 @@ class Subscriber(BaseModel):
         verbose_name = _('Subscriber')
         verbose_name_plural = _('Subscribers')
 
-    email = models.EmailField(_('email'), unique=True)
-    token = models.CharField(_('token'), max_length=64, editable=False)
-    valid = models.BooleanField(_('valid'), default=False)
+    email = models.EmailField(_('Email'), unique=True)
+    token = models.CharField(_('Token'), max_length=64, editable=False)
+    valid = models.BooleanField(_('Valid'), default=False)
 
     def save(self, *args, **kwargs):
         self.token = hashlib.sha256(settings.SECRET_KEY + self.email).hexdigest()
