@@ -94,7 +94,10 @@
                 }
                 .card-subtitle {
                     font-size: 26px;
-                    margin: 30px 0 15px 0;
+                    margin: 0px 0 15px 0;
+                    @media screen and (min-width: @screen-sm-min) {
+                        margin: 30px 0 15px 0;
+                    }
                 }
                 .card-content {
                     border-bottom: 1px solid darken(@brand-green, 5%);
@@ -103,10 +106,14 @@
                     font-weight: 400;
                 }
                 .card-badge {
-                    float: left;
-                    height: 230px;
-                    margin: 10px 30px 0 0;
-                    width: 209px;
+                    display: none;
+                    @media screen and (min-width: @screen-sm-min) {
+                        display: block;
+                        float: left;
+                        height: 230px;
+                        margin: 10px 30px 0 0;
+                        width: 209px;
+                    }
                 }
             }
             &.support {
