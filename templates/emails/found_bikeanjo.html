@@ -12,19 +12,19 @@
         <table style="width: 100%;">
             <tbody>
                 <tr>
-                    <td style="padding: 40px 0px 30px;"><img src="{% static 'imgs/email/text_new_found_angel.png' %}"></td>
+                    <td style="padding: 40px 0px 30px; text-align: center;"><img src="{% static 'imgs/email/text_new_found_angel.png' %}"></td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999;">Nosso sistema achou um Bike Anjo para cuidar do seu pedido de ajuda e em breve ele entrará em contato</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">Nosso sistema achou um Bike Anjo para cuidar do seu pedido de ajuda e em breve ele entrará em contato</p></td>
                 </tr>
                 <tr>
                     <td>
-                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px;">{{ helprequest.bikeanjo.get_full_name }}</h3>
+                        <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 40px; text-align: center;">{{ helprequest.bikeanjo.get_full_name }}</h3>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="display: inline-block; padding: 0 0 35px;" href="http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}">
+                        <a style="display: inline-block; padding: 0 0 35px; text-align: center;" href="http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}">
                             <img style="max-width: 100%; display: inline-block;" src="{% static 'imgs/email/button_view_new_found_angel.png' %}">
                         </a>
                   </td>
