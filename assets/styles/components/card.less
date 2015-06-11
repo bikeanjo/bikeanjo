@@ -245,14 +245,16 @@
         overflow: hidden;
         padding: 20px;
         width: 100%;
-        &.old {
+        &.old, &.finished, &.canceled {
             .card-subtitle {
                 color: @gray-darker;
+                a {
+                    color: @gray-darker;
+                }
             }  
         }
         &.finished {
             .card-subtitle {
-                color: @gray-darker;
                 .fa {
                     color: @brand-green;
                 }
@@ -261,7 +263,6 @@
         }
         &.canceled  {
             .card-subtitle {
-                color: @gray-darker;
                 .fa {
                     color: @brand-red;
                 }
