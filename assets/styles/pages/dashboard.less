@@ -288,6 +288,11 @@
         .profile {
             background-image: url('../imgs/requester-profile-header.jpg');
         }
+        .profile-name {
+            a {
+                color: @brand-orange;
+            }
+        }
         .sidebar-feedback {
             a {
                 background: url('../imgs/ico-bike-orange.png') no-repeat top center;
@@ -315,6 +320,9 @@
                         }
                     }
                 }
+                .user-icon {
+                    margin-left: 15px;
+                }
             }
             .reply {
                 .card-title {
@@ -337,10 +345,24 @@
                 }
             }
         }
+        .primary-label {
+            color: @brand-orange;
+        }
+        .radio.checked .second-icon:before {
+            background-color: @brand-orange;
+        }
+        .btn-success {
+            .btn-warning;
+        }
     }
     &.bikeanjo {
         .profile {
             background-image: url('../imgs/bikeangel-profile-header.jpg');
+        }
+        .profile-name {
+            a {
+                color: @brand-blue;
+            }
         }
         .sidebar-feedback {
             a {
@@ -350,7 +372,7 @@
                 color: @brand-blue;
             }
         }
-        .alert {
+        .alert { 
             &.bubble {
                 background-color: @brand-blue;
             }
