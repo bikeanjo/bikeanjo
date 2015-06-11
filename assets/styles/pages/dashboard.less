@@ -7,6 +7,10 @@
     margin-top: 30px;
 
     .dashboard-sidebar {
+        display: none;
+        @media screen and (min-width: @screen-md-min) {
+            display: block;
+        }
         .card {
             margin-bottom: 20px;
             overflow: hidden;
@@ -73,6 +77,11 @@
             margin-top: 10px;
             white-space: normal;
             width: 100%;
+        }
+    }
+    &.dashboard-home {
+        .dashboard-sidebar {
+            display: block;
         }
     }
     .dashboard-content {
