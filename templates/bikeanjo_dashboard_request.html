@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extrahead %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+{% endblock %}
+
+{% block js %}{{ block.super }}
+<script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
+{% endblock %}
+
 
 {% block content %}
 
@@ -70,6 +81,31 @@
                     {{ message }}
                 </div>
                 {% endfor %}
+
+                <div class="card">
+                    <div class="card-content">
+                        <div id="js-map" style="height: 150px"></div>
+
+                        {% if helprequest.track %}
+                            <p>
+                                <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
+                                <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
+                                <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
+                            </p>
+                            <input type="hidden" bikeanjo-geojson="lines" 
+                                   value="[{{ helprequest.track.json }}]"/>                           
+                       {% else %}
+                            <ul class="fa-ul">
+                            {% for point in helprequest.requester.point_set.all %}
+                                <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
+                            {% endfor %}
+                            </ul>
+
+                            <input type="hidden" bikeanjo-geojson="points" 
+                                   value="[{% for point in helprequest.requester.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
+                       {% endif %}
+                    </div>
+                </div>
 
                 <form class="card reply collapse {{helprequest.helpreply_set.count|yesno:',in'}}" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
