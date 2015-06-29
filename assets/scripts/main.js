@@ -211,7 +211,37 @@
                 evt.preventDefault();
             }
         });
+
+        $('form[ajax]').each(function(idx, el){
+            var $el = $(el);
+
+            $el.submit(function(evt) {
+                evt.preventDefault();
+                var method = $el.attr('method') || 'post';
+                var action = $el.attr('action');
+                var data = $el.serializeArray();
+
+                return $.ajax(action, {
+                    'method': method,
+                    'data':data
+                }).always(function(content, status, response){
+                    var callback = $el.attr('ajax-' + status);
+                    console.log(status);
+                    if(callback) {
+                        var result = eval(callback);
+                    }
+                });
+            });
+        });
     });
+
+    var match = document.cookie.match(/csrftoken=(\w+)/);
+    var token = match ? match[1] : '';
+ 
+    $.ajaxSetup({
+        headers: { 'X-CSRFToken': token }
+    });
+
     $(document).on('keydown.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
         if( e.type === 'keydown' && e.keyCode === 32 ){
             $(this).trigger('click.radio.data-api');

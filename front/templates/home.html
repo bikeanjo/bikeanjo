@@ -139,12 +139,21 @@
 
     <section id="sign-up" class="subscribe">
         <div class="container">
+            <div class="subscribe-success" style="display: none">
+                <header>
+                    <h2>Cadastro efetuado com sucesso!</h2>
+                    <p>Obrigado por fazer parte dessa comunidade</p>
+                </header>
+            </div>
+
             <div class="subscribe-form">
                 <header>
                     <h2>Receba Novidades</h2>
                     <p>Fique por dentro de todas nossas novidades</p>
                 </header>
-                <form class="form-inline" method="post">{% csrf_token %}
+                <form class="form-inline" method="post" ajax
+                      ajax-success="$('.subscribe-success,.subscribe-form').toggle()">{% csrf_token %}
+
                     <div class="form-group">
                         <input type="email"
                                placeholder="Digite seu e-mail"
@@ -154,12 +163,6 @@
                         <input type="submit" class="btn btn-info btn-lg" value="Enviar">
                     </div>
                 </form>
-            </div>
-            <div class="subscribe-success" style="display:none;">
-                <header>
-                    <h2>Cadastro efetuado com sucesso!</h2>
-                    <p>Obrigado por fazer parte dessa comunidade</p>
-                </header>
             </div>
         </div>
     </section>
