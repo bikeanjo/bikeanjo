@@ -226,9 +226,8 @@
                     'data':data
                 }).always(function(content, status, response){
                     var callback = $el.attr('ajax-' + status);
-                    console.log(status);
                     if(callback) {
-                        var result = eval(callback);
+                        var result = eval('(' + callback + ')');
                     }
                 });
             });
