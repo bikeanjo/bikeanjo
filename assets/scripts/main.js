@@ -73,6 +73,8 @@
             $this.prop('tabindex', i + 1);
         });
 
+        $("[data-toggle='switch']").bootstrapSwitch();
+
         $('[data-file-preview]').each(function(){
             var $image = $(this);
             var $target = $($image.attr('data-file-preview'));

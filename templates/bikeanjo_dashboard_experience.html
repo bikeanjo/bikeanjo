@@ -91,6 +91,18 @@
                                    value="{{form.help_with.value|default:''}}"
                                    data-composed-bind="#help-with input[type=checkbox]"
                                    data-composed-bitoptions="true" />
+
+                            <div class="form-group">
+                                <label class="primary-label" for="status">Receber pedidos de solicitante</label>
+                                
+                                <input id="status" type="checkbox" data-toggle="switch">
+
+                                {% if form.status.errors %}
+                                    {% for error in form.status.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer save-config">

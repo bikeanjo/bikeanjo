@@ -43,6 +43,7 @@ module.exports = function (grunt) {
                         'bower_components/bootstrap/dist/js/bootstrap.js',
                         'bower_components/leaflet/dist/leaflet.js',
                         'bower_components/sprintf/dist/sprintf.min.js',
+                        'bower_components/bootstrap-switch-sass/static/js/bootstrapSwitch.js',
                     ],
                 },
             },
