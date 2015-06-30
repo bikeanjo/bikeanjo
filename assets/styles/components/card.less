@@ -16,6 +16,10 @@
             .card-subtitle {
                 font-size: 30px;
             }
+            .card-photo {
+                height: 325px;
+                width: 245px;
+            }
             .card-info {
                 max-height: 180px;
                 @media screen and (min-width: @screen-md-min) {
@@ -29,6 +33,10 @@
             }
             .card-subtitle {
                 font-size: 24px;
+            } 
+            .card-photo {
+                height: 190px;
+                width: 245px;
             }
             .card-info {
                 @media screen and (min-width: @screen-sm-min) {
@@ -328,6 +336,8 @@
     .card-photo {
         display: none;
         @media screen and (min-width: @screen-sm-min) {
+            background-position: center; 
+            background-size: cover;
             display: block;
             float: left;
             img {

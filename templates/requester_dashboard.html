@@ -24,9 +24,7 @@
                     </button>
                     <div class="card-content">
                         {% if unread.messages.first.image %}
-                        <div class="card-photo">
-                            <img src="{{unread.messages.first.image.url}}">
-                        </div>
+                        <div class="card-photo" style="background-image: url({{unread.messages.first.image.url}});"></div>
                         {% endif %}
                         <h2 class="card-subtitle">{{unread.messages.first.title}}</h2>
                         <p class="card-info">{{unread.messages.first.content|striptags|truncatewords:32}}</p>
