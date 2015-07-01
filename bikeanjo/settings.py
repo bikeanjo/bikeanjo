@@ -158,6 +158,7 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'cyclists.User'
 
+ACCOUNT_ADAPTER = 'front.adapters.BikeanjoAccountAdapter'
 ACCOUNT_SIGNUP_FORM_CLASS = 'front.forms.SignupForm'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True

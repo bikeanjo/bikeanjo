@@ -1,6 +1,7 @@
 import re
 from django.utils import timezone
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from allauth.account.adapter import DefaultAccountAdapter
 from utils import DateParser
 from front import models
 
@@ -8,6 +9,12 @@ FACEBOOK_DATE_PATTERN = re.compile(r'^(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\
 FACEBOOK_LOCATION_PATTERN = re.compile(r'^(?P<city>[^,]+), *(?P<country>.*)$')
 
 FACEBOOK_DATE_PARSER = DateParser(date_re=FACEBOOK_DATE_PATTERN)
+
+
+class BikeanjoAccountAdapter(DefaultAccountAdapter):
+    def add_message(self, request, level, message_template, message_context=None, extra_tags=''):
+        # wrapper for django.contrib.messages.add_message
+        pass
 
 
 class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
@@ -56,3 +63,7 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         user.role = request.session.pop('user_role')
 
         return super(BikeanjoSocialAccountAdapter, self).save_user(request, sociallogin, form=form)
+
+    def add_message(self, request, level, message_template, message_context=None, extra_tags=''):
+        # wrapper for django.contrib.messages.add_message
+        pass
