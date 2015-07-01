@@ -46,14 +46,14 @@ urlpatterns = [
     url(r'^requester/request-help/(?P<pk>\d+)/points/$',
         front.views.HelpRequestPointView.as_view(), name='requester_help_request_points'),
 
-    url(r'^cyclist/register-routes-to-help/$',
+    url(r'^(?P<context>signup|dashboard)/register-routes-to-help/$',
         front.views.TrackRegisterView.as_view(), name='cyclist_register_routes'),
-    url(r'^cyclist/registered-routes/$',
+    url(r'^(?P<context>signup|dashboard)/registered-routes/$',
         front.views.TrackListView.as_view(), name='cyclist_registered_routes'),
-    url(r'^cyclist/register-free-points/$',
+    url(r'^(?P<context>signup|dashboard)/register-free-points/$',
         front.views.PointsRegisterView.as_view(), name='cyclist_register_points'),
 
-    url(r'^cyclist/signup/agreement/$',
+    url(r'^signup/agreement/$',
         front.views.SignupAgreementView.as_view(), name='cyclist_agreement'),
 
     #

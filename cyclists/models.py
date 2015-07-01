@@ -115,6 +115,9 @@ class User(AbstractUser):
             if self.help_with & code:
                 yield label
 
+    def is_valid(self):
+        return self.accepted_agreement
+
 
 class BikeanjoManager(models.Manager):
     def get_queryset(self):

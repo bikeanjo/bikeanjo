@@ -22,18 +22,29 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        {% if user.role == 'bikeanjo' %}
-        <header>
-            <h2>Quer marcar pontos avulsos?</h2>
-            <p>Quer marcar outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido?</p>
-        </header>
-        {% endif %}
+        {% if view.kwargs.context == 'dashboard' %}
+            <header class="card-header negative">
+                <a href="{% url 'user_register' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                <span class="go-back">Pontos avulsos</span>
+            </header>
 
-        {% if user.role == 'requester' %}
-        <header>
-            <h2>Onde pode pedalar?</h2>
-            <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>
-        </header>
+            <header>
+                <p>Marque outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido.</p>
+            </header>
+        {% else %}
+            {% if user.role == 'bikeanjo' %}
+            <header>
+                <h2>Quer marcar pontos avulsos?</h2>
+                <p>Quer marcar outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido?</p>
+            </header>
+            {% endif %}
+
+            {% if user.role == 'requester' %}
+            <header>
+                <h2>Onde pode pedalar?</h2>
+                <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>
+            </header>
+            {% endif %}
         {% endif %}
 
         <div class="form-inline">
@@ -54,7 +65,14 @@
         {% endcomment %}
         </ul>
 
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+        {% if view.kwargs.context == 'dashboard' %}
+            <button class="btn btn-primary btn-block btn-lg" type="submit">Salvar alterações</button>
+            <input type="hidden"
+                   name="{{view.get_redirect_field_name}}"
+                   value="{% url 'cyclist_register_points' 'dashboard' %}"/>
+        {% else %}
+            <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+        {% endif %}
 
     </form>
 </section>

@@ -415,7 +415,7 @@ class HelpOfferView(LoginRequiredMixin, FormView):
     template_name = 'bikeanjo_help_offer.html'
 
     def get_success_url(self):
-        return reverse('cyclist_register_routes')
+        return reverse('cyclist_register_routes', args=['signup'])
 
     def get_form_kwargs(self):
         kwargs = super(HelpOfferView, self).get_form_kwargs()
@@ -485,7 +485,8 @@ class TrackRegisterView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     form_class = forms.TrackForm
 
     def get_success_url(self):
-        url = reverse('cyclist_registered_routes')
+        url = reverse('cyclist_registered_routes',
+                      args=[self.kwargs.get('context')])
         redirect = self.get_redirect_url()
 
         if redirect:
@@ -512,7 +513,8 @@ class TrackListView(LoginRequiredMixin, RedirectUrlMixin, FormView):
 
     def get_success_url(self):
         return self.get_redirect_url() or\
-            reverse('cyclist_register_points')
+            reverse('cyclist_register_points',
+                    args=[self.kwargs.get('context')])
 
     def get_form_kwargs(self):
         kwargs = super(TrackListView, self).get_form_kwargs()
