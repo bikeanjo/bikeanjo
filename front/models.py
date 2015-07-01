@@ -271,7 +271,7 @@ class ContentReadLog(models.Model):
 
 class ReadedAnnotationMixin(object):
     @classmethod
-    def user_access_annotated(cls, user):
+    def user_access_annotated(cls, user, order_by={'field': None, 'order': 'ASC'}):
         this_table = cls._meta.db_table
         that_table = ContentReadLog._meta.db_table
         type_id = ContentType.objects.get_for_model(cls).id
@@ -296,6 +296,13 @@ class ReadedAnnotationMixin(object):
             'that_table': that_table,
             'join_fields': join_fields,
         })
+
+        if order_by['field']:
+            query += ' ORDER BY %(this_table)s.%(field)s %(order)s' % ({
+                'this_table': this_table,
+                'field': order_by['field'],
+                'order': order_by['order'],
+            })
 
         return cls.objects.raw(query)
 

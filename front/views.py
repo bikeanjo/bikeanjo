@@ -289,7 +289,9 @@ class MessageListView(DashboardMixin, ListView):
     template_name = 'dashboard_message_list.html'
 
     def get_queryset(self):
-        return models.Message.user_access_annotated(user=self.request.user)
+        order_by = {'field':'id', 'order': 'DESC'}
+        qs = models.Message.user_access_annotated(user=self.request.user, order_by=order_by)
+        return qs
 
 
 class MessageDetailView(DashboardMixin, DetailView):
