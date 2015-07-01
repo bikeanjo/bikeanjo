@@ -93,6 +93,7 @@ class DashboardMixin(RegisteredUserMixin):
         data['unread'] = {
             'messages': models.Message.objects.exclude(readed_by__user=self.request.user),
         }
+        data['force_header'] = True
         return data
 
 
