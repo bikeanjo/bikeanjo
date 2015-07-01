@@ -23,8 +23,8 @@
                 <article class="card request">
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
-                        {% if helprequest.status = 'open' %}
                         <ul class="card-actions list-inline">
+                        {% if helprequest.status = 'open' %}
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#cancelRequest">
                                     <span class="text visible-xs">Cancelar</span>
@@ -39,6 +39,7 @@
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
+                        {% endif %}
                             <li>
                                 <a href="#helpreply-form" data-toggle="collapse">
                                     <span class="text">Responder</span>
@@ -46,7 +47,6 @@
                                 </a>
                             </li> 
                         </ul>
-                        {% endif %}
                     </header>
 
                     <div class="card-content">
@@ -159,19 +159,20 @@
                             </div>
                             {% endif %}
                             
-                            {% if helprequest.status in 'open,new' %}
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
                                         class="btn btn-warning">Responder</button>
 
+                            {% if helprequest.status in 'open,new' %}
                                 {% if helprequest.status == 'open' %}
                                 <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
                                 {% endif %}
 
                                 <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
-                            </div>
                             {% endif %}
+                            </div>
+
                         {% endif %}
                     </div>
                 </article>
