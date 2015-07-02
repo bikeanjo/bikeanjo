@@ -93,15 +93,14 @@
                                    data-composed-bitoptions="true" />
 
                             <div class="form-group">
-                                <label class="primary-label" for="status">Receber pedidos de solicitante</label>
-                                
-                                <input id="status" type="checkbox" data-toggle="switch">
+                                <label class="primary-label"
+                                       for="{{ form.available.id_for_label }}">{{ form.available.label }}</label>
 
-                                {% if form.status.errors %}
-                                    {% for error in form.status.errors %}
-                                    <span class="text-danger">{{ error }}</span>
-                                    {% endfor %}
-                                {% endif %}
+                                <input type="checkbox" value="1"
+                                       data-toggle="switch"
+                                       for="{{ form.available.id_for_label }}"
+                                       name="{{ form.available.html_name }}"
+                                       {% if form.available.value %}checked="checked"{% endif %}/>
                             </div>
                         </div>
                     </div>
