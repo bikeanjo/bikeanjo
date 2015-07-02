@@ -203,6 +203,18 @@
                                 {% endif %}
                             </div>
 
+
+                            <div class="form-group">
+                                <label class="primary-label"
+                                       for="{{ form.available.id_for_label }}">{{ form.available.label }}</label>
+
+                                <div class="switch" data-on-label="Sim" data-off-label="Não">
+                                    <input type="checkbox" value="1"
+                                           for="{{ form.available.id_for_label }}"
+                                           name="{{ form.available.html_name }}"
+                                           {% if form.available.value %}checked="checked"{% endif %}/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer save-config">

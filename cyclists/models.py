@@ -97,6 +97,7 @@ class User(AbstractUser):
     initiatives = models.CharField(_('Initiatives'), max_length=256, blank=True)
     role = models.CharField(_('Role'), choices=CYCLIST_ROLES, max_length=32, blank=True)
     accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
+    available = models.BooleanField(_('Available'), default=True)
 
     def get_avatar_url(self):
         if self.avatar:

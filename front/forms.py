@@ -221,7 +221,8 @@ class BikeanjoExperienceForm(forms.ModelForm):
 
 class BikeanjoUserInforForm(forms.ModelForm):
     class Meta:
-        fields = ('avatar', 'first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
+        fields = ('avatar', 'first_name', 'last_name', 'email', 'country',
+                  'city', 'gender', 'birthday', 'available',)
         model = models.User
 
 
