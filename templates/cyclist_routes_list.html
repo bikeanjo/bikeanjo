@@ -35,20 +35,20 @@
                 <input type="hidden" name="{{view.get_redirect_field_name}}" value="{% url 'cyclist_registered_routes' view.kwargs.context %}"/>
             {% endif %}
 
-            <header>
             {% if view.kwargs.context == 'signup' %}
                 {% if 'created' in request.GET %}
-                <h2>Rota Cadastrada!</h2>
+                <header>
+                    <h2>Rota Cadastrada!</h2>
+                </header>
                 {% endif %}
 
                 <p>Você pode cadastrar mais rotas ou continuar seu cadastro no site.</p>
             {% else %}
                 <p>Você pode cadastrar quantas rotas quiser.</p>
             {% endif %}
-            </header>
 
-            <header>
             <label class="primary-label">Rotas Cadastradas</label>
+            
             <ul class="addresses-list list-unstyled" bikeanjo-list="lines" id="js-addresses">
             {% comment %}
                 <li>
