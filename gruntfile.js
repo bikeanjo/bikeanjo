@@ -43,7 +43,7 @@ module.exports = function (grunt) {
                         'bower_components/bootstrap/dist/js/bootstrap.js',
                         'bower_components/leaflet/dist/leaflet.js',
                         'bower_components/sprintf/dist/sprintf.min.js',
-                        'bower_components/bootstrap-switch-sass/static/js/bootstrapSwitch.js',
+                        'bower_components/bootstrap-switch/dist/js/bootstrap-switch.js',
                     ],
                 },
             },
@@ -66,7 +66,9 @@ module.exports = function (grunt) {
                     sourceMapFilename: 'main.css.map',
                 },
                 files: {
-                    'static/css/main.css': 'assets/styles/*.less',
+                    'static/css/main.css': [
+                        'assets/styles/*.less',
+                    ],
                 },
             },
         },

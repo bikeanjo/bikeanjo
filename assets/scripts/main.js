@@ -74,7 +74,9 @@
         });
 
         $("[data-toggle='switch']").each(function(idx, el){
-            $(el).bootstrapSwitch();
+            $(el).bootstrapSwitch({
+                'baseClass': 'switch',
+            });
         });
 
         $('[data-file-preview]').each(function(){
