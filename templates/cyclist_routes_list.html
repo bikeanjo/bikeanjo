@@ -17,7 +17,6 @@
 
 {% block content %}
 <section class="forms {{view.kwargs.context}} container">
-    <div class="map" id="js-map"></div>
 
     <div class="{{ view.kwargs.context }} fullscreen card">
         {% if view.kwargs.context == 'dashboard' %}
@@ -48,7 +47,7 @@
             {% endif %}
 
             <label class="primary-label">Rotas Cadastradas</label>
-            
+
             <ul class="addresses-list list-unstyled" bikeanjo-list="lines" id="js-addresses">
             {% comment %}
                 <li>
@@ -77,5 +76,8 @@
             {% endif %}
         </form>
     </div>
+
+    <div class="map" id="js-map"></div>
+    <p class="questions"><a href="#"><i class="fa fa-question-circle"></i> Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
 </section>
 {% endblock %}

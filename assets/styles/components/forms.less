@@ -41,7 +41,7 @@
                 margin-top: 20px;
             }
 
-            @media screen and (max-width: @screen-xs-max) {
+            /*@media screen and (max-width: @screen-xs-max) {
                 margin-top: 0;
                 padding: 10px;
                 width: 100%;
@@ -63,7 +63,7 @@
                 .add-route {
                     margin-bottom: 0;
                 }
-            }
+            }*/
         }
     }
 
@@ -86,13 +86,13 @@
     }
 
     // fix size for large buttons on mobile
-    @media screen and (max-width: @screen-xs-max) {
+    /*@media screen and (max-width: @screen-xs-max) {
         .btn-lg {
             font-size: 16px;
             line-height: 1.6;
             padding: 7px 15px 6px 15px;
         }
-    }
+    }*/
 
     // class for when you want a label to be pretty and blue
     .primary-label {
@@ -307,22 +307,14 @@
         width: 100%;
         input {
             display: inline-block !important;
-            width: ~"calc(100% - 40px)";
+            width: ~"calc(100% - 60px)";
         }
         .btn {
             float: right;
-            padding: 2px 7px 0px;        
-        }
-        @media screen and (min-width: @screen-sm-min) {
-            input {
-                width: ~"calc(100% - 60px)";
+            padding: 10px 12px 3px;     
+            .fa {
+                font-size: 30px;
             }
-            .btn {
-                padding: 10px 12px 3px;
-                .fa {
-                    font-size: 30px;
-                }
-            }        
         }
     }
 
@@ -399,27 +391,19 @@
         }
     }
 
-    // put the map on the page background
     .map {
-        position: absolute;
-        top: 51px;
-        right: 0;
-        bottom: 0;
-        right: 0;
-        height: ~"calc(100% - 51px)";
-        width: 100%;
-        z-index: -1;
-        @media screen and (min-width: @screen-sm-min) {
-            top: 91px;
-            height: ~"calc(100% - 96px)";
-        }
+        border-radius: 2px;
+        height: 350px;
+        margin-top: 20px;
+        max-width: 510px;
         iframe {
+            border-radius: 2px;
             height: 100%;
             width: 100%;
         }
     }
 
-    //## Styles for password revocery pages
+    //## Styles for password recovery pages
 
     // class for success page
     .success-message {

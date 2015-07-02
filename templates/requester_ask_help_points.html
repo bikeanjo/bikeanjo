@@ -17,7 +17,7 @@
 
 {% block content %}
 <section class="forms signup container">
-    <div class="map" id="js-map"></div>
+    
     <form class="signup fullscreen card" method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -41,5 +41,8 @@
         <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
 
     </form>
+
+    <div class="map" id="js-map"></div>
+    <p class="questions"><a href="#"><i class="fa fa-question-circle"></i> Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
 </section>
 {% endblock %}
