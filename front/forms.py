@@ -216,13 +216,13 @@ class BikeanjoExperienceForm(forms.ModelForm):
 
     class Meta:
         model = models.User
-        fields = ('ride_experience', 'bike_use', 'initiatives', 'help_with',)
+        fields = ('ride_experience', 'bike_use', 'initiatives', 'help_with', 'available',)
 
 
 class BikeanjoUserInforForm(forms.ModelForm):
     class Meta:
         fields = ('avatar', 'first_name', 'last_name', 'email', 'country',
-                  'city', 'gender', 'birthday', 'available',)
+                  'city', 'gender', 'birthday',)
         model = models.User
 
 
