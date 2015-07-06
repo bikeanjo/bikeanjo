@@ -101,6 +101,7 @@ class DashBoardView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(DashBoardView, self).get_context_data(**kwargs)
+        data['first_access'] = self.request.session.pop('first_access', False)
         data['tip'] = models.TipForCycling.objects\
                             .filter(target__in=[self.request.user.role, 'all'])\
                             .order_by('?').first()
@@ -410,6 +411,7 @@ class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
         return self.request.user
 
     def get_success_url(self):
+        self.request.session['first_access'] = True
         return self.get_redirect_url() or\
             reverse('cyclist_dashboard')
 
