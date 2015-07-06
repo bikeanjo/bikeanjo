@@ -47,9 +47,9 @@
                         <ul class="card-info list-info list-unstyled">
                             {% if hr.bikeanjo %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
+                            <li>{{ hr.bikeanjo.city }}</li>
                             {% endif %}
                             {# <li>{{ hr.created_date|date:'d/m/Y' }}</li> #}
-                            <li>{{ user.city }}</li>
                         </ul>
                     </div>
                     {% endfor %}
