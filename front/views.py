@@ -98,6 +98,14 @@ class DashboardMixin(RegisteredUserMixin):
 
 
 class DashBoardView(DashboardMixin, TemplateView):
+
+    def get_context_data(self, **kwargs):
+        data = super(DashBoardView, self).get_context_data(**kwargs)
+        data['tip'] = models.TipForCycling.objects\
+                            .filter(target__in=[self.request.user.role, 'all'])\
+                            .order_by('?').first()
+        return data
+
     def get_template_names(self):
         role = self.request.user.role or 'requester'
         tpl = '%s_dashboard.html' % role

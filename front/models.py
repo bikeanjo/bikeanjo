@@ -351,7 +351,7 @@ class Event(BaseModel, ReadedAnnotationMixin):
     category = models.ForeignKey(Category, null=True, blank=True)
     readed_by = GenericRelation(ContentReadLog, related_query_name='events')
 
-    def get_image_url():
+    def get_image_url(self):
         if self.image:
             return self.image.url
 
@@ -399,3 +399,26 @@ class Subscriber(BaseModel):
     def save(self, *args, **kwargs):
         self.token = hashlib.sha256(settings.SECRET_KEY + self.email).hexdigest()
         super(Subscriber, self).save(*args, **kwargs)
+
+
+class TipForCycling(BaseModel):
+    TARGETS = (
+        ('all', _('All')),
+    ) + CYCLIST_ROLES
+
+    class Meta:
+        verbose_name = _('Tip for cycling')
+        verbose_name_plural = _('Tips for cycling')
+
+    title = models.CharField(_('Title'), max_length=128)
+    content = models.TextField(_('Content'))
+    image = models.ImageField(_('Image'), upload_to='tips', null=True, blank=True)
+    link = models.CharField(_('Link'), max_length='255', blank=True)
+    target = models.CharField(_('Target'), choices=TARGETS, default=TARGETS[0][0], max_length=16)
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+
+    def __unicode__(self):
+        return self.title

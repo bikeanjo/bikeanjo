@@ -204,3 +204,9 @@ class SubscriberAdmin(admin.ModelAdmin):
 @admin.register(models.ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('email', 'subject', 'message',)
+
+
+@admin.register(models.TipForCycling)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'target', 'created_date',)
+    search_fields = ('title', 'content',)
