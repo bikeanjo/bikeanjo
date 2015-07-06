@@ -40,10 +40,13 @@
                     <header class="card-header negative">
                         <h2 class="card-title">Pedidos de ajuda ({{user.helprequested_set.active.count}})</h2>
                     </header>
-                    {% for help in user.helprequested_set.active %}
+                    {% for hr in user.helprequested_set.active %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' help.id %}">{% trans 'Request' %} #{{ help.id|stringformat:"04d" }}</a></h3>
-                        <p class="card-info">{{ help.get_help_label }}</p>
+                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{ hr.get_help_label }}</a></h3>
+                        <ul class="card-info list-info list-unstyled">
+                            <li>#{{ hr.id|stringformat:'04d' }}</li>
+                            <li>{{ hr.created_date|date:'d/m/Y' }}</li>
+                        </ul>
                     </div>
                     {% endfor %}
                     <footer class="card-footer">

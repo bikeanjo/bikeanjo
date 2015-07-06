@@ -66,11 +66,13 @@
                             {% else %}
                             <i class="fa fa-user"></i>
                             {% endif %}
-                            <a href="{% url 'cyclist_new_request_detail' hr.id %}"><span> Pedido #{{ hr.id|stringformat:'04d' }}</span></a>
+                            <a href="{% url 'cyclist_new_request_detail' hr.id %}"><span> {{hr.get_help_label}}</span></a>
                         </h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>{{ hr.created_date|date:'d/m/Y' }}</li>
+                            {# <li>#{{ hr.id|stringformat:'04d' }}</li> #}
+                            <li>{{ hr.requester.get_full_name }}</li>
                             <li>{{ hr.requester.city }}</li>
+                            {# <li>{{ hr.created_date|date:'d/m/Y' }}</li> #}
                         </ul>
                     </div>
                     {% endfor %}

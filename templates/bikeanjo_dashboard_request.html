@@ -59,8 +59,9 @@
                         </div>
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
-                            <li>{{ user.city }}</li>
+                            <li>{{ helprequest.requester.get_full_name }}</li>
+                            <li>{{ helprequest.requester.city }}</li>
+                            {# <li>{{ helprequest.created_date|date:'d/m/Y' }}</li> #}
                         </ul>
 
                         {% if helprequest.status = 'attended' %}

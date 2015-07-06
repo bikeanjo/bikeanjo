@@ -47,10 +47,10 @@
                                 {% endif %}{% endspaceless %}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a>
                         </h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>#{{ hr.id|stringformat:'04d' }}</li>
+                            {# <li>#{{ hr.id|stringformat:'04d' }}</li> #}
                             <li>{{ hr.requester.get_full_name }}</li>
                             <li>{{ hr.requester.city }}</li>
-                            <li>{{ hr.created_date|date:'d/m/Y' }}</li>
+                            {# <li>{{ hr.created_date|date:'d/m/Y' }}</li> #}
                         </ul>
                     </div>
                     {% endfor %}

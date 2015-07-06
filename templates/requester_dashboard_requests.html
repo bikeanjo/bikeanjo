@@ -42,10 +42,13 @@
                                 {% elif hr.status == "attended" %}fa-check-circle
                                 {% elif hr.status == "canceled" %}fa-times-circle
                                 {% else %}fa-comment
-                                {% endif %}{% endspaceless %}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">Pedido #{{ hr.id|stringformat:'04d' }}</a>
+                                {% endif %}{% endspaceless %}"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{ hr.get_help_label }}</a>
                         </h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>{{ hr.created_date|date:'d/m/Y' }}</li>
+                            {% if hr.bikeanjo %}
+                            <li>{{ hr.bikeanjo.get_full_name }}</li>
+                            {% endif %}
+                            {# <li>{{ hr.created_date|date:'d/m/Y' }}</li> #}
                             <li>{{ user.city }}</li>
                         </ul>
                     </div>
