@@ -374,7 +374,8 @@ class ContactMessage(BaseModel):
         verbose_name_plural = _('Contact messages')
 
     email = models.EmailField(_('Email'))
-    message = models.CharField(_('Message'), max_length=255)
+    subject = models.CharField(_('Subject'), default='Contato', max_length=128)
+    message = models.TextField(_('Message'))
 
 
 class Testimony(BaseModel):

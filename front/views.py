@@ -583,7 +583,7 @@ class ConfirmSubscriptionView(DetailView):
 
 
 class ContactView(CreateView):
-    fields = ('email', 'message',)
+    fields = ('email', 'subject', 'message',)
     model = models.ContactMessage
     template_name = 'contact_form.html'
 

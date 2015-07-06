@@ -203,4 +203,4 @@ class SubscriberAdmin(admin.ModelAdmin):
 
 @admin.register(models.ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ('email', 'message',)
+    list_display = ('email', 'subject', 'message',)
