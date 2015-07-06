@@ -102,12 +102,10 @@ class User(AbstractUser):
     def get_avatar_url(self):
         if self.avatar:
             return self.avatar.url
-
         social = self.socialaccount_set.first()
         if social:
             return social.get_avatar_url()
-        # TODO: avatar field
-        return 'http://placehold.it/85x85'
+        return os.path.join(settings.STATIC_URL, 'imgs', 'empty-avatar.png')
 
     def help_labels(self):
         for code, label in HELP_OFFER:
