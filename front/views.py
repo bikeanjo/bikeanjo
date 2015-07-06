@@ -347,7 +347,7 @@ class SignupView(allauth.account.views.SignupView):
 
     def get(self, request, **kwargs):
         if 'role' not in self.kwargs:
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('signup_define_role'))
         request.session['user_role'] = self.kwargs.get('role')
         return super(SignupView, self).get(request, **kwargs)
 

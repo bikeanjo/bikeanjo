@@ -9,7 +9,6 @@ from django.views.generic import TemplateView
 from djrill import DjrillAdminSite
 import front.views
 
-#admin.site = DjrillAdminSite()
 admin.autodiscover()
 
 urlpatterns = [
@@ -22,7 +21,8 @@ urlpatterns = [
 
     # django allauth
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
-    url(r'^accounts/signup/$', front.views.SignupView.as_view()),
+    url(r'^accounts/signup/$', TemplateView.as_view(template_name='signup_define_role.html'),
+        name='signup_define_role'),
     url(r'^accounts/', include('allauth.urls')),
 
     # bikeanjo urls
