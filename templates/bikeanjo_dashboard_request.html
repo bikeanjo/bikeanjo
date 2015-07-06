@@ -94,8 +94,8 @@
                                 <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
                             </p>
                             <input type="hidden" bikeanjo-geojson="lines" 
-                                   value="[{{ helprequest.track.json }}]"/>                           
-                       {% else %}
+                                   value="[{{ helprequest.track.json }}]"/>
+                       {% elif helprequest.requester.point_set.exists %}
                             <ul class="fa-ul">
                             {% for point in helprequest.requester.point_set.all %}
                                 <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
