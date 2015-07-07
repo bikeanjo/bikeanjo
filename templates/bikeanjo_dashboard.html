@@ -43,14 +43,14 @@
                             <span aria-hidden="true"><i class="fa fa-info-circle"></i></span>
                         </button>
                     </header>
-                    {% for helprequest in user.helpbikeanjo_set.open %}
-                    <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">{{helprequest.get_help_label}}</a></h3>
+                    {% for hr in helprequest_list %}
+                    <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
+                        <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a></h3>
                         <ul class="card-info list-info list-unstyled">
-                            {#<li>#{{ helprequest.id|stringformat:'04d' }}</li>#}
-                            <li>{{ helprequest.requester.get_full_name }}</li>
-                            <li>{{ helprequest.requester.city }}</li>
-                            {#<li>{{ helprequest.created_date|date:'d/m/Y' }}</li>#}
+                            {#<li>#{{ hr.id|stringformat:'04d' }}</li>#}
+                            <li>{{ hr.requester.get_full_name }}</li>
+                            <li>{{ hr.requester.city }}</li>
+                            {#<li>{{ hr.created_date|date:'d/m/Y' }}</li>#}
                         </ul>
                     </div>
                     {% endfor %}

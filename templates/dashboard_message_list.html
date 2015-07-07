@@ -12,7 +12,7 @@
                         <h2 class="card-title">Recados ({{unread.messages.count}})</h2>
                     </header>
                     {% for message in message_list %}
-                    <div class="card-content {% if message.readed_by__user %}old{% endif %}">
+                    <div class="card-content {% if message.was_read %}old{% endif %}">
                         <h3 class="card-subtitle"><i class="fa fa-envelope"></i> <a href="{% url 'dashboard_message_detail' message.id %}">{{ message.title }}</a></h3>
                         <div class="card-info">{{ message.content|truncatewords:12|striptags }}</div>
                     </div>

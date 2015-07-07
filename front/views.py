@@ -15,6 +15,9 @@ from django.utils import timezone
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
 
+from datastructures import Join
+from django.db.models.sql.constants import LOUTER
+
 import allauth.account.views
 import forms
 import models
@@ -100,11 +103,17 @@ class DashboardMixin(RegisteredUserMixin):
 class DashBoardView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
+        user = self.request.user
+
         data = super(DashBoardView, self).get_context_data(**kwargs)
         data['first_access'] = self.request.session.pop('first_access', False)
         data['tip'] = models.TipForCycling.objects\
-                            .filter(target__in=[self.request.user.role, 'all'])\
+                            .filter(target__in=[user.role, 'all'])\
                             .order_by('?').first()
+        data['helprequest_list'] = models.HelpRequest.objects\
+                                         .open()\
+                                         .filter(**{user.role: user})\
+                                         .annotate(last_reply=Max('helpreply__created_date'))
         return data
 
     def get_template_names(self):
@@ -302,9 +311,20 @@ class MessageListView(DashboardMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         qs = models.Message.objects\
-                   .filter(Q(readed_by__user=user) | Q(readed_by__user=None))\
-                   .values('id', 'title', 'content', 'image', 'readed_by__user')\
-                   .order_by('-id')
+                   .filter(id__gt=0)\
+                   .extra(select={'was_read': 'front_readedmessage.user_id'})
+        join = Join(
+            models.ReadedMessage._meta.db_table,
+            models.Message._meta.db_table,
+            None, LOUTER,
+            models.Message.readed_by.related,
+            True
+        )
+        join.add_field_val_restriction(
+            models.ReadedMessage.user.field,
+            user.id
+        )
+        qs.query.join(join)
         return qs
 
 
