@@ -151,7 +151,8 @@ class HelpRequest(BaseModel):
 
     def find_bikeanjo(self):
         city = self.requester.city
-        bikeanjos = User.objects.filter(role='bikeanjo').exclude(match__isnull=False, match__helprequest=self)
+        bikeanjos = User.objects.filter(role='bikeanjo', available=True)\
+                                .exclude(match__isnull=False, match__helprequest=self)
         notas = []
         # 3 ponto, 12 rota
         if self.help_with | 12 and self.track:
