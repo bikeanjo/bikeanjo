@@ -25,6 +25,9 @@ urlpatterns = [
         name='signup_define_role'),
     url(r'^accounts/', include('allauth.urls')),
 
+    # flatpages
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
+
     # bikeanjo urls
     url(r'^$', front.views.HomeView.as_view(), name='home'),
 

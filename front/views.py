@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.flatpages.models import FlatPage
 from django.db.models import Q, Max
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
