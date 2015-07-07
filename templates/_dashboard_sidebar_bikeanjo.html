@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
     <div class="card">
         <header class="profile">
@@ -6,6 +7,7 @@
                 <a href="{% url 'cyclist_dashboard' %}"><img src="{{ user.get_avatar_url }}"
                      width="85" height="85" 
                      title="{{ user.get_full_name }}"
+                     onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                      alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
             </div>
             <h2 class="profile-name"><a href="{% url 'cyclist_dashboard' %}">{% firstof user.first_name user.username %}</a></h2>

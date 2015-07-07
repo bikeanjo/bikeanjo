@@ -55,6 +55,7 @@
                             <img src="{{ helprequest.requester.get_avatar_url }}"
                                  width="50" height="50" 
                                  title="{{ helprequest.requester.get_full_name }}"
+                                 onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
                         </div>
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
@@ -119,6 +120,7 @@
                             <img src="{{ user.get_avatar_url }}"
                                  width="30" height="30" 
                                  title="{{ user.get_full_name }}"
+                                 onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
                         </div>
                         <h2 class="card-title">{{ user.get_full_name }}</h2>
@@ -137,6 +139,7 @@
                                 <img src="{{ helpreply.author.get_avatar_url }}"
                                      width="30" height="30" 
                                      title="{{ helpreply.author.get_full_name }}"
+                                     onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                      alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
                             </div>
                             <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
