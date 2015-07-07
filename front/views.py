@@ -202,6 +202,7 @@ class RequestsListView(DashboardMixin, ListView):
         if status in models.HelpRequest.STATUS:
             qs = qs.filter(status=status)
 
+        qs = qs.order_by('-id')
         return qs.annotate(last_reply=Max('helpreply__created_date'))
 
 
@@ -241,6 +242,8 @@ class NewRequestsListView(DashboardMixin, ListView):
             qs = queryset.filter(bikeanjo=None)
         else:
             qs = queryset.filter(Q(bikeanjo=self.request.user) | Q(bikeanjo=None))
+
+        qs = qs.order_by('-id')
         return qs
 
 
@@ -325,6 +328,7 @@ class MessageListView(DashboardMixin, ListView):
             user.id
         )
         qs.query.join(join)
+        qs = qs.order_by('-id')
         return qs
 
 
@@ -362,7 +366,8 @@ class EventListView(ListView):
             if f in ['category', 'city']:
                 filters[f] = self.request.GET.get(f, '')
 
-        return qs.filter(**filters)
+        qs = qs.filter(**filters).order_by('-id')
+        return qs
 
 
 class EventDetailView(DetailView):
