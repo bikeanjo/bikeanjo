@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load flatpages %}
 
 <nav class="navbar navbar-default">
     <div class="container">
@@ -62,36 +63,46 @@
                 </ul>
                 {% endif %}
                 <ul class="nav nav-pills">
+                    
+                    {% get_flatpages '/about/' as about_pages %}
+                    {% if about_pages %}
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Quem somos
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Como funciona</a></li>
-                            <li><a href="#">Sobre nós</a></li>
-                            <li><a href="#">Nossos projetos</a></li>
-                            <li><a href="#">Parceiros</a></li>
-                            <li><a href="#">Transparência</a></li>
-                            <li><a href="#">Na imprensa</a></li>
+                            {% for page in about_pages %}
+                                <li><a href="{{page.url}}">{{page.title}}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
+                    {% endif %}
+                    
+                    {% get_flatpages '/work/' as work_pages %}
+                    {% if work_pages %}
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">O que fazemos
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">O que temos feito</a></li>
-                            <li><a href="#">Onde atuamos</a></li>
-                            <li><a href="#">Nossas campanhas</a></li>
-                            <li><a href="#">Eventos</a></li>
-                            <li><a href="#">Dicas para quem quer pedalar</a></li>
+                            {% for page in work_pages %}
+                                <li><a href="{{page.url}}">{{page.title}}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
+                    {% endif %}
+
+                    {% get_flatpages '/support/' as support_pages %}
+                    {% if support_pages %}
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Apóie
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Apóie o Bike Anjo</a></li>
+                            {% for page in support_pages %}
+                                <li><a href="{{page.url}}">{{page.title}}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
+                    {% endif %}
+
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Contato
                         <i class="fa fa-angle-down"></i></a>
