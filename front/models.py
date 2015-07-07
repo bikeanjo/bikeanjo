@@ -158,21 +158,44 @@ class HelpRequest(BaseModel):
         if self.help_with | 12 and self.track:
             saida_pedido = self.track.track[0]
             chegada_pedido = self.track.track[-1]
+
             for bikeanjo in bikeanjos:
                 nota = 999999999
                 caminho = None
-                for track in bikeanjo.track_set.all():
-                    distancia = self.distance([track.track[0], track.track[-1]])
-                    d2 = self.distance([track.track[0], saida_pedido, chegada_pedido, track.track[-1]])
+
+                for model in bikeanjo.track_set.all():
+                    distancia = self.distance([model.track[0], model.track[-1]])
+                    d2 = self.distance([model.track[0], saida_pedido, chegada_pedido, model.track[-1]])
                     total = abs(d2 - distancia)
+
                     if total < nota:
                         nota = total
-                        caminho = track
+                        caminho = model
                 notas.append([nota, caminho, bikeanjo])
+
             notas.sort(key=lambda nota: nota[0])
 
             if len(notas) > 0:
                 return notas[0]
+
+        elif self.help_with | 3 and self.point_set.count() > 0:
+            nota = 1000000  # metros
+            lugar = None
+
+            requester_points = self.point_set.values_list('coords', flat=True)
+            for point in requester_points:
+                closest = Point.objects\
+                               .filter(user__in=bikeanjos)\
+                               .distance(point)\
+                               .order_by('distance')\
+                               .first()
+
+                if closest.distance.standard < nota:
+                    nota = closest.distance.standard
+                    lugar = closest
+
+            if lugar:
+                return nota, lugar, lugar.user
 
         return None, None, None
 
