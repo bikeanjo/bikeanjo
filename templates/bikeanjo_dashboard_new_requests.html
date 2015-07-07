@@ -85,6 +85,34 @@
                     <p class="text-center"><a href="{% url 'cyclist_new_requests' %}?filter=orphan" class="btn btn-success">Ver pedidos sem anjos</a></p>
                 </article>
                 {% endif %}
+
+                {% if is_paginated %}
+                <nav class="item-pagination">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">
+                                <i class="fa fa-angle-left"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for page in paginator.page_range %}
+                        <li class="{% if page_obj.number = page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">
+                                <i class="fa fa-angle-right"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
             </section>
 
         </div>

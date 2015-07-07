@@ -297,10 +297,14 @@ class RequestReplyFormView(RegisteredUserMixin, FormView):
 class MessageListView(DashboardMixin, ListView):
     model = models.Message
     template_name = 'dashboard_message_list.html'
+    paginate_by = 10
 
     def get_queryset(self):
-        order_by = {'field':'id', 'order': 'DESC'}
-        qs = models.Message.user_access_annotated(user=self.request.user, order_by=order_by)
+        user = self.request.user
+        qs = models.Message.objects\
+                   .filter(Q(readed_by__user=user) | Q(readed_by__user=None))\
+                   .values('id', 'title', 'content', 'image', 'readed_by__user')\
+                   .order_by('-id')
         return qs
 
 

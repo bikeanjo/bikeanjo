@@ -12,12 +12,40 @@
                         <h2 class="card-title">Recados ({{unread.messages.count}})</h2>
                     </header>
                     {% for message in message_list %}
-                    <div class="card-content {% if message.readed_date %}old{% endif %}">
+                    <div class="card-content {% if message.readed_by__user %}old{% endif %}">
                         <h3 class="card-subtitle"><i class="fa fa-envelope"></i> <a href="{% url 'dashboard_message_detail' message.id %}">{{ message.title }}</a></h3>
                         <div class="card-info">{{ message.content|truncatewords:12|striptags }}</div>
                     </div>
                     {% endfor %}
                 </article>
+
+                {% if is_paginated %}
+                <nav class="item-pagination">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">
+                                <i class="fa fa-angle-left"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for page in paginator.page_range %}
+                        <li class="{% if page_obj.number = page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">
+                                <i class="fa fa-angle-right"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
             </section>
         </div>
     </section>

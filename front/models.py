@@ -257,57 +257,12 @@ class Match(BaseModel):
             % (self.helprequest_id, self.bikeanjo_id, self.rejected_date)
 
 
-class ContentReadLog(models.Model):
-    class Meta:
-        verbose_name = _('Content read log')
-        verbose_name_plural = _('Content read logs')
-
-    user = models.ForeignKey(User)
-    created_date = models.DateTimeField(_('Created date'), auto_now_add=True, editable=False)
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-
 class ReadedAnnotationMixin(object):
-    @classmethod
-    def user_access_annotated(cls, user, order_by={'field': None, 'order': 'ASC'}):
-        this_table = cls._meta.db_table
-        that_table = ContentReadLog._meta.db_table
-        type_id = ContentType.objects.get_for_model(cls).id
-
-        select_fields = ['%s.%s' % (this_table, field.column) for field in cls._meta.fields]
-        select_fields.append('%s.created_date AS readed_date' % that_table)
-        select_fields = ','.join(select_fields)
-
-        join_fields = '%(this_table)s.id = %(that_table)s.object_id\
-                       AND %(that_table)s.content_type_id = %(type_id)s\
-                       AND %(that_table)s.user_id IN (%(user_id)d, NULL)' % ({
-            'this_table': this_table,
-            'that_table': that_table,
-            'user_id': user.id,
-            'type_id': type_id,
-        })
-
-        query = 'SELECT %(select_fields)s FROM %(this_table)s\
-                 LEFT OUTER JOIN %(that_table)s ON %(join_fields)s' % ({
-            'select_fields': select_fields,
-            'this_table': this_table,
-            'that_table': that_table,
-            'join_fields': join_fields,
-        })
-
-        if order_by['field']:
-            query += ' ORDER BY %(this_table)s.%(field)s %(order)s' % ({
-                'this_table': this_table,
-                'field': order_by['field'],
-                'order': order_by['order'],
-            })
-
-        return cls.objects.raw(query)
+    # migration breaks if remove this
+    pass
 
 
-class Message(BaseModel, ReadedAnnotationMixin):
+class Message(BaseModel):
     class Meta:
         verbose_name = _('Message')
         verbose_name_plural = _('Messages')
@@ -317,7 +272,13 @@ class Message(BaseModel, ReadedAnnotationMixin):
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='messages', null=True, blank=True)
 
-    readed_by = GenericRelation(ContentReadLog, related_query_name='messages')
+
+class ReadedMessage(BaseModel):
+    class Meta:
+        unique_together = (('user', 'message',))
+
+    user = models.ForeignKey(User)
+    message = models.ForeignKey(Message, related_name='readed_by')
 
 
 class Category(models.Model):
@@ -331,7 +292,7 @@ class Category(models.Model):
         return self.name
 
 
-class Event(BaseModel, ReadedAnnotationMixin):
+class Event(BaseModel):
     class Meta:
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
@@ -347,9 +308,7 @@ class Event(BaseModel, ReadedAnnotationMixin):
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
     link = models.CharField(_('Link'), max_length='255', blank=True)
     price = models.IntegerField(_('Price'), default=0, blank=True)
-
     category = models.ForeignKey(Category, null=True, blank=True)
-    readed_by = GenericRelation(ContentReadLog, related_query_name='events')
 
     def get_image_url(self):
         if self.image:
