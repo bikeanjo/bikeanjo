@@ -52,27 +52,33 @@
                 </div>
                 {% endfor %}
 
+                {% if is_paginated %}
                 <nav class="item-pagination">
                     <ul class="pagination">
+                        {% if page_obj.has_previous %}
                         <li>
-                            <a href="#" aria-label="Previous">
+                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                                 <span aria-hidden="true">
                                 <i class="fa fa-angle-left"></i></span>
                             </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                            <a href="#" aria-label="Next">
+                        </li>
+                        {% endif %}
+
+                        {% for page in paginator.page_range %}
+                        <li class="{% if page_obj.number = page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                                 <span aria-hidden="true">
                                 <i class="fa fa-angle-right"></i></span>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </nav>
+                {% endif %}
             </div>
         </div>
     </section>

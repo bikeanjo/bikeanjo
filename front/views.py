@@ -323,6 +323,7 @@ class MessageDetailView(DashboardMixin, DetailView):
 class EventListView(ListView):
     model = models.Event
     template_name = 'event_list.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
@@ -335,7 +336,12 @@ class EventListView(ListView):
 
     def get_queryset(self):
         qs = super(EventListView, self).get_queryset()
-        filters = self.request.GET.dict()
+
+        filters = {}
+        for f in self.request.GET.keys():
+            if f in ['category', 'city']:
+                filters[f] = self.request.GET.get(f, '')
+
         return qs.filter(**filters)
 
 
