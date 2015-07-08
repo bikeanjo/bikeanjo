@@ -19,7 +19,12 @@
                     <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
                     <textarea class="form-control" name="message" rows="5" placeholder="Enter text"></textarea>
                     <input type="hidden" name="{{ view.get_redirect_field_name }}" value="{{ request.get_full_path }}" />
-                    </div><button class="btn btn-warning" type="submit">Enviar</button>
+                    </div>
+                    {% if user.role == 'bikeanjo' %}
+                    <button class="btn btn-success" type="submit">Enviar</button>
+                    {% else %}
+                    <button class="btn btn-warning" type="submit">Enviar</button>
+                    {% endif %}
                 </form>
             </div>
         </div>
