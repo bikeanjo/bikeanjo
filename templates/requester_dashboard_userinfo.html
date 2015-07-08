@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
@@ -35,6 +36,7 @@
                                          class="img-circle"
                                          width="85" height="85" 
                                          title="{{ user.get_full_name }}"
+                                         onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                          alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
                                 </span>
 
