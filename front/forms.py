@@ -318,7 +318,7 @@ class HelpRequestPointForm(forms.Form):
     def save(self):
         points = self.cleaned_data['points']
 
-        models.Point.objects\
+        self.instance.point_set\
             .exclude(id__in=[p.id for p in points if p.id])\
             .delete()
 
@@ -328,6 +328,7 @@ class HelpRequestPointForm(forms.Form):
                 point.helprequest = self.instance
                 point.save()
 
+        self.instance.save()
         return self.instance
 
     def load_points(self):
