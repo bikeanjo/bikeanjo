@@ -35,6 +35,24 @@
                 </div>
                 {% endfor %}
 
+                {% with message=unread.messages.first %}{% if message %}
+                <article class="card {% if message.image %}photo{% endif %} big">
+                    <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </button>
+                    <div class="card-content">
+                        {% if message.image %}
+                        <div class="card-photo" style="background-image: url({{message.image.url}});"></div>
+                        {% endif %}
+                        <h2 class="card-subtitle">{{message.title}}</h2>
+                        <p class="card-info">{{message.content|striptags|truncatewords:32}}</p>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                    </footer>
+                </article>
+                {% endif %}{% endwith %}
+
                 {% if user.helpbikeanjo_set.open.exists %}
                 <article class="card list">
                     <header class="card-header negative">
@@ -85,13 +103,13 @@
                 </article>
                 {% endif %}
 
-                {% if unread.events.count %}
+                {% if events.count %}
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">Eventos na sua cidade</h2>
                     </header>
 
-                    {% for event in unread.events.all|slice:':5' %}
+                    {% for event in events.all|slice:':5' %}
                     <div class="card-content">
                         <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">

@@ -34,23 +34,23 @@
                 </div>
                 {% endfor %}
 
-                {% if unread.messages.first %}
-                <article class="card {% if unread.messages.first.image %}photo{% endif %} big">
+                {% with message=unread.messages.first %}{% if message %}
+                <article class="card {% if message.image %}photo{% endif %} big">
                     <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-times"></i></span>
                     </button>
                     <div class="card-content">
-                        {% if unread.messages.first.image %}
-                        <div class="card-photo" style="background-image: url({{unread.messages.first.image.url}});"></div>
+                        {% if message.image %}
+                        <div class="card-photo" style="background-image: url({{message.image.url}});"></div>
                         {% endif %}
-                        <h2 class="card-subtitle">{{unread.messages.first.title}}</h2>
-                        <p class="card-info">{{unread.messages.first.content|striptags|truncatewords:32}}</p>
+                        <h2 class="card-subtitle">{{message.title}}</h2>
+                        <p class="card-info">{{message.content|striptags|truncatewords:32}}</p>
                     </div>
                     <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'dashboard_message_detail' unread.messages.first.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
-                {% endif %}
+                {% endif %}{% endwith %}
 
                 {% if user.helprequested_set.active.exists %}
                 <article class="card list">
