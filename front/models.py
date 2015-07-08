@@ -190,7 +190,7 @@ class HelpRequest(BaseModel):
                                .order_by('distance')\
                                .first()
 
-                if closest.distance.standard < nota:
+                if closest and closest.distance.standard < nota:
                     nota = closest.distance.standard
                     lugar = closest
 
