@@ -330,7 +330,7 @@ class Event(BaseModel):
     city = models.CharField(_('City'), max_length='64')
     address = models.CharField(_('Address'), max_length='128', blank=True)
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
-    link = models.CharField(_('Link'), max_length='255', blank=True)
+    subscription_link = models.CharField(_('Link'), max_length='255', blank=True)
     price = models.IntegerField(_('Price'), default=0, blank=True)
     category = models.ForeignKey(Category, null=True, blank=True)
 

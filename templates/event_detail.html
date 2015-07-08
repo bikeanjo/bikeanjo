@@ -20,7 +20,12 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 
-                <p class="event-enroll"><a href="" class="btn btn-lg btn-primary">Inscreva-se no evento</a></p>
+
+                <p class="event-enroll">
+                    {% if event.subscription_link %}
+                    <a href="{{event.subscription_link}}" class="btn btn-lg btn-primary">Inscreva-se no evento</a>
+                    {% endif %}
+                </p>
 
                 <div class="event-description">
                     <p>{{ event.content|safe }}</p>
