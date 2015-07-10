@@ -5,7 +5,11 @@ from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
+from import_export.admin import ImportExportModelAdmin
+
 from front import models
+
+import admin_resources as resources
 import cyclists
 
 admin.site.site_title = _('Bikeanjo')
@@ -13,8 +17,9 @@ admin.site.site_header = _('Bikeanjo administration')
 admin.site.index_title = _('Site administration')
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
     list_filter = ('city', 'country',)
+    resource_class = resources.UserResource
 
     def full_name(self, obj):
         return obj.get_full_name() or obj.username
@@ -87,6 +92,18 @@ class CustomUserAdmin(UserAdmin):
             return True
 
         return super(CustomUserAdmin, self).lookup_allowed(lookup, value)
+
+
+@admin.register(cyclists.models.User)
+class User(CustomUserAdmin):
+    list_display = ('full_name', 'email', 'role', 'formatted_joined',
+                    'formatted_last_login', 'city', 'country',)
+    list_filter = ('role', 'city', 'country',)
+
+    def formatted_last_login(self, obj):
+        return obj.date_joined.strftime('%d/%m/%Y - %H:%M')
+    formatted_last_login.short_description = _('last login')
+    formatted_last_login.admin_order_field = 'last_login'
 
 
 @admin.register(cyclists.models.Requester)
@@ -206,8 +223,9 @@ class TestimonyAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Subscriber)
-class SubscriberAdmin(admin.ModelAdmin):
+class SubscriberAdmin(ImportExportModelAdmin):
     list_display = ('email', 'token', 'valid',)
+    resource_class = resources.NewsletterResource
 
 
 @admin.register(models.ContactMessage)

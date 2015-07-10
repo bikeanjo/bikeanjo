@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
     'djrill',
+    'import_export',
     'rest_framework',
     'cities',
     'cyclists',
