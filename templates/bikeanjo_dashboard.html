@@ -110,7 +110,7 @@
                     </header>
                     {% for event in event_list|slice:'3' %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
+                        <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ event.date }}</li>
                             <li>{{ event.city }}</li>
