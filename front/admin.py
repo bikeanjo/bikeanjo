@@ -14,6 +14,8 @@ admin.site.index_title = _('Site administration')
 
 
 class CustomUserAdmin(UserAdmin):
+    list_filter = ('city', 'country',)
+
     def full_name(self, obj):
         return obj.get_full_name() or obj.username
     full_name.short_description = _('Full name')
@@ -89,13 +91,13 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(cyclists.models.Requester)
 class Requester(CustomUserAdmin):
-    list_display = ('full_name', 'formatted_joined', 'city',
+    list_display = ('full_name', 'formatted_joined', 'city', 'country',
                     'active_requests', 'finalized_requests',)
 
 
 @admin.register(cyclists.models.Bikeanjo)
-class Bikenjo(CustomUserAdmin):
-    list_display = ('full_name', 'formatted_joined', 'available', 'city',
+class Bikeanjo(CustomUserAdmin):
+    list_display = ('full_name', 'formatted_joined', 'available', 'city', 'country',
                     'active_requests', 'finalized_requests', 'service_rating',
                     'tracks', 'points')
 
