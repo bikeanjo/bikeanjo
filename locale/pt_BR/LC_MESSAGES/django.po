@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-10 12:39-0300\n"
-"PO-Revision-Date: 2015-07-10 12:39-0300\n"
+"POT-Creation-Date: 2015-07-10 12:44-0300\n"
+"PO-Revision-Date: 2015-07-10 12:47-0300\n"
 "Last-Translator: Fabio Montefuscolo <fabio.montefuscolo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -425,12 +425,12 @@ msgid "Image"
 msgstr "Imagem"
 
 #: front/models.py:310
-msgid "Category"
-msgstr "Categoria"
+msgid "Event category"
+msgstr "Categoria de evento"
 
 #: front/models.py:311
-msgid "Categories"
-msgstr "Categorias"
+msgid "Events categories"
+msgstr "Categorias de eventos"
 
 #: front/models.py:321
 msgid "Event"
@@ -493,12 +493,12 @@ msgid "Testimonies"
 msgstr "Depoimentos"
 
 #: front/models.py:375
-msgid "Subscriber"
-msgstr "Inscrito"
+msgid "Newsletter"
+msgstr "Newsletter"
 
 #: front/models.py:376
-msgid "Subscribers"
-msgstr "Inscritos"
+msgid "Newsletters"
+msgstr "Newsletters"
 
 #: front/models.py:379
 msgid "Token"
@@ -680,6 +680,12 @@ msgstr "Termos para cadastro"
 #: templates/contact_form.html:5 templates/contact_form.html.py:12
 msgid "Contact"
 msgstr "Contato"
+
+#~ msgid "Subscriber"
+#~ msgstr "Inscrito"
+
+#~ msgid "Subscribers"
+#~ msgstr "Inscritos"
 
 #~ msgid "Main"
 #~ msgstr "Principal"

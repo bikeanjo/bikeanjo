@@ -307,8 +307,8 @@ class ReadedMessage(BaseModel):
 
 class Category(models.Model):
     class Meta:
-        verbose_name = _('Category')
-        verbose_name_plural = _('Categories')
+        verbose_name = _('Event category')
+        verbose_name_plural = _('Events categories')
 
     name = models.CharField(max_length=32)
 
@@ -372,8 +372,8 @@ class Testimony(BaseModel):
 
 class Subscriber(BaseModel):
     class Meta:
-        verbose_name = _('Subscriber')
-        verbose_name_plural = _('Subscribers')
+        verbose_name = _('Newsletter')
+        verbose_name_plural = _('Newsletters')
 
     email = models.EmailField(_('Email'), unique=True)
     token = models.CharField(_('Token'), max_length=64, editable=False)
