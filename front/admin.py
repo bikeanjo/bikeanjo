@@ -17,6 +17,7 @@ class CustomUserAdmin(UserAdmin):
     def full_name(self, obj):
         return obj.get_full_name() or obj.username
     full_name.short_description = _('Full name')
+    full_name.admin_order_field = 'first_name'
 
     def active_requests(self, obj):
         counter = 0
@@ -68,6 +69,11 @@ class CustomUserAdmin(UserAdmin):
         return counter
     finalized_requests.short_description = _('Finalized requests')
 
+    def formatted_joined(self, obj):
+        return obj.date_joined.strftime('%d/%m/%Y - %H:%M')
+    formatted_joined.short_description = _('date joined')
+    formatted_joined.admin_order_field = 'date_joined'
+
     def lookup_allowed(self, lookup, value):
         allow = [
             'contentreadlog__object_id',
@@ -83,14 +89,15 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(cyclists.models.Requester)
 class Requester(CustomUserAdmin):
-    list_display = ('full_name', 'is_active', 'city', 'active_requests',
-                    'finalized_requests',)
+    list_display = ('full_name', 'formatted_joined', 'city',
+                    'active_requests', 'finalized_requests',)
 
 
 @admin.register(cyclists.models.Bikeanjo)
 class Bikenjo(CustomUserAdmin):
-    list_display = ('full_name', 'is_active', 'city', 'active_requests',
-                    'finalized_requests', 'service_rating', 'tracks', 'points')
+    list_display = ('full_name', 'formatted_joined', 'available', 'city',
+                    'active_requests', 'finalized_requests', 'service_rating',
+                    'tracks', 'points')
 
     def service_rating(self, obj):
         if obj.role != 'bikeanjo':
