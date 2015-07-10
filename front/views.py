@@ -104,18 +104,34 @@ class DashboardMixin(RegisteredUserMixin):
 class DashBoardView(DashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
-        user = self.request.user
-
         data = super(DashBoardView, self).get_context_data(**kwargs)
         data['first_access'] = self.request.session.pop('first_access', False)
-        data['tip'] = models.TipForCycling.objects\
-                            .filter(target__in=[user.role, 'all'])\
-                            .order_by('?').first()
-        data['helprequest_list'] = models.HelpRequest.objects\
-                                         .open()\
-                                         .filter(**{user.role: user})\
-                                         .annotate(last_reply=Max('helpreply__created_date'))
+        data['tip'] = self.get_tip()
+        data['helprequest_list'] = self.get_helprequest_list()
+        data['event_list'] = self.get_event_list()
         return data
+
+    def get_tip(self):
+        return models.TipForCycling.objects\
+                     .filter(target__in=[self.request.user.role, 'all'])\
+                     .order_by('?').first()
+
+    def get_helprequest_list(self):
+        return models.HelpRequest.objects.open()\
+                     .filter(**{self.request.user.role: self.request.user})\
+                     .annotate(last_reply=Max('helpreply__created_date'))
+
+    def get_event_list(self):
+        user = self.request.user
+
+        event_list = models.Event.objects.filter(city=user.city, date__gt=timezone.now())
+        setattr(event_list, 'near', True)
+
+        if not event_list.exists():
+            event_list = models.Event.objects.filter(date__gt=timezone.now())
+            setattr(event_list, 'near', False)
+
+        return event_list.order_by('date')
 
     def get_template_names(self):
         role = self.request.user.role or 'requester'

@@ -103,25 +103,22 @@
                 </article>
                 {% endif %}
 
-                {% if events.count %}
+                {% if event_list %}
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Eventos na sua cidade</h2>
+                        <h2 class="card-title">Eventos{% if event_list.near %} na sua cidade{% endif %}</h2>
                     </header>
-
-                    {% for event in events.all|slice:':5' %}
+                    {% for event in event_list|slice:'3' %}
                     <div class="card-content">
                         <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.id %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
-                            <li>{{ event.start_date }}</li>
+                            <li>{{ event.date }}</li>
                             <li>{{ event.city }}</li>
-                            <li>{{ event.price|default:'Evento Gratuito'}}</li>
                         </ul>
                     </div>
                     {% endfor %}
-
                     <footer class="card-footer">
-                        <a class="see-more-link" href="#">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'dashboard_event_list' %}">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
                 {% endif %}
