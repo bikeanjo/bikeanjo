@@ -67,7 +67,7 @@
             <button class="btn btn-primary btn-block btn-lg" type="submit">Salvar alterações</button>
             <input type="hidden"
                    name="{{view.get_redirect_field_name}}"
-                   value="{% url 'cyclist_register_points' 'dashboard' %}"/>
+                   value="{% url 'user_register' %}"/>
         {% else %}
             <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
         {% endif %}
