@@ -30,21 +30,35 @@
             <fieldset>
                 <div class="form-group">
                     <label class="primary-label" for="full-name">Nome completo</label>
-                    <input class="form-control" type="text" name="full-name" id="full-name" value="" placeholder="Seu nome completo">
+                    <input class="form-control" type="text" name="{{form.name.html_name}}"
+                           id="full-name" value="{{form.name.value|default:''}}" placeholder="Seu nome completo">
                     <i class="fa fa-user form-control-icon"></i>
+
+                    {% if form.name.errors %}
+                        {% for error in form.name.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
                     <label class="primary-label" for="email">E-email</label>
-                    <input class="form-control" type="email"
-                    name="{{ form.email.html_name }}" id="email" value="{{ form.email.value|default:'' }}"
-                    placeholder="Digite seu e-mail">
+                    <input class="form-control" type="email" id="email"
+                           name="{{ form.email.html_name }}"
+                           value="{{ form.email.value|default:'' }}"
+                           placeholder="Digite seu e-mail">
+
                     <i class="fa fa-envelope-o form-control-icon"></i>
+                    {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
-                    <label class="primary-label" for="email">Como podemos te ajudar?</label>
-                    <select class="form-control" name="{{ form.subject.html_name }}">
+                    <label class="primary-label" for="subject">Como podemos te ajudar?</label>
+                    <select class="form-control" id="subject" name="{{ form.subject.html_name }}">
                         <option>Ajuda de um bike anjo</option>
                         <option>Pedido de imprensa</option>
                         <option>Quero fazer parte do bike anjo</option>
@@ -52,13 +66,25 @@
                         <option>Dúvidas e informações</option>
                         <option>Outros</option>
                     </select>
+                    {% if form.subject.errors %}
+                        {% for error in form.subject.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
-                    <label class="primary-label" for="email">Escreva sua mensagem</label>
+                    <label class="primary-label" for="message">Escreva sua mensagem</label>
                     <textarea class="form-control" rows="7"
-                    name="{{ form.message.html_name }}" id="message" value="{{ form.message.value|default:'' }}"
-                    placeholder="Digite seu e-mail"></textarea>
+                              name="{{ form.message.html_name }}"
+                              id="message"
+                              placeholder="Digite seu e-mail">{{ form.message.value|default:'' }}</textarea>
+
+                    {% if form.message.errors %}
+                        {% for error in form.message.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </fieldset>
 

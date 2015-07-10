@@ -356,6 +356,7 @@ class ContactMessage(BaseModel):
         verbose_name = _('Contact message')
         verbose_name_plural = _('Contact messages')
 
+    name = models.CharField(_('Name'), max_length=128)
     email = models.EmailField(_('Email'))
     subject = models.CharField(_('Subject'), default='Contato', max_length=128)
     message = models.TextField(_('Message'))

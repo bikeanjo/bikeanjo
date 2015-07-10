@@ -196,3 +196,24 @@ def notify_user_subscribed_in_newsletter(sender, instance, created, **kwargs):
 
         msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
         msg.send()
+
+
+@receiver(post_save, sender=models.ContactMessage)
+def notify_admins_about_new_contact_message(sender, instance, created, **kwargs):
+        if not created:
+            return
+
+        from_email = instance.email
+        recipient = settings.DEFAULT_FROM_EMAIL
+        subject = instance.subject
+        content = 'From "%s<%s>, %s' % (
+            instance.name,
+            instance.email,
+            instance.created_date.strftime('%d/%m/%Y %H:%M'),
+        )
+        content += '\n%s\n\n' % ('-' * len(content))
+        content += instance.message
+
+        msg = EmailMultiAlternatives(subject, content, from_email, [recipient],
+                                     reply_to=[from_email])
+        msg.send()
