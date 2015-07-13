@@ -1,6 +1,6 @@
 Olá {{ recipient.first_name }},
 
-Infelizmente seu pedido de ajuda para "{{ helprequest.get_help_label }}" foi cancelado, pois o BikeAnjo teve algum problema e não conseguiu te atende-lo. Nosso sistema automaticamente vai procurar outro Bike Anjo em até 15 dias.
+Infelizmente seu pedido de Bike Anjo para "{{ helprequest.get_help_label }}" foi cancelado porque o seu o Bike Anjo não vai  conseguir mais te atender. Nossa plataforma automaticamente vai encontrar outra pessoa para te ajudar em até 15 dias, tudo bem? O=D
 
 Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 

@@ -1,6 +1,6 @@
 Olá {{ recipient.first_name }},
 
-Seu pedido de ajuda para "{{ helprequest.get_help_label }}" foi marcado como atendido pelo BikeAnjo, para ajudar em nosso controle interno, confirme em nosso sistema se ele realmente está finalizado ou envie uma nova mensagem se ainda houver dúvida.
+Seu pedido de ajuda para "{{ helprequest.get_help_label }}" foi marcado como atendido pelo BikeAnjo. Para ajudar em nosso controle interno, confirme em nosso sistema se você foi realmente atendido(a) e faça uma avaliação do pedido
 
 Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
