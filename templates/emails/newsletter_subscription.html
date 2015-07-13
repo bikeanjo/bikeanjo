@@ -1,0 +1,32 @@
+{% extends 'emails/base_email.html' %}
+{% load static %}
+
+{% block content %}
+<tr>
+    <td align="center" style="padding: 20px 0px 15px;" bgcolor="#F26522">
+        <img src="{% static 'imgs/email/newsletter.png' %}">
+    </td>
+</tr>
+<tr>
+    <td style="text-align: center;" class="header" bgcolor="#FFFFFF">
+        <table style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td style="color: #F26522; font-size: 34px;padding: 40px 0px 30px; text-align: center;">Bem vindo!</td>
+                </tr>
+                <tr>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">Você se inscreveu para receber novidades da nossa comunidade e ficar por dentro do nossos projetos.</p></td>
+                </tr>
+                <tr>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">Para finalizar seu cadastro, acesse o link abaixo:</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" style="font-weight: bold; font-size: 17px; padding: 0 65px 65px; color: #444444; display: block; text-align: center;">link</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>
+{% endblock %}
