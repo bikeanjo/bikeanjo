@@ -17,6 +17,9 @@ logger = logging.getLogger('front.signals')
 
 @receiver(post_save, sender=models.HelpRequest)
 def assign_bike_anjo(sender, instance, **kwargs):
+    if not instance.requester.accepted_agreement:
+        return None
+
     if instance.bikeanjo is None and instance.status == 'new':
         score, track, bikeanjo = instance.find_bikeanjo()
 
@@ -97,11 +100,11 @@ def notify_new_reply_by_email(sender, instance, **kwargs):
     msg.send()
 
 
-@receiver(post_save_changed, fields=['bikeanjo'], sender=models.HelpRequest)
+@receiver(post_save_changed, fields=['status'], sender=models.HelpRequest)
 def notify_requester_about_found_bikeanjo(sender, instance, changed_fields, **kwargs):
     old_val, new_val = changed_fields.values()[0]
 
-    if not old_val and new_val and instance.status in ['new', 'open']:
+    if old_val != new_val and new_val == 'open':
         site = Site.objects.filter(id=settings.SITE_ID).first()
         subject = 'Achamos um bikeanjo para seu pedido!'
         from_email = settings.DEFAULT_FROM_EMAIL

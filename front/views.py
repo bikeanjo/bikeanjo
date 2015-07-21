@@ -214,6 +214,7 @@ class RequestsListView(DashboardMixin, ListView):
         user = self.request.user
         qs = super(RequestsListView, self).get_queryset()
         qs = qs.filter(**{user.role: user})
+        qs = qs.filter(requester__accepted_agreement=True)
 
         status = self.request.GET.get('status')
         if status in models.HelpRequest.STATUS:
@@ -261,6 +262,7 @@ class NewRequestsListView(DashboardMixin, ListView):
             qs = queryset.filter(Q(bikeanjo=self.request.user) | Q(bikeanjo=None))
 
         qs = qs.order_by('-id')
+        qs = qs.filter(requester__accepted_agreement=True)
         return qs
 
 
