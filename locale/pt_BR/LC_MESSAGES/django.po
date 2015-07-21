@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-10 12:44-0300\n"
-"PO-Revision-Date: 2015-07-10 12:47-0300\n"
-"Last-Translator: Fabio Montefuscolo <fabio.montefuscolo@gmail.com>\n"
+"PO-Revision-Date: 2015-07-21 12:09-0300\n"
+"Last-Translator:   <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -131,19 +131,19 @@ msgstr "Mais de 4 anos"
 
 #: cyclists/models.py:45 front/models.py:52
 msgid "I do not know pedaling yet"
-msgstr "Eu ainda não sei pedalar"
+msgstr "Ainda não sei pedalar"
 
 #: cyclists/models.py:46 front/models.py:53
 msgid "I know cycling, but have no experience in traffic"
-msgstr "Eu sei pedalar, mas não tenho experiência no trânsio"
+msgstr "Já sei pedalar, mas não tenho experiência no trânsito"
 
 #: cyclists/models.py:47 front/models.py:54
 msgid "Already ride a long time but not daily"
-msgstr "Sempre pedalo, mas não diariamente"
+msgstr "Já pedalo faz tempo, mas não no dia a dia"
 
 #: cyclists/models.py:48 front/models.py:55
 msgid "I use bike almost every day"
-msgstr "Eu uso a bike quase todos os dias"
+msgstr "Uso a bicicleta quase todo dia"
 
 #: cyclists/models.py:54 front/models.py:61
 msgid "Everyday"

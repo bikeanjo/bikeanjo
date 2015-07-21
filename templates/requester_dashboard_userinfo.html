@@ -16,6 +16,10 @@
                     </header>
                     <div class="card-content">
                     
+                    {% if debug %}
+                    {{ form.errors }}
+                    {% endif %}
+
                         {% for message in messages %}
                         <div class="alert alert-{{ message.level_tag }}" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -209,7 +213,7 @@
 
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
+                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">Sua experiência com a bicicleta</span>
                                 </label>
                                 
                                 {% for value,label in form.ride_experience.field.choices %}
@@ -228,38 +232,6 @@
                                 {% endif %}
                             </div>
 
-
-                            <div class="form-group">
-                                <label class="primary-label">
-                                    <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use the bicycle as a means of transportation?' %}</span>
-                                </label>
-
-                                {% for value,label in form.bike_use.field.choices %}
-                                <label class="radio {% if form.bike_use.value = value %}checked{% endif %}">
-                                    <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
-                                    <input type="radio" name="{{ form.bike_use.html_name }}" value="{{ value }}"
-                                           {% if form.bike_use.value = value %}checked="checked"{% endif %}>
-                                           <span class="text">{{ label }}</span>
-                                </label>
-                                {% endfor %}
-
-                                {% if form.bike_use.errors %}
-                                    {% for error in form.bike_use.errors %}
-                                    <span class="text-danger">{{ error }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-
-                            <div class="form-group">
-                                <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
-                                <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
-
-                                {% if form.initiatives.errors %}
-                                    {% for error in form.initiatives.errors %}
-                                    <span class="text-danger">{{ error }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                     <div class="card-footer save-config">
