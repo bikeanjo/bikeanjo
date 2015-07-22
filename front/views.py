@@ -651,6 +651,12 @@ class ContactView(CreateView):
     model = models.ContactMessage
     template_name = 'contact_form.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ContactView, self).get_context_data(**kwargs)
+        context['force_header'] = True
+        context['force_footer'] = True
+        return context
+
     def form_valid(self, form):
         clean = [message for message in messages.get_messages(self.request)]
         form.save()
