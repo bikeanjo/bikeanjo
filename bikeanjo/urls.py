@@ -86,6 +86,10 @@ urlpatterns = [
     url(r'^events/(?P<slug>[\w-]+)/$',
         front.views.EventDetailView.as_view(), name='dashboard_event_detail'),
 
+    # Events
+    url(r'^dicas/$',
+        front.views.TemplateView.as_view(template_name="about.html"), name='tips_list'),
+
     #
     # Dashboard User Info and Profile
     #

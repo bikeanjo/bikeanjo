@@ -368,7 +368,7 @@ class BikeanjoAcceptRequestForm(forms.ModelForm):
 
         if req.status == 'new':
             if req.bikeanjo:
-                match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
+                match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo.id)
                 match.rejected_date = now()
                 match.reason = data.get('reason')
                 match.save()

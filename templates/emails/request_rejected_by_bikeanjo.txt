@@ -1,0 +1,14 @@
+Olá {{ recipient.first_name }},
+
+Infelizmente não achamos alguém para atender seu pedido no Bike Anjo. Isso pode acontecer se não existir Bike Anjos disponíveis na tua região, ou se estão muito sobrecarregados.
+
+Vamos continuar procurando, mas enquanto isso você pode:
+
+* Conferir nossas dicas para pedalar (http://{{ site.domain }}{% url 'tips_list' %})
+* Refazer o seu pedido em outra região (http://{{ site.domain }}{% url 'requester_help_request' %})
+
+
+Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+
+Att,
+Equipe Bikeanjo

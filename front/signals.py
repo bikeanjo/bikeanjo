@@ -39,7 +39,7 @@ def assign_bike_anjo(sender, instance, **kwargs):
 
 
 @receiver(post_save_changed, fields=['bikeanjo'], sender=models.HelpRequest)
-def notify_that_bikeanjo_rejected_request(sender, instance, changed_fields, **kwargs):
+def notify_that_bikeanjo_canceled_request(sender, instance, changed_fields, **kwargs):
     old_val, new_val = changed_fields.values()[0]
 
     if old_val and new_val is None:
@@ -59,6 +59,35 @@ def notify_that_bikeanjo_rejected_request(sender, instance, changed_fields, **kw
         html = select_template([template_name]).render(data)
 
         template_name = 'emails/request_canceled_by_bikeanjo.txt'
+        text = select_template([template_name]).render(data)
+
+        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+        msg.attach_alternative(html, "text/html")
+        msg.send()
+
+
+@receiver(post_save_changed, fields=['bikeanjo', 'status'], sender=models.HelpRequest)
+def notify_that_bikeanjo_rejected_new_request(sender, instance, changed_fields, **kwargs):
+    field_names = [field.name for field in changed_fields.keys()]
+
+    # se o pedido é novo e a única alteração é o bikeanjo
+    if (instance.status == 'new') and ('bikeanjo' in field_names) and len(field_names) == 1:
+        site = Site.objects.filter(id=settings.SITE_ID).first()
+        subject = 'O Bikeanjo teve um problema!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        helprequest = instance
+        recipient = instance.requester
+
+        data = {
+            'helprequest': helprequest,
+            'recipient': recipient,
+            'site': site,
+        }
+
+        template_name = 'emails/request_rejected_by_bikeanjo.html'
+        html = select_template([template_name]).render(data)
+
+        template_name = 'emails/request_rejected_by_bikeanjo.txt'
         text = select_template([template_name]).render(data)
 
         msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
