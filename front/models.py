@@ -118,6 +118,7 @@ class HelpRequest(BaseModel):
     bikeanjo = models.ForeignKey(User, related_name='helpbikeanjo_set', null=True)
     help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP_REQUEST
     status = models.CharField(_('Status'), max_length=16, choices=STATUS.items(), default='new')
+    closed_by = models.CharField(_('Closed by'), max_length=12, choices=CYCLIST_ROLES, blank=True)
 
     requester_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)
     bikeanjo_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)

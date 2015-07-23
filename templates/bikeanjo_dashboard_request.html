@@ -180,6 +180,7 @@
                     <form class="modal-body" method="POST">{% csrf_token %}               
                         <p>Tem certeza que deseja marcar esse pedido como atendido?</p>
                         <button name="status" value="attended" class="btn btn-success" type="submit">Marcar como atendido</button>
+                        <input type="hidden" name="closed_by" value="{{user.role}}" />
                     </form>
                 </div>
             </div>
@@ -197,10 +198,12 @@
                         <form method="post">{% csrf_token %}
                             <button name="status" value="new" class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
                             <input type="hidden" name="reason" value="bikeanjo forwarded the request" />
+                            <input type="hidden" name="closed_by" value="{{user.role}}" />
                         </form>
                         <br/>
                         <form method="post">{% csrf_token %}
                             <button name="status" value="canceled" class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
+                            <input type="hidden" name="closed_by" value="{{user.role}}" />
                             <input type="hidden" name="reason" value="bikeanjo canceled the request due inactivity" />
                         </form>
                     </div>

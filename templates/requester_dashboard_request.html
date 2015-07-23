@@ -24,7 +24,6 @@
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                         <ul class="card-actions list-inline">
-                        {% if helprequest.status = 'open' %}
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#cancelRequest">
                                     <span class="text visible-xs">Cancelar</span>
@@ -32,6 +31,7 @@
                                     <i class="fa fa-times-circle"></i>
                                 </a>
                             </li>
+                        {% if helprequest.status = 'open' %}
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#finishRequest">
                                     <span class="text visible-xs">Finalizar</span>
@@ -220,6 +220,7 @@
                             <p>Sugestões, reclamações ou elogios? Relate no campo abaixo:</p>
                             <textarea class="form-control" name="requester_eval" rows="5" placeholder="Enter text"></textarea>
                             <input type="hidden" name="status" value="finalized" />
+                            <input type="hidden" name="closed_by" value="{{user.role}}" />
                             <button class="btn btn-warning" type="submit">Enviar avaliação</button>
                         </form>
                     </div>
@@ -238,6 +239,7 @@
                         <p>Tem certeza que deseja cancelar o pedido?</p>
                         <button name="status" value="canceled" class="btn btn-danger" type="submit">Sim</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Não</button>
+                        <input type="hidden" name="closed_by" value="{{user.role}}" />
                         <input type="hidden" name="reason" value="user canceled request" />
                     </form>
                 </div>

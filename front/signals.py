@@ -11,6 +11,7 @@ from django.utils.timezone import now
 from fieldsignals import post_save_changed
 
 from front import models
+from cyclists.models import User
 
 logger = logging.getLogger('front.signals')
 
@@ -38,13 +39,51 @@ def assign_bike_anjo(sender, instance, **kwargs):
         )
 
 
-@receiver(post_save_changed, fields=['bikeanjo'], sender=models.HelpRequest)
-def notify_that_bikeanjo_canceled_request(sender, instance, changed_fields, **kwargs):
-    old_val, new_val = changed_fields.values()[0]
+@receiver(post_save_changed, fields=['status', 'bikeanjo'], sender=models.HelpRequest)
+def notify_that_bikeanjo_canceled_request_by_inactivity(sender, instance, changed_fields, **kwargs):
+    remap = dict([field.name, {'old': value[0], 'new': value[1]}] for field, value in changed_fields.items())
+    status = remap.get('status', {})
 
-    if old_val and new_val is None:
+    if 'bikeanjo' in remap:
+        bikeanjo_id = remap.get('bikeanjo', {}).get('old')
+        bikeanjo = User.objects.filter(id=bikeanjo_id).first()
+
+    if status.get('old') == 'open' and status.get('new') == 'canceled' and instance.closed_by == 'bikeanjo':
         site = Site.objects.filter(id=settings.SITE_ID).first()
-        subject = 'O Bikeanjo teve um problema!'
+        subject = 'Seu pedido de bike anjo foi cancelado por %s!' % bikeanjo.first_name
+        from_email = settings.DEFAULT_FROM_EMAIL
+        helprequest = instance
+        recipient = instance.requester
+
+        data = {
+            'helprequest': helprequest,
+            'recipient': recipient,
+            'site': site,
+        }
+
+        template_name = 'emails/request_canceled_by_inactivity.html'
+        html = select_template([template_name]).render(data)
+
+        template_name = 'emails/request_canceled_by_inactivity.txt'
+        text = select_template([template_name]).render(data)
+
+        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+        msg.attach_alternative(html, "text/html")
+        msg.send()
+
+
+@receiver(post_save_changed, fields=['status', 'bikeanjo'], sender=models.HelpRequest)
+def notify_that_bikeanjo_cannot_help_anymore(sender, instance, changed_fields, **kwargs):
+    remap = dict([field.name, {'old': value[0], 'new': value[1]}] for field, value in changed_fields.items())
+    status = remap.get('status', {})
+
+    if 'bikeanjo' in remap:
+        bikeanjo_id = remap.get('bikeanjo', {}).get('old')
+        bikeanjo = User.objects.filter(id=bikeanjo_id).first()
+
+    if status.get('old') == 'open' and status.get('new') == 'new' and instance.closed_by == 'bikeanjo':
+        site = Site.objects.filter(id=settings.SITE_ID).first()
+        subject = 'Seu pedido de bike anjo foi cancelado por %s!' % bikeanjo.first_name
         from_email = settings.DEFAULT_FROM_EMAIL
         helprequest = instance
         recipient = instance.requester

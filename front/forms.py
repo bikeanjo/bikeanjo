@@ -356,7 +356,7 @@ class HelpRequestUpdateForm(forms.ModelForm):
 
     class Meta:
         model = models.HelpRequest
-        fields = ('status', 'requester_eval', 'requester_rating',)
+        fields = ('status', 'requester_eval', 'requester_rating', 'closed_by')
 
 
 class BikeanjoAcceptRequestForm(forms.ModelForm):

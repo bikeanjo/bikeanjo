@@ -1,0 +1,10 @@
+Olá {{ recipient.first_name }},
+
+Foi cancelado por falta de interação ou algum outro motivo. Veja como podemos te ajudar nesse caso:
+
+* Responder mensagem e reativar (http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %})
+* Fazer um novo pedido (http://{{ site.domain }}{% url 'requester_help_request' %})
+* Dicas para pedalar (http://{{ site.domain }}{% url 'tips_list' %})
+
+Att,
+Equipe Bikeanjo
