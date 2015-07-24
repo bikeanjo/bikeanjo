@@ -28,8 +28,8 @@
                 </div>
 
                 {% if filter == 'new' and no_new_requests %}
-                <article class="card simple">
-                    <button type="button" class="card-button" aria-label="Close">
+                <article class="card simple" role="alert">
+                    <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-times"></i></span>
                     </button>
                     <h3>Não existem pedidos novos</h3>
