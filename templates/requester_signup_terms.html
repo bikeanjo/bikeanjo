@@ -25,7 +25,7 @@
                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                     <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                     {{ form.check1 }}
-                    <span class="text terms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lobortis vitae lacus a mollis. Ut at nulla sagittis, blandit dui a, aliquam leo. Nam et nulla vitae libero maximus luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec pulvinar diam auctor bibendum lobortis. Curabitur sed libero at ipsum malesuada ullamcorper quis et nibh. In consectetur eget dui ut consectetur. </span>
+                    <span class="text terms">Declaro ser de minha livre e espontânea vontade utilizar a bicicleta estando apto(a) física e psicologicamente para tomar esta decisão, além de consultar as recomendações, direitos e deveres como ciclista, para, sozinho(a), utilizar a bicicleta, antes ou após a interação com meu bike anjo.</span>
                 </label>
             </div>
 
@@ -34,7 +34,7 @@
                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                     <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                     {{ form.check2 }}
-                    <span class="text terms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lobortis vitae lacus a mollis. Ut at nulla sagittis, blandit dui a, aliquam leo. Nam et nulla vitae libero maximus luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec pulvinar diam auctor bibendum lobortis. Curabitur sed libero at ipsum malesuada ullamcorper quis et nibh. In consectetur eget dui ut consectetur. </span>
+                    <span class="text terms">Declaro que seguirei as recomendações do instrutor para garantir a minha segurança durante a prática e assumirei uma conduta responsável para me precaver de qualquer acidente.</span>
                 </label>
             </div>
 
@@ -43,9 +43,17 @@
                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                     <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                     {{ form.check3 }}
-                    <span class="text terms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lobortis vitae lacus a mollis. Ut at nulla sagittis, blandit dui a, aliquam leo. Nam et nulla vitae libero maximus luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec pulvinar diam auctor bibendum lobortis. Curabitur sed libero at ipsum malesuada ullamcorper quis et nibh. In consectetur eget dui ut consectetur. </span>
+                    <span class="text terms">Eu aceito os riscos (positivos e negativos) associados a me encontrar com estranhos. Eu entendo que o Bike Anjo não conhece pessoalmente todos os membros que se cadastram nesta plataforma, portanto concordo em tomar as precauções sensatas, como faria encontrando qualquer nova pessoa por uma plataforma virtual, por exemplo marcando o primeiro encontro em um espaço público seguro.</span>
                 </label>
             </div>
+
+        <div class="form-group {% if form.check4.errors %}has-error{% endif %}">
+            <label class="checkbox {% if form.check4.value %}checked{% endif %}">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
+                {{ form.check4 }}<span class="text terms">Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que venham a ser causados a mim ou aos meus bens enquanto trafego durante minha preparação, bem como posteriormente à minha formação, quando estiver pedalando pela vias autonomamente ou com outrem.</span>
+            </label>
+        </div>
 
         <button class="btn btn-primary btn-block btn-lg" type="submit"
                 name="accepted_agreement" value="true">Enviar pedido</button>
