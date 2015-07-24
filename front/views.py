@@ -95,7 +95,8 @@ class DashboardMixin(RegisteredUserMixin):
     def get_context_data(self, **kwargs):
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
-            'messages': models.Message.objects.exclude(readed_by__user=self.request.user),
+            'messages': models.Message.objects.exclude(readed_by__user=self.request.user)\
+                                              .filter(created_date__gt=self.request.user.date_joined),
         }
         data['force_header'] = True
         return data
