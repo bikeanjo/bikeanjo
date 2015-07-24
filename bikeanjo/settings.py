@@ -67,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'middlewares.BikeanjoSessionConfigMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -185,6 +186,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER = 600
 
 MANDRILL_API_KEY = "brack3t-is-awesome"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
