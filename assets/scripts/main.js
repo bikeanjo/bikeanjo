@@ -238,6 +238,24 @@
                 });
             });
         });
+
+        $(':input[from-queryvar]').each(function(idx, el){
+            var $el = $(el);
+            var query = $el.attr('from-queryvar');
+            
+            if(!query || !document.location.search) {
+                return;
+            }
+
+            var regex = new RegExp(query+'=([^&]+)'); 
+            var match = document.location.search.match(regex);
+
+            if(match) {
+                $el.val(decodeURI(match[1]));
+                console.log($el);
+                console.log($el.val());
+            }
+        });
     });
 
     var match = document.cookie.match(/csrftoken=(\w+)/);
