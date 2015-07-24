@@ -102,11 +102,7 @@
                 marker.id = p.properties.id;
                 bounds.extend(marker.getLatLng());
             }
-            var paddingTop = 10;
-            if($('.card.signup').length > 0){
-                paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
-            }
-            map.fitBounds(bounds, {paddingTopLeft: [0, paddingTop]});
+            map.fitBounds(bounds, {paddingTopLeft: [10, 30]});
             return map;
         };
 
@@ -137,11 +133,7 @@
                     this.addMarker(p2[0], p2[1], l.properties.end)
                 ];
             }
-            var paddingTop = 10;
-            if($('.card.signup').length > 0){
-                paddingTop = $('.card.signup').offset().top + $('.card.signup').height();
-            }
-            map.fitBounds(bounds, {paddingTopLeft: [0, paddingTop]});
+            map.fitBounds(bounds, {paddingTopLeft: [10, 10]});
             return map;
         };
 
@@ -298,8 +290,7 @@
                     }
 
                     if(line) {
-                        var paddingTop = $('form.signup').offset().top + $('form.signup').height();
-                        map.fitBounds(line.getBounds(), {paddingTopLeft: [0, paddingTop]});
+                        map.fitBounds(line.getBounds(), {paddingTopLeft: [10, 10]});
                     } else {
                         map.panTo(markers[type].getLatLng());
                     }
