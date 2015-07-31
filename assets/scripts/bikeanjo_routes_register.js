@@ -258,7 +258,7 @@
             $inputs.each(function(i, el){
                 var $el = $(el);
                 new google.maps.places.Autocomplete(el,{
-                    types: ['address'],
+                    //types: ['address'],
                     changed: $el.trigger.bind($el, 'address-changed'),
                     componentRestrictions: {country: 'br'}
                 });
