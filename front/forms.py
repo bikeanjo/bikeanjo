@@ -455,7 +455,7 @@ class SignupAgreementForm(forms.ModelForm):
     check3 = forms.BooleanField()
     check4 = forms.BooleanField()
     accepted_agreement = forms.BooleanField()
-    message = forms.CharField(required=False)
+    message = forms.CharField(required=True)
 
     def clean(self):
         cleaned_data = super(SignupAgreementForm, self).clean()

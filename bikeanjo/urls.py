@@ -48,6 +48,8 @@ urlpatterns = [
         front.views.HelpRequestRouteView.as_view(), name='requester_help_request_route'),
     url(r'^requester/request-help/(?P<pk>\d+)/points/$',
         front.views.HelpRequestPointView.as_view(), name='requester_help_request_points'),
+    url(r'^requester/request-help/(?P<pk>\d+)/message/$',
+        front.views.HelpRequestMessageView.as_view(), name='requester_help_request_message'),
 
     url(r'^(?P<context>signup|dashboard)/register-routes-to-help/$',
         front.views.TrackRegisterView.as_view(), name='cyclist_register_routes'),

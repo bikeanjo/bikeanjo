@@ -1,0 +1,29 @@
+{% extends "account/base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup agreement" %}{% endblock %}
+
+{% block content %}
+    <section class="forms signup container">
+        <header>
+            <h2>Só mais uma coisinha</h2>
+            <p>Coloque informações adicionais do seu pedido</p>
+        </header>
+
+        <form class="signup card" id="signup_form" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="primary-label" for="aditional-info">Informações adicionais</label>
+                <textarea class="form-control" rows="5" id="aditional-info" name="message" placeholder="Informação adicional ou particularidade do pedido">{{ form.message.value|default:'' }}</textarea>
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg" type="submit"
+                    name="accepted_agreement" value="true">Enviar pedido</button>
+        </form>
+
+        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+                
+    </section>
+{% endblock %}

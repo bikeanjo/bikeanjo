@@ -51,7 +51,7 @@
 
                     <div class="card-content">
                         <div class="card-icon">
-                            {% if helprequest.bikeanjo %}
+                            {% if helprequest.status != 'new' and helprequest.bikeanjo %}
                             <img src="{{ helprequest.bikeanjo.get_avatar_url }}"
                                  width="50" height="50" 
                                  title="{{ helprequest.bikeanjo.get_full_name }}"
@@ -61,7 +61,7 @@
                         </div>
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
-                            {% if helprequest.bikeanjo %}
+                            {% if helprequest.status != 'new' and helprequest.bikeanjo %}
                                 <li>{{ helprequest.bikeanjo.get_full_name }}</li>
                                 <li>{{ helprequest.bikeanjo.city }}</li>
                             {% endif %}
@@ -101,13 +101,13 @@
                                    value="[{{ helprequest.track.json }}]"/>                           
                        {% else %}
                             <ul class="fa-ul">
-                            {% for point in helprequest.requester.point_set.all %}
+                            {% for point in helprequest.point_set.all %}
                                 <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
                             {% endfor %}
                             </ul>
 
                             <input type="hidden" bikeanjo-geojson="points" 
-                                   value="[{% for point in helprequest.requester.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
+                                   value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                        {% endif %}
                     </div>
                 </div>

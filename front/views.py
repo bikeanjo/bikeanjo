@@ -527,13 +527,30 @@ class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
 
     def get_success_url(self):
         return self.get_redirect_url() or\
-            reverse('cyclist_request_detail', args=[self.object.id])
+            reverse('requester_help_request_message', args=[self.object.id])
 
 
 class HelpRequestPointView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
     model = models.HelpRequest
     form_class = forms.HelpRequestPointForm
     template_name = 'requester_ask_help_points.html'
+
+    def get_success_url(self):
+        return self.get_redirect_url() or\
+            reverse('requester_help_request_message', args=[self.object.id])
+
+
+class HelpRequestMessageView(LoginRequiredMixin, RedirectUrlMixin, CreateView):
+    model = models.HelpReply
+    fields = ('message',)
+    template_name = 'requester_ask_help_message.html'
+
+    def form_valid(self, form):
+        helprequest = get_object_or_404(models.HelpRequest, **self.kwargs)
+        form.instance.helprequest = helprequest
+        form.instance.author = self.request.user
+        form.save()
+        return super(HelpRequestMessageView, self).form_valid(form)
 
     def get_success_url(self):
         return self.get_redirect_url() or\

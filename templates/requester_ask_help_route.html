@@ -46,7 +46,9 @@
             </div>
         </div>
         <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>
-
+        {% if not user.accepted_agreement %}
+        <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
+        {% endif %}
     </form>
 
     <div class="map" id="js-map"></div>
