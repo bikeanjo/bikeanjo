@@ -304,6 +304,8 @@
                         });
                         $outputs.filter('[bikeanjo-geojson=lines]').val(JSON.stringify([json]));
                     }
+                }).then(function(){
+                    $button.click();
                 });
             });
 
