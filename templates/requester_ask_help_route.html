@@ -37,6 +37,12 @@
                 <label class="sr-only" for="destination-address">Local de destino</label>
                 <input class="form-control input-lg" type="text" id="destination-address" placeholder="Local de destino"
                        bikeanjo-track="end"/>
+
+                {% if form.track.errors %}
+                    {% for error in form.track.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>

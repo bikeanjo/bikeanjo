@@ -279,8 +279,11 @@ class HelpRequestRouteForm(forms.ModelForm):
                 track.start = line.get('properties').get('start')
                 track.end = line.get('properties').get('end')
                 track.save()
+            else:
+                raise forms.ValidationError(_('This field is required.'))
         except ValueError, e:
-            raise forms.ValidationError(e.message)
+            raise forms.ValidationError(_('This field is required.'))
+
         return track
 
     class Meta:
@@ -291,7 +294,7 @@ class HelpRequestRouteForm(forms.ModelForm):
 class HelpRequestPointForm(forms.Form):
     points = forms.CharField(label=_('Points'),
                              widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'points'}),
-                             required=False)
+                             required=True)
 
     def __init__(self, *args, **kwargs):
         self.instance = kwargs.pop('instance')
@@ -309,9 +312,11 @@ class HelpRequestPointForm(forms.Form):
                     point.address = json_p.get('properties').get('address')
                     point.id = json_p.get('properties').get('id', None)
                     points.append(point)
+            else:
+                raise forms.ValidationError(_('This field is required.'))
             return points
         except ValueError, e:
-            raise forms.ValidationError(e.message)
+            raise forms.ValidationError(_('This field is required.'))
         return []
 
     def save(self):

@@ -33,6 +33,12 @@
                 <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="Adicione pontos de ajuda">
                 <button bikeanjo-add="point" class="btn btn-success">
                 <i class="fa fa-plus"></i></button>
+
+                {% if form.points.errors %}
+                    {% for error in form.points.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 
