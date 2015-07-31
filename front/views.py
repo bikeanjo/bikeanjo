@@ -554,7 +554,7 @@ class HelpRequestMessageView(LoginRequiredMixin, RedirectUrlMixin, CreateView):
 
     def get_success_url(self):
         return self.get_redirect_url() or\
-            reverse('cyclist_request_detail', args=[self.object.id])
+            reverse('cyclist_request_detail', args=[self.object.helprequest_id])
 
 
 #
