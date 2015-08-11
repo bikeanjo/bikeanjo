@@ -234,6 +234,6 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.TipForCycling)
-class MessageAdmin(admin.ModelAdmin):
+class TipAdmin(admin.ModelAdmin):
     list_display = ('title', 'target', 'created_date',)
     search_fields = ('title', 'content',)

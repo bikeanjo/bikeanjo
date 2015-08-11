@@ -6,7 +6,6 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import select_template
-from django.utils.timezone import now
 
 from fieldsignals import post_save_changed
 

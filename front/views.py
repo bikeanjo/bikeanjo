@@ -4,9 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.flatpages.models import FlatPage
 from django.db.models import Q, Max
-from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, TemplateView, DetailView
@@ -95,7 +93,7 @@ class DashboardMixin(RegisteredUserMixin):
     def get_context_data(self, **kwargs):
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
-            'messages': models.Message.objects.exclude(readed_by__user=self.request.user)\
+            'messages': models.Message.objects.exclude(readed_by__user=self.request.user)
                                               .filter(created_date__gt=self.request.user.date_joined),
         }
         data['force_header'] = True
@@ -676,7 +674,7 @@ class ContactView(CreateView):
         return context
 
     def form_valid(self, form):
-        clean = [message for message in messages.get_messages(self.request)]
+        [message for message in messages.get_messages(self.request)]
         form.save()
         messages.success(self.request, 'Sua mensagem foi enviada!')
         return super(ContactView, self).form_valid(form)

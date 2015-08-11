@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
 import json
 
 from django.contrib.gis import forms
@@ -7,10 +6,6 @@ from django.contrib.gis.geos import LineString, Point
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
-from allauth import app_settings
-from allauth.account.utils import user_field
-
-from cities.models import Country
 import models
 
 
@@ -291,7 +286,7 @@ class HelpRequestRouteForm(forms.ModelForm):
                 track.save()
             else:
                 raise forms.ValidationError(_('This field is required.'))
-        except ValueError, e:
+        except ValueError:
             raise forms.ValidationError(_('This field is required.'))
 
         return track
@@ -325,7 +320,7 @@ class HelpRequestPointForm(forms.Form):
             else:
                 raise forms.ValidationError(_('This field is required.'))
             return points
-        except ValueError, e:
+        except ValueError:
             raise forms.ValidationError(_('This field is required.'))
         return []
 

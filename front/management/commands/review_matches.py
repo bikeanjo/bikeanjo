@@ -2,10 +2,9 @@
 import logging
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.utils.timezone import now, timedelta
-from front.models import HelpRequest, Match
+from front.models import Match
 
 logger = logging.getLogger('front.review_matches')
 SITE = Site.objects.filter(id=settings.SITE_ID).first()

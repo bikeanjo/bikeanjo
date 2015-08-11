@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import json
-from datetime import datetime, date
 from collections import OrderedDict
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.fields import GenericRelation
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -151,7 +146,6 @@ class HelpRequest(BaseModel):
         return total
 
     def find_bikeanjo(self):
-        city = self.requester.city
         bikeanjos = User.objects.filter(role='bikeanjo', available=True, accepted_agreement=True)\
                                 .exclude(match__isnull=False, match__helprequest=self)
         notas = []
@@ -205,13 +199,11 @@ class HelpReply(BaseModel):
     class Meta:
         verbose_name = _('Help reply')
         verbose_name_plural = _('Help replies')
+        ordering = ['-created_date']
 
     author = models.ForeignKey(User)
     helprequest = models.ForeignKey(HelpRequest)
     message = models.TextField(_('Message'))
-
-    class Meta:
-        ordering = ['-created_date']
 
 
 class Track(BaseModel):

@@ -34,7 +34,7 @@ setup-ci: pre-ci all
 
 tests:
 	py.test
-	flake8 --ignore=E501
+	flake8 --ignore=E501 --exclude="*/migrations,front/apps.py,bikeanjo/settings.py" {front,cyclists,cities,bikeanjo}
 
 clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;

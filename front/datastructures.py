@@ -1,4 +1,4 @@
-from django.db.models.sql.constants import LOUTER
+from django.db.models.sql.constants import LOUTER, INNER
 
 
 class Join(object):
