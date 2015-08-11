@@ -16,14 +16,15 @@
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
-                <li><a href="{% url 'cyclist_my_requests' %}?status=open">Meus pedidos
+                <li><a class="my_requests" href="{% url 'cyclist_my_requests' %}?status=open">Meus pedidos
                 {% if user.helpbikeanjo_set.unread.exists %}
                 <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span></a></li>
                 {% endif %}
-                <li><a href="{% url 'cyclist_new_requests' %}?filter=new">Novos pedidos</a></li>
+                
+                <li><a class="new_requests" href="{% url 'cyclist_new_requests' %}?filter=new">Novos pedidos</a></li>
 
                 <li>
-                    <a href="{% url 'dashboard_message_list' %}">Recados</a>
+                    <a class="message_list" href="{% url 'dashboard_message_list' %}">Recados</a>
                     {% if unread.messages.count %}
                         <span class="alert bubble">{{ unread.messages.count }}</span>
                     {% endif %}
@@ -38,7 +39,7 @@
 
                 <li><a href="#">Fórum de discussão</a></li>
                 <li><a href="#">Dicas para pedalar</a></li>
-                <li><a href="{% url 'user_register' %}">Editar cadastro</a></li>
+                <li><a class="user_register" href="{% url 'user_register' %}">Editar cadastro</a></li>
             </ul>
         </nav>            
     </div>

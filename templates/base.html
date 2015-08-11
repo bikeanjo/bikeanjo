@@ -13,7 +13,7 @@
 
         {% block extrahead %}{% endblock %}
     </head>
-    <body>
+    <body class="{{request.url_name}}">
         {% if form and not force_header %}
             {% include '_header-form.html' %}
         {% else %}
@@ -45,6 +45,12 @@
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+        {% endif %}
+        {% if debug %}
+        <script type="text/javascript">
+        console.info('view:', "{{ view }}");
+        console.info('url_name:', "{{ request.url_name }}");
         </script>
         {% endif %}
     </body>

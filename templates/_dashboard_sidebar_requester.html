@@ -15,13 +15,13 @@
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
-                <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
+                <li><a class="my_requests" href="{% url 'cyclist_my_requests' %}">Meus pedidos
                 {% if user.helprequested_set.unread.exists %}
                 <span class="alert bubble">{{ user.helprequested_set.unread.count }}</span></a></li>
                 {% endif %}
 
                 <li>
-                    <a href="{% url 'dashboard_message_list' %}">Recados</a>
+                    <a class="message_list" href="{% url 'dashboard_message_list' %}">Recados</a>
                     {% if unread.messages.count %}
                         <span class="alert bubble">{{ unread.messages.count }}</span>
                     {% endif %}
@@ -36,7 +36,7 @@
 
                 <li><a href="#">Fórum de discussão</a></li>
                 <li><a href="#">Dicas para pedalar</a></li>
-                <li><a href="{% url 'user_register' %}">Editar cadastro</a></li>
+                <li><a class="user_register" href="{% url 'user_register' %}">Editar cadastro</a></li>
                 <li><a href="#">Quero ser um Bike Anjo</a></li>
             </ul>
             <a href="{% url 'requester_help_request' %}" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
