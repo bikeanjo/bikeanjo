@@ -518,14 +518,18 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         return super(HelpRequestView, self).form_valid(form)
 
 
-class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
-    model = models.HelpRequest
+# Step 2 - Escolher um lugar
+class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     form_class = forms.HelpRequestRouteForm
     template_name = 'requester_ask_help_route.html'
 
     def get_success_url(self):
         return self.get_redirect_url() or\
-            reverse('requester_help_request_message', args=[self.object.id])
+            reverse('requester_help_request_message')
+
+    def form_valid(self, form):
+        self.request.session['helprequest_02'] = form.cleaned_data
+        return super(HelpRequestRouteView, self).form_valid(form)
 
 
 # Step 2 - Escolher um lugar
@@ -542,6 +546,7 @@ class HelpRequestPointView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         return super(HelpRequestPointView, self).form_valid(form)
 
 
+# Step 3 - Recebe descrição do usuario e grava pedido
 class HelpRequestMessageView(LoginRequiredMixin, RedirectUrlMixin, CreateView):
     model = models.HelpRequest
     form_class = forms.HelpRequestCompleteForm

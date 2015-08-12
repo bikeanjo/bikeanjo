@@ -43,7 +43,7 @@ urlpatterns = [
 
     url(r'^requester/request-help/$',
         front.views.HelpRequestView.as_view(), name='requester_help_request'),
-    url(r'^requester/request-help/(?P<pk>\d+)/route/$',
+    url(r'^requester/request-help/route/$',
         front.views.HelpRequestRouteView.as_view(), name='requester_help_request_route'),
     url(r'^requester/request-help/points/$',
         front.views.HelpRequestPointView.as_view(), name='requester_help_request_points'),

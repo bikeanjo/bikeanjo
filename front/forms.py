@@ -265,43 +265,24 @@ class HelpRequestForm(forms.ModelForm):
 
 
 # Part 2.1
-class HelpRequestRouteForm(forms.ModelForm):
+class HelpRequestRouteForm(forms.Form):
     track = forms.CharField(label=_('Track'),
                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                             required=False)
 
-    def __init__(self, *args, **kwargs):
-        super(HelpRequestRouteForm, self).__init__(*args, **kwargs)
-        self._original_track = self.instance.track
-
     def clean_track(self):
-        track = self._original_track
         try:
             lines = json.loads(self.cleaned_data.get('track'))
             if type(lines) in (list, tuple) and len(lines) > 0:
-                track = track or models.Track()
                 line = lines[0]
-                track.track = LineString([c for c in line.get('coordinates')])
-                track.start = line.get('properties').get('start')
-                track.end = line.get('properties').get('end')
-                # track.user = self.instance.requester
-                # track.save()
-            else:
-                raise forms.ValidationError(_('This field is required.'))
-        except ValueError:
-            raise forms.ValidationError(_('This field is required.'))
+                LineString([c for c in line.get('coordinates')])
+                assert line.get('properties').get('start')
+                assert line.get('properties').get('end')
 
-        return track
-
-    def save(self):
-        track = self.cleaned_data.get('track')
-        track.user = self.instance.requester
-        track.save()
-        return super(HelpRequestRouteForm, self).save()
-
-    class Meta:
-        model = models.HelpRequest
-        fields = ('track',)
+                return line
+        except:
+            pass
+        raise forms.ValidationError(_('This field is required.'))
 
 
 # Part 2.2
@@ -318,8 +299,8 @@ class HelpRequestPointForm(forms.Form):
             points = json.loads(self.cleaned_data.get('points'))
             if type(points) in (list, tuple) and len(points) > 0:
                 for json_p in points:
-                    coords = json_p.get('coordinates')
-                    address = json_p.get('properties').get('address')
+                    Point(json_p.get('coordinates'))
+                    assert json_p.get('properties').get('address')
                 return points
         except:
             pass
@@ -333,6 +314,7 @@ class HelpRequestCompleteForm(forms.ModelForm):
     geo_json = forms.CharField(widget=forms.HiddenInput(), required=True)
 
     def save(self):
+        self.instance.track = self.save_track()
         super(HelpRequestCompleteForm, self).save()
         self.save_points()
         return self.instance
@@ -351,6 +333,22 @@ class HelpRequestCompleteForm(forms.ModelForm):
 
         self.instance.point_set.bulk_create(points)
         return points
+
+    def save_track(self):
+        geo_json = self.cleaned_data.get('geo_json')
+        line = geo_json.get('track')
+
+        if not line:
+            return
+
+        track = models.Track()
+        track.user = self.instance.requester
+        track.track = LineString([c for c in line.get('coordinates')])
+        track.start = line.get('properties').get('start')
+        track.end = line.get('properties').get('end')
+        track.save()
+
+        return track
 
     def clean_geo_json(self):
         if type(self.data['geo_json']) in (list, dict):
