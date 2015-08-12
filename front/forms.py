@@ -475,7 +475,6 @@ class SignupAgreementForm(forms.ModelForm):
     check3 = forms.BooleanField()
     check4 = forms.BooleanField()
     accepted_agreement = forms.BooleanField()
-    message = forms.CharField(required=True)
 
     def clean(self):
         cleaned_data = super(SignupAgreementForm, self).clean()
@@ -483,17 +482,6 @@ class SignupAgreementForm(forms.ModelForm):
         for field, value in cleaned_data.items():
             if field != 'message' and not value:
                 self.add_error(field, msg)
-
-    def save(self, **kwargs):
-        super(SignupAgreementForm, self).save(**kwargs)
-
-        message = self.cleaned_data.get('message', '')
-        if message and self.instance.role == 'requester':
-            helprequest = self.instance.helprequested_set.first()
-            if helprequest:
-                helprequest.helpreply_set.create(
-                    message=message,
-                    author=self.instance)
 
     class Meta:
         model = models.User

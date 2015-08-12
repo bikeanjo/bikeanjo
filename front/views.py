@@ -455,10 +455,54 @@ class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
     form_class = forms.SignupAgreementForm
     model = models.User
 
+    def has_steps_ok(self):
+        session = self.request.session
+        return 'helprequest_01' in session and 'helprequest_02' in session
+
+    def cancel_steps(self):
+        session = self.request.session
+        if 'helprequest_01' in session:
+            del session['helprequest_01']
+        if 'helprequest_02' in session:
+            del session['helprequest_02']
+
+    def helprequest_form_part(self):
+        if not self.has_steps_ok():
+            return
+
+        data = dict()
+        data['message'] = self.request.POST.dict().get('message', '')
+        data['help_with'] = self.request.session.get('helprequest_01')['help_with']
+        data['geo_json'] = self.request.session.get('helprequest_02')
+        form = forms.HelpRequestCompleteForm(data)
+        return form
+
     def get_template_names(self):
         role = self.request.user.role or 'requester'
         tpl = '%s_signup_terms.html' % role
         return [tpl]
+
+    def get(self, request, **kwargs):
+        if not self.has_steps_ok():
+            self.cancel_steps()
+        return super(SignupAgreementView, self).get(request, *kwargs)
+
+    def post(self, request, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        form2 = self.helprequest_form_part()
+
+        if form.is_valid():
+            result = self.form_valid(form)
+            if form2:
+                if form2.is_valid():
+                    form2.instance.requester = form.instance
+                    form2.save()
+                    self.cancel_steps()
+                else:
+                    return self.form_invalid(form2)
+            return result
+        return self.form_invalid(form)
 
     def get_object(self):
         return self.request.user
@@ -566,11 +610,13 @@ class HelpRequestMessageView(LoginRequiredMixin, RedirectUrlMixin, CreateView):
     def get(self, request, **kwargs):
         if self.has_steps_ok():
             return super(HelpRequestMessageView, self).get(request, *kwargs)
+        self.cancel_steps()
         return HttpResponseRedirect(reverse('requester_help_request'))
 
     def post(self, request, **kwargs):
         if self.has_steps_ok():
             return super(HelpRequestMessageView, self).post(request, *kwargs)
+        self.cancel_steps()
         return HttpResponseRedirect(reverse('requester_help_request'))
 
     def get_form_kwargs(self):
@@ -584,8 +630,7 @@ class HelpRequestMessageView(LoginRequiredMixin, RedirectUrlMixin, CreateView):
         return kwargs
 
     def form_valid(self, form):
-        del self.request.session['helprequest_01']
-        del self.request.session['helprequest_02']
+        self.cancel_steps()
         form.instance.requester = self.request.user
         return super(HelpRequestMessageView, self).form_valid(form)
 

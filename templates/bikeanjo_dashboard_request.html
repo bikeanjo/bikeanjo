@@ -21,7 +21,7 @@
 
             <section class="dashboard-content col-md-7">
 
-                <article class="card request">
+                <article class="card request {% if not helprequest.bikeanjo %}orphan{% endif %}">
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                         <ul class="card-actions list-inline">
