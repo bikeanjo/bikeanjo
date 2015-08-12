@@ -70,6 +70,50 @@
                         </div>
                     </article>
 
+                    <article class="card">
+                        <header class="card-header">
+                            <div class="card-icon">
+                                <img src="{{ helprequest.requester.get_avatar_url }}"
+                                     width="30" height="30" 
+                                     title="{{ helpreply.author.get_full_name }}"
+                                     onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
+                                     alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
+                            </div>
+                            <h2 class="card-title">{{ helprequest.requester.get_full_name }}</h2>
+                        </header>
+                        <div class="card-content">
+                            <p class="card-info">{{ helprequest.message }}</p>
+                            
+                            <div id="js-map" style="height: 150px"></div>
+
+                            {% if helprequest.track %}
+                                <p>
+                                    <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
+                                    <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
+                                    <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
+                                </p>
+                                <input type="hidden" bikeanjo-geojson="lines" 
+                                       value="[{{ helprequest.track.json }}]"/>                           
+                           {% else %}
+                                <ul class="fa-ul">
+                                {% for point in helprequest.point_set.all %}
+                                    <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
+                                {% endfor %}
+                                </ul>
+
+                                <input type="hidden" bikeanjo-geojson="points" 
+                                       value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
+                           {% endif %}
+
+                            {% if not helprequest.helpreply_set.exists %}
+                            <div class="card-buttons">
+                                <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
+                                <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </article>
+
                     {% for helpreply in helprequest.helpreply_set.all %}
                     <article class="card">
                         <header class="card-header">
@@ -86,29 +130,6 @@
                         <div class="card-content">
                             <p class="card-info">{{ helpreply.message }}</p>
                             {% if forloop.first %}
-
-                            <div id="js-map" style="height: 150px"></div>
-
-                            {% if helprequest.track %}
-                                <p>
-                                    <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
-                                    <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
-                                    <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
-                                </p>
-                                <input type="hidden" bikeanjo-geojson="lines" 
-                                       value="[{{ helprequest.track.json }}]"/>                           
-                           {% else %}
-                                <ul class="fa-ul">
-                                {% for point in helprequest.requester.point_set.all %}
-                                    <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
-                                {% endfor %}
-                                </ul>
-
-                                <input type="hidden" bikeanjo-geojson="points" 
-                                       value="[{% for point in helprequest.requester.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
-                           {% endif %}
-
-
                             <div class="card-buttons">
                                 <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
                                 <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
@@ -118,47 +139,6 @@
                     </article>
                     {% endfor %}
 
-                    {% if not helprequest.helpreply_set.exists %}
-                    <article class="card">
-                        <header class="card-header">
-                            <div class="card-icon">
-                                <img src="{{ helprequest.requester.get_avatar_url }}"
-                                     width="30" height="30" 
-                                     title="{{ helpreply.author.get_full_name }}"
-                                     onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                     alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
-                            </div>
-                            <h2 class="card-title">{{ helprequest.requester.get_full_name }}</h2>
-                        </header>
-                        <div class="card-content">
-                            <div id="js-map" style="height: 150px"></div>
-
-                            {% if helprequest.track %}
-                                <p>
-                                    <small>{{helprequest.requester.track_set.reverse.first.start}}</small><br/>
-                                    <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
-                                    <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
-                                </p>
-                                <input type="hidden" bikeanjo-geojson="lines" 
-                                       value="[{{ helprequest.track.json }}]"/>                           
-                           {% else %}
-                                <ul class="fa-ul">
-                                {% for point in helprequest.requester.point_set.all %}
-                                    <li><i class="fa fa-li fa-map-marker"></i>{{ point.address }}</li>
-                                {% endfor %}
-                                </ul>
-
-                                <input type="hidden" bikeanjo-geojson="points" 
-                                       value="[{% for point in helprequest.requester.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
-                           {% endif %}
-
-                            <div class="card-buttons">
-                                <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
-                                <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
-                            </div>
-                        </div>
-                    </article>
-                    {% endif %}
                     <input type="hidden" name="reason" value="bikeanjo forwarded the request" />
                 </form>
             </section>

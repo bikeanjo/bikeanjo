@@ -87,8 +87,10 @@
                 </div>
                 {% endfor %}
 
-                <div class="card">
+                <article class="card">
                     <div class="card-content">
+                        <p class="card-info">{{ helprequest.message }}</p>
+                        
                         <div id="js-map" style="height: 150px"></div>
 
                         {% if helprequest.track %}
@@ -109,8 +111,25 @@
                             <input type="hidden" bikeanjo-geojson="points" 
                                    value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                        {% endif %}
+
+                        {% if not helprequest.helpreply_set.exists %}
+                            <div class="card-buttons">
+                                <button data-toggle="collapse"
+                                        data-target="#helpreply-form"
+                                        class="btn btn-warning">Responder</button>
+
+                            {% if helprequest.status in 'open,new' %}
+                                {% if helprequest.status == 'open' %}
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
+                                {% endif %}
+
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
+                            {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
+                </article>
+
 
                 <form class="card reply collapse {{helprequest.helpreply_set.count|yesno:',in'}}" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}

@@ -112,6 +112,8 @@ class HelpRequest(BaseModel):
     requester = models.ForeignKey(User, related_name='helprequested_set')
     bikeanjo = models.ForeignKey(User, related_name='helpbikeanjo_set', null=True)
     help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP_REQUEST
+    message = models.TextField(_('Message'))
+
     status = models.CharField(_('Status'), max_length=16, choices=STATUS.items(), default='new')
     closed_by = models.CharField(_('Closed by'), max_length=12, choices=CYCLIST_ROLES, blank=True)
 
