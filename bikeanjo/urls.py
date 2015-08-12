@@ -45,9 +45,9 @@ urlpatterns = [
         front.views.HelpRequestView.as_view(), name='requester_help_request'),
     url(r'^requester/request-help/(?P<pk>\d+)/route/$',
         front.views.HelpRequestRouteView.as_view(), name='requester_help_request_route'),
-    url(r'^requester/request-help/(?P<pk>\d+)/points/$',
+    url(r'^requester/request-help/points/$',
         front.views.HelpRequestPointView.as_view(), name='requester_help_request_points'),
-    url(r'^requester/request-help/(?P<pk>\d+)/message/$',
+    url(r'^requester/request-help/message/$',
         front.views.HelpRequestMessageView.as_view(), name='requester_help_request_message'),
 
     url(r'^(?P<context>signup|dashboard)/register-routes-to-help/$',

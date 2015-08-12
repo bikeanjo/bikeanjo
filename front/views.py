@@ -490,6 +490,7 @@ class HelpOfferView(LoginRequiredMixin, FormView):
         return super(HelpOfferView, self).form_valid(form)
 
 
+# Part 1 - Escolher tipo de ajuda
 class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     form_class = forms.HelpRequestForm
     template_name = 'requester_ask_help.html'
@@ -500,11 +501,9 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         if url:
             return url
         if self.helprequest.help_with & 3 > 0:
-            url = reverse('requester_help_request_points',
-                          args=[self.helprequest.id])
+            url = reverse('requester_help_request_points')
         elif self.helprequest.help_with & 12 > 0:
-            url = reverse('requester_help_request_route',
-                          args=[self.helprequest.id])
+            url = reverse('requester_help_request_route')
 
         return url or reverse('cyclist_request_detail')
 
@@ -514,7 +513,8 @@ class HelpRequestView(LoginRequiredMixin, RedirectUrlMixin, FormView):
         return kwargs
 
     def form_valid(self, form):
-        self.helprequest = form.save()
+        self.helprequest = form.instance
+        self.request.session['helprequest_01'] = form.cleaned_data
         return super(HelpRequestView, self).form_valid(form)
 
 
@@ -528,31 +528,65 @@ class HelpRequestRouteView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
             reverse('requester_help_request_message', args=[self.object.id])
 
 
-class HelpRequestPointView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
-    model = models.HelpRequest
+# Step 2 - Escolher um lugar
+class HelpRequestPointView(LoginRequiredMixin, RedirectUrlMixin, FormView):
     form_class = forms.HelpRequestPointForm
     template_name = 'requester_ask_help_points.html'
 
     def get_success_url(self):
         return self.get_redirect_url() or\
-            reverse('requester_help_request_message', args=[self.object.id])
+            reverse('requester_help_request_message')
+
+    def form_valid(self, form):
+        self.request.session['helprequest_02'] = form.cleaned_data
+        return super(HelpRequestPointView, self).form_valid(form)
 
 
 class HelpRequestMessageView(LoginRequiredMixin, RedirectUrlMixin, CreateView):
-    model = models.HelpReply
-    fields = ('message',)
+    model = models.HelpRequest
+    form_class = forms.HelpRequestCompleteForm
     template_name = 'requester_ask_help_message.html'
 
+    def has_steps_ok(self):
+        session = self.request.session
+        return 'helprequest_01' in session and 'helprequest_02' in session
+
+    def cancel_steps(self):
+        session = self.request.session
+        if 'helprequest_01' in session:
+            del session['helprequest_01']
+        if 'helprequest_02' in session:
+            del session['helprequest_02']
+
+    def get(self, request, **kwargs):
+        if self.has_steps_ok():
+            return super(HelpRequestMessageView, self).get(request, *kwargs)
+        return HttpResponseRedirect(reverse('requester_help_request'))
+
+    def post(self, request, **kwargs):
+        if self.has_steps_ok():
+            return super(HelpRequestMessageView, self).post(request, *kwargs)
+        return HttpResponseRedirect(reverse('requester_help_request'))
+
+    def get_form_kwargs(self):
+        data = {}
+        data['help_with'] = self.request.session['helprequest_01']['help_with']
+        data['geo_json'] = self.request.session['helprequest_02']
+        data.update(self.request.POST.dict())
+
+        kwargs = super(HelpRequestMessageView, self).get_form_kwargs()
+        kwargs['data'] = data
+        return kwargs
+
     def form_valid(self, form):
-        helprequest = get_object_or_404(models.HelpRequest, **self.kwargs)
-        form.instance.helprequest = helprequest
-        form.instance.author = self.request.user
-        form.save()
+        del self.request.session['helprequest_01']
+        del self.request.session['helprequest_02']
+        form.instance.requester = self.request.user
         return super(HelpRequestMessageView, self).form_valid(form)
 
     def get_success_url(self):
         return self.get_redirect_url() or\
-            reverse('cyclist_request_detail', args=[self.object.helprequest_id])
+            reverse('cyclist_request_detail', args=[self.object.id])
 
 
 #

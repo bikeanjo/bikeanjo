@@ -14,6 +14,12 @@
         <form class="signup card" id="signup_form" method="post">
             {% csrf_token %}
 
+            {% if debug and form.errors %}
+            <script type="text/javascript">{% for error in form.errors %}
+                console.error("form_error:", "{{error}}");
+            {% endfor %}</script>
+            {% endif %}
+
             <div class="form-group">
                 <label class="primary-label" for="aditional-info">Informações adicionais</label>
                 <textarea class="form-control" rows="5" id="aditional-info" name="message" placeholder="Informação adicional ou particularidade do pedido">{{ form.message.value|default:'' }}</textarea>

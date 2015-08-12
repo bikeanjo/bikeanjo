@@ -240,6 +240,7 @@ class RequesterUserInforForm(forms.ModelForm):
         model = models.User
 
 
+# Part 1
 class HelpRequestForm(forms.ModelForm):
     help_with = forms.IntegerField()
 
@@ -263,6 +264,7 @@ class HelpRequestForm(forms.ModelForm):
         fields = ('help_with',)
 
 
+# Part 2.1
 class HelpRequestRouteForm(forms.ModelForm):
     track = forms.CharField(label=_('Track'),
                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
@@ -279,11 +281,11 @@ class HelpRequestRouteForm(forms.ModelForm):
             if type(lines) in (list, tuple) and len(lines) > 0:
                 track = track or models.Track()
                 line = lines[0]
-                track.user = self.instance.requester
                 track.track = LineString([c for c in line.get('coordinates')])
                 track.start = line.get('properties').get('start')
                 track.end = line.get('properties').get('end')
-                track.save()
+                # track.user = self.instance.requester
+                # track.save()
             else:
                 raise forms.ValidationError(_('This field is required.'))
         except ValueError:
@@ -291,58 +293,73 @@ class HelpRequestRouteForm(forms.ModelForm):
 
         return track
 
+    def save(self):
+        track = self.cleaned_data.get('track')
+        track.user = self.instance.requester
+        track.save()
+        return super(HelpRequestRouteForm, self).save()
+
     class Meta:
         model = models.HelpRequest
         fields = ('track',)
 
 
+# Part 2.2
 class HelpRequestPointForm(forms.Form):
     points = forms.CharField(label=_('Points'),
                              widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'points'}),
                              required=True)
 
     def __init__(self, *args, **kwargs):
-        self.instance = kwargs.pop('instance')
         super(HelpRequestPointForm, self).__init__(*args, **kwargs)
-        self['points'].field.initial = self.load_points()
 
     def clean_points(self):
         try:
-            points = []
-            json_points = json.loads(self.cleaned_data.get('points'))
-            if type(json_points) in (list, tuple) and len(json_points) > 0:
-                for json_p in json_points:
-                    point = models.Point()
-                    point.coords = Point(json_p.get('coordinates'))
-                    point.address = json_p.get('properties').get('address')
-                    point.id = json_p.get('properties').get('id', None)
-                    points.append(point)
-            else:
-                raise forms.ValidationError(_('This field is required.'))
-            return points
-        except ValueError:
-            raise forms.ValidationError(_('This field is required.'))
-        return []
+            points = json.loads(self.cleaned_data.get('points'))
+            if type(points) in (list, tuple) and len(points) > 0:
+                for json_p in points:
+                    coords = json_p.get('coordinates')
+                    address = json_p.get('properties').get('address')
+                return points
+        except:
+            pass
+
+        raise forms.ValidationError(_('This field is required.'))
+
+
+# Part 3
+class HelpRequestCompleteForm(forms.ModelForm):
+    help_with = forms.IntegerField()
+    geo_json = forms.CharField(widget=forms.HiddenInput(), required=True)
 
     def save(self):
-        points = self.cleaned_data['points']
-
-        self.instance.point_set\
-            .exclude(id__in=[p.id for p in points if p.id])\
-            .delete()
-
-        for point in points:
-            if not point.id:
-                point.user = self.instance.requester
-                point.helprequest = self.instance
-                point.save()
-
-        self.instance.save()
+        super(HelpRequestCompleteForm, self).save()
+        self.save_points()
         return self.instance
 
-    def load_points(self):
-        points = models.Point.objects.filter(helprequest=self.instance)
-        return '[%s]' % ','.join([p.json() for p in points])
+    def save_points(self):
+        geo_json = self.cleaned_data.get('geo_json')
+        points = []
+
+        for p in geo_json.get('points', []):
+            point = models.Point()
+            point.helprequest = self.instance
+            point.user = self.instance.requester
+            point.coords = Point(p.get('coordinates'))
+            point.address = p.get('properties').get('address')
+            points.append(point)
+
+        self.instance.point_set.bulk_create(points)
+        return points
+
+    def clean_geo_json(self):
+        if type(self.data['geo_json']) in (list, dict):
+            return self.data['geo_json']
+        return self.cleaned_data['geo_json']
+
+    class Meta:
+        model = models.HelpRequest
+        fields = ('help_with', 'message',)
 
 
 class HelpRequestUpdateForm(forms.ModelForm):
