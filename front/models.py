@@ -155,30 +155,32 @@ class HelpRequest(BaseModel):
                                 .exclude(match__isnull=False, match__helprequest=self)
         DISTANCE = 50000
 
-        notas = []
         # 3 ponto, 12 rota
         if self.help_with | 12 and self.track:
-            saida_pedido = self.track.track[0]
-            chegada_pedido = self.track.track[-1]
+            best = (None, None, None)
+            linestring = self.track.track
+            center = linestring.centroid
 
-            for bikeanjo in bikeanjos:
-                nota = 999999999
-                caminho = None
+            available = Track.objects.filter(user__in=bikeanjos,
+                                             track__distance_lte=(center, D(m=DISTANCE)))
 
-                for model in bikeanjo.track_set.all():
-                    distancia = self.distance([model.track[0], model.track[-1]])
-                    d2 = self.distance([model.track[0], saida_pedido, chegada_pedido, model.track[-1]])
-                    total = abs(d2 - distancia)
+            saida_pedido = linestring[0]
+            chegada_pedido = linestring[-1]
 
-                    if total < nota:
-                        nota = total
-                        caminho = model
-                notas.append([nota, caminho, bikeanjo])
+            nota = 999999999
+            caminho = None
 
-            notas.sort(key=lambda nota: nota[0])
+            for model in available:
+                distancia = self.distance([model.track[0], model.track[-1]])
+                d2 = self.distance([model.track[0], saida_pedido, chegada_pedido, model.track[-1]])
+                total = abs(d2 - distancia)
 
-            if len(notas) > 0:
-                return notas[0]
+                if total < nota:
+                    nota = total
+                    caminho = model
+                    best = [nota, caminho, model.user]
+
+            return best
 
         elif self.help_with | 3 and self.point_set.count() > 0:
             nota = 1000000  # metros
