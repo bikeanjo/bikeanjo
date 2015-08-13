@@ -317,6 +317,7 @@ class HelpRequestCompleteForm(forms.ModelForm):
         self.instance.track = self.save_track()
         super(HelpRequestCompleteForm, self).save()
         self.save_points()
+        self.instance.assign_bikeanjo()
         return self.instance
 
     def save_points(self):

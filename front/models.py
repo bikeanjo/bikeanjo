@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import json
+import logging
 from collections import OrderedDict
 from django.conf import settings
 from django.contrib.gis.db import models
+from django.contrib.gis.measure import Distance as D
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from cyclists.models import User
+logger = logging.getLogger('front.models')
 
 GENDER = (
     ('male', _('Male')),
@@ -150,6 +153,8 @@ class HelpRequest(BaseModel):
     def find_bikeanjo(self):
         bikeanjos = User.objects.filter(role='bikeanjo', available=True, accepted_agreement=True)\
                                 .exclude(match__isnull=False, match__helprequest=self)
+        DISTANCE = 50000
+
         notas = []
         # 3 ponto, 12 rota
         if self.help_with | 12 and self.track:
@@ -182,7 +187,8 @@ class HelpRequest(BaseModel):
             requester_points = self.point_set.values_list('coords', flat=True)
             for point in requester_points:
                 closest = Point.objects\
-                               .filter(user__in=bikeanjos)\
+                               .filter(user__in=bikeanjos,
+                                       coords__distance_lte=(point, D(m=DISTANCE)))\
                                .distance(point)\
                                .order_by('distance')\
                                .first()
@@ -195,6 +201,27 @@ class HelpRequest(BaseModel):
                 return nota, lugar, lugar.user
 
         return None, None, None
+
+    def assign_bikeanjo(self):
+        if not self.requester.accepted_agreement:
+            return None
+
+        if self.bikeanjo is None and self.status == 'new':
+            score, track, bikeanjo = self.find_bikeanjo()
+
+            if not bikeanjo:
+                logger.debug("Can't find Bikeanjo to HelpRequest(id=%d)" % (self.id))
+                return
+
+            logger.debug('HelpRequest(id=%d) has a new Bikeanjo(id=%d)' % (self.id, bikeanjo.id))
+            self.bikeanjo = bikeanjo
+            self.save()
+
+            Match.objects.create(
+                bikeanjo=bikeanjo,
+                helprequest=self,
+                score=score,
+            )
 
 
 class HelpReply(BaseModel):

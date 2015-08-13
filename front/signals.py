@@ -15,29 +15,6 @@ from cyclists.models import User
 logger = logging.getLogger('front.signals')
 
 
-@receiver(post_save, sender=models.HelpRequest)
-def assign_bike_anjo(sender, instance, **kwargs):
-    if not instance.requester.accepted_agreement:
-        return None
-
-    if instance.bikeanjo is None and instance.status == 'new':
-        score, track, bikeanjo = instance.find_bikeanjo()
-
-        if not bikeanjo:
-            logger.debug("Can't find Bikeanjo to HelpRequest(id=%d)" % (instance.id))
-            return
-
-        logger.debug('HelpRequest(id=%d) has a new Bikeanjo(id=%d)' % (instance.id, bikeanjo.id))
-        instance.bikeanjo = bikeanjo
-        instance.save()
-
-        models.Match.objects.create(
-            bikeanjo=bikeanjo,
-            helprequest=instance,
-            score=score,
-        )
-
-
 @receiver(post_save_changed, fields=['status', 'bikeanjo'], sender=models.HelpRequest)
 def notify_that_bikeanjo_canceled_request_by_inactivity(sender, instance, changed_fields, **kwargs):
     remap = dict([field.name, {'old': value[0], 'new': value[1]}] for field, value in changed_fields.items())
