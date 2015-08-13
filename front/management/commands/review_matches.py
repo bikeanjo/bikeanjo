@@ -35,6 +35,6 @@ class Command(BaseCommand):
             if tries >= 3:
                 logger.info('HelpRequest(id=%d) was rejected after %d tries.' % (helprequest.id, tries))
                 helprequest.status = 'rejected'
-
-            helprequest.bikeanjo = None
-            helprequest.save()
+                helprequest.save()
+            else:
+                helprequest.assign_bikeanjo()
