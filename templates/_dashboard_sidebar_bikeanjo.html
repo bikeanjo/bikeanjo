@@ -37,8 +37,8 @@
                     {% endif %}
                 </li>
 
-                <li><a href="#">Fórum de discussão</a></li>
-                <li><a href="#">Dicas para pedalar</a></li>
+                <!-- li><a href="#">Fórum de discussão</a></li -->
+                <li><a href="{% url 'tips_list' user.role %}">Dicas para pedalar</a></li>
                 <li><a class="user_register" href="{% url 'user_register' %}">Editar cadastro</a></li>
             </ul>
         </nav>            

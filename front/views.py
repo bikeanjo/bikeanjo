@@ -765,3 +765,15 @@ class ContactView(CreateView):
 
     def get_success_url(self):
         return reverse('contact_view')
+
+
+class TipsListView(ListView):
+    model = models.TipForCycling
+    template_name = 'tips.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        target = self.kwargs.get('target')
+        if target:
+            return models.TipForCycling.objects.filter(target__in=[target, 'all'])
+        return models.TipForCycling.objects.filter(target='all')

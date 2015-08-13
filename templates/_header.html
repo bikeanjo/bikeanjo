@@ -87,7 +87,7 @@
                                 <li><a href="{{page.url}}">{{page.title}}</a></li>
                             {% endfor %}
                             <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
-                            <li><a href="#">Dicas para quem quer pedalar</a></li>
+                            <li><a href="{% url 'tips_list' %}">Dicas para pedalar</a></li>
                         </ul>
                     </li>
                     {% endif %}

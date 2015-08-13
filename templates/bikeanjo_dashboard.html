@@ -142,7 +142,7 @@
                         <p class="card-info">{{ tip.content }}</p>
                     </div>
                     <footer class="card-footer">
-                            <a class="see-more-link" href="#">Ver todas as dicas <i class="fa fa-arrow-right"></i></a>
+                            <a class="see-more-link" href="{% url 'tips_list' user.role %}">Ver todas as dicas <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
                 {% endif %}

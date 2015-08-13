@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="top" class="static tips-for-cycling">
+    <section class="jumbotron">
+        <div class="container">
+            <h2>Dicas para pedalar</h2>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <ul>
+            <li><a {% if view.kwargs.target = 'requester' %}class="active"{% endif %}
+                   href="{% url 'tips_list' 'requester' %}">Para quem não pedala</a></li>
+
+            <li><a {% if view.kwargs.target = 'bikeanjo' %}class="active"{% endif %}
+                   href="{% url 'tips_list' 'bikeanjo' %}">Para quem pedala</a></li>
+        </ul>
+    </nav>
+</section>
+
+<section class="tips-for-cycling">
+    <div class="container">
+            <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                <div class="{% firstof view.kwargs.target 'bikeanjo' %}">
+                {% for tip in tipforcycling_list %}
+                    <article class="card photo small item">
+                        <div class="card-content">
+                            <div class="card-photo">
+                                <img src="{% firstof tip.get_image_url 'http://placehold.it/245x190' %}"
+                                     style="max-width: 245px; max-height: 190px">
+                            </div>
+                            <h3 class="card-subtitle"></i> {{ tip.title }}</h3>
+                            <p class="card-info">{{ tip.content|safe }}</p>
+                        </div>
+                        {% if tip.link %}
+                        <footer class="card-footer">
+                            <a class="see-more-link" target="_blank" href="{{ tip.link }}">Ver dicas na íntegra <i class="fa fa-arrow-right"></i></a>
+                        </footer>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+                </div>
+
+                {% if is_paginated %}
+                <nav class="item-pagination">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">
+                                <i class="fa fa-angle-left"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for page in paginator.page_range %}
+                        <li class="{% if page_obj.number = page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">
+                                <i class="fa fa-angle-right"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+    </div>
+</section>
+
+{% endblock %}
