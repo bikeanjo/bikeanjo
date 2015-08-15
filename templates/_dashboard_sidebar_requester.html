@@ -37,7 +37,7 @@
                 <!-- li><a href="#">Fórum de discussão</a></li -->
                 <li><a href="{% url 'tips_list' user.role %}">Dicas para pedalar</a></li>
                 <li><a class="user_register" href="{% url 'user_register' %}">Editar cadastro</a></li>
-                <li><a href="{% url 'contact_view' %}?subject=Quero fazer parte do bike anjo">Quero ser um Bike Anjo</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">Quero ser um Bike Anjo</a></li>
             </ul>
             <a href="{% url 'requester_help_request' %}" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
         </nav>            
@@ -47,3 +47,22 @@
         Envie seu feedback</a>
     </div>
 </aside>
+
+<div class="modal fade dashboard-modal" id="becomebikeanjoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" class="modal-content" action="{% url 'requester_become_bikeanjo' %}">{% csrf_token %}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                <h3 class="modal-title">Quer ser um Bikeanjo?</h3>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Você passará a receber pedidos de ajuda de pessoas que precisam de ajuda para pedalar.</p>
+            </div>
+            <div class="modal-footer">
+                <p class="text-center">
+                    <button class="btn btn-success" type="submit">Continuar</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div> 

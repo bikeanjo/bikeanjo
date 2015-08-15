@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q, Max
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404
 from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
@@ -245,7 +245,7 @@ class NewRequestsListView(DashboardMixin, ListView):
         Se o filtro for new, mas não houver nenhum resultado, cria
         uma flag 'no_new_requests' nesta instância de View
         '''
-        queryset = super(NewRequestsListView, self).get_queryset().filter(status='new')
+        queryset = super(NewRequestsListView, self).get_queryset().filter(status='new').exclude(requester=self.request.user)
         _filter = self.request.GET.get('filter')
         qs = queryset
         if _filter == 'new':
@@ -777,3 +777,23 @@ class TipsListView(ListView):
         if target:
             return models.TipForCycling.objects.filter(target__in=[target, 'all'])
         return models.TipForCycling.objects.filter(target='all')
+
+
+class BecomeBikeanjo(DashboardMixin, UpdateView):
+    model = cyclists.models.User
+    fields = ('role', 'accepted_agreement')
+
+    def get(self, request, **kwargs):
+        return HttpResponseNotAllowed('METHOD NOT ALLOWED')
+
+    def get_form_kwargs(self):
+        return {
+            'instance': self.request.user,
+            'data': {'role': 'bikeanjo', 'accepted_agreement': False}
+        }
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('bikeanjo_account_signup_complete')

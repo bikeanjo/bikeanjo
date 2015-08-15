@@ -37,6 +37,8 @@ urlpatterns = [
         front.views.SignupBikeanjoView.as_view(), name='bikeanjo_account_signup_complete'),
     url(r'^requester/signup/complete/$',
         front.views.SignupRequesterView.as_view(), name='requester_account_signup_complete'),
+    url(r'^requester/becomebikeanjo/$',
+        front.views.BecomeBikeanjo.as_view(), name='requester_become_bikeanjo'),
 
     url(r'^bikeanjo/offer-help/$',
         front.views.HelpOfferView.as_view(), name='bikeanjo_help_offer'),
