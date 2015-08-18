@@ -6,6 +6,7 @@ from django.contrib.gis.geos import LineString, Point
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
+from notifications import *
 import models
 
 
@@ -318,6 +319,10 @@ class HelpRequestCompleteForm(forms.ModelForm):
         super(HelpRequestCompleteForm, self).save()
         self.save_points()
         self.instance.assign_bikeanjo()
+
+        if self.instance.bikeanjo:
+            notify_bikeanjo_about_new_request(self.instance)
+
         return self.instance
 
     def save_points(self):

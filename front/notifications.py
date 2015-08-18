@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
@@ -12,10 +10,21 @@ from fieldsignals import post_save_changed
 from front import models
 from cyclists.models import User
 
-logger = logging.getLogger('front.signals')
+logger = logging.getLogger('front.notifications')
+
+__all__ = (
+    'notify_that_bikeanjo_canceled_request_by_inactivity',
+    'notify_that_bikeanjo_cannot_help_anymore',
+    'notify_that_bikeanjo_rejected_new_request',
+    'notify_new_reply_by_email',
+    'notify_requester_about_found_bikeanjo',
+    'notify_bikeanjo_about_new_request',
+    'notify_requester_about_attended_request',
+    'notify_user_subscribed_in_newsletter',
+    'notify_admins_about_new_contact_message',
+)
 
 
-@receiver(post_save_changed, fields=['status', 'bikeanjo'], sender=models.HelpRequest)
 def notify_that_bikeanjo_canceled_request_by_inactivity(sender, instance, changed_fields, **kwargs):
     remap = dict([field.name, {'old': value[0], 'new': value[1]}] for field, value in changed_fields.items())
     status = remap.get('status', {})
@@ -48,7 +57,6 @@ def notify_that_bikeanjo_canceled_request_by_inactivity(sender, instance, change
         msg.send()
 
 
-@receiver(post_save_changed, fields=['status', 'bikeanjo'], sender=models.HelpRequest)
 def notify_that_bikeanjo_cannot_help_anymore(sender, instance, changed_fields, **kwargs):
     remap = dict([field.name, {'old': value[0], 'new': value[1]}] for field, value in changed_fields.items())
     status = remap.get('status', {})
@@ -81,7 +89,6 @@ def notify_that_bikeanjo_cannot_help_anymore(sender, instance, changed_fields, *
         msg.send()
 
 
-@receiver(post_save_changed, fields=['bikeanjo', 'status'], sender=models.HelpRequest)
 def notify_that_bikeanjo_rejected_new_request(sender, instance, changed_fields, **kwargs):
     field_names = [field.name for field in changed_fields.keys()]
 
@@ -110,7 +117,6 @@ def notify_that_bikeanjo_rejected_new_request(sender, instance, changed_fields, 
         msg.send()
 
 
-@receiver(post_save, sender=models.HelpReply)
 def notify_new_reply_by_email(sender, instance, **kwargs):
     helprequest = instance.helprequest
 
@@ -144,7 +150,6 @@ def notify_new_reply_by_email(sender, instance, **kwargs):
     msg.send()
 
 
-@receiver(post_save_changed, fields=['status'], sender=models.HelpRequest)
 def notify_requester_about_found_bikeanjo(sender, instance, changed_fields, **kwargs):
     old_val, new_val = changed_fields.values()[0]
 
@@ -171,34 +176,30 @@ def notify_requester_about_found_bikeanjo(sender, instance, changed_fields, **kw
         msg.send()
 
 
-@receiver(post_save_changed, fields=['bikeanjo'], sender=models.HelpRequest)
-def notify_bikeanjo_about_new_request(sender, instance, changed_fields, **kwargs):
-    old_val, new_val = changed_fields.values()[0]
+# forms.HelpRequestCompleteForm
+def notify_bikeanjo_about_new_request(helprequest):
+    site = Site.objects.filter(id=settings.SITE_ID).first()
+    subject = 'Você recebeu um pedido de ajuda!'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient = helprequest.bikeanjo
 
-    if not old_val and new_val and instance.status == 'new':
-        site = Site.objects.filter(id=settings.SITE_ID).first()
-        subject = 'Você recebeu um pedido de ajuda!'
-        from_email = settings.DEFAULT_FROM_EMAIL
-        recipient = instance.bikeanjo
+    data = {
+        'helprequest': helprequest,
+        'recipient': recipient,
+        'site': site,
+    }
 
-        data = {
-            'helprequest': instance,
-            'recipient': recipient,
-            'site': site,
-        }
+    template_name = 'emails/new_request.html'
+    html = select_template([template_name]).render(data)
 
-        template_name = 'emails/new_request.html'
-        html = select_template([template_name]).render(data)
+    template_name = 'emails/new_request.txt'
+    text = select_template([template_name]).render(data)
 
-        template_name = 'emails/new_request.txt'
-        text = select_template([template_name]).render(data)
-
-        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
-        msg.attach_alternative(html, "text/html")
-        msg.send()
+    msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+    msg.attach_alternative(html, "text/html")
+    msg.send()
 
 
-@receiver(post_save_changed, fields=['status'], sender=models.HelpRequest)
 def notify_requester_about_attended_request(sender, instance, changed_fields, **kwargs):
     old_val, new_val = changed_fields.values()[0]
 
@@ -225,7 +226,6 @@ def notify_requester_about_attended_request(sender, instance, changed_fields, **
         msg.send()
 
 
-@receiver(post_save, sender=models.Subscriber)
 def notify_user_subscribed_in_newsletter(sender, instance, created, **kwargs):
     if created:
         site = Site.objects.filter(id=settings.SITE_ID).first()
@@ -245,7 +245,6 @@ def notify_user_subscribed_in_newsletter(sender, instance, created, **kwargs):
         msg.send()
 
 
-@receiver(post_save, sender=models.ContactMessage)
 def notify_admins_about_new_contact_message(sender, instance, created, **kwargs):
         if not created:
             return
