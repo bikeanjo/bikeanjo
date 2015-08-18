@@ -391,6 +391,8 @@ class HelpRequestUpdateForm(forms.ModelForm):
                 notify_that_bikeanjo_cannot_help_anymore(req, bikeanjo)
             elif req.status == 'canceled':
                 notify_that_bikeanjo_canceled_request_by_inactivity(req, bikeanjo)
+            elif req.status == 'attended':
+                notify_requester_about_attended_request(req)
 
         return req
 

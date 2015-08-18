@@ -184,30 +184,28 @@ def notify_bikeanjo_about_new_request(helprequest):
     msg.send()
 
 
-def notify_requester_about_attended_request(sender, instance, changed_fields, **kwargs):
-    old_val, new_val = changed_fields.values()[0]
+# forms.HelpRequestUpdateForm
+def notify_requester_about_attended_request(helprequest):
+    site = Site.objects.filter(id=settings.SITE_ID).first()
+    subject = 'O BikeAnjo marcou seu pedido como atendido!'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient = helprequest.requester
 
-    if old_val != new_val and new_val == 'attended':
-        site = Site.objects.filter(id=settings.SITE_ID).first()
-        subject = 'O BikeAnjo marcou seu pedido como atendido!'
-        from_email = settings.DEFAULT_FROM_EMAIL
-        recipient = instance.requester
+    data = {
+        'helprequest': helprequest,
+        'recipient': recipient,
+        'site': site,
+    }
 
-        data = {
-            'helprequest': instance,
-            'recipient': recipient,
-            'site': site,
-        }
+    template_name = 'emails/request_attended.html'
+    html = select_template([template_name]).render(data)
 
-        template_name = 'emails/request_attended.html'
-        html = select_template([template_name]).render(data)
+    template_name = 'emails/request_attended.txt'
+    text = select_template([template_name]).render(data)
 
-        template_name = 'emails/request_attended.txt'
-        text = select_template([template_name]).render(data)
-
-        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
-        msg.attach_alternative(html, "text/html")
-        msg.send()
+    msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+    msg.attach_alternative(html, "text/html")
+    msg.send()
 
 
 def notify_user_subscribed_in_newsletter(sender, instance, created, **kwargs):
