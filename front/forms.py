@@ -428,6 +428,11 @@ class RequestReplyForm(forms.ModelForm):
         self.instance.author = author
         self.instance.helprequest = helprequest
 
+    def save(self, **kwargs):
+        super(RequestReplyForm, self).save(**kwargs) 
+        notify_new_reply_by_email(self.instance)
+        return self.instance
+
     class Meta:
         model = models.HelpReply
         fields = ('message',)

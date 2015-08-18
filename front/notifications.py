@@ -117,11 +117,12 @@ def notify_that_bikeanjo_rejected_new_request(sender, instance, changed_fields, 
         msg.send()
 
 
-def notify_new_reply_by_email(sender, instance, **kwargs):
-    helprequest = instance.helprequest
+# forms.RequestReplyForm
+def notify_new_reply_by_email(reply):
+    helprequest = reply.helprequest
 
     recipient = None
-    if instance.author != helprequest.requester:
+    if reply.author != helprequest.requester:
         recipient = helprequest.requester
     elif helprequest.bikeanjo:
         recipient = helprequest.bikeanjo
@@ -135,7 +136,7 @@ def notify_new_reply_by_email(sender, instance, **kwargs):
     data = {
         'helprequest': helprequest,
         'recipient': recipient,
-        'sender': instance.author,
+        'sender': reply.author,
         'site': site,
     }
 
