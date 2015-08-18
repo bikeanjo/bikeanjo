@@ -150,30 +150,28 @@ def notify_new_reply_by_email(sender, instance, **kwargs):
     msg.send()
 
 
-def notify_requester_about_found_bikeanjo(sender, instance, changed_fields, **kwargs):
-    old_val, new_val = changed_fields.values()[0]
+# forms.BikeanjoAcceptRequestForm
+def notify_requester_about_found_bikeanjo(helprequest):
+    site = Site.objects.filter(id=settings.SITE_ID).first()
+    subject = 'Achamos um bikeanjo para seu pedido!'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient = helprequest.requester
 
-    if old_val != new_val and new_val == 'open':
-        site = Site.objects.filter(id=settings.SITE_ID).first()
-        subject = 'Achamos um bikeanjo para seu pedido!'
-        from_email = settings.DEFAULT_FROM_EMAIL
-        recipient = instance.requester
+    data = {
+        'helprequest': helprequest,
+        'recipient': recipient,
+        'site': site,
+    }
 
-        data = {
-            'helprequest': instance,
-            'recipient': recipient,
-            'site': site,
-        }
+    template_name = 'emails/found_bikeanjo.html'
+    html = select_template([template_name]).render(data)
 
-        template_name = 'emails/found_bikeanjo.html'
-        html = select_template([template_name]).render(data)
+    template_name = 'emails/found_bikeanjo.txt'
+    text = select_template([template_name]).render(data)
 
-        template_name = 'emails/found_bikeanjo.txt'
-        text = select_template([template_name]).render(data)
-
-        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
-        msg.attach_alternative(html, "text/html")
-        msg.send()
+    msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+    msg.attach_alternative(html, "text/html")
+    msg.send()
 
 
 # forms.HelpRequestCompleteForm

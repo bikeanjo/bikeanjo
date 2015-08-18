@@ -405,7 +405,12 @@ class BikeanjoAcceptRequestForm(forms.ModelForm):
                 match.save()
             req.bikeanjo = None
 
-        return super(BikeanjoAcceptRequestForm, self).save(self, **kwargs)
+        super(BikeanjoAcceptRequestForm, self).save(self, **kwargs)
+
+        if req.status == 'open':
+            notify_requester_about_found_bikeanjo(self.instance)
+
+        return self.instance
 
     class Meta:
         model = models.HelpRequest
