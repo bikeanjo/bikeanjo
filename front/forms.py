@@ -374,6 +374,7 @@ class HelpRequestUpdateForm(forms.ModelForm):
     def save(self, **kwargs):
         data = self.cleaned_data
         req = self.instance
+        bikeanjo = req.bikeanjo
 
         if 'status' in self.changed_data and req.status in ['new', 'canceled']:
             if req.bikeanjo:
@@ -383,7 +384,15 @@ class HelpRequestUpdateForm(forms.ModelForm):
                 match.save()
             req.bikeanjo = None
 
-        return super(HelpRequestUpdateForm, self).save(self, **kwargs)
+        super(HelpRequestUpdateForm, self).save(self, **kwargs)
+
+        if data.get('closed_by') == 'bikeanjo':
+            if req.status == 'new':
+                notify_that_bikeanjo_cannot_help_anymore(req, bikeanjo)
+            elif req.status == 'canceled':
+                notify_that_bikeanjo_canceled_request_by_inactivity(req, bikeanjo)
+
+        return req
 
     class Meta:
         model = models.HelpRequest

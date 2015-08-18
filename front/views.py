@@ -297,6 +297,12 @@ class RequestUpdateView(DashboardMixin, UpdateView):
     def get_success_url(self):
         return reverse('cyclist_request_detail', kwargs=self.kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(RequestUpdateView, self).get_form_kwargs()
+        kwargs['data'] = kwargs.get('data').dict() if 'data' in kwargs else {}
+        kwargs['data']['closed_by'] = self.request.user.role
+        return kwargs
+
     def get_template_names(self):
         if self.request.user.role == 'bikeanjo':
             return ['bikeanjo_dashboard_request.html']
