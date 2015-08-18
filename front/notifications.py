@@ -208,40 +208,38 @@ def notify_requester_about_attended_request(helprequest):
     msg.send()
 
 
-def notify_user_subscribed_in_newsletter(sender, instance, created, **kwargs):
-    if created:
-        site = Site.objects.filter(id=settings.SITE_ID).first()
-        subject = 'Você se inscreveu para o boletim do Bikeanjo!'
-        from_email = settings.DEFAULT_FROM_EMAIL
-        recipient = instance
+# views.HomeView
+def notify_user_subscribed_in_newsletter(subscriber):
+    site = Site.objects.filter(id=settings.SITE_ID).first()
+    subject = 'Você se inscreveu para o boletim do Bikeanjo!'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient = subscriber
 
-        data = {
-            'site': site,
-            'subscriber': instance,
-        }
+    data = {
+        'site': site,
+        'subscriber': subscriber,
+    }
 
-        template_name = 'emails/newsletter_subscription.txt'
-        text = select_template([template_name]).render(data)
+    template_name = 'emails/newsletter_subscription.txt'
+    text = select_template([template_name]).render(data)
 
-        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
-        msg.send()
+    msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+    msg.send()
 
 
-def notify_admins_about_new_contact_message(sender, instance, created, **kwargs):
-        if not created:
-            return
+# views.ContactView
+def notify_admins_about_new_contact_message(contact):
+    from_email = contact.email
+    recipient = settings.DEFAULT_FROM_EMAIL
+    subject = contact.subject
+    content = 'From "%s<%s>, %s' % (
+        contact.name,
+        contact.email,
+        contact.created_date.strftime('%d/%m/%Y %H:%M'),
+    )
+    content += '\n%s\n\n' % ('-' * len(content))
+    content += contact.message
 
-        from_email = instance.email
-        recipient = settings.DEFAULT_FROM_EMAIL
-        subject = instance.subject
-        content = 'From "%s<%s>, %s' % (
-            instance.name,
-            instance.email,
-            instance.created_date.strftime('%d/%m/%Y %H:%M'),
-        )
-        content += '\n%s\n\n' % ('-' * len(content))
-        content += instance.message
-
-        msg = EmailMultiAlternatives(subject, content, from_email, [recipient],
-                                     reply_to=[from_email])
-        msg.send()
+    msg = EmailMultiAlternatives(subject, content, from_email, [recipient],
+                                 reply_to=[from_email])
+    msg.send()

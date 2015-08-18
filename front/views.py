@@ -22,6 +22,7 @@ import forms
 import models
 
 import cyclists.models
+from notifications import notify_admins_about_new_contact_message, notify_user_subscribed_in_newsletter
 
 
 class RegisteredUserMixin(LoginRequiredMixin):
@@ -77,6 +78,11 @@ class HomeView(CreateView):
 
     def get_success_url(self):
         return reverse('home')
+
+    def form_valid(self, form):
+        response = super(HomeView, self).form_valid(form)
+        notify_user_subscribed_in_newsletter(form.instance)
+        return response
 
 
 class RawTemplateView(TemplateView):
@@ -766,6 +772,7 @@ class ContactView(CreateView):
     def form_valid(self, form):
         [message for message in messages.get_messages(self.request)]
         form.save()
+        notify_admins_about_new_contact_message(form.instance)
         messages.success(self.request, 'Sua mensagem foi enviada!')
         return super(ContactView, self).form_valid(form)
 
