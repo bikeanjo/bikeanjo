@@ -24,6 +24,21 @@
             width: 30px;
             height: 5px;
         }
+        .icon-x {
+            display: none;
+            font-size: 45px;
+            font-weight: bold;
+            color: #8dc63f;
+            line-height: 23px;
+        }
+        &.menu-active {
+            .icon-bar {
+                display: none;
+            }
+            .icon-x {
+                display: block;
+            }
+        }
     }
     .navbar-collapse {
         @media screen and (max-width: @screen-sm-max) {
@@ -129,6 +144,12 @@
                             right: -3px;
                             top: -3px;
                         }
+                    }
+                }
+                .alert {
+                    &.bubble {
+                        background-color: @brand-red;
+                        display: inline-block;
                     }
                 }
             }

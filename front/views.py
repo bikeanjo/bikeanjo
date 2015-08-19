@@ -97,11 +97,19 @@ class RawTemplateView(TemplateView):
 class DashboardMixin(RegisteredUserMixin):
 
     def get_context_data(self, **kwargs):
+        user = self.request.user
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
-            'messages': models.Message.objects.exclude(readed_by__user=self.request.user)
-                                              .filter(created_date__gt=self.request.user.date_joined),
+            'messages': models.Message.objects.exclude(readed_by__user=user) .filter(created_date__gt=user.date_joined),
         }
+
+        if user.role == 'bikeanjo':
+            data['unread']['requests'] = user.helpbikeanjo_set.unread()
+        elif user.role == 'requester':
+            data['unread']['requests'] = user.helprequested_set.unread()
+
+        data['unread']['total'] = sum((qs.count() for qs in data['unread'].values()))
+
         data['force_header'] = True
         return data
 
