@@ -267,7 +267,11 @@
             var cbp_spmenu = null;
             window.onscroll = function() {
                 if(cbp_spmenu) {
-                    cbp_spmenu.style.top = Math.max(90 - window.scrollY, 0) + 'px';
+                    if(window.scrollY <= 90) {
+                        cbp_spmenu.style.top = (90 - window.scrollY) + 'px';
+                    } else {
+                        cbp_spmenu.style.top = '0';
+                    }
                 }
             };
 
