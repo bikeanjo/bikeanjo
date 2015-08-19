@@ -14,18 +14,6 @@
             </button>
             <h1 class="site-logo"><a href="/"><span class="sr-only">Bike Anjo</span></a></h1>
         </header>
-        <script>
-        window.onload = function() {
-            $('button.toggle-menu').jPushMenu({
-                menuOpenClass      : 'cbp-spmenu-open',
-                closeOnClickOutside: true,
-                closeOnClickLink   : false
-            });
-            if( $(window).width() <= 992 ) {
-                $('#navbar .user-menu .dropdown').addClass('open');
-            }
-        };
-        </script>
         <nav id="navbar" class="navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
             <div class="navigation">
                 {% if user.is_authenticated %}

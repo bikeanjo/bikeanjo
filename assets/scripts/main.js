@@ -256,6 +256,29 @@
                 console.log($el.val());
             }
         });
+
+        (function setupMobileMenu(){
+            $('button.toggle-menu').jPushMenu({
+                menuOpenClass      : 'cbp-spmenu-open',
+                closeOnClickOutside: true,
+                closeOnClickLink   : false
+            });
+
+            var cbp_spmenu = null;
+            window.onscroll = function() {
+                if(cbp_spmenu) {
+                    cbp_spmenu.style.top = Math.max(90 - window.scrollY, 0) + 'px';
+                }
+            };
+
+            $('button.toggle-menu').click(function(){
+                cbp_spmenu = $('.cbp-spmenu-open').length ? $('.cbp-spmenu-open')[0] : null;
+            });
+        })();
+
+        if( $(window).width() <= 992 ) {
+            $('#navbar .user-menu .dropdown').addClass('open');
+        }
     });
 
     var match = document.cookie.match(/csrftoken=(\w+)/);
@@ -270,13 +293,4 @@
             $(this).trigger('click.radio.data-api');
         }
     });
-
-    window.onscroll = function() {
-        if (window.scrollY >= 90) {
-            $('.cbp-spmenu-open').css('top', '0');
-        } else {
-            $('.cbp-spmenu-open').css('top', '');
-        }
-    };
-
 })();
