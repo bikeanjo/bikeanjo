@@ -57,9 +57,6 @@
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">Meus pedidos ({{user.helpbikeanjo_set.open.count}})</h2>
-                        <button type="button" class="card-button" aria-label="Refresh">
-                            <span aria-hidden="true"><i class="fa fa-info-circle"></i></span>
-                        </button>
                     </header>
                     {% for hr in helprequest_list %}
                     <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
@@ -82,9 +79,6 @@
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">Novos pedidos ({{user.helpbikeanjo_set.matching.count}})</h2>
-                        <button type="button" class="card-button" aria-label="Refresh">
-                            <span aria-hidden="true"><i class="fa fa-info-circle"></i></span>
-                        </button>
                     </header>
                     {% for helprequest in user.helpbikeanjo_set.matching.all %}
                     <div class="card-content">
