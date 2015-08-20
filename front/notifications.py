@@ -116,7 +116,7 @@ def notify_new_reply_by_email(reply):
         return
 
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Você recebeu uma nova mensagem sobre o pedido #%d!' % helprequest.id
+    subject = 'Você recebeu uma nova mensagem de %s!' % reply.author.get_full_name()
     from_email = settings.DEFAULT_FROM_EMAIL
     data = {
         'helprequest': helprequest,
@@ -139,7 +139,7 @@ def notify_new_reply_by_email(reply):
 # forms.BikeanjoAcceptRequestForm
 def notify_requester_about_found_bikeanjo(helprequest):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Achamos um bikeanjo para seu pedido #%d!' % helprequest.id
+    subject = 'O Bike Anjo achou alguém para te ajudar com o pedido #%d!' % helprequest.id
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = helprequest.requester
 
@@ -187,7 +187,7 @@ def notify_bikeanjo_about_new_request(helprequest):
 # forms.HelpRequestUpdateForm
 def notify_requester_about_attended_request(helprequest):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'O BikeAnjo marcou seu pedido #%d como atendido!' % helprequest.id
+    subject = 'Seu pedido #%d de Bike Anjo foi atendido por %s?' % (helprequest.id, helprequest.bikeanjo.get_full_name())
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = helprequest.requester
 
