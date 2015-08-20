@@ -2,15 +2,26 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}Bike Anjo | {{ event.title|striptags }}{% endblock %}
+
+{% block extrahead %}
+<meta property="og:title" content="{{ event.title }}" />
+<meta property="og:url" content="http://{{ request.META.HTTP_HOST }}{{ request.META.PATH_INFO }}" />
+<meta property="og:description" content="{{ event.content|striptags|escape }}" />
+<meta property="fb:app_id" content="" />
+{% if event.get_image_url %}<meta property="og:image" content="{% static event.get_image_url %}" />{% endif %}
+
+{% endblock %}
+
 {% block content %}
 <section id="top" class="static event event-detail">
 
     <section class="jumbotron" style="background-image: url({{ event.get_image_url|default:'none' }});">
         <div class="container">
             <div class="event-date">
-                <i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}
+                <i class="fa fa-calendar-o"></i> {{ event.date|date:'d \d\e F' }}
             </div>
-            <h2>{{ event.title }}</h2>
+            <h1>{{ event.title }}</h1>
             <div class="event-category">{{ event.category }}</div>
             <div class="event-city">{{ event.city }}</div>
         </div>

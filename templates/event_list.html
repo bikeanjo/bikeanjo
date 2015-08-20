@@ -30,7 +30,7 @@
                     <div class="event-image" style="background-image: url('{{ event.image.url }}');">
                         <ul class="event-info">
                             <li class="event-date">
-                                <i class="fa fa-calendar-o"></i> {{ event.start_date|date:'d/m' }}
+                                <i class="fa fa-calendar-o"></i> {{ event.date|date:'d \d\e F' }}
                                 <!-- {% if event.end_date %}
                                     <span> - </span>
                                     {% if event.end_date.date = event.start_date.date %}

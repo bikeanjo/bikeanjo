@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.sites.models import Site
 from django.db.models import Q, Max
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404
@@ -137,7 +138,7 @@ class DashBoardView(DashboardMixin, TemplateView):
     def get_event_list(self):
         user = self.request.user
 
-        event_list = models.Event.objects.filter(city=user.city, date__gt=timezone.now())
+        event_list = models.Event.objects.filter(city=user.city, date__gte=timezone.now())
         setattr(event_list, 'near', True)
 
         if not event_list.exists():
@@ -397,7 +398,7 @@ class EventListView(ListView):
         return context
 
     def get_queryset(self):
-        qs = super(EventListView, self).get_queryset()
+        qs = super(EventListView, self).get_queryset().filter(date__gte=timezone.now())
 
         filters = {}
         for f in self.request.GET.keys():
