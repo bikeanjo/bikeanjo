@@ -53,7 +53,7 @@
 
                         <input type="text" class="form-control" id="{{ form.gender.auto_id }}_custom"
                                value="{% if form.gender.value not in 'male,female' %}{{ form.gender.value|default:''}}{% endif %}"
-                               placeholder="{% firstof form.gender.value 'Personalize' %}">
+                               placeholder="Personalize">
 
                     </label>
                 </div>
