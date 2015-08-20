@@ -26,9 +26,6 @@
                 <a href="{% url 'user_register' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                 <span class="go-back">Pontos avulsos</span>
             </header>
-        
-            <div class="hidden">{{ form.as_p }}</div>
-
             <p>Marque outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido.</p>
         {% else %}
             {% if user.role == 'bikeanjo' %}
@@ -46,6 +43,7 @@
             {% endif %}
         {% endif %}
 
+        <div class="hidden">{{ form.as_p }}</div>
         <div class="form-inline">
             <div class="form-group add-address">
                 <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="Adicione pontos de ajuda">
