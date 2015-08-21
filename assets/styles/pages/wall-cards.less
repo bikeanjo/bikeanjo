@@ -1,0 +1,57 @@
+//== Event
+// --------------------------------------------------
+
+.wall-cards {
+    .card {
+        .card-image {
+            background-size: cover;
+            height: 340px;
+            overflow: hidden;
+        }
+        .card-info {
+            color: black;
+            font-weight: lighter;
+            list-style: none;
+            margin: 0;
+            padding: 0; 
+        }
+        .card-date {
+            color: white;
+            font-size: 24px;
+            line-height: 1;
+            margin: 20px 0px 0px 20px;
+
+            .fa {
+                font-size: 22px;
+                margin-right: 5px; 
+            }
+        }
+    }
+
+    &.card-list {
+        .all-cards {
+            margin-top: 50px;
+            @media screen and (min-width: @screen-sm-min) {
+                margin-top: 70px;
+            }
+        }
+        .card {
+            margin-bottom: 25px;
+            .card-subtitle {
+                font-size: 52px;
+            }
+            .card-info {
+                display: none;
+                @media screen and (min-width: @screen-xs-min) {
+                    display: block;
+                }
+            }
+        }
+        .card-date {
+            margin-bottom: 20px;
+            @media screen and (min-width: @screen-xs-min) {
+                float: left;
+            }
+        }
+    }
+}
