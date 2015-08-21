@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django_extensions',
     'debug_toolbar',
+    'filer',
+    'easy_thumbnails',
     'rosetta',
     'allauth',
     'allauth.account',
