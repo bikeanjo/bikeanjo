@@ -50,8 +50,9 @@
                     </header>
 
                     <div class="card-content">
+                        {% if helprequest.bikeanjo %}
                         <div class="card-icon">
-                            {% if helprequest.status != 'new' and helprequest.bikeanjo %}
+                            {% if helprequest.status != 'new' %}
                             <img src="{{ helprequest.bikeanjo.get_avatar_url }}"
                                  width="50" height="50" 
                                  title="{{ helprequest.bikeanjo.get_full_name }}"
@@ -59,7 +60,9 @@
                                  alt="{% trans "Photo from" %} {{ helprequest.bikeanjo.get_full_name }}"/>
                             {% endif %}
                         </div>
-                        <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
+                        {% endif %}
+
+                        <h3 class="card-subtitle"{% if not helprequest.bikeanjo %} style="margin:0"{% endif %}>{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
                             {% if helprequest.status != 'new' and helprequest.bikeanjo %}
                                 <li>{{ helprequest.bikeanjo.get_full_name }}</li>
