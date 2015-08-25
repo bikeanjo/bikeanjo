@@ -28,7 +28,7 @@ __all__ = (
 # forms.HelpRequestUpdateForm
 def notify_that_bikeanjo_canceled_request_by_inactivity(helprequest, bikeanjo):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Seu pedido #%d foi cancelado por %s!' % (helprequest.id, bikeanjo.first_name)
+    subject = u'Seu pedido #%d foi cancelado por %s!' % (helprequest.id, bikeanjo.first_name)
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = helprequest.requester
 
@@ -116,7 +116,7 @@ def notify_new_reply_by_email(reply):
         return
 
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Você recebeu uma nova mensagem de %s!' % reply.author.get_full_name()
+    subject = u'Você recebeu uma nova mensagem de %s!' % reply.author.get_full_name()
     from_email = settings.DEFAULT_FROM_EMAIL
     data = {
         'helprequest': helprequest,
@@ -187,7 +187,7 @@ def notify_bikeanjo_about_new_request(helprequest):
 # forms.HelpRequestUpdateForm
 def notify_requester_about_attended_request(helprequest):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Seu pedido #%d de Bike Anjo foi atendido por %s?' % (helprequest.id, helprequest.bikeanjo.get_full_name())
+    subject = u'Seu pedido #%d de Bike Anjo foi atendido por %s?' % (helprequest.id, helprequest.bikeanjo.get_full_name())
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = helprequest.requester
 
