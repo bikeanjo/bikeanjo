@@ -15,7 +15,7 @@ logger = logging.getLogger('front.notifications')
 __all__ = (
     'notify_that_bikeanjo_canceled_request_by_inactivity',
     'notify_that_bikeanjo_cannot_help_anymore',
-    'notify_that_bikeanjo_rejected_new_request',
+    'notify_cant_find_bikeanjo',
     'notify_new_reply_by_email',
     'notify_requester_about_found_bikeanjo',
     'notify_bikeanjo_about_new_request',
@@ -74,32 +74,28 @@ def notify_that_bikeanjo_cannot_help_anymore(helprequest, bikeanjo):
     msg.send()
 
 
-def notify_that_bikeanjo_rejected_new_request(sender, instance, changed_fields, **kwargs):
-    field_names = [field.name for field in changed_fields.keys()]
+# management/commands/review_matches.py
+def notify_cant_find_bikeanjo(helprequest):
+    site = Site.objects.filter(id=settings.SITE_ID).first()
+    subject = 'Ainda não achamos seu bike anjo, mas queremos te ajudar!'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient = helprequest.requester
 
-    # se o pedido é novo e a única alteração é o bikeanjo
-    if (instance.status == 'new') and ('bikeanjo' in field_names) and len(field_names) == 1:
-        site = Site.objects.filter(id=settings.SITE_ID).first()
-        subject = 'O Bikeanjo teve um problema!'
-        from_email = settings.DEFAULT_FROM_EMAIL
-        helprequest = instance
-        recipient = instance.requester
+    data = {
+        'helprequest': helprequest,
+        'recipient': recipient,
+        'site': site,
+    }
 
-        data = {
-            'helprequest': helprequest,
-            'recipient': recipient,
-            'site': site,
-        }
+    template_name = 'emails/cant_find_bikeanjo.html'
+    html = select_template([template_name]).render(data)
 
-        template_name = 'emails/request_rejected_by_bikeanjo.html'
-        html = select_template([template_name]).render(data)
+    template_name = 'emails/cant_find_bikeanjo.txt'
+    text = select_template([template_name]).render(data)
 
-        template_name = 'emails/request_rejected_by_bikeanjo.txt'
-        text = select_template([template_name]).render(data)
-
-        msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
-        msg.attach_alternative(html, "text/html")
-        msg.send()
+    msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
+    msg.attach_alternative(html, "text/html")
+    msg.send()
 
 
 # forms.RequestReplyForm

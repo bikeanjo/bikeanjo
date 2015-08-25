@@ -5,6 +5,7 @@ from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
 from django.utils.timezone import now, timedelta
 from front.models import Match
+from front.notifications import notify_cant_find_bikeanjo
 
 logger = logging.getLogger('front.review_matches')
 SITE = Site.objects.filter(id=settings.SITE_ID).first()
@@ -14,11 +15,11 @@ class Command(BaseCommand):
     help = 'Revisa tabela Match'
 
     def handle(self, *args, **options):
-        limit = now() - timedelta(3)
+        match_age_limit = now() - timedelta(3)
 
         queryset = Match.objects.select_related('helprequest')\
                                 .filter(rejected_date__isnull=True,
-                                        created_date__lt=limit,
+                                        created_date__lt=match_age_limit,
                                         helprequest__status='new')
 
         for match in queryset:
@@ -38,3 +39,4 @@ class Command(BaseCommand):
                 helprequest.save()
             else:
                 helprequest.assign_bikeanjo()
+                notify_cant_find_bikeanjo(helprequest)
