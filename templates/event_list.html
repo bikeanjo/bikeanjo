@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                 {% for event in event_list %}
-                <div class="card">
+                <a href="{% url 'dashboard_event_detail' event.slug %}" class="card">
                     {% if event.image %}
                     <div class="event-image" style="background-image: url('{{ event.image.url }}');">
                         <ul class="event-info">
@@ -46,10 +46,10 @@
                     </div>
                     {% endif %}
                     <div class="card-content {% if event.readed_date %}old{% endif %}">
-                        <h3 class="card-subtitle"><a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a></h3>
+                        <h3 class="card-subtitle text-ba">{{ event.title }}</h3>
                         <div class="card-info">{{ event.content|safe }}</div>             
                     </div>
-                </div>
+                </a>
                 {% endfor %}
 
                 {% if is_paginated %}
