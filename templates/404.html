@@ -1,20 +1,57 @@
-<!DOCTYPE html>
-<!-- saved from url=(0047)http://bikeanjo.hacklab.com.br/about/sobre-nos/ -->
+{% load static %}<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Hacklab">
-        <title>Bike Anjo | Sobre nós</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Página não encontrada" />
+        <title>Página não encontrada</title>
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="http://bikeanjo.hacklab.com.br/static/css/main.css">
-    </head>
-    <body class="push-body" style="background-color: #F4F4F4;">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
+        <style type="text/css">
+            body {
+                background-color: #F4F4F4;
+            }
+            .navbar .navbar-header {
+                width: 100%;
+            }
+            .content {
+                width: 100%;
+                background-image: url({% static 'imgs/404-bg.png' %});
+                background-size: contain;
+                background-repeat: repeat-x;
+                min-height: 477px;
+                text-align: center;
+            }
+            .content h1,
+            .content h2 {
+                padding: 0 2rem;
+            }
+
+            .content h1 {
+                color: #f26522;
+                font-size: 3.14rem;
+                font-weight: 400;
+                line-height: 1;
+                margin: 0 0 10px;
+                text-align: center;
+            }
+            .content h2 {
+                color: #565a5c;
+                font-size: 1.85rem;
+                font-weight: 100;
+                line-height: 1;
+                margin: 0;
+                text-align: center;
+            }
+            .content img {
+                margin: 4rem 0;
+            }
+        </style>
+    </head>
+    <body class="push-body">
         <nav class="navbar navbar-forms navbar-default">
             <div class="container">
                 <header class="navbar-header" style="width: 100%;">
@@ -25,11 +62,14 @@
             </div>
         </nav>
 
-        <section style="text-align: center;">
-            <img src="404.jpg" alt="Página não encontrada" style="display: block; height: auto; width: 100%;"/>
-            <h1 style="color: #f26522; font-size: 44px; font-weight: 400; line-height: 1; margin: 0 0 10px; padding: 0;">Que furada, página não encontrada!</h1>
-            <h2 style="color: #565a5c; font-size: 26px; font-weight: 100; line-height: 1; margin: 0; padding: 0;">Você pode ter digitado errado o endereço ou a página pode ter sido movida.</h2>
+        <section class="content">
+            <div class="row">
+                <img class="col-sm-3 col-sm-push-5 col-xs-6 col-xs-push-3"
+                     src="{% static 'imgs/404-biker.png' %}"
+                     title="Página não encontrada" />
+             </div>
+            <h1>Que furada, página não encontrada!</h1>
+            <h2>Você pode ter digitado errado o endereço ou a página pode ter sido movida.</h2>
         </section>
-
     </body>
 </html>
