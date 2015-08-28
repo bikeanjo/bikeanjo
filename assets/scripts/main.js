@@ -179,12 +179,18 @@
             var url = $input.attr('suggests');
             var query = {};
             var suggests = [];
+            var index = [];
+
             query[filter_key] = $filter_value.val();
 
             $(window).resize(function(){setTimeout(function(){
                 $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
                 $ac_results.css('left', ($input.offset().left) + 'px');
             }, 500);}).trigger('resize');
+
+            var dict = {'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'é': 'e',
+                'è': 'e', 'ê': 'e', 'í': 'i', 'ì': 'i', 'ó': 'o', 'ò': 'o',
+                'õ': 'o', 'ô': 'o', 'ú': 'u', 'ù': 'u', 'ç': 'c' };
 
             $filter_value.change(function(evt){
                 suggests.splice(0);
@@ -195,13 +201,29 @@
                 }).success(function(response){
                     response.forEach(function(r){
                         suggests.push(r.name);
+
+                        var name = r.name.toLowerCase();
+                        name = name.replace(/[^\w ]/g, function(c){
+                            return dict[c] ? dict[c] : '.';
+                        });
+                        index.push(name);
                     });
                 });
             }).trigger('change');
 
+            function matcher(request, response) {
+                var search = request.term.trim().toLowerCase().replace(/[^\w ]/g, '.');
+                var regex = new RegExp('^' + search);
+                response( $.grep( suggests, function( item, i ){
+                    return regex.test(index[i]);
+                }));
+            }
+
             $input.autocomplete({
-                'source': suggests,
-                'minLength': 3,
+                'source': matcher,
+                'autoFocus': true,
+                'minLength': 2,
+                'delay': 200,
                 'appendTo': $ac_results
             });
         });
