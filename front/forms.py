@@ -6,9 +6,16 @@ from django.contrib.gis.geos import LineString, Point
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
-from cities.models import City
-from notifications import *
 import models
+from cities.models import City
+from notifications import (
+    notify_bikeanjo_about_new_request,
+    notify_new_reply_by_email,
+    notify_requester_about_attended_request,
+    notify_requester_about_found_bikeanjo,
+    notify_that_bikeanjo_canceled_request_by_inactivity,
+    notify_that_bikeanjo_cannot_help_anymore
+)
 
 
 class TrackForm(forms.Form):
@@ -447,7 +454,7 @@ class RequestReplyForm(forms.ModelForm):
         self.instance.helprequest = helprequest
 
     def save(self, **kwargs):
-        super(RequestReplyForm, self).save(**kwargs) 
+        super(RequestReplyForm, self).save(**kwargs)
         notify_new_reply_by_email(self.instance)
         return self.instance
 

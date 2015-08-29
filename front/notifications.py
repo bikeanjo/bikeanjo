@@ -5,11 +5,6 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import select_template
 
-from fieldsignals import post_save_changed
-
-from front import models
-from cyclists.models import User
-
 logger = logging.getLogger('front.notifications')
 
 __all__ = (
