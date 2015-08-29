@@ -223,7 +223,7 @@
                 'source': matcher,
                 'autoFocus': true,
                 'minLength': 2,
-                'delay': 200,
+                'delay': 0,
                 'appendTo': $ac_results
             });
         });

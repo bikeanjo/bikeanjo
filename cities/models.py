@@ -34,7 +34,7 @@ class City(models.Model):
         verbose_name_plural = _('Cities')
 
     state = models.ForeignKey(State)
-    name = models.CharField(_('Name'), max_length=64)
+    name = models.CharField(_('Name'), max_length=64, db_index=True)
 
     def __unicode__(self):
         return self.name

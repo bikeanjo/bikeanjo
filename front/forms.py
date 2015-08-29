@@ -6,6 +6,7 @@ from django.contrib.gis.geos import LineString, Point
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
+from cities.models import City
 from notifications import *
 import models
 
@@ -151,6 +152,12 @@ class SignupForm(forms.ModelForm):
             self.fields['full_name'].initial = user.get_full_name()
             self.fields['email2'].initial = user.email
         return self
+
+    def clean_city(self):
+        name = self.cleaned_data['city']
+        if City.objects.filter(name=name).exists():
+            return name
+        raise forms.ValidationError('Verifique se a cidade está correta')
 
     def clean_email2(self):
         email = self.cleaned_data.get('email')
