@@ -4,11 +4,12 @@
 
 {% block title %}Bike Anjo | {{ event.title|striptags }}{% endblock %}
 
-{% block extrahead %}
+{% block opengraph %}
+<meta name="description" content="{{ event.content|striptags|escape }}">
 <meta property="og:title" content="{{ event.title }}" />
-<meta property="og:url" content="http://{{ request.META.HTTP_HOST }}{{ request.META.PATH_INFO }}" />
+<meta property="og:url" content="http://{{ site.domain }}{{ request.META.PATH_INFO }}" />
 <meta property="og:description" content="{{ event.content|striptags|escape }}" />
-<meta property="fb:app_id" content="" />
+<meta property="fb:app_id" content="{{ facebook.client_id }}" />
 {% if event.get_image_url %}<meta property="og:image" content="{% static event.get_image_url %}" />{% endif %}
 
 {% endblock %}

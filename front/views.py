@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.sites.models import Site
 from django.db.models import Q, Max
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404
@@ -109,7 +111,7 @@ class DashboardMixin(RegisteredUserMixin):
             data['unread']['requests'] = user.helprequested_set.unread()
 
         data['unread']['total'] = sum((qs.count() for qs in data['unread'].values()))
-
+        data['site'] = Site.objects.filter(id=settings.SITE_ID).first()
         data['force_header'] = True
         return data
 
@@ -411,6 +413,14 @@ class EventListView(ListView):
 class EventDetailView(DetailView):
     model = models.Event
     template_name = 'event_detail.html'
+
+    def get_context_data(self, **kwargs):
+        data = super(EventDetailView, self).get_context_data(**kwargs)
+        data['site'] = Site.objects.filter(id=settings.SITE_ID).first()
+        if data['site']:
+            for app in data['site'].socialapp_set.all():
+                data[app.provider] = app
+        return data
 
 #
 # Views to register user and his role

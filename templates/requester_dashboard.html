@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load socialaccount %}
 
 {% block content %}
     <section class="dashboard dashboard-home requester container">
@@ -9,21 +10,63 @@
 
             <section class="dashboard-content col-md-7">
 
-                {% if first_access %}
-                <article class="card success-message big" role="alert">
-                    <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
-                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
-                    </button>
-                    <div class="card-content">
-                        <div class="card-badge"></div>
-                        <h2 class="card-subtitle">Sucesso!</h2>
-                        <p class="card-info">Seu cadastro foi efetuado com sucesso e seu pedido foi enviado para nossa comunidade. Em até 15 dias você terá um retorno. Aproveite esse tempo para conhecer seu painel personalizado, ver os eventos e dicas para pedalar.</p>
-                    </div>
-                    <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'user_register' %}">Alterar perfil <i class="fa fa-arrow-right"></i></a>
-                    </footer>
-                </article>
+
+            {% if first_access %}
+            {% with first_request=user.helprequested_set.first %}
+
+                {% if first_request.help_with = 1 %}
+                    {% if first_request.bikeanjo %}
+                        <article class="card success-message big" role="alert">
+                            <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                            <div class="card-content">
+                                <div class="card-badge"></div>
+                                <h2 class="card-subtitle">Sucesso!</h2>
+                                <p class="card-info"> Seu pedido foi enviado para nossa comunidade e em até 15 dias você terá um retorno.</p>
+                                <p class="card-info">Aproveite esse tempo para verificar se na sua cidade tem “EBA! - Escola Bike Anjo!”, uma oficina realizada por bike anjos para ensinar as pessoas a pedalar. Para fazer isso, clique <a href="{% url 'dashboard_event_list' %}">AQUI</a>. Aproveite também para conhecer seu painel personalizado e as dicas que preparamos para você.</p>
+                            </div>
+                        </article>
+                    {% elif not first_request.bikeanjo %}
+                        <article class="card success-message big" role="alert">
+                            <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                            <div class="card-content">
+                                <div class="card-badge bad-badge"></div>
+                                <h2 class="card-subtitle">Oh não!</h2>
+                                <p class="card-info"> Infelizmente ainda não tem bike anjos na sua cidade, mas não desanime! Veja o que você ainda pode fazer na nossa plataforma:</p>
+                                <ul class="list-unstyled card-info">
+                                    <li>
+                                        <i class="fa fa-arrow-right"></i>
+                                        <a href="{% url 'tips_list' 'requester' %}" target="_blank">Ver dicas para pedalar</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-arrow-right"></i>
+                                        <a href="https://www.facebook.com/bikeanjo" target="_blank">Divulgue em nosso Facebook para encontrar Bike Anjos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                    {% endif %}
+                {% else %}
+                    <article class="card success-message big" role="alert">
+                        <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                        </button>
+                        <div class="card-content">
+                            <div class="card-badge"></div>
+                            <h2 class="card-subtitle">Sucesso!</h2>
+                            <p class="card-info">Seu cadastro foi efetuado com sucesso e seu pedido foi enviado para nossa comunidade. Em até 15 dias você terá um retorno.
+                            <br/>
+                            <br/>Aproveite esse tempo para conhecer seu painel personalizado, ver os eventos e dicas para pedalar.</p>
+                        </div>
+                    </article>
                 {% endif %}
+
+
+            {% endwith %}
+            {% endif %}
 
                 {% for message in messages %}
                 <div class="alert alert-{{ message.level_tag }}" role="alert">
