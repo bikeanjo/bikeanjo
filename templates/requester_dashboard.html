@@ -61,7 +61,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{ hr.get_help_label }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
-                            {% if hr.bikeanjo %}
+                            {% if hr.status = 'new' %}
+                            <li>Aguardando bikeanjo ...</li>
+                            {% elif hr.bikeanjo %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
                             <li>{{ hr.bikeanjo.city }}</li>
                             {% endif %}
