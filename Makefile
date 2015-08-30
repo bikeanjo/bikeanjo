@@ -46,5 +46,5 @@ upgrade: clean
 	${BOWER} install
 	${PIP} install -r requirements.txt
 	${PYTHON} manage.py migrate
+	${PYTHON} manage.py collectstatic --noinput
 	${GRUNT} all
-
