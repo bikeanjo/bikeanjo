@@ -5,6 +5,7 @@ GRUNT=./node_modules/grunt-cli/bin/grunt
 BOWER=./node_modules/bower/bin/bower
 NOINPUT=--noinput
 
+VIRTUALENVWRAPPER_HOOK_DIR="${HOME}/.virtualenvs"
 PIP="${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/pip"
 PYTHON="${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/python"
 
@@ -38,3 +39,12 @@ tests:
 
 clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
+
+upgrade: clean
+	git pull
+	npm install
+	${BOWER} install
+	${PIP} install -r requirements.txt
+	${PYTHON} manage.py migrate
+	${GRUNT} all
+
