@@ -1,5 +1,5 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bikeanjo/bikeanjo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Build Status](https://travis-ci.org/bikeanjo/bikeanjo.svg)](https://travis-ci.org/bikeanjo/bikeanjo)
+[![Build Status](https://codeship.com/projects/42a25650-30e8-0133-1364-026237e4ffbb/status?branch=master)](https://codeship.com/projects/99659)
 
 Bike Anjo
 =========
