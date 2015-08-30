@@ -4,20 +4,32 @@
 Bike Anjo
 =========
 
+pre-install
+-----------
+
+* sudo pacman -S postgresql
+* sudo pacman -S postgis
+* sudo pacman -S nodejs
+
 install:
 --------
 
-* create a virtualenv
-* (sudo) npm install -g grunt-cli bower
-* make
+* npm install
+* ./node_modules/bower/bin/bower install
+* ./node_modules/grunt-cli/bin/grunt all
+* virtualenv -p /usr/bin/python2 bikeanjo
+* pip install -r requirements.txt
+* psql -U postgres -c 'CREATE EXTENSION postgis;'
+* psql -U postgres -c 'CREATE DATABASE bikeanjo;'
+* ./manage.py migrate
 
 run:
 ----
 
 you need to run both the django process and grunt to build static assets:
 
-* ./bikeanjo.py
-* grunt
+* ./manage.py runserver
+* grunt all
 
 then you can open [http://localhost:8000](http://localhost:8000) on your browser.
 
@@ -29,9 +41,5 @@ tests:
 [nossa trello board](https://trello.com/b/jRVE7t8B/cocriacao-nova-plataforma-bike-anjo)
 
 
-Postgresql
-----------
-
-    sudo pacman -S postgresql postgis
 
 http://gis.stackexchange.com/a/19440
