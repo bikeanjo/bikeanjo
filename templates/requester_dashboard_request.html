@@ -20,7 +20,7 @@
 
             <section class="dashboard-content col-md-7">
 
-                <article class="card request {% if not helprequest.bikeanjo %}orphan{% endif %}">
+                <article class="card request {{helprequest.status}} {% if not helprequest.bikeanjo %}orphan{% endif %}">
                     <header class="card-header negative">
                         <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
                         <ul class="card-actions list-inline">
@@ -50,21 +50,21 @@
                     </header>
 
                     <div class="card-content">
-                        {% if helprequest.bikeanjo %}
+                        {% if helprequest.status != 'new' and helprequest.bikeanjo %}
                         <div class="card-icon">
-                            {% if helprequest.status != 'new' %}
                             <img src="{{ helprequest.bikeanjo.get_avatar_url }}"
                                  width="50" height="50" 
                                  title="{{ helprequest.bikeanjo.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ helprequest.bikeanjo.get_full_name }}"/>
-                            {% endif %}
                         </div>
                         {% endif %}
 
-                        <h3 class="card-subtitle"{% if not helprequest.bikeanjo %} style="margin:0"{% endif %}>{{ helprequest.get_help_label }}</h3>
+                        <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
-                            {% if helprequest.status != 'new' and helprequest.bikeanjo %}
+                            {% if helprequest.status = 'new' or not helprequest.bikeanjo %}
+                                <li>Aguardando bikeanjo ...</li>
+                            {% elif helprequest.bikeanjo %}
                                 <li>{{ helprequest.bikeanjo.get_full_name }}</li>
                                 <li>{{ helprequest.bikeanjo.city }}</li>
                             {% endif %}
