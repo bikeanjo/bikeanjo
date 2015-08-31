@@ -1,3 +1,5 @@
+{% load flatpages %}
+
 <section class="partners container">
     <header>
         <h2>Parceiros</h2>
@@ -12,31 +14,39 @@
 <footer class="main-footer">
     <div class="container">
         <ul class="nav-footer list-inline list-unstyled hidden-xs">
+            {% get_flatpages '/about/' as about_pages %}
+            {% if about_pages %}
             <li><a href="#">Quem somos</a>
                 <ul class="list-unstyled">
-                    <li><a href="#">Como funciona</a></li>
-                    <li><a href="#">Sobre nós</a></li>
-                    <li><a href="#">Nossos projetos</a></li>
-                    <li><a href="#">Parceiros</a></li>
-                    <li><a href="#">Transparência</a></li>
-                    <li><a href="#">Na imprensa</a></li>
+                    {% for page in about_pages %}
+                        <li><a href="{{page.url}}">{{page.title}}</a></li>
+                    {% endfor %}
                 </ul>
             </li>
+            {% endif %}
+
+            {% get_flatpages '/work/' as work_pages %}
             <li><a href="#">O que fazemos</a>
                 <ul class="list-unstyled">
-                    <li><a href="#">O que temos feito</a></li>
-                    <li><a href="#">Onde atuamos</a></li>
-                    <li><a href="#">Nossas campanhas</a></li>
-                    <li><a href="#">Eventos</a></li>
-                    <li><a href="#">Dicas para quem quer pedalar</a></li>
-                    <li><a href="#">Dicas para quem já pedala</a></li>
+                    {% for page in work_pages %}
+                        <li><a href="{{page.url}}">{{page.title}}</a></li>
+                    {% endfor %}
+                    <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
+                    <li><a href="{% url 'tips_list' %}">Dicas para pedalar</a></li>
                 </ul>
             </li>
+
+            {% get_flatpages '/support/' as support_pages %}
+            {% if support_pages %}
             <li><a href="#">Apoie</a>
                 <ul class="list-unstyled">
-                    <li><a href="#">Apóie o Bike Anjo</a></li>
+                    {% for page in support_pages %}
+                        <li><a href="{{page.url}}">{{page.title}}</a></li>
+                    {% endfor %}
                 </ul>
             </li>
+            {% endif %}
+
             <li><a href="#">Contato</a>
                 <ul class="list-unstyled">
                     <li><a href="{% url 'contact_view' %}">Contato</a></li>
