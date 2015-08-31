@@ -23,6 +23,12 @@
             <div class="form-group">
                 <label class="primary-label" for="aditional-info">Informações adicionais</label>
                 <textarea class="form-control" rows="5" id="aditional-info" name="message" placeholder="Informação adicional ou particularidade do pedido">{{ form.message.value|default:'' }}</textarea>
+
+                {% if request.POST and form.message.errors %}
+                    {% for error in form.message.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
             </div>
 
             <button class="btn btn-primary btn-block btn-lg" type="submit"
