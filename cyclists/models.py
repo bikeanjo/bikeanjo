@@ -88,13 +88,13 @@ class User(AbstractUser):
     avatar = models.ImageField(_('Avatar'), upload_to=get_upload_path,
                                storage=AvatarStorage(), blank=True)
     country = models.CharField(_('Country'), max_length=32, blank=True)
-    city = models.CharField(_('City'), max_length=32, blank=True)
+    city = models.CharField(_('City'), max_length=64, blank=True)
     gender = models.CharField(_('Gender'), max_length=24, blank=True)
     birthday = models.DateField(_('Birthday'), default=date.today, null=True)
     ride_experience = models.CharField(_('Ride experience'), choices=EXPERIENCE, max_length=32, blank=True)
     bike_use = models.CharField(_('Bike use'), choices=BIKE_USE, max_length=32, blank=True)
     help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP
-    initiatives = models.CharField(_('Initiatives'), max_length=256, blank=True)
+    initiatives = models.TextField(blank=True)
     role = models.CharField(_('Role'), choices=CYCLIST_ROLES, max_length=32, blank=True)
     accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
     available = models.BooleanField(_('Available'), default=True)
