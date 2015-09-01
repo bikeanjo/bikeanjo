@@ -4,16 +4,21 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>{% block title %}Bike Anjo{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Hacklab">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="Hacklab" />
+        
         {% block opengraph %}
-            <meta name="description" content="Uma comunidade que acredita na transformação por meio da bicicleta!">
-            <meta property="og:url"           content="http://{{site.domain}}/" />
-            <meta property="og:type"          content="website" />
-            <meta property="og:title"         content="{{site.name}}" />
-            <meta property="og:description"   content="Uma comunidade que acredita na transformação por meio da bicicleta!" />
-            <meta property="og:image"         content="http://{{site.domain}}{% static 'imgs/logo-bike-anjo.png' %}" />
+        <meta name="description"          content="Uma comunidade que acredita na transformação por meio da bicicleta!">
+        <meta property="og:url"           content="http://{{site.domain}}/" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="{{site.name}}" />
+        <meta property="og:description"   content="Uma comunidade que acredita na transformação por meio da bicicleta!" />
+        <meta property="og:image"         content="http://{{site.domain}}{% static 'imgs/logo-bike-anjo.png' %}" />
         {% endblock %}
+
+        {% if GOOGLE_SITE_VERIFICATION %}{% spaceless %}
+        <meta name="google-site-verification" content="{{GOOGLE_SITE_VERIFICATION}}" />
+        {% endspaceless %}{% endif %}
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="{% static 'css/main.css' %}">

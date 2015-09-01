@@ -71,6 +71,7 @@ class HomeView(CreateView):
         }
         context['force_header'] = True
         context['force_footer'] = True
+        context['site'] = Site.objects.filter(id=settings.SITE_ID).first()
         return context
 
     def get(self, request, **kwargs):
