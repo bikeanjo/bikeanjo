@@ -35,3 +35,5 @@ EMAIL_HOST_USER = 'valid@email.com'
 
 DEFAULT_FROM_EMAIL = 'valid@email.com'
 DEFAULT_TO_EMAIL = 'valid@email.com'
+
+GOOGLE_ANALYTICS = 'UA-XXX-XXXX'
