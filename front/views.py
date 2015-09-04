@@ -518,22 +518,26 @@ class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
             self.cancel_steps()
         return super(SignupAgreementView, self).get(request, *kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(SignupAgreementView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def post(self, request, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
         form2 = self.helprequest_form_part()
 
+        response = None
         if form.is_valid():
-            result = self.form_valid(form)
-            if form2:
-                if form2.is_valid():
-                    form2.instance.requester = form.instance
-                    form2.save()
-                    self.cancel_steps()
-                else:
-                    return self.form_invalid(form2)
-            return result
-        return self.form_invalid(form)
+            response = self.form_valid(form)
+            if form2 and form2.is_valid():
+                form2.instance.requester = form.instance
+                form2.save()
+                self.cancel_steps()
+        else:
+            response = self.form_invalid(form)
+        return response
 
     def get_object(self):
         return self.request.user

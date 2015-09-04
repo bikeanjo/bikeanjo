@@ -516,6 +516,12 @@ class SignupAgreementForm(forms.ModelForm):
     check3 = forms.BooleanField()
     check4 = forms.BooleanField()
     accepted_agreement = forms.BooleanField()
+    message = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(SignupAgreementForm, self).__init__(*args, **kwargs)
+        self.fields['message'].required = (self.user.role == 'requester')
 
     def clean(self):
         cleaned_data = super(SignupAgreementForm, self).clean()
