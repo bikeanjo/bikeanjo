@@ -355,7 +355,7 @@ class MessageListView(DashboardMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         qs = models.Message.objects\
-                   .filter(id__gt=0)\
+                   .filter(id__gt=0, created_date__gt=user.date_joined)\
                    .extra(select={'was_read': 'front_readedmessage.user_id'})
         join = Join(
             models.ReadedMessage._meta.db_table,
