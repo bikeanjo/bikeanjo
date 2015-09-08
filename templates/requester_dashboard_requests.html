@@ -46,8 +46,9 @@
                             {% if hr.status != 'new' %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
                             <li>{{ hr.bikeanjo.city }}</li>
+                            {% else %}
+                            <li>Aguardando bikeanjo ...</li>
                             {% endif %}
-                            {# <li>{{ hr.created_date|date:'d/m/Y' }}</li> #}
                         {% else %}
                             <li>Aguardando bikeanjo ...</li>
                         {% endif %}
