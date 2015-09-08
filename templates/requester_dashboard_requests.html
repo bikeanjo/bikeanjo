@@ -46,7 +46,7 @@
                             {% if hr.status != 'new' %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
                             <li>{{ hr.bikeanjo.city }}</li>
-                            {% else %}
+                            {% elif hr.status = 'new' %}
                             <li>Aguardando bikeanjo ...</li>
                             {% endif %}
                         {% else %}

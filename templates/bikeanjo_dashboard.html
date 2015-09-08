@@ -76,7 +76,7 @@
                     <header class="card-header negative">
                         <h2 class="card-title">Meus pedidos ({{user.helpbikeanjo_set.open.count}})</h2>
                     </header>
-                    {% for hr in helprequest_list %}
+                    {% for hr in user.helpbikeanjo_set.open %}
                     <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
                         <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a></h3>
                         <ul class="card-info list-info list-unstyled">
@@ -100,7 +100,7 @@
                     </header>
                     {% for helprequest in user.helpbikeanjo_set.matching.all %}
                     <div class="card-content">
-                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> <a href="{% url 'cyclist_request_detail' helprequest.id %}">{{helprequest.get_help_label}}</a></h3>
+                        <h3 class="card-subtitle"><i class="fa fa-user-plus"></i> <a href="{% url 'cyclist_new_request_detail' helprequest.id %}">{{helprequest.get_help_label}}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>#{{ helprequest.id|stringformat:'04d' }}</li>
                             <li>{{ helprequest.requester.get_full_name }}</li>

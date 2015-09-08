@@ -62,7 +62,7 @@
 
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
-                            {% if helprequest.status = 'new' or not helprequest.bikeanjo %}
+                            {% if helprequest.status = 'new' %}
                                 <li>Aguardando bikeanjo ...</li>
                             {% elif helprequest.bikeanjo %}
                                 <li>{{ helprequest.bikeanjo.get_full_name }}</li>
