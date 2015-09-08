@@ -115,11 +115,11 @@
                                    value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                        {% endif %}
 
-                        {% if not helprequest.helpreply_set.exists %}
-                            <div class="card-buttons">
-                                <button data-toggle="collapse"
+                        <div class="card-buttons">
+                            {% if not helprequest.helpreply_set.exists %}
+                                <a data-toggle="collapse"
                                         data-target="#helpreply-form"
-                                        class="btn btn-warning">Responder</button>
+                                        class="btn btn-warning">Responder</a>
 
                             {% if helprequest.status in 'open,new' %}
                                 {% if helprequest.status == 'open' %}
@@ -127,9 +127,15 @@
                                 {% endif %}
 
                                 <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
+                            {% elif helprequest.closed_by = 'bikeanjo' %}
+                                <form method="post" style="display: inline-block">{% csrf_token %}
+                                    <button class="btn btn-default">Ainda tenho dúvidas</button>
+                                    <input type="hidden" name="status" value="open" />
+                                    <input type="hidden" name="closed_by" value="" />
+                                </form>
                             {% endif %}
-                            </div>
                         {% endif %}
+                        </div>
                     </div>
                 </article>
 
@@ -183,8 +189,14 @@
                             <div class="card-buttons">
                                 <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#finishRequest">Pedido foi atendido</a>
                                 <form method="post" class="inline-block">{% csrf_token %}
-                                <button name="status" value="open" class="btn btn-default">Ainda tenho dúvidas</button>
-                                <a href="#" class="btn btn-default">Reportar problema</a>
+                                    <button name="status" value="open" class="btn btn-default">Ainda tenho dúvidas</button>
+                                    <input type="hidden" name="closed_by" value="" />
+                                    <a href="#" class="btn btn-default"
+                                        data-toggle="modal"
+                                        data-target="#feedbackModal"
+                                        send-to="#feedbackModal textarea"
+                                        send-content="Tive um problema com o pedido #{{helprequest.id}}, "
+                                        >Reportar problema</a>
                                 </form>
                             </div>
                             {% endif %}

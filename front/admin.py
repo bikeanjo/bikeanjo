@@ -222,6 +222,19 @@ class TestimonyAdmin(admin.ModelAdmin):
     list_display = ('author', 'message',)
 
 
+@admin.register(models.Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('author_name', 'message',)
+
+    def author_name(self, obj):
+        return format_html(
+            '<a href="{}">{}</a>',
+            reverse('admin:cyclists_user_change', args=[obj.author.id]),
+            obj.author.get_full_name()
+        )
+    author_name.admin_order_field = 'author__first_name'
+
+
 @admin.register(models.Subscriber)
 class SubscriberAdmin(ImportExportModelAdmin):
     list_display = ('email', 'token', 'valid',)

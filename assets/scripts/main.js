@@ -279,6 +279,11 @@
             }
         });
 
+        $('[send-to][send-content]').click(function(evt){
+            var $el = $(this);
+            $($el.attr('send-to')).val($el.attr('send-content'));
+        });
+
         (function setupMobileMenu(){
             $('button.toggle-menu').jPushMenu({
                 menuOpenClass      : 'cbp-spmenu-open',
