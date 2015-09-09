@@ -389,14 +389,18 @@ class HelpRequestUpdateForm(forms.ModelForm):
         data = self.cleaned_data
         req = self.instance
         bikeanjo = req.bikeanjo
+        closed_by = data.get('closed_by')
+        status = data.get('status')
 
-        if 'status' in self.changed_data and req.status in ['new', 'canceled']:
+        if 'status' in self.changed_data and status in ['new', 'canceled']:
             if req.bikeanjo:
                 match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
                 match.rejected_date = now()
                 match.reason = data.get('reason', 'user canceled request')
                 match.save()
-            req.bikeanjo = None
+
+            if status == 'new' and closed_by == 'bikeanjo':
+                req.bikeanjo = None
 
         super(HelpRequestUpdateForm, self).save(self, **kwargs)
 

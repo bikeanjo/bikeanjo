@@ -135,7 +135,15 @@
                                 </form>
                             {% endif %}
                         {% endif %}
-                        </div>
+
+                        {% if helprequest.status == 'canceled' and helprequest.closed_by = 'bikeanjo' and helprequest.bikeanjo %}
+                            <form method="post" style="display: inline-block">{% csrf_token %}
+                                <button class="btn btn-default">Reabrir pedido</button>
+                                <input type="hidden" name="status" value="open" />
+                                <input type="hidden" name="closed_by" value="" />
+                            </form>
+                        {% endif %}
+                    </div>
                     </div>
                 </article>
 
