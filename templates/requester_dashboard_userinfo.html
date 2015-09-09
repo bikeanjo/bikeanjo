@@ -102,7 +102,17 @@
 
                             <div class="form-group {% if form.city.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
-                                <input class="form-control" type="tel" name="{{ form.city.html_name }}" id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}" placeholder="O nome da sua cidade">
+
+                                <input class="form-control" type="text"
+                                       name="{{ form.city.html_name }}"
+                                       id="{{ form.city.id_for_label }}"
+                                       value="{{ form.city.value|default:"" }}"
+                                       autocomplete="off"
+                                       placeholder="O nome da sua cidade"
+                                       suggests="/api/cities" suggests-json-key="name"
+                                       suggests-filter-key="state__country__name"
+                                       suggests-filter-value="#id_country">
+
                                 <i class="fa fa-home form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.city.errors %}
