@@ -18,7 +18,7 @@ admin.site.index_title = _('Site administration')
 
 
 class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
-    list_filter = ('city', 'country',)
+    list_filter = ('city', 'country', 'date_joined',)
     resource_class = resources.UserResource
 
     def full_name(self, obj):
@@ -98,7 +98,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
 class User(CustomUserAdmin):
     list_display = ('full_name', 'email', 'role', 'formatted_joined',
                     'formatted_last_login', 'city', 'country',)
-    list_filter = ('role', 'city', 'country',)
+    list_filter = ('role', 'city', 'country', 'date_joined',)
 
     def formatted_last_login(self, obj):
         return obj.date_joined.strftime('%d/%m/%Y - %H:%M')
@@ -117,6 +117,7 @@ class Bikeanjo(CustomUserAdmin):
     list_display = ('full_name', 'formatted_joined', 'available', 'city', 'country',
                     'active_requests', 'finalized_requests', 'service_rating',
                     'tracks', 'points')
+    list_filter = ('city', 'country', 'available', 'date_joined',)
 
     def service_rating(self, obj):
         if obj.role != 'bikeanjo':
@@ -159,12 +160,34 @@ class Bikeanjo(CustomUserAdmin):
 
 @admin.register(models.Track)
 class TrackAdmin(admin.ModelAdmin):
-    list_display = ('user', 'start', 'end', 'track',)
+    list_display = ('created_date', 'user_name', 'start', 'end', 'track',)
+    list_filter = ('created_date', 'user__role')
+    search_fields = ('user__first_name', 'user__last_name', 'start', 'end')
+
+    def user_name(self, obj):
+        return format_html(
+            '<a href="{}">{}</a>',
+            reverse('admin:cyclists_user_change', args=[obj.user.id]),
+            obj.user.get_full_name()
+        )
+    user_name.admin_order_field = 'user__first_name'
+    user_name.short_description = _('User name')
 
 
 @admin.register(models.Point)
 class PointAdmin(admin.ModelAdmin):
-    list_display = ('address', 'coords',)
+    list_display = ('created_date', 'address', 'coords',)
+    list_filter = ('created_date', 'user__role')
+    search_fields = ('user__first_name', 'user__last_name', 'address')
+
+    def user_name(self, obj):
+        return format_html(
+            '<a href="{}">{}</a>',
+            reverse('admin:cyclists_user_change', args=[obj.user.id]),
+            obj.user.get_full_name()
+        )
+    user_name.admin_order_field = 'user__first_name'
+    user_name.short_description = _('User name')
 
 
 class HelpReplyInline(admin.TabularInline):
@@ -180,10 +203,12 @@ class HelpRequestAdmin(admin.ModelAdmin):
     search_fields = ('requester_name', 'bikeanjo_name',)
     list_display = ('requester_name', 'bikeanjo_name', 'get_help_label_',
                     'status', 'requester_rating', 'requester_eval',)
+    list_filter = ('status', 'requester_rating',)
 
     def get_help_label_(self, obj):
         return obj.get_help_label()
     get_help_label_.short_description = _('Help with')
+    get_help_label_.admin_order_field = 'help_with'
 
     def requester_name(self, obj):
         return obj.requester.get_full_name() or obj.requester.username
@@ -194,11 +219,13 @@ class HelpRequestAdmin(admin.ModelAdmin):
             return ''
         return obj.bikeanjo.get_full_name()
     bikeanjo_name.short_description = _('Bikeanjo name')
+    bikeanjo_name.admin_order_field = 'bikeanjo__first_name'
 
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_date', 'readed_by_')
+    list_display = ('created_date', 'title', 'readed_by_')
+    list_filter = ('created_date',)
     search_fields = ('title',)
 
     def readed_by_(self, obj):
@@ -209,6 +236,8 @@ class MessageAdmin(admin.ModelAdmin):
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'address',)
+    list_filter = ('created_date', 'date',)
+    search_fields = ('title', 'address', 'content')
     prepopulated_fields = {"slug": ("title",)}
 
 
@@ -219,12 +248,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Testimony)
 class TestimonyAdmin(admin.ModelAdmin):
-    list_display = ('author', 'message',)
-
-
-@admin.register(models.Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('author_name', 'message',)
+    list_display = ('created_date', 'author_name', 'message',)
+    list_filter = ('created_date',)
+    search_fields = ('author__first_name', 'author__last_name', 'message',)
 
     def author_name(self, obj):
         return format_html(
@@ -233,20 +259,48 @@ class FeedbackAdmin(admin.ModelAdmin):
             obj.author.get_full_name()
         )
     author_name.admin_order_field = 'author__first_name'
+    author_name.short_description = _('Name')
+
+
+@admin.register(models.Feedback)
+class FeedbackAdmin(ImportExportModelAdmin):
+    list_display = ('created_date', 'author_name', 'author_role', 'message',)
+    list_filter = ('created_date', 'author__role',)
+    search_fields = ('author__first_name', 'author__last_name', 'message')
+    resource_class = resources.FeedbackResource
+
+    def author_name(self, obj):
+        return format_html(
+            '<a href="{}">{}</a>',
+            reverse('admin:cyclists_user_change', args=[obj.author.id]),
+            obj.author.get_full_name()
+        )
+    author_name.admin_order_field = 'author__first_name'
+    author_name.short_description = _('Name')
+
+    def author_role(self, obj):
+        return _(obj.author.role.title())
+    author_role.admin_order_field = 'author__role'
+    author_role.short_description = _('Role')
 
 
 @admin.register(models.Subscriber)
 class SubscriberAdmin(ImportExportModelAdmin):
-    list_display = ('email', 'token', 'valid',)
+    list_display = ('created_date', 'email', 'token', 'valid',)
+    list_filter = ('created_date', 'valid',)
+    search_fields = ('email',)
     resource_class = resources.NewsletterResource
 
 
 @admin.register(models.ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ('email', 'subject', 'message',)
+    list_display = ('created_date', 'email', 'subject', 'message',)
+    list_filter = ('created_date', 'subject',)
+    search_fields = ('message',)
 
 
 @admin.register(models.TipForCycling)
 class TipAdmin(admin.ModelAdmin):
     list_display = ('title', 'target', 'created_date',)
+    list_filter = ('created_date', 'target',)
     search_fields = ('title', 'content',)
