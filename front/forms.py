@@ -158,6 +158,11 @@ class SignupForm(forms.ModelForm):
                 field.initial = getattr(user, key, '')
             self.fields['full_name'].initial = user.get_full_name()
             self.fields['email2'].initial = user.email
+        elif self.instance.id:
+            user = self.instance
+            self.fields['full_name'].initial = user.get_full_name()
+            self.fields['email2'].initial = user.email
+
         return self
 
     def clean_city(self):
@@ -174,6 +179,18 @@ class SignupForm(forms.ModelForm):
             raise forms.ValidationError(_('The informed emails are different.'))
         return email
 
+    def clean_first_name(self):
+        full_name = self.cleaned_data.get('full_name').split(' ')
+        if full_name:
+            return full_name[0]
+        raise forms.ValidationError(_('Nome inválido'))
+
+    def clean_last_name(self):
+        full_name = self.cleaned_data.get('full_name').split(' ')
+        if full_name:
+            return ' '.join(full_name[1:])
+        raise forms.ValidationError(_('Nome inválido'))
+
     def signup(self, request, user):
         full_name = self.cleaned_data['full_name'].split(' ')
         user.first_name = full_name[0]
@@ -185,7 +202,7 @@ class SignupForm(forms.ModelForm):
 
     class Meta:
         model = models.User
-        fields = ('first_name', 'last_name', 'email', 'country', 'city',)
+        fields = ('full_name', 'first_name', 'last_name', 'email', 'country', 'city',)
 
 
 class SignupBikeanjoForm(forms.ModelForm):

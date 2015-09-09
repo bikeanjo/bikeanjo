@@ -23,7 +23,7 @@
     <input type="hidden" name="next" value="{% url 'requester_account_signup_complete' %}" />
     {% endif %}
 
-    {% if not sociallogin %}
+    {% if not sociallogin and not form.instance.id %}
     <fieldset>
         <legend>Crie sua conta usando</legend>
         {# include "socialaccount/snippets/provider_list.html" with process="login" #}
@@ -37,8 +37,8 @@
     </fieldset>
     {% endif %}
 
-    <fieldset {% if sociallogin %}style="border:none"{% endif %}>
-        {% if not sociallogin %}
+    <fieldset {% if sociallogin or form.instance.id %}style="border:none"{% endif %}>
+        {% if not sociallogin and not form.instance.id %}
         <legend>ou crie uma conta com seu e-mail</legend>
         {% endif %}
         <div class="form-group {% if form.full_name.errors %}has-error has-feedback{% endif %}">

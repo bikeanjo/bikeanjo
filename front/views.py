@@ -30,7 +30,8 @@ from notifications import notify_admins_about_new_contact_message, notify_user_s
 class RegisteredUserMixin(LoginRequiredMixin):
 
     def get_agreement_url(self):
-        url = reverse('cyclist_agreement')
+        role = self.request.user.role
+        url = reverse('cyclist_account_resignup', args=[role])
         if REDIRECT_FIELD_NAME:
             url += '?' + urlencode({REDIRECT_FIELD_NAME: self.request.get_full_path()})
         return url
@@ -445,6 +446,24 @@ class SignupView(allauth.account.views.SignupView):
         response = super(SignupView, self).form_valid(form)
         self.request.user.role = self.kwargs.get('role')
         self.request.user.save()
+        return response
+
+
+class ReSignupView(LoginRequiredMixin, UpdateView):
+    form_class = forms.SignupForm
+    model = models.User
+    template_name = 'account/signup.html'
+
+    def get_object(self):
+        return get_object_or_404(self.model, **{'id': self.request.user.id})
+
+    def get_success_url(self):
+        if self.kwargs.get('role') == 'bikeanjo':
+            return reverse('bikeanjo_account_signup_complete')
+        return reverse('requester_account_signup_complete')
+
+    def form_valid(self, form):
+        response = super(ReSignupView, self).form_valid(form)
         return response
 
 

@@ -32,6 +32,8 @@ urlpatterns = [
 
     url(r'^(?P<role>bikeanjo|requester)/signup/$',
         front.views.SignupView.as_view(), name='cyclist_account_signup'),
+    url(r'^(?P<role>bikeanjo|requester)/resignup/$',
+        front.views.ReSignupView.as_view(), name='cyclist_account_resignup'),
 
     url(r'^bikeanjo/signup/complete/$',
         front.views.SignupBikeanjoView.as_view(), name='bikeanjo_account_signup_complete'),
