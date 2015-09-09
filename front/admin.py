@@ -18,7 +18,7 @@ admin.site.index_title = _('Site administration')
 
 
 class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
-    list_filter = ('city', 'country', 'date_joined',)
+    list_filter = ('city', 'country', 'date_joined', 'accepted_agreement')
     resource_class = resources.UserResource
 
     def full_name(self, obj):
@@ -97,8 +97,8 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
 @admin.register(cyclists.models.User)
 class User(CustomUserAdmin):
     list_display = ('full_name', 'email', 'role', 'formatted_joined',
-                    'formatted_last_login', 'city', 'country',)
-    list_filter = ('role', 'city', 'country', 'date_joined',)
+                    'formatted_last_login', 'city', 'country', 'accepted_agreement')
+    list_filter = ('role', 'city', 'country', 'date_joined', 'accepted_agreement')
 
     def formatted_last_login(self, obj):
         return obj.date_joined.strftime('%d/%m/%Y - %H:%M')
