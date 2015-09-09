@@ -161,26 +161,20 @@
                 color: @brand-green;
             }
         }
+
         #carousel-who-used {
-            margin: 0 auto;
-            max-width: 315px;
-            @media screen and (min-width: @screen-xs-min) {
-                max-width: 430px;
-            }
-            @media screen and (min-width: @screen-sm-min) {
-                margin: 0;
-                max-width: initial;
-            }
+
         }
+
         .carousel-content { 
             overflow: hidden;
             .card {
-                height: 440px;
+                max-height: 440px;
                 @media screen and (min-width: 360px) and (max-width: @screen-xs-min) {
                     height: 380px;
                 }
                 @media screen and (min-width: @screen-xs-min) {
-                    height: 420px;
+                    min-height: 200px;
                 }
                 @media screen and (min-width: @screen-sm-min) {
                     height: 300px;

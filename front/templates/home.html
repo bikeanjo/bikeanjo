@@ -22,22 +22,22 @@
             </header>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-counter="{{counters.bikeanjos}}"></span>
+                      data-counter="{{counters.bikeanjos}}">{{counters.bikeanjos}}</span>
                 <span class="info">Bike Anjos</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-counter="{{counters.requests}}"></span>
+                      data-counter="{{counters.requests}}">{{counters.requests}}</span>
                 <span class="info">Pedidos</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-counter="{{counters.cities}}"></span>
+                      data-counter="{{counters.cities}}">{{counters.cities}}</span>
                 <span class="info">cidades</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
-                      data-counter="{{counters.countries}}"></span>
+                      data-counter="{{counters.countries}}">{{counters.countries}}</span>
                 <span class="info">Países</span>
             </div>
         </div>
@@ -98,44 +98,45 @@
             <h2>Confira quem já usou</h2>
             <p>Depoimentos de quem já fez parte da nossa comunidade</p>
         </header>
+        <div class="row">
+            <div id="carousel-who-used" class="carousel slide col-xs-12 col-sm-8 col-sm-push-2" data-ride="carousel"  data-interval="false">
 
-        <div id="carousel-who-used" class="carousel slide" data-ride="carousel"  data-interval="false">
-
-            <div class="carousel-inner" role="listbox">
-                {% for testimony in testimonies %}
-                <div class="item {% if forloop.first %}active{% endif %}">
-                    <div class="carousel-content">
-                        <div class="card">
-                            <div class="icon">
-                                <img src="{{ testimony.author.get_avatar_url }}"
-                                     width="85" height="85" 
-                                     title="{{ testimony.author.get_full_name }}"
-                                     alt="{% trans "Photo from" %} {{ testimony.author.get_full_name }}"/>
+                <div class="carousel-inner" role="listbox">
+                    {% for testimony in testimonies %}
+                    <div class="item {% if forloop.first %}active{% endif %}">
+                        <div class="carousel-content">
+                            <div class="card">
+                                <div class="icon">
+                                    <img src="{{ testimony.author.get_avatar_url }}"
+                                         width="85" height="85" 
+                                         title="{{ testimony.author.get_full_name }}"
+                                         alt="{% trans "Photo from" %} {{ testimony.author.get_full_name }}"/>
+                                </div>
+                                <p class="testimonial">{{ testimony.message }}</p>
+                                <p class="author">{{ testimony.author.get_full_name }}</p>
                             </div>
-                            <p class="testimonial">{{ testimony.message }}</p>
-                            <p class="author">{{ testimony.author.get_full_name }}</p>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+
+                <a class="left carousel-control" href="#carousel-who-used" role="button" data-slide="prev">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-who-used" role="button" data-slide="next">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    <span class="sr-only">Próximo</span>
+                </a>
+
+                <ol class="carousel-indicators">
+                    {% for testimony in testimonies %}
+                    <li data-target="#carousel-who-used"
+                        data-slide-to="{{forloop.counter0}}"
+                        {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                </ol>
             </div>
-
-            <a class="left carousel-control" href="#carousel-who-used" role="button" data-slide="prev">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                <span class="sr-only">Anterior</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-who-used" role="button" data-slide="next">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                <span class="sr-only">Próximo</span>
-            </a>
-
-            <ol class="carousel-indicators">
-                {% for testimony in testimonies %}
-                <li data-target="#carousel-who-used"
-                    data-slide-to="{{forloop.counter0}}"
-                    {% if forloop.first %}class="active"{% endif %}></li>
-                {% endfor %}
-            </ol>
         </div>
     </section>
 
