@@ -77,7 +77,8 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
             return
         try:
             user = User.objects.get(email=user.email)
-            sociallogin.state['process'] = 'redirect'
-            return perform_login(request, user, 'none', redirect_url=reverse('cyclist_dashboard'))
+            sociallogin.state['next'] = reverse('cyclist_dashboard')
+            sociallogin.state['process'] = 'connect'
+            perform_login(request, user, 'none')
         except User.DoesNotExist:
             pass
