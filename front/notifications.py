@@ -221,7 +221,7 @@ def notify_user_subscribed_in_newsletter(subscriber):
 # views.ContactView
 def notify_admins_about_new_contact_message(contact):
     from_email = contact.email
-    recipient = settings.DEFAULT_FROM_EMAIL
+    recipient = settings.DEFAULT_TO_EMAIL
     subject = contact.subject
     content = 'From "%s<%s>, %s' % (
         contact.name,
