@@ -117,6 +117,9 @@ class User(AbstractUser):
     def is_valid(self):
         return self.accepted_agreement
 
+    def has_bikeanjo_near(self):
+        return User.object.filter(role='bikeanjo', city=self.city).exists()
+
 
 class BikeanjoManager(models.Manager):
     def get_queryset(self):

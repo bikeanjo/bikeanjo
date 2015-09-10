@@ -11,23 +11,11 @@
             <section class="dashboard-content col-md-7">
 
 
-            {% if first_access %}
+            {% if 1 %}
             {% with first_request=user.helprequested_set.first %}
 
                 {% if first_request.help_with = 1 %}
-                    {% if first_request.bikeanjo %}
-                        <article class="card success-message big" role="alert">
-                            <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
-                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
-                            </button>
-                            <div class="card-content">
-                                <div class="card-badge"></div>
-                                <h2 class="card-subtitle">Sucesso!</h2>
-                                <p class="card-info"> Seu pedido foi enviado para nossa comunidade e em até 15 dias você terá um retorno.</p>
-                                <p class="card-info">Aproveite esse tempo para verificar se na sua cidade tem “EBA! - Escola Bike Anjo!”, uma oficina realizada por bike anjos para ensinar as pessoas a pedalar. Para fazer isso, clique <a href="{% url 'dashboard_event_list' %}">AQUI</a>. Aproveite também para conhecer seu painel personalizado e as dicas que preparamos para você.</p>
-                            </div>
-                        </article>
-                    {% elif not first_request.bikeanjo %}
+                    {% if not user.has_bikeanjo_near %}
                         <article class="card success-message big" role="alert">
                             <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
                                 <span aria-hidden="true"><i class="fa fa-times"></i></span>
@@ -48,7 +36,20 @@
                                 </ul>
                             </div>
                         </article>
+                    {% else %}
+                        <article class="card success-message big" role="alert">
+                            <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                            <div class="card-content">
+                                <div class="card-badge"></div>
+                                <h2 class="card-subtitle">Sucesso!</h2>
+                                <p class="card-info"> Seu pedido foi enviado para nossa comunidade e em até 15 dias você terá um retorno.</p>
+                                <p class="card-info">Aproveite esse tempo para verificar se na sua cidade tem “EBA! - Escola Bike Anjo!”, uma oficina realizada por bike anjos para ensinar as pessoas a pedalar. Para fazer isso, clique <a href="{% url 'dashboard_event_list' %}">AQUI</a>. Aproveite também para conhecer seu painel personalizado e as dicas que preparamos para você.</p>
+                            </div>
+                        </article>
                     {% endif %}
+
                 {% else %}
                     <article class="card success-message big" role="alert">
                         <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
