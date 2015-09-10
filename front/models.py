@@ -372,7 +372,7 @@ class Feedback(BaseModel):
         verbose_name_plural = _('Feedbacks')
 
     author = models.ForeignKey(User)
-    message = models.CharField(_('Message'), max_length=255)
+    message = models.TextField(_('Message'))
 
 
 class ContactMessage(BaseModel):
