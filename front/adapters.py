@@ -1,7 +1,11 @@
 import re
+from django.core.urlresolvers import reverse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.account.adapter import DefaultAccountAdapter
+from allauth.account.utils import perform_login
 from utils import DateParser
+from cyclists.models import User
+
 
 FACEBOOK_DATE_PATTERN = re.compile(r'^(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\d\d\d\d)$')
 FACEBOOK_LOCATION_PATTERN = re.compile(r'^(?P<city>[^,]+), *(?P<country>.*)$')
@@ -65,3 +69,15 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
     def add_message(self, request, level, message_template, message_context=None, extra_tags=''):
         # wrapper for django.contrib.messages.add_message
         pass
+
+    def pre_social_login(self, request, sociallogin):
+        user = sociallogin.user
+
+        if user.id or not user.email:
+            return
+        try:
+            user = User.objects.get(email=user.email)
+            sociallogin.state['process'] = 'connect'
+            perform_login(request, user, 'none', redirect_url=reverse('cyclist_dashboard'))
+        except User.DoesNotExist:
+            pass
