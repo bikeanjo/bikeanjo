@@ -166,7 +166,7 @@ class TrackAdmin(admin.ModelAdmin):
 
     def user_name(self, obj):
         return format_html(
-            '<a href="{}">{}</a>',
+            u'<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.user.id]),
             obj.user.get_full_name()
         )
@@ -201,9 +201,9 @@ class HelpReplyInline(admin.TabularInline):
 class HelpRequestAdmin(admin.ModelAdmin):
     inlines = [HelpReplyInline]
     search_fields = ('requester_name', 'bikeanjo_name',)
-    list_display = ('requester_name', 'bikeanjo_name', 'get_help_label_',
+    list_display = ('created_date', 'requester_name', 'bikeanjo_name', 'get_help_label_',
                     'status', 'requester_rating', 'requester_eval',)
-    list_filter = ('status', 'requester_rating',)
+    list_filter = ('created_date', 'status', 'requester_rating',)
 
     def get_help_label_(self, obj):
         return obj.get_help_label()
