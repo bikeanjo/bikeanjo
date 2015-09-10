@@ -11,7 +11,7 @@
             <section class="dashboard-content col-md-7">
 
 
-            {% if 1 %}
+            {% if first_access %}
             {% with first_request=user.helprequested_set.first %}
 
                 {% if first_request.help_with = 1 %}
