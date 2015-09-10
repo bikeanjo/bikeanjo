@@ -68,7 +68,12 @@
         {% endcomment %}
         </ul>
 
-        {% if view.kwargs.context == 'dashboard' %}
+        {% if not user.accepted_agreement %}
+            <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+            <input type="hidden"
+                   name="{{view.get_redirect_field_name}}"
+                   value="{% url 'cyclist_agreement' %}"/>
+        {% elif view.kwargs.context == 'dashboard' %}
             <button class="btn btn-primary btn-block btn-lg" type="submit">Salvar alterações</button>
             <input type="hidden"
                    name="{{view.get_redirect_field_name}}"
