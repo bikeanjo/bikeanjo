@@ -116,7 +116,7 @@ class PointsForm(forms.Form):
                 points.append(point)
 
             return points
-        except ValueError, e:
+        except ValueError:
             pass
 
         return points
