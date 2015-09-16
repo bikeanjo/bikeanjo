@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.gis',
     'django.contrib.flatpages',
+    'django.contrib.postgres',
     'django_extensions',
     'debug_toolbar',
     'filer',

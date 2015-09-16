@@ -167,8 +167,9 @@ class SignupForm(forms.ModelForm):
 
     def clean_city(self):
         name = self.cleaned_data['city']
-        if City.objects.filter(name=name).exists():
-            return name
+        city = City.objects.filter(name__unaccent__iexact=name).first()
+        if city:
+            return city.name
         raise forms.ValidationError('Verifique se a cidade está correta')
 
     def clean_email2(self):
@@ -262,6 +263,13 @@ class BikeanjoUserInforForm(forms.ModelForm):
                   'city', 'gender', 'birthday',)
         model = models.User
 
+    def clean_city(self):
+        name = self.cleaned_data['city']
+        city = City.objects.filter(name__unaccent__iexact=name).first()
+        if city:
+            return city.name
+        raise forms.ValidationError('Verifique se a cidade está correta')
+
 
 class RequesterUserInforForm(forms.ModelForm):
     ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.REQUESTER_EXPERIENCE)
@@ -270,6 +278,13 @@ class RequesterUserInforForm(forms.ModelForm):
         fields = ('avatar', 'first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',
                   'ride_experience',)
         model = models.User
+
+    def clean_city(self):
+        name = self.cleaned_data['city']
+        city = City.objects.filter(name__unaccent__iexact=name).first()
+        if city:
+            return city.name
+        raise forms.ValidationError('Verifique se a cidade está correta')
 
 
 # Part 1
