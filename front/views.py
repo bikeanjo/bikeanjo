@@ -263,20 +263,22 @@ class NewRequestsListView(DashboardMixin, ListView):
         Se o filtro for new, mas não houver nenhum resultado, cria
         uma flag 'no_new_requests' nesta instância de View
         '''
-        queryset = super(NewRequestsListView, self).get_queryset().filter(status='new').exclude(requester=self.request.user)
+        user = self.request.user
+        queryset = super(NewRequestsListView, self).get_queryset().filter(status='new').exclude(requester=user)
         _filter = self.request.GET.get('filter')
         qs = queryset
+
         if _filter == 'new':
-            qs = queryset.filter(bikeanjo=self.request.user)
+            qs = queryset.filter(bikeanjo=user)
 
             if qs.count() == 0:
                 self.no_new_requests = True
-                qs = queryset.filter(bikeanjo=None)
+                qs = queryset.filter(bikeanjo=None, requester__city__unaccent__iexact=user.city)
 
         elif _filter == 'orphan':
-            qs = queryset.filter(bikeanjo=None)
+            qs = queryset.filter(bikeanjo=None, requester__city__unaccent__iexact=user.city)
         else:
-            qs = queryset.filter(Q(bikeanjo=self.request.user) | Q(bikeanjo=None))
+            qs = queryset.filter(Q(bikeanjo=user) | Q(bikeanjo=None))
 
         qs = qs.order_by('-id')
         qs = qs.filter(requester__accepted_agreement=True)
