@@ -91,16 +91,17 @@ class PointsForm(forms.Form):
         self['points'].field.initial = self.load_points()
 
     def clean_points(self):
+        points = []
+
         if not self.cleaned_data.get('points'):
-            raise forms.ValidationError(_('This field is required.'))
+            return points
 
         try:
             json_points = json.loads(self.cleaned_data.get('points'))
 
             if not json_points:
-                raise forms.ValidationError(_('This field is required.'))
+                return points
 
-            points = []
             for p in json_points:
                 _id = p.get('properties').get('id')
 
@@ -116,7 +117,9 @@ class PointsForm(forms.Form):
 
             return points
         except ValueError, e:
-            raise forms.ValidationError(e.message)
+            pass
+
+        return points
 
     def save(self):
         points = self.cleaned_data['points']
