@@ -18,7 +18,7 @@ admin.site.index_title = _('Site administration')
 
 
 class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
-    list_filter = ('city', 'country', 'date_joined', 'accepted_agreement')
+    list_filter = ('city', 'country', 'date_joined', 'last_login', 'accepted_agreement')
     resource_class = resources.UserResource
 
     def full_name(self, obj):
@@ -76,11 +76,6 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
         return counter
     finalized_requests.short_description = _('Finalized requests')
 
-    def formatted_joined(self, obj):
-        return obj.date_joined.strftime('%d/%m/%Y - %H:%M')
-    formatted_joined.short_description = _('date joined')
-    formatted_joined.admin_order_field = 'date_joined'
-
     def lookup_allowed(self, lookup, value):
         allow = [
             'contentreadlog__object_id',
@@ -96,28 +91,23 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
 
 @admin.register(cyclists.models.User)
 class User(CustomUserAdmin):
-    list_display = ('full_name', 'email', 'role', 'formatted_joined',
-                    'formatted_last_login', 'city', 'country', 'accepted_agreement')
-    list_filter = ('role', 'city', 'country', 'date_joined', 'accepted_agreement')
-
-    def formatted_last_login(self, obj):
-        return obj.date_joined.strftime('%d/%m/%Y - %H:%M')
-    formatted_last_login.short_description = _('last login')
-    formatted_last_login.admin_order_field = 'last_login'
+    list_display = ('full_name', 'email', 'role', 'date_joined',
+                    'last_login', 'city', 'country', 'accepted_agreement')
+    list_filter = ('role', 'city', 'country', 'date_joined', 'last_login', 'accepted_agreement')
 
 
 @admin.register(cyclists.models.Requester)
 class Requester(CustomUserAdmin):
-    list_display = ('full_name', 'formatted_joined', 'city', 'country',
+    list_display = ('full_name', 'date_joined', 'last_login', 'city', 'country',
                     'active_requests', 'finalized_requests',)
 
 
 @admin.register(cyclists.models.Bikeanjo)
 class Bikeanjo(CustomUserAdmin):
-    list_display = ('full_name', 'formatted_joined', 'available', 'city', 'country',
+    list_display = ('full_name', 'date_joined', 'last_login', 'available', 'city', 'country',
                     'active_requests', 'finalized_requests', 'service_rating',
                     'tracks', 'points')
-    list_filter = ('city', 'country', 'available', 'date_joined',)
+    list_filter = ('city', 'country', 'available', 'date_joined', 'last_login')
 
     def service_rating(self, obj):
         if obj.role != 'bikeanjo':
