@@ -136,7 +136,7 @@
                 </form>
 
                 {% for helpreply in helprequest.helpreply_set.all %}
-                <article class="card {% if not forloop.first %}old-messages{% endif %}">
+                <article class="card">
                     <header class="card-header">
                             <div class="card-icon">
                                 <img src="{{ helpreply.author.get_avatar_url }}"
