@@ -86,7 +86,7 @@
 
                 <article class="card">
                     <div class="card-content">
-                        <p class="card-info">{{ helprequest.message }}</p>
+                        <p class="card-info">{{ helprequest.message|linebreaksbr }}</p>
                         
                         <div id="js-map" style="height: 150px"></div>
 
@@ -154,7 +154,7 @@
                         {% endcomment %}
                     </header>
                     <div class="card-content">
-                        <p class="card-info">{{ helpreply.message }}</p>
+                        <p class="card-info">{{ helpreply.message|linebreaksbr }}</p>
 
                         {% if forloop.first %}
                             <div class="card-buttons">

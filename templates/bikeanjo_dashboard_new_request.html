@@ -82,7 +82,7 @@
                             <h2 class="card-title">{{ helprequest.requester.get_full_name }}</h2>
                         </header>
                         <div class="card-content">
-                            <p class="card-info">{{ helprequest.message }}</p>
+                            <p class="card-info">{{ helprequest.message|linebreaksbr }}</p>
                             
                             <div id="js-map" style="height: 150px"></div>
 
@@ -128,7 +128,7 @@
                             <div class="card-date">{{ helpreply.created|date:'d/m/Y' }}</div>
                         </header>
                         <div class="card-content">
-                            <p class="card-info">{{ helpreply.message }}</p>
+                            <p class="card-info">{{ helpreply.message|linebreaksbr }}</p>
                             {% if forloop.first %}
                             <div class="card-buttons">
                                 <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
