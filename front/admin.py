@@ -190,7 +190,9 @@ class HelpReplyInline(admin.TabularInline):
 @admin.register(models.HelpRequest)
 class HelpRequestAdmin(admin.ModelAdmin):
     inlines = [HelpReplyInline]
-    search_fields = ('requester_name', 'bikeanjo_name',)
+    search_fields = ('requester__first_name', 'requester__last_name',
+                     'bikeanjo__first_name', 'bikeanjo__last_name',
+                     'message',)
     list_display = ('created_date', 'requester_name', 'bikeanjo_name', 'get_help_label_',
                     'status', 'requester_rating', 'requester_eval',)
     list_filter = ('created_date', 'status', 'requester_rating',)
