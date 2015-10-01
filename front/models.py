@@ -6,6 +6,7 @@ from collections import OrderedDict
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import Distance as D
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -341,12 +342,18 @@ class Category(models.Model):
         return self.name
 
 
+def default_to_first_site():
+    site = Site.objects.first()
+    return site.id if site else 1
+
+
 class Event(BaseModel):
     class Meta:
         verbose_name = _('Event')
         verbose_name_plural = _('Events')
         ordering = ['-created_date']
 
+    site = models.ForeignKey(Site, default=default_to_first_site)
     title = models.CharField(_('Title'), max_length=128)
     slug = models.SlugField(_('Slug'), max_length=128)
     content = models.TextField(_('Content'))
@@ -360,11 +367,20 @@ class Event(BaseModel):
     category = models.ForeignKey(Category, null=True, blank=True)
 
     def get_image_url(self):
-        if self.image:
-            return self.image.url
+        if not self.image:
+            return
+        url = {
+            'host': self.site.domain,
+            'url': self.image.url,
+        }
+        return 'http://%(host)s%(url)s' % url
 
-    def get_url(self):
-        return reverse('dashboard_event_detail', args=[self.slug])
+    def get_absolute_url(self):
+        url = {
+            'host': self.site.domain,
+            'url': reverse('dashboard_event_detail', args=[self.slug]),
+        }
+        return 'http://%(host)s%(url)s' % url
 
     def json_ld(self):
         ld = OrderedDict()
@@ -372,7 +388,7 @@ class Event(BaseModel):
         ld["@type"] = "Event"
         ld["name"] = self.title
         ld["startDate"] = self.date.isoformat()
-        ld["url"] = self.subscription_link or self.get_url()
+        ld["url"] = self.subscription_link or self.get_absolute_url()
 
         if self.image:
             ld["image"] = self.get_image_url()
