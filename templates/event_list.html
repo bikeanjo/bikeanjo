@@ -50,6 +50,7 @@
                         <div class="card-info">{{ event.content|safe }}</div>             
                     </div>
                 </a>
+                <script type="application/ld+json">{{ event.json_ld|safe }}</script>
                 {% endfor %}
 
                 {% if is_paginated %}

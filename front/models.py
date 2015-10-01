@@ -6,6 +6,7 @@ from collections import OrderedDict
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import Distance as D
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -350,7 +351,7 @@ class Event(BaseModel):
     slug = models.SlugField(_('Slug'), max_length=128)
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
-    date = models.DateField(_('Date'))
+    date = models.DateTimeField(_('Date'))
     city = models.CharField(_('City'), max_length='64')
     address = models.CharField(_('Address'), max_length='128', blank=True)
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
@@ -361,6 +362,36 @@ class Event(BaseModel):
     def get_image_url(self):
         if self.image:
             return self.image.url
+
+    def get_url(self):
+        return reverse('dashboard_event_detail', args=[self.slug])
+
+    def json_ld(self):
+        ld = OrderedDict()
+        ld["@context"] = "http://schema.org"
+        ld["@type"] = "Event"
+        ld["name"] = self.title
+        ld["startDate"] = self.date.isoformat()
+        ld["url"] = self.subscription_link or self.get_url()
+
+        if self.image:
+            ld["image"] = self.get_image_url()
+
+        ld['location'] = OrderedDict()
+        ld['location']["@type"] = "Place"
+
+        ld['location']['name'] = self.city or ""
+        ld['location']['address'] = OrderedDict()
+        ld['location']['address']["@type"] = "PostalAddress"
+        ld['location']['address']['addressLocality'] = self.city or ""
+
+        if self.address:
+            ld['location']['address']['streetAddress'] = self.address
+
+        if self.address_link:
+            ld['location']['address']['url'] = self.address_link
+
+        return json.dumps(ld)
 
     def __unicode__(self):
         return self.title

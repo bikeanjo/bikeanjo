@@ -11,7 +11,6 @@
 <meta property="og:description" content="{{ event.content|striptags|escape }}" />
 <meta property="fb:app_id" content="{{ facebook.client_id }}" />
 {% if event.get_image_url %}<meta property="og:image" content="{% static event.get_image_url %}" />{% endif %}
-
 {% endblock %}
 
 {% block content %}
@@ -86,6 +85,8 @@
             </ul>
         </div>
     </div>
+
+    <script type="application/ld+json">{{ event.json_ld|safe }}</script>
 
 </section>
 {% endblock %}
