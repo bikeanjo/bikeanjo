@@ -234,3 +234,21 @@ def notify_admins_about_new_contact_message(contact):
     msg = EmailMultiAlternatives(subject, content, from_email, [recipient],
                                  reply_to=[from_email])
     msg.send()
+
+
+# views.ContactView
+def notify_admins_about_new_feedback(feedback):
+    from_email = feedback.author.email
+    recipient = settings.DEFAULT_TO_EMAIL
+    subject = u'Feedback de %s' % feedback.author.get_full_name()
+    content = u'From "%s<%s>, %s' % (
+        feedback.author.get_full_name(),
+        feedback.author.email,
+        feedback.created_date.strftime('%d/%m/%Y %H:%M'),
+    )
+    content += '\n%s\n\n' % ('-' * len(content))
+    content += feedback.message
+
+    msg = EmailMultiAlternatives(subject, content, from_email, [recipient],
+                                 reply_to=[from_email])
+    msg.send()

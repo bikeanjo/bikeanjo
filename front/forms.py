@@ -9,6 +9,7 @@ from django.utils.timezone import now
 import models
 from cities.models import City
 from notifications import (
+    notify_admins_about_new_feedback,
     notify_bikeanjo_about_new_request,
     notify_new_reply_by_email,
     notify_requester_about_attended_request,
@@ -579,6 +580,11 @@ class FeedbackForm(forms.ModelForm):
         author = kwargs.pop('author', None)
         super(FeedbackForm, self).__init__(*args, **kwargs)
         self.instance.author = author
+
+    def save(self, **kwargs):
+        feedback = super(FeedbackForm, self).save(**kwargs)
+        notify_admins_about_new_feedback(feedback)
+        return feedback
 
     class Meta:
         model = models.Feedback
