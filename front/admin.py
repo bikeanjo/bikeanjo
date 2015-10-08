@@ -41,7 +41,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
                 'status__in': 'new,open',
             }
             return format_html(
-                '{} <small><a href="{}?{}">{}</a></small>',
+                u'{} <small><a href="{}?{}">{}</a></small>',
                 counter,
                 reverse('admin:front_helprequest_changelist'),
                 urlencode(query),
@@ -66,7 +66,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
                 'status__in': 'finalized',
             }
             return format_html(
-                '{} <small><a href="{}?{}">{}</a></small>',
+                u'{} <small><a href="{}?{}">{}</a></small>',
                 counter,
                 reverse('admin:front_helprequest_changelist'),
                 urlencode(query),
@@ -138,7 +138,7 @@ class Bikeanjo(CustomUserAdmin):
         if counter > 0:
             query = {'user': obj.id}
             return format_html(
-                '{} <small><a href="{}?{}">{}</a></small>',
+                u'{} <small><a href="{}?{}">{}</a></small>',
                 counter,
                 reverse('admin:front_point_changelist'),
                 urlencode(query),
@@ -172,7 +172,7 @@ class PointAdmin(admin.ModelAdmin):
 
     def user_name(self, obj):
         return format_html(
-            '<a href="{}">{}</a>',
+            u'<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.user.id]),
             obj.user.get_full_name()
         )
@@ -246,7 +246,7 @@ class TestimonyAdmin(admin.ModelAdmin):
 
     def author_name(self, obj):
         return format_html(
-            '<a href="{}">{}</a>',
+            u'<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.author.id]),
             obj.author.get_full_name()
         )
@@ -263,7 +263,7 @@ class FeedbackAdmin(ImportExportModelAdmin):
 
     def author_name(self, obj):
         return format_html(
-            '<a href="{}">{}</a>',
+            u'<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.author.id]),
             obj.author.get_full_name()
         )
