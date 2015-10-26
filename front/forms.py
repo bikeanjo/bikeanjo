@@ -430,7 +430,7 @@ class HelpRequestUpdateForm(forms.ModelForm):
 
         if 'status' in self.changed_data and status in ['new', 'canceled']:
             if req.bikeanjo:
-                match, created = req.match_set.get_or_create(bikeanjo_id=req.bikeanjo)
+                match, created = req.match_set.get_or_create(bikeanjo=req.bikeanjo)
                 match.rejected_date = now()
                 match.reason = data.get('reason', 'user canceled request')
                 match.save()
