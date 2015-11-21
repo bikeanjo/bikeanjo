@@ -8,7 +8,13 @@ from cyclists.models import User
 class UserResource(resources.ModelResource):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'role', 'city', 'country',)
+        fields = ('first_name', 'last_name', 'email', 'date_joined', 'last_login',
+                  'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country',)
+        export_order = ('first_name', 'last_name', 'email', 'date_joined', 'last_login',
+                        'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country',)
+
+    def dehydrate_help_with(self, obj):
+        return ' / '.join([str(label) for label in obj.help_labels()])
 
 
 class NewsletterResource(resources.ModelResource):

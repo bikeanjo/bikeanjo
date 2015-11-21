@@ -109,7 +109,7 @@ class User(AbstractUser):
 
     def help_labels(self):
         for code, label in HELP_OFFER:
-            if self.help_with >= code:
+            if code >= self.help_with:
                 break
             if self.help_with & code:
                 yield label
