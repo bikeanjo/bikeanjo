@@ -14,6 +14,8 @@ class UserResource(resources.ModelResource):
                         'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country',)
 
     def dehydrate_help_with(self, obj):
+        if obj.role == 'requester':
+            return ''
         return ' / '.join([str(label) for label in obj.help_labels()])
 
 
