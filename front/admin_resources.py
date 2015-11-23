@@ -9,9 +9,9 @@ class UserResource(resources.ModelResource):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'date_joined', 'last_login',
-                  'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country',)
+                  'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country', 'accepted_agreement',)
         export_order = ('first_name', 'last_name', 'email', 'date_joined', 'last_login',
-                        'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country',)
+                        'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country', 'accepted_agreement',)
 
     def dehydrate_help_with(self, obj):
         if obj.role == 'requester':
