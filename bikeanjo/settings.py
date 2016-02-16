@@ -150,9 +150,11 @@ REST_FRAMEWORK = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_URL = env('DJANGO_STATIC_URL', default='/static/')
+
 STATICFILES_DIRS = [
-    str(BASE_DIR.path('static'))
+#    str(BASE_DIR.path('static'))
 ]
+
 STATIC_ROOT = str(BASE_DIR.path('static'))
 
 

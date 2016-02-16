@@ -24,4 +24,7 @@ RUN npm install
 RUN nodejs node_modules/bower/bin/bower install
 
 RUN nodejs node_modules/grunt-cli/bin/grunt all
-#RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
+
+# create supervisor tomorrow
+CMD gunicorn bikeanjo.wsgi -b 0.0.0.0:8000 --log-file=/dev/stdout
