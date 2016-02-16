@@ -10,27 +10,30 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import environ
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+env = environ.Env()
+BASE_DIR = environ.Path(__file__) - 2
+environ.Env.read_env(str(BASE_DIR.path('.env')))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
+ADMINS = (
+    ('Fabio Montefuscolo', 'fabio.montefuscolo@hacklab.com.br'),
+)
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%1f#2u69h04ng=1@m-7l_bcql+fz%cyz@rgkys8zao%zpw9mt('
+SECRET_KEY = env('DJANGO_SECRET_KEY', default='%1f#2u69h04113465m-7l_bc3456`[]~z@rgkys8zao%zpw9mt(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.list('DJANGO_DEBUG', default=False)
+TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['*'])
 
 # Application definition
-
 INSTALLED_APPS = (
     'suit',
     'django.contrib.admin',
@@ -84,7 +87,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            str(BASE_DIR.path('templates')),
         ],
         # 'APP_DIRS': True,
         'OPTIONS': {
@@ -120,30 +123,23 @@ WSGI_APPLICATION = 'bikeanjo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'bikeanjo',
-    }
+    'default': env.db("DJANGO_DATABASE_URL", default='postgis://postgis/bikeanjo' ),
 }
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
-
-TIME_ZONE = 'America/Sao_Paulo'
+LANGUAGE_CODE = env('DJANGO_LANGUAGE_CODE', default='pt-br')
+TIME_ZONE = env('DJANGO_TIME_ZONE', default='America/Sao_Paulo')
 
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
+    str(BASE_DIR.path('locale')),
 )
 
 
@@ -153,13 +149,15 @@ REST_FRAMEWORK = {
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = env('DJANGO_STATIC_URL', default='/static/')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    str(BASE_DIR.path('static'))
 ]
+STATIC_ROOT = str(BASE_DIR.path('static'))
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = env('DJANGO_MEDIA_URL', default='/media/')
+MEDIA_ROOT = str(BASE_DIR.path('media'))
 
 
 SITE_ID = 1
@@ -193,8 +191,24 @@ SOCIALACCOUNT_PROVIDERS = {
 LOGIN_REDIRECT_URL = '/'
 SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER = 600
 
-MANDRILL_API_KEY = "brack3t-is-awesome"
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+
+EMAIL_USE_TLS = env('DJANGO_EMAIL_USE_TLS', default=None)
+EMAIL_HOST = env('DJANGO_EMAIL_HOST', default=None)
+EMAIL_PORT = env('DJANGO_EMAIL_PORT', default=None)
+EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD', default=None)
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER', default=None)
+
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL', default='Equipe Bike Anjo<noreply@bikeanjo.org>')
+DEFAULT_TO_EMAIL = env('DJANGO_DEFAULT_TO_EMAIL', default='Equipe Bike Anjo<contato@bikeanjo.org>')
+
+MANDRILL_API_KEY = env('MANDRILL_API_KEY', default='brack3t-is-awesome')
+GOOGLE_ANALYTICS = env('DJANGO_GOOGLE_ANALYTICS', default='')
+GOOGLE_SITE_VERIFICATION = env('DJANGO_GOOGLE_SITE_VERIFICATION', default='')
+
+FORMAT_MODULE_PATH = [
+    'bikeanjo.formats',
+]
 
 try:
     from .settings_local import *

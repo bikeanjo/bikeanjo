@@ -1,0 +1,4 @@
+.dockerignore
+bower_components
+Dockerfile
+node_modules
