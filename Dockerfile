@@ -31,6 +31,6 @@ RUN nodejs node_modules/grunt-cli/bin/grunt all
 RUN python manage.py collectstatic --noinput
 
 USER root
-EXPOSE ["80", "8000"]
+EXPOSE 80 8000
 ENTRYPOINT  ["/app/docker/entrypoint.py"]
 CMD ["supervisord", "-c", "/app/docker/supervisord.conf"]
