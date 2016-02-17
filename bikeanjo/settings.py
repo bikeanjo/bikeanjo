@@ -13,11 +13,12 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import environ
 
 env = environ.Env()
-BASE_DIR = environ.Path(__file__) - 2
-environ.Env.read_env(str(BASE_DIR.path('.env')))
+root = environ.Path(__file__) - 2
+environ.Env.read_env(str(root.path('.env')))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
+BASE_DIR = str(root)
 
 ADMINS = (
     ('Fabio Montefuscolo', 'fabio.montefuscolo@hacklab.com.br'),
@@ -87,7 +88,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            str(BASE_DIR.path('templates')),
+            str(root.path('templates')),
         ],
         # 'APP_DIRS': True,
         'OPTIONS': {
@@ -139,7 +140,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = (
-    str(BASE_DIR.path('locale')),
+    str(root.path('locale')),
 )
 
 
@@ -152,14 +153,14 @@ REST_FRAMEWORK = {
 STATIC_URL = env('DJANGO_STATIC_URL', default='/static/')
 
 STATICFILES_DIRS = [
-#    str(BASE_DIR.path('static'))
+#    str(root.path('static'))
 ]
 
-STATIC_ROOT = str(BASE_DIR.path('static'))
+STATIC_ROOT = str(root.path('static'))
 
 
 MEDIA_URL = env('DJANGO_MEDIA_URL', default='/media/')
-MEDIA_ROOT = str(BASE_DIR.path('media'))
+MEDIA_ROOT = str(root.path('media'))
 
 
 SITE_ID = 1

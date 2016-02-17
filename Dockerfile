@@ -8,11 +8,15 @@ RUN apt-get update
 RUN apt-get install -y python python-pip python-dev
 RUN apt-get install -y libpq-dev libgeos-dev libjpeg-dev
 RUN apt-get install -y nginx gunicorn supervisor
-RUN apt-get install -y npm
-RUN apt-get install -y git
+RUN apt-get install -y npm git
 
 RUN useradd -m -u 1000 -s /bin/bash bikeanjo
 RUN mkdir /app
+
+# Prefer to use mdillon/postgis
+ENV DJANGO_DATABASE_URL='postgis://bikeanjo:bikeanjo@postgis/bikeanjo'
+ENV DJANGO_SETTINGS_MODULE='bikeanjo.settings'
+ENV PYTHONPATH='/app'
 
 COPY . /app
 WORKDIR /app
@@ -26,5 +30,7 @@ RUN nodejs node_modules/bower/bin/bower install
 RUN nodejs node_modules/grunt-cli/bin/grunt all
 RUN python manage.py collectstatic --noinput
 
-# create supervisor tomorrow
-CMD gunicorn bikeanjo.wsgi -b 0.0.0.0:8000 --log-file=/dev/stdout
+USER root
+EXPOSE ["80", "8000"]
+ENTRYPOINT  ["/app/docker/entrypoint.py"]
+CMD ["supervisord", "-c", "/app/docker/supervisord.conf"]

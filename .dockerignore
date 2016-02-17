@@ -1,6 +1,5 @@
 .dockerignore
 bower_components/
-docker/
 Dockerfile
 node_modules/
 bikeanjo/settings_local.py*
