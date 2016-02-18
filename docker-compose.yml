@@ -1,0 +1,12 @@
+web:
+  image: hacklab/bikeanjo
+  ports:
+   - "80:80"
+  volumes:
+   - .:/app
+  links:
+   - db:postgis
+db:
+  image: mdillon/postgis
+  environment:
+   - POSTGRES_PASSWORD=postgis

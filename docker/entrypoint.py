@@ -3,6 +3,7 @@
 import os
 import sys
 import subprocess
+import time
 import django
 import environ
 import psycopg2
@@ -15,13 +16,32 @@ environ.Env.read_env('/app/.env')
 
 database = settings.DATABASES.get('default')
 
-conn = psycopg2.connect(
-    user='postgres',
-    host='postgis',
-    password=env('POSTGIS_ENV_POSTGRES_PASSWORD')
-)
-conn.set_isolation_level(0)
+tries = 5
+timeout = 5
+exception = None
 
+#
+# Waiting for postgis start on docker-compose
+#
+while tries > 0:
+    try:
+        conn = psycopg2.connect(
+            user='postgres',
+            host='postgis',
+            password=env('POSTGIS_ENV_POSTGRES_PASSWORD')
+        )
+        tries = 0
+        exception = None
+    except psycopg2.OperationalError as e:
+        exception = e
+        tries = tries - 1
+        sys.stderr.write('Failed to connect to postgis, %d tries reamaining...\n' % tries)
+        time.sleep(timeout)
+
+if exception:
+    raise exception
+
+conn.set_isolation_level(0)
 cur = conn.cursor()
 
 cur.execute("SELECT count(1) > 0 FROM pg_user WHERE usename='%(USER)s';" % database)
