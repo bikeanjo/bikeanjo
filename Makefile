@@ -1,4 +1,4 @@
-.PHONY: pre-ci setup-ci all tests
+.PHONY: pre-ci setup-ci all assets tests
 .SILENT: all
 
 GRUNT=./node_modules/grunt-cli/bin/grunt
@@ -15,13 +15,19 @@ all:
 		test ! -d ${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo && \
 		test -n ${VIRTUALENVWRAPPER_SCRIPT} && \
 		source ${VIRTUALENVWRAPPER_SCRIPT} && \
-	 	mkvirtualenv bikeanjo -p /usr/bin/python2 || \
-	 	exit 0"
+		mkvirtualenv bikeanjo -p /usr/bin/python2 || \
+		exit 0"
 	npm install
 	${BOWER} install
 	${PIP} install -r requirements.txt
 	${PYTHON} manage.py migrate ${NOINPUT}
 	${GRUNT} all
+
+assets:
+	npm install
+	${BOWER} install
+	${GRUNT} all
+	${GRUNT} watch
 
 pre-ci:
 	npm install grunt-cli bower

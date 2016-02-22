@@ -10,6 +10,8 @@ RUN apt-get install -y libpq-dev libgeos-dev libjpeg-dev
 RUN apt-get install -y nginx gunicorn supervisor
 RUN apt-get install -y npm git
 
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
 RUN useradd -m -u 1000 -s /bin/bash bikeanjo
 RUN mkdir /app
 
@@ -17,6 +19,8 @@ RUN mkdir /app
 ENV DJANGO_DATABASE_URL='postgis://bikeanjo:bikeanjo@postgis/bikeanjo'
 ENV DJANGO_SETTINGS_MODULE='bikeanjo.settings'
 ENV PYTHONPATH='/app'
+ENV GUNICORN_LOG_LEVEL='info'
+ENV GUNICORN_EXTRA_FLAGS=''
 
 COPY . /app
 WORKDIR /app
@@ -25,9 +29,8 @@ RUN chown -R bikeanjo /app
 
 USER bikeanjo
 RUN npm install
-RUN nodejs node_modules/bower/bin/bower install
-
-RUN nodejs node_modules/grunt-cli/bin/grunt all
+RUN node node_modules/bower/bin/bower install
+RUN node node_modules/grunt-cli/bin/grunt all
 RUN python manage.py collectstatic --noinput
 
 USER root

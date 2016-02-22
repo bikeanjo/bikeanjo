@@ -2,13 +2,23 @@ web:
   image: hacklab/bikeanjo
   environment:
    - DJANGO_DEBUG=True
+   - GUNICORN_EXTRA_FLAGS=--reload
   ports:
    - "80:80"
   volumes:
    - .:/app
   links:
    - db:postgis
+   - assets
 db:
   image: mdillon/postgis
   environment:
    - POSTGRES_PASSWORD=postgis
+assets:
+  image: hacklab/bikeanjo
+  volumes:
+   - .:/app
+  user: bikeanjo
+  entrypoint:
+   - make
+   - assets
