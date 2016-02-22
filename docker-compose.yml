@@ -1,5 +1,7 @@
 web:
   image: hacklab/bikeanjo
+  environment:
+   - DJANGO_DEBUG=True
   ports:
    - "80:80"
   volumes:

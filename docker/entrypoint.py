@@ -74,4 +74,6 @@ cur.close()
 conn.close()
 
 execute_from_command_line(['manage.py', 'migrate'])
+execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
+
 subprocess.call(sys.argv[1:])

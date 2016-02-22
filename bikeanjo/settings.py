@@ -29,7 +29,7 @@ ADMINS = (
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='%1f#2u69h04113465m-7l_bc3456`[]~z@rgkys8zao%zpw9mt(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.list('DJANGO_DEBUG', default=False)
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['*'])
