@@ -151,13 +151,8 @@ REST_FRAMEWORK = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_URL = env('DJANGO_STATIC_URL', default='/static/')
-
-STATICFILES_DIRS = [
-#    str(root.path('static'))
-]
-
 STATIC_ROOT = str(root.path('static'))
-
+STATICFILES_DIRS = env.list('STATICFILES_DIRS', default=[])
 
 MEDIA_URL = env('DJANGO_MEDIA_URL', default='/media/')
 MEDIA_ROOT = str(root.path('media'))
