@@ -18,6 +18,8 @@ from notifications import (
     notify_that_bikeanjo_cannot_help_anymore
 )
 
+from emailqueue.notificationsqueue import enqueue_30days_notification_for_closed_requests
+
 
 class TrackForm(forms.Form):
     tracks = forms.CharField(label=_('Tracks'),
@@ -428,15 +430,20 @@ class HelpRequestUpdateForm(forms.ModelForm):
         closed_by = data.get('closed_by')
         status = data.get('status')
 
-        if 'status' in self.changed_data and status in ['new', 'canceled']:
-            if req.bikeanjo:
-                match, created = req.match_set.get_or_create(bikeanjo=req.bikeanjo)
-                match.rejected_date = now()
-                match.reason = data.get('reason', 'user canceled request')
-                match.save()
+        if 'status' in self.changed_data:
+            if status in ['new', 'canceled']:
+                if req.bikeanjo:
+                    match, created = req.match_set.get_or_create(bikeanjo=req.bikeanjo)
+                    match.rejected_date = now()
+                    match.reason = data.get('reason', 'user canceled request')
+                    match.save()
 
-            if status == 'new' and closed_by == 'bikeanjo':
-                req.bikeanjo = None
+                if status == 'new' and closed_by == 'bikeanjo':
+                    req.bikeanjo = None
+
+            elif status in ['attended', 'finalized']:
+                enqueue_30days_notification_for_closed_requests(req)
+
 
         super(HelpRequestUpdateForm, self).save(self, **kwargs)
 

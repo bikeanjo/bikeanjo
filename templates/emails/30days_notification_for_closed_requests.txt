@@ -1,0 +1,8 @@
+Olá {{ recipient.first_name }},
+
+Seu pedido de ajuda para "{{ helprequest.get_help_label }}" foi solucionado?. Para ajudar em nosso controle interno, confirme em nosso sistema se você foi realmente atendido(a) e faça uma avaliação do bikeanjo.
+
+Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+
+Att,
+Equipe Bikeanjo

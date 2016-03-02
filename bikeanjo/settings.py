@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'cities',
     'cyclists',
     'front',
+    'emailqueue',
 )
 
 MIDDLEWARE_CLASSES = (
