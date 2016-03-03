@@ -14,10 +14,12 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+
 class QueuedMail(BaseModel):
     to = models.ForeignKey(settings.AUTH_USER_MODEL)
     sender = models.EmailField(_('From'), default=getattr(settings, 'DEFAULT_FROM_EMAIL', ''))
     date = models.DateField(_('Date'))
+    tag = models.CharField(_('Tag'), max_length=64, blank=True, db_index=True)
     sent = models.DateTimeField(_('Sent'), null=True, editable=False)
     subject = models.CharField(_('Subject'), max_length=128)
     html_content = models.TextField(_('HTML Content'))

@@ -1,0 +1,8 @@
+Olá {{ recipient.first_name }},
+
+Você ainda está atendendo o pedido para "{{ helprequest.get_help_label }}" de {{ helprequest.requester.get_full_name }}?. Não esqueça de marcar no sistema se o pedido já foi resolvido, pois isso ajuda em nosso controle interno.
+
+Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+
+Att,
+Equipe Bikeanjo

@@ -18,7 +18,12 @@ from notifications import (
     notify_that_bikeanjo_cannot_help_anymore
 )
 
-from emailqueue.notificationsqueue import enqueue_30days_notification_for_closed_requests
+from emailqueue.notificationsqueue import (
+    enqueue_30days_notification_for_closed_requests,
+    dequeue_30days_notification_for_closed_requests,
+    enqueue_15days_notification_for_open_requests,
+    dequeue_15days_notification_for_open_requests,
+)
 
 
 class TrackForm(forms.Form):
@@ -441,11 +446,18 @@ class HelpRequestUpdateForm(forms.ModelForm):
                 if status == 'new' and closed_by == 'bikeanjo':
                     req.bikeanjo = None
 
-            elif status in ['attended', 'finalized']:
-                enqueue_30days_notification_for_closed_requests(req)
-
-
         super(HelpRequestUpdateForm, self).save(self, **kwargs)
+
+        if 'status' in self.changed_data:
+            if status in ['attended', 'finalized']:
+                enqueue_30days_notification_for_closed_requests(req)
+            else:
+                dequeue_30days_notification_for_closed_requests(req)
+
+            if status == 'open':
+                enqueue_15days_notification_for_open_requests(req)
+            else:
+                dequeue_15days_notification_for_open_requests(req)
 
         if data.get('closed_by') == 'bikeanjo':
             if req.status == 'new':
@@ -480,6 +492,7 @@ class BikeanjoAcceptRequestForm(forms.ModelForm):
         super(BikeanjoAcceptRequestForm, self).save(self, **kwargs)
 
         if req.status == 'open':
+            enqueue_15days_notification_for_open_requests(self.instance)
             notify_requester_about_found_bikeanjo(self.instance)
 
         return self.instance
