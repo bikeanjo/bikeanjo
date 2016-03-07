@@ -6,39 +6,52 @@
             <div class="ba-wings"></div>
             <div class="profile-icon">
                 <a href="{% url 'cyclist_dashboard' %}"><img src="{{ user.get_avatar_url }}"
-                     width="85" height="85" 
+                     width="85" height="85"
                      title="{{ user.get_full_name }}"
                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                      alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
             </div>
-            <h2 class="profile-name"><a href="{% url 'cyclist_dashboard' %}">{% firstof user.first_name user.username %}</a></h2>
+            <h2 class="profile-name"><a href="{% url 'cyclist_dashboard' %}">
+                {% firstof user.first_name user.username %}</a></h2>
             <p class="profile-city">{{ user.city }}</p>
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
-                <li><a class="my_requests" href="{% url 'cyclist_my_requests' %}?status=open">Meus pedidos
-                {% if user.helpbikeanjo_set.unread.exists %}
-                <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span></a></li>
-                {% endif %}
-                
-                <li><a class="new_requests" href="{% url 'cyclist_new_requests' %}?filter=new">Novos pedidos</a></li>
-
                 <li>
-                    <a class="message_list" href="{% url 'dashboard_message_list' %}">Recados</a>
+                    <a class="my_requests" href="{% url 'cyclist_my_requests' %}?status=open">
+                        {% trans "My requests" %}
+                        {% if user.helpbikeanjo_set.unread.exists %}
+                        <span class="alert bubble">{{ user.helpbikeanjo_set.unread.count }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+
+                <li><a class="new_requests" href="{% url 'cyclist_new_requests' %}?filter=new">
+                    {% trans "New requests" %}</a>
+                </li>
+
+                <li><a class="message_list" href="{% url 'dashboard_message_list' %}">
+                    {% trans "Messages" %}</a>
                     {% if unread.messages.count %}
-                        <span class="alert bubble">{{ unread.messages.count }}</span>
+                    <span class="alert bubble">{{ unread.messages.count }}</span>
                     {% endif %}
                 </li>
 
-                <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
-                <li><a target="_blank" href="http://bikeanjo.org/novobikeanjo/foruns/">Fórum de discussão</a></li>
-                <li><a href="{% url 'tips_list' user.role %}">Dicas para pedalar</a></li>
-                <li><a class="user_register" href="{% url 'user_register' %}">Editar cadastro</a></li>
+                <li><a href="{% url 'dashboard_event_list' %}">
+                    {% trans "Events" %}</a></li>
+                <li><a target="_blank" href="http://bikeanjo.org/novobikeanjo/foruns/">
+                    {% trans "Discussion forum" %}</a></li>
+                <li><a href="{% url 'tips_list' user.role %}">
+                    {% trans "Tips for cycling" %}</a></li>
+                <li><a class="user_register" href="{% url 'user_register' %}">
+                    {% trans "Edit account" %}</a></li>
             </ul>
-        </nav>            
+        </nav>
     </div>
     <div class="sidebar-feedback">
-        <a href="#" data-toggle="modal" data-target="#feedbackModal"><span>Como estamos pedalando?</span><br>
-        Envie seu feedback</a>
+        <a href="#" data-toggle="modal" data-target="#feedbackModal">
+            <span>{% trans "How are we riding?" %}</span><br>
+            {% trans "Send us feedback" %}
+        </a>
     </div>
 </aside>

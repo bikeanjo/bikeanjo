@@ -5,7 +5,7 @@
         <header class="profile">
             <div class="profile-icon">
                 <a href="{% url 'cyclist_dashboard' %}"><img src="{{ user.get_avatar_url }}"
-                     width="85" height="85" 
+                     width="85" height="85"
                      title="{{ user.get_full_name }}"
                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                      alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
@@ -15,47 +15,62 @@
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
-                <li><a class="my_requests" href="{% url 'cyclist_my_requests' %}">Meus pedidos
-                {% if user.helprequested_set.unread.exists %}
-                <span class="alert bubble">{{ user.helprequested_set.unread.count }}</span></a></li>
-                {% endif %}
+                <li><a class="my_requests" href="{% url 'cyclist_my_requests' %}">
+                    {% trans "My requests" %}
+                    {% if user.helprequested_set.unread.exists %}
+                    <span class="alert bubble">{{ user.helprequested_set.unread.count }}</span>
+                    {% endif %}
+                </a></li>
 
                 <li>
-                    <a class="message_list" href="{% url 'dashboard_message_list' %}">Recados</a>
+                    <a class="message_list" href="{% url 'dashboard_message_list' %}">
+                        {% trans "Messages" %}</a>
                     {% if unread.messages.count %}
                         <span class="alert bubble">{{ unread.messages.count }}</span>
                     {% endif %}
                 </li>
 
-                <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
-                <li><a href="{% url 'tips_list' user.role %}">Dicas para pedalar</a></li>
-                <li><a class="user_register" href="{% url 'user_register' %}">Editar cadastro</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">Quero ser um Bike Anjo</a></li>
+                <li><a href="{% url 'dashboard_event_list' %}">
+                    {% trans "Events" %}</a></li>
+                <li><a href="{% url 'tips_list' user.role %}">
+                    {% trans "tips for cycling" %}</a></li>
+                <li><a class="user_register" href="{% url 'user_register' %}">
+                    {% trans "Edit account" %}</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">
+                    {% trans "I want to be Bike Anjo" %}</a></li>
             </ul>
-            <a href="{% url 'requester_help_request' %}" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
-        </nav>            
+            <a href="{% url 'requester_help_request' %}" class="sidebar-ask-help btn btn-warning">
+                {% trans "Request help to go cycling" %}</a>
+        </nav>
     </div>
     <div class="sidebar-feedback">
-        <a href="#" data-toggle="modal" data-target="#feedbackModal"><span>Como estamos pedalando?</span><br>
-        Envie seu feedback</a>
+        <a href="#" data-toggle="modal" data-target="#feedbackModal"><span>
+            {% trans "How are we riding?" %}</span><br>
+            {% trans "Send us feedback" %}</a>
     </div>
 </aside>
 
 <div class="modal fade dashboard-modal" id="becomebikeanjoModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
-        <form method="post" class="modal-content" action="{% url 'requester_become_bikeanjo' %}">{% csrf_token %}
+        <form method="post" class="modal-content" action="{% url 'requester_become_bikeanjo' %}">
+            {% csrf_token %}
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                <h3 class="modal-title">Quer ser um Bikeanjo?</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                <h3 class="modal-title">
+                    {% trans "Want to be a Bike Anjo?" %}</h3>
             </div>
             <div class="modal-body">
-                <p class="text-center">Você passará a receber pedidos de ajuda de pessoas que precisam de ajuda para pedalar.</p>
+                <p class="text-center">
+                    {% trans "You are going to start to receive requests of people looking for help with cycling" %}
+                </p>
             </div>
             <div class="modal-footer">
                 <p class="text-center">
-                    <button class="btn btn-success" type="submit">Continuar</button>
+                    <button class="btn btn-success" type="submit">
+                        {% trans "Continue" %}</button>
                 </p>
             </div>
         </form>
     </div>
-</div> 
+</div>

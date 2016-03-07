@@ -1,8 +1,9 @@
 {% load flatpages %}
+{% load i18n %}
 
 <section class="partners container">
     <header>
-        <h2>Parceiros</h2>
+        <h2>{% trans "Partners" %}</h2>
     </header>
     <ul class="list-inline">
         <li><a target="_blank" href="http://www.issomudaomundo.com.br/"><img src="/static/imgs/partner-01-itau.png" alt="Itaú"></a></li>
@@ -16,7 +17,7 @@
         <ul class="nav-footer list-inline list-unstyled hidden-xs">
             {% get_flatpages '/about/' as about_pages %}
             {% if about_pages %}
-            <li><a href="#">Quem somos</a>
+            <li><a href="#">{% trans "Who we are" %}</a>
                 <ul class="list-unstyled">
                     {% for page in about_pages %}
                         <li><a href="{{page.url}}">{{page.title}}</a></li>
@@ -26,19 +27,21 @@
             {% endif %}
 
             {% get_flatpages '/work/' as work_pages %}
-            <li><a href="#">O que fazemos</a>
+            <li><a href="#">{% trans "What we do" %}</a>
                 <ul class="list-unstyled">
                     {% for page in work_pages %}
                         <li><a href="{{page.url}}">{{page.title}}</a></li>
                     {% endfor %}
-                    <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
-                    <li><a href="{% url 'tips_list' %}">Dicas para pedalar</a></li>
+                    <li><a href="{% url 'dashboard_event_list' %}">
+                        {% trans "Events" %}</a></li>
+                    <li><a href="{% url 'tips_list' %}">
+                        {% trans "Tips for cycling" %}</a></li>
                 </ul>
             </li>
 
             {% get_flatpages '/support/' as support_pages %}
             {% if support_pages %}
-            <li><a href="#">Apoie</a>
+            <li><a href="#">{% trans "Support" %}</a>
                 <ul class="list-unstyled">
                     {% for page in support_pages %}
                         <li><a href="{{page.url}}">{{page.title}}</a></li>
@@ -47,9 +50,11 @@
             </li>
             {% endif %}
 
-            <li><a href="#">Contato</a>
+            <li><a href="#">
+                {% trans "Contact" %}</a>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'contact_view' %}">Contato</a></li>
+                    <li><a href="{% url 'contact_view' %}">
+                        {% trans "Contact" %}</a></li>
                 </ul>
             </li>
             <li><a href="http://bikeanjo.org/blog/" target="_blank">Blog</a></li>
@@ -63,7 +68,7 @@
         </ul>
         <div class="footer-bottom row hidden-xs">
             <div class="col-md-3 col-sm-4">
-                <p class="credits">Bike Anjo - 2015 - Feito no Brasil</p>
+                <p class="credits">Bike Anjo - 2015 - {% trans "Made in Brazil" %}</p>
             </div>
             <div class="col-md-6 col-sm-7">
                 <ul class="social-buttons list-inline unstyled">
@@ -120,7 +125,7 @@
 
             <a href="#top" class="back-to-top"></a>
 
-            <p class="credits">Bike Anjo - 2016 - Feito no Brasil</p>
+            <p class="credits">Bike Anjo - 2016 - {% trans "Made in Brazil" %}</p>
         </div>
     </div>
 </footer>
