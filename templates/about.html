@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% block content %}
 
 <section id="top" class="static about">
     <section class="jumbotron">
         <div class="container">
-            <h2>Sobre Nós</h2>
+            <h2>{% trans "About us" %}</h2>
         </div>
     </section>
 
     <nav class="navigation">
         <ul>
-            <li><a href="#what-we-are">O que é Bike Anjo</a></li>
-            <li><a href="#how-we-organize">Como nos organizamos</a></li>
-            <li><a href="#">Nossa história</a></li>
+            <li><a href="#what-we-are">{% trans "What is the Bike Anjo Project" %}</a></li>
+            <li><a href="#how-we-organize">{% trans "How we organize" %}</a></li>
+            <li><a href="#">{% trans "Our story" %}</a></li>
         </ul>
     </nav>
 
@@ -23,20 +24,24 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
                     <header>
-                        <h2>O que é o Bike Anjo</h2>
-                        <p>Conheça um pouco mais do nosso trabalho</p>
+                        <h2>{% trans "What is the Bike Anjo Project" %}</h2>
+                        <p>{% trans "Understand our work a little more" %}</p>
                     </header>
                     <div class="row">
                         <iframe width="750" height="422" src="https://www.youtube.com/embed/FqBdAbNlKxo" frameborder="0" allowfullscreen></iframe>
                         <div class="text">
-                            <p>Bikeanjo é uma rede de ciclistas apaixonad@s pela bicicleta que promove, mobiliza e ajuda pessoas a começarem a utilizar esse veículo nas cidades. Acreditamos que a bicicleta é uma ferramenta de transformação social e quanto mais gente, melhor serão nossas cidade. 0=D.</p>
+                            <p>
+                                {% trans "Bikeanjo is a network of passionate cyclists that promote, organize and help people \
+                                getting started with the bicycle as a vehicle in urban environment. We believe that cycling is a \
+                                tool to social change and the more people adhere, the better our cities will become!" %}
+                            </p>
 
-                            <p>Então em suma, o Bikeanjo é:</p>
+                            <p>{% trans "Long story short, Bikeanjo is" %}:</p>
                             <ul>
-                                <li>Uma corrente do bem</li>
-                                <li>Uma rede orgânica, espontânea, colaborativa e voluntária</li>
-                                <li>Difusores dos benefícios da bicicleta</li>
-                                <li>Realizadore de sonhos</li>
+                                <li>{% trans "A chain of goodness" %}</li>
+                                <li>{% trans "An organic, spontaneous, collaborative and voluntary based network" %}</li>
+                                <li>{% trans "We spread the word about the benefits of cycling" %}</li>
+                                <li>{% trans "We make dreams come true" %}</li>
                             </ul>
                         </div>
                     </div>
@@ -45,8 +50,8 @@
         </div>
         <footer>
             <div class="container">
-                <p>Vejas os lugares onde temos atuado e
-                <a href="#">Onde estamos</a></p>
+                <p>{% trans "Look up the places where we have been working" %} {% trans "and" %}
+                <a href="#">{% trans "where are we now" %}</a></p>
             </div>
         </footer>
     </section>
@@ -56,8 +61,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
                     <header>
-                        <h2>Como nos organizamos</h2>
-                        <p>Nós somos como uma bicicleta, com diferentes peças que se encaixam par trabalharem juntas.</p>
+                        <h2>{% trans "How we organize" %}</h2>
+                        <p>{% trans "We are like a bicycle, with several different parts that join together to work like one piece" %}.</p>
                     </header>
 
                     <div class="">
@@ -68,8 +73,8 @@
         </div>
         <footer>
             <div class="container">
-                <p>Vejas os lugares onde temos atuado e
-                <a href="#">Onde estamos</a></p>
+                <p>{% trans "Look up the places where we have been working" %} {% trans "and" %}
+                <a href="#">{% trans "where are we now" %}</a></p>
             </div>
         </footer>
     </section>
