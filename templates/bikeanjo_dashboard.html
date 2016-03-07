@@ -3,7 +3,7 @@
 
 {% block content %}
     <section class="dashboard dashboard-home bikeanjo container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -11,33 +11,45 @@
 
                 {% if first_access %}
                 <article class="card success-message big" role="alert">
-                    <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
-                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    <button type="button" class="card-button"
+                        data-dismiss="card" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-times"></i>
+                        </span>
                     </button>
                     <div class="card-content">
                         <div class="card-badge"></div>
-                        <h2 class="card-subtitle">Sucesso!</h2>
+                        <h2 class="card-subtitle">{% trans "Success!" %}</h2>
                         <p class="card-info">
-                            Bem-vind@ a rede do Bike Anjo! 0=D 
+                            {% trans "Welcome to Bike Anjo network!" %} 0=D
                             <br/>
-                            <br/>Aproveitamos para te convidar para:
+                            <br/>{% trans "We going to take this opportunity to invite you to" %}:
                         </p>
                         <ul class="list-unstyled card-info">
                             <li>
                                 <i class="fa fa-arrow-right"></i>
-                                <a href="http://bit.ly/cartilhaba" target="_blank">Conferir nossa cartilha para bike anjos</a>
+                                <a href="http://bit.ly/cartilhaba"
+                                    target="_blank">
+                                    {% trans "Check out our Bike Anjo booklet" %}
+                                </a>
                             </li>
                             <li>
                                 <i class="fa fa-arrow-right"></i>
-                                <a target="_blank" href="http://bikeanjo.org/novobikeanjo/foruns/">Entrar nos nossos grupos de conexão</a>
+                                <a target="_blank"
+                                    href="http://bikeanjo.org/novobikeanjo/foruns/">
+                                    {% trans "Join our connection groups" %}
+                                </a>
                             </li>
                             <li>
                                 <i class="fa fa-arrow-right"></i>
-                                <a href="{% url 'tips_list' 'bikeanjo' %}" target="_blank">Ver outras dicas para quem já pedala</a>
+                                <a href="{% url 'tips_list' 'bikeanjo' %}"
+                                    target="_blank">
+                                    {% trans "See more tips for who is already a cyclist" %}
+                                </a>
                             </li>
                         </ul>
                         <p class="card-info">
-                            <br/>Agradecemos por querer fazer parte dessa comunidade!
+                            <br/>
+                            {% trans "Thank you for joining our community" %}
                         </p>
                     </div>
                 </article>
@@ -66,7 +78,7 @@
                         <p class="card-info">{{message.content|striptags|truncatewords:32}}</p>
                     </div>
                     <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">{% trans "See full message" %}<i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
                 {% endif %}{% endwith %}
@@ -74,7 +86,7 @@
                 {% if user.helpbikeanjo_set.open.exists %}
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Meus pedidos ({{user.helpbikeanjo_set.open.count}})</h2>
+                        <h2 class="card-title">{% trans "My Requests" %}({{user.helpbikeanjo_set.open.count}})</h2>
                     </header>
                     {% for hr in user.helpbikeanjo_set.open %}
                     <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
@@ -88,7 +100,7 @@
                     </div>
                     {% endfor %}
                     <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'cyclist_my_requests' %}">Ver todos <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'cyclist_my_requests' %}">{% trans "View all" %}<i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
                 {% endif %}
@@ -96,7 +108,7 @@
                 {% if user.helpbikeanjo_set.matching.exists %}
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Novos pedidos ({{user.helpbikeanjo_set.matching.count}})</h2>
+                        <h2 class="card-title">{% trans "New requests" %}({{user.helpbikeanjo_set.matching.count}})</h2>
                     </header>
                     {% for helprequest in user.helpbikeanjo_set.matching.all %}
                     <div class="card-content">
@@ -110,7 +122,10 @@
                     </div>
                     {% endfor %}
                     <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'cyclist_new_requests' %}?filter=new">Ver todos<i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link"
+                            href="{% url 'cyclist_new_requests' %}?filter=new">
+                            {% trans "View all" %}<i class="fa fa-arrow-right"></i>
+                        </a>
                     </footer>
                 </article>
                 {% endif %}
@@ -118,7 +133,11 @@
                 {% if event_list %}
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Eventos{% if event_list.near %} na sua cidade{% endif %}</h2>
+                        <h2 class="card-title">
+                            {% trans "Events" %}
+                            {% if event_list.near %}
+                            {% trans "in your city" %}
+                            {% endif %}</h2>
                     </header>
                     {% for event in event_list|slice:'3' %}
                     <div class="card-content">
@@ -130,7 +149,10 @@
                     </div>
                     {% endfor %}
                     <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'dashboard_event_list' %}">Ver todos os eventos <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link"
+                            href="{% url 'dashboard_event_list' %}">
+                            {% trans "See all events" %}<i class="fa fa-arrow-right"></i>
+                        </a>
                     </footer>
                 </article>
                 {% endif %}
@@ -138,7 +160,9 @@
                 {% if tip %}
                 <article class="card photo small">
                     <header class="card-header negative">
-                        <h2 class="card-title">Dicas para ser bike anjo</h2>
+                        <h2 class="card-title">
+                            {% trans "Tips to become a bike anjo" %}
+                        </h2>
                         {% comment %}
                         <button type="button" class="card-button" aria-label="Refresh">
                             <span aria-hidden="true"><i class="fa fa-refresh"></i></span>
@@ -154,7 +178,9 @@
                         <p class="card-info">{{ tip.content }}</p>
                     </div>
                     <footer class="card-footer">
-                            <a class="see-more-link" href="{% url 'tips_list' user.role %}">Ver todas as dicas <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'tips_list' user.role %}">
+                            {% trans "See all tips" %}<i class="fa fa-arrow-right"></i>
+                        </a>
                     </footer>
                 </article>
                 {% endif %}
@@ -162,6 +188,6 @@
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}
