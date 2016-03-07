@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 17:48-0300\n"
+"POT-Creation-Date: 2016-03-07 18:25-0300\n"
 "PO-Revision-Date: 2015-07-21 12:09-0300\n"
 "Last-Translator:   <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -475,7 +475,8 @@ msgstr "Escore"
 msgid "Rejected date"
 msgstr "Data de rejeição"
 
-#: front/models.py:318
+#: front/models.py:318 templates/_dashboard_sidebar_bikeanjo.html:34
+#: templates/_dashboard_sidebar_requester.html:27 templates/_header.html:46
 msgid "Messages"
 msgstr "Recados"
 
@@ -503,7 +504,9 @@ msgstr "Categorias de eventos"
 msgid "Event"
 msgstr "Evento"
 
-#: front/models.py:353
+#: front/models.py:353 templates/_dashboard_sidebar_bikeanjo.html:41
+#: templates/_dashboard_sidebar_requester.html:34 templates/_footer.html:36
+#: templates/_header.html:51 templates/_header.html.py:94
 msgid "Events"
 msgstr "Eventos"
 
@@ -575,7 +578,9 @@ msgstr "Todos"
 msgid "Tip for cycling"
 msgstr "Dica para pedalar"
 
-#: front/models.py:466
+#: front/models.py:466 templates/_dashboard_sidebar_bikeanjo.html:45
+#: templates/_footer.html:38 templates/_header.html:55
+#: templates/_header.html.py:96
 msgid "Tips for cycling"
 msgstr "Dicas para pedalar"
 
@@ -595,12 +600,12 @@ msgstr ""
 msgid "Add address"
 msgstr "Adicionar Endereço"
 
-#: front/templates/help_offer.html:37 templates/admin/change_form.html:13
+#: front/templates/help_offer.html:37 templates/admin/change_form.html:18
 msgid "Next"
 msgstr "Próximo"
 
 #: front/templates/home.html:113 templates/_dashboard_sidebar_bikeanjo.html:12
-#: templates/_dashboard_sidebar_requester.html:11 templates/_header.html:32
+#: templates/_dashboard_sidebar_requester.html:11 templates/_header.html:33
 #: templates/bikeanjo_dashboard_new_request.html:62
 #: templates/bikeanjo_dashboard_new_request.html:80
 #: templates/bikeanjo_dashboard_new_request.html:125
@@ -619,23 +624,144 @@ msgstr "Foto de"
 msgid "Your information has been updated!"
 msgstr "Suas informações foram atualizadas!"
 
-#: templates/_header.html:37
+#: templates/404.html:10 templates/404.html.py:70
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:73
+msgid "You may have mistyped the address or the page may have been moved"
+msgstr ""
+
+#: templates/_dashboard_sidebar.html:16
+msgid "Help us to get better, sent us feedback"
+msgstr ""
+
+#: templates/_dashboard_sidebar.html:23
+msgid "Suggestions, complaints or compliments? Use in the field below"
+msgstr ""
+
+#: templates/_dashboard_sidebar.html:28 templates/_dashboard_sidebar.html:30
+msgid "Send"
+msgstr ""
+
+#: templates/_dashboard_sidebar_bikeanjo.html:22
+#: templates/_dashboard_sidebar_requester.html:19 templates/_header.html:40
+#, fuzzy
+#| msgid "Help requests"
+msgid "My requests"
+msgstr "Solicitações de ajuda"
+
+#: templates/_dashboard_sidebar_bikeanjo.html:30
+#, fuzzy
+#| msgid "Help requests"
+msgid "New requests"
+msgstr "Solicitações de ajuda"
+
+#: templates/_dashboard_sidebar_bikeanjo.html:43
+msgid "Discussion forum"
+msgstr ""
+
+#: templates/_dashboard_sidebar_bikeanjo.html:47
+#: templates/_dashboard_sidebar_requester.html:38
+msgid "Edit account"
+msgstr ""
+
+#: templates/_dashboard_sidebar_bikeanjo.html:53
+#: templates/_dashboard_sidebar_requester.html:48
+msgid "How are we riding?"
+msgstr ""
+
+#: templates/_dashboard_sidebar_bikeanjo.html:54
+#: templates/_dashboard_sidebar_requester.html:49
+msgid "Send us feedback"
+msgstr ""
+
+#: templates/_dashboard_sidebar_requester.html:36
+#, fuzzy
+#| msgid "Tips for cycling"
+msgid "tips for cycling"
+msgstr "Dicas para pedalar"
+
+#: templates/_dashboard_sidebar_requester.html:40
+msgid "I want to be Bike Anjo"
+msgstr ""
+
+#: templates/_dashboard_sidebar_requester.html:43
+#, fuzzy
+#| msgid "Requester rating"
+msgid "Request help to go cycling"
+msgstr "Nota do solicitante"
+
+#: templates/_dashboard_sidebar_requester.html:61
+#, fuzzy
+#| msgid "Learn to ride a bike"
+msgid "Want to be a Bike Anjo?"
+msgstr "Aprender a pedalar"
+
+#: templates/_dashboard_sidebar_requester.html:65
+msgid ""
+"You are going to start to receive requests of people looking for help with "
+"cycling"
+msgstr ""
+
+#: templates/_dashboard_sidebar_requester.html:71
+#, fuzzy
+#| msgid "Content"
+msgid "Continue"
+msgstr "Conteúdo"
+
+#: templates/_footer.html:6
+msgid "Partners"
+msgstr ""
+
+#: templates/_footer.html:20 templates/_header.html:73
+msgid "Who we are"
+msgstr ""
+
+#: templates/_footer.html:30 templates/_header.html:87
+msgid "What we do"
+msgstr ""
+
+#: templates/_footer.html:44 templates/_header.html:105
+msgid "Support"
+msgstr ""
+
+#: templates/_footer.html:54 templates/_footer.html.py:57
+#: templates/_header.html:117 templates/_header.html.py:121
+#: templates/contact_form.html:5 templates/contact_form.html.py:12
+msgid "Contact"
+msgstr "Contato"
+
+#: templates/_footer.html:71 templates/_footer.html.py:128
+msgid "Made in Brazil"
+msgstr ""
+
+#: templates/_header.html:38
 msgid "Panel"
 msgstr "Painel"
 
-#: templates/_header.html:48
+#: templates/_header.html:53
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/_header.html:55
+#: templates/_header.html:59
+msgid "I Want to be Bike Anjo"
+msgstr ""
+
+#: templates/_header.html:62
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/_header.html:116
+#: templates/_header.html:130
 msgid "Sign in"
 msgstr "Entrar"
 
+#: templates/_header.html:133
+msgid "Get help to go cycling"
+msgstr ""
+
 #: templates/_signup_inner_form.html:58
+#: templates/account/password_reset.html:22
 msgid "Type your e-mail"
 msgstr "Digite seu e-mail"
 
@@ -643,10 +769,84 @@ msgstr "Digite seu e-mail"
 msgid "Type again your email address"
 msgstr "Digite seu e-mail novamente"
 
+#: templates/about.html:9
+msgid "About us"
+msgstr ""
+
+#: templates/about.html:15 templates/about.html.py:27
+msgid "What is the Bike Anjo Project"
+msgstr ""
+
+#: templates/about.html:16 templates/about.html.py:64
+msgid "How we organize"
+msgstr ""
+
+#: templates/about.html:17
+#, fuzzy
+#| msgid "History"
+msgid "Our story"
+msgstr "Histórico"
+
+#: templates/about.html:28
+msgid "Understand our work a little more"
+msgstr ""
+
+#: templates/about.html:39
+msgid "Long story short, Bikeanjo is"
+msgstr ""
+
+#: templates/about.html:41
+msgid "A chain of goodness"
+msgstr ""
+
+#: templates/about.html:42
+msgid "An organic, spontaneous, collaborative and voluntary based network"
+msgstr ""
+
+#: templates/about.html:43
+msgid "We spread the word about the benefits of cycling"
+msgstr ""
+
+#: templates/about.html:44
+msgid "We make dreams come true"
+msgstr ""
+
+#: templates/about.html:53 templates/about.html.py:76
+msgid "Look up the places where we have been working"
+msgstr ""
+
+#: templates/about.html:53 templates/about.html.py:76
+#, fuzzy
+#| msgid "End"
+msgid "and"
+msgstr "Fim"
+
+#: templates/about.html:54 templates/about.html.py:77
+msgid "where are we now"
+msgstr ""
+
+#: templates/about.html:65
+msgid ""
+"We are like a bicycle, with several different parts that join together to "
+"work like one piece"
+msgstr ""
+
 #: templates/account/login.html:7 templates/account/login.html.py:74
 #: templates/subscription_confirmed.html:7
 msgid "Sign In"
 msgstr "Entrar"
+
+#: templates/account/login.html:13
+msgid "Let's ride?"
+msgstr ""
+
+#: templates/account/login.html:14
+msgid "Login to access your Dashboard"
+msgstr ""
+
+#: templates/account/login.html:20
+msgid "Login with"
+msgstr ""
 
 #: templates/account/login.html:32
 msgid "or"
@@ -660,12 +860,114 @@ msgstr "E-Mail"
 msgid "Forgot Password?"
 msgstr "Esqueceu sua senha?"
 
+#: templates/account/login.html:76 templates/account/password_reset.html:27
+msgid "Doesn't have an account?"
+msgstr ""
+
+#: templates/account/login.html:76 templates/account/password_reset.html:27
+#, fuzzy
+#| msgid "Signup"
+msgid "Sign up"
+msgstr "Cadastrar-se"
+
+#: templates/account/login.html:79
+msgid "Any Trouble or Question?"
+msgstr ""
+
+#: templates/account/login.html:79
+#, fuzzy
+#| msgid "Contact"
+msgid "Contact us!"
+msgstr "Contato"
+
 #: templates/account/password_reset.html:6
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_from_key.html:6
 #: templates/account/password_reset_from_key_done.html:6
 msgid "Password Reset"
 msgstr "Redefinir senha"
+
+#: templates/account/password_reset.html:11
+#, fuzzy
+#| msgid "Forgot Password?"
+msgid "Forgot your password"
+msgstr "Esqueceu sua senha?"
+
+#: templates/account/password_reset.html:12
+msgid "Insert your e-mail and we will send you a reset password e-mail"
+msgstr ""
+
+#: templates/account/password_reset.html:26
+#: templates/account/password_reset_from_key.html:36
+#, fuzzy
+#| msgid "Password"
+msgid "Reset password"
+msgstr "Password"
+
+#: templates/account/password_reset_done.html:11
+msgid "Success"
+msgstr ""
+
+#: templates/account/password_reset_done.html:12
+msgid "An e-mail has been sent to you with a reset password link"
+msgstr ""
+
+#: templates/account/password_reset_done.html:17
+msgid "To change your account you should first"
+msgstr ""
+
+#: templates/account/password_reset_done.html:20
+#, fuzzy
+#| msgid "Type your e-mail"
+msgid "Check your e-mail"
+msgstr "Digite seu e-mail"
+
+#: templates/account/password_reset_done.html:21
+msgid "Click the link sent to you"
+msgstr ""
+
+#: templates/account/password_reset_done.html:24
+msgid "You are being redirected to the reset password page"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:11
+#, fuzzy
+#| msgid "Forgot Password?"
+msgid "Reset your password?"
+msgstr "Esqueceu sua senha?"
+
+#: templates/account/password_reset_from_key.html:12
+msgid "Type and confirm your new password bellow"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:19
+#, fuzzy
+#| msgid "Password"
+msgid "New Password"
+msgstr "Password"
+
+#: templates/account/password_reset_from_key.html:22
+#, fuzzy
+#| msgid "Type your e-mail"
+msgid "Type your password"
+msgstr "Digite seu e-mail"
+
+#: templates/account/password_reset_from_key.html:28
+#: templates/account/password_reset_from_key.html:31
+msgid "Confirm your password"
+msgstr ""
+
+#: templates/account/password_reset_from_key_done.html:11
+msgid "Success!"
+msgstr ""
+
+#: templates/account/password_reset_from_key_done.html:12
+msgid "Your password has been successfully changed"
+msgstr ""
+
+#: templates/account/password_reset_from_key_done.html:17
+msgid "Go back to site"
+msgstr ""
 
 #: templates/account/signup.html:6 templates/bikeanjo_complete_signup.html:6
 #: templates/bikeanjo_help_offer.html:6 templates/cyclist_free_points.html:7
@@ -679,17 +981,26 @@ msgstr "Redefinir senha"
 msgid "Signup"
 msgstr "Cadastrar-se"
 
-#: templates/admin/change_form.html:10
+#: templates/admin/change_form.html:12
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/admin/change_form.html:18
+#: templates/admin/change_form.html:24
 msgid "History"
 msgstr "Histórico"
 
-#: templates/admin/change_form.html:20
+#: templates/admin/change_form.html:28
 msgid "View on site"
 msgstr "Ver no site"
+
+#: templates/bikeanjo_complete_signup.html:11
+msgid "Just a bit more info"
+msgstr ""
+
+#: templates/bikeanjo_complete_signup.html:12
+msgid ""
+"We need a little more information about you in order make a full experience"
+msgstr ""
 
 #: templates/bikeanjo_complete_signup.html:74
 #: templates/bikeanjo_dashboard_userinfo.html:165
@@ -725,15 +1036,15 @@ msgstr "Há quanto tempo você pedala?"
 msgid "Do you use the bicycle as a means of transportation?"
 msgstr "Você usa a bike como meio de transporte?"
 
+#: templates/bikeanjo_complete_signup.html:169
+msgid "Do you take part of any cycling initiative?"
+msgstr ""
+
 #: templates/bikeanjo_signup_terms.html:5
 #: templates/requester_ask_help_message.html:5
 #: templates/requester_signup_terms.html:5
 msgid "Signup agreement"
 msgstr "Termos para cadastro"
-
-#: templates/contact_form.html:5 templates/contact_form.html.py:12
-msgid "Contact"
-msgstr "Contato"
 
 #~ msgid "I want help to ride"
 #~ msgstr "Eu quero ajuda para pedalar"
