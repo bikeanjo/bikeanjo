@@ -19,14 +19,15 @@
                 {% if user.is_authenticated %}
                 <ul class="user-menu nav nav-pills">
                     <li role="presentation" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="true">
                         <span class="user-icon">
                             {% if unread.total > 0 %}
                             <span class="alert bubble">{{ unread.total }}</span>
                             {% endif %}
 
                             <img src="{{ user.get_avatar_url }}"
-                                 width="45" height="45" 
+                                 width="45" height="45"
                                  title="{{ user.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
@@ -35,21 +36,27 @@
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{% url 'cyclist_dashboard' %}">{% trans "Panel" %}</a></li>
-                            <li><a href="{% url 'cyclist_my_requests' %}">Meus pedidos
+                            <li><a href="{% url 'cyclist_my_requests' %}">
+                                {% trans "My requests" %}
                                 {% if unread.requests.exists %}
                                     <span class="alert bubble">{{ unread.requests.count }}</span>
                                 {% endif %}
                                 </a></li>
-                            <li><a href="{% url 'dashboard_message_list' %}">Recados
+                            <li><a href="{% url 'dashboard_message_list' %}">
+                                {% trans "Messages" %}
                                 {% if unread.messages.count > 0 %}
                                     <span class="alert bubble">{{ unread.messages.count }}</span>
                                 {% endif %}</a></li>
-                            <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
-                            <li><a href="{% url 'user_register' %}">{% trans "Edit profile" %}</a></li>
-                            <li><a href="{% url 'tips_list' user.role %}">Dicas para pedalar</a></li>
+                            <li><a href="{% url 'dashboard_event_list' %}">
+                                {% trans "Events" %}</a></li>
+                            <li><a href="{% url 'user_register' %}">
+                                {% trans "Edit profile" %}</a></li>
+                            <li><a href="{% url 'tips_list' user.role %}">
+                                {% trans "Tips for cycling" %}</a></li>
 
                             {% if user.role = 'requester' %}
-                            <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">Quero ser um Bike Anjo</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">
+                                {% trans "I Want to be Bike Anjo" %}</a></li>
                             {% endif %}
 
                             <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
@@ -58,11 +65,12 @@
                 </ul>
                 {% endif %}
                 <ul class="nav nav-pills">
-                    
+
                     {% get_flatpages '/about/' as about_pages %}
                     {% if about_pages %}
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Quem somos
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">{% trans "Who we are" %}
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             {% for page in about_pages %}
@@ -71,18 +79,21 @@
                         </ul>
                     </li>
                     {% endif %}
-                    
+
                     {% get_flatpages '/work/' as work_pages %}
                     {% if work_pages %}
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">O que fazemos
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">{% trans "What we do" %}
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             {% for page in work_pages %}
                                 <li><a href="{{page.url}}">{{page.title}}</a></li>
                             {% endfor %}
-                            <li><a href="{% url 'dashboard_event_list' %}">Eventos</a></li>
-                            <li><a href="{% url 'tips_list' %}">Dicas para pedalar</a></li>
+                            <li><a href="{% url 'dashboard_event_list' %}">
+                                {% trans "Events" %}</a></li>
+                            <li><a href="{% url 'tips_list' %}">
+                                {% trans "Tips for cycling" %}</a></li>
                         </ul>
                     </li>
                     {% endif %}
@@ -90,7 +101,8 @@
                     {% get_flatpages '/support/' as support_pages %}
                     {% if support_pages %}
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Apoie
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">{% trans "Support" %}
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             {% for page in support_pages %}
@@ -101,10 +113,12 @@
                     {% endif %}
 
                     <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Contato
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">{% trans "Contact" %}
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{% url 'contact_view' %}">Contato</a></li>
+                            <li><a href="{% url 'contact_view' %}">
+                                {% trans "Contact" %}</a></li>
                         </ul>
                     </li>
                     <li>
@@ -115,7 +129,8 @@
                 {% if not user.is_authenticated %}
                 <a href="{% url 'account_login' %}" class="btn btn-primary">{% trans "Sign in" %}</a>
                 {% elif user.role == 'requester' %}
-                <a href="{% url 'requester_help_request' %}" class="visible-xs-block visible-sm-block btn btn-primary">Ajuda para pedalar</a>
+                <a href="{% url 'requester_help_request' %}" class="visible-xs-block visible-sm-block btn btn-primary">
+                    {% trans "Get help to go cycling" %}</a>
                 {% endif %}
             </div>
         </nav><!--/.navbar-collapse -->

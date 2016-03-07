@@ -8,8 +8,8 @@
 {% block content %}
 <section class="forms signup container">
     <header>
-        <h2>Só mais alguns dados</h2>
-        <p>Para melhorar seu cadastro vamos precisar só de mais alguns dados</p>
+        <h2>{% trans "Just a bit more info" %}</h2>
+        <p>{% trans "We need a little more information about you in order make a full experience" %}</p>
     </header>
 
     <form class="signup card" id="signup_form" method="post">
@@ -127,7 +127,7 @@
             <label class="primary-label">
                 <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
             </label>
-            
+
             {% for value,label in form.ride_experience.field.choices %}
             <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                 <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -166,8 +166,11 @@
         </div>
 
         <div class="form-group">
-            <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
-            <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
+            <label class="primary-label" for="participate">{% trans "Do you take part of any cycling initiative?" %}</label>
+            <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
+                placeholder="Descreva sua participação aqui">
+                {{ form.initiatives.value|default:'' }}
+            </textarea>
 
             {% if form.initiatives.errors %}
                 {% for error in form.initiatives.errors %}

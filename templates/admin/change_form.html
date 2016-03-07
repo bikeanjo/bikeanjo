@@ -3,22 +3,32 @@
 
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
-  <ul class="object-tools">
+<ul class="object-tools">
     {% block object-tools-items %}
-    
-    {% if original.get_previous_by_created_date %}<li>
-        <a href="{% url opts|admin_urlname:'change' original.get_previous_by_created_date.pk %}" class="historylink">&laquo;{% trans "Previous" %}</a>
-    {% endif %}</li>
-    {% if original.get_next_by_created_date %}<li>
-        <a href="{% url opts|admin_urlname:'change' original.get_next_by_created_date.pk %}" class="historylink">{% trans "Next" %}&raquo;</a>
-    {% endif %}</li>
-    
+
+    {% if original.get_previous_by_created_date %}
+    <li>
+        <a href="{% url opts|admin_urlname:'change' original.get_previous_by_created_date.pk %}"
+           class="historylink">&laquo;{% trans "Previous" %}</a>
+        {% endif %}
+    </li>
+    {% if original.get_next_by_created_date %}
+    <li>
+        <a href="{% url opts|admin_urlname:'change' original.get_next_by_created_date.pk %}"
+           class="historylink">{% trans "Next" %}&raquo;</a>
+        {% endif %}
+    </li>
+
     <li>
         {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
         <a href="{% add_preserved_filters history_url %}" class="historylink">{% trans "History" %}</a>
     </li>
-    {% if has_absolute_url %}<li><a href="{{ absolute_url }}" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif %}
+    {% if has_absolute_url %}
+    <li>
+        <a href="{{ absolute_url }}" class="viewsitelink">{% trans "View on site" %}</a>
+    </li>
+    {% endif %}
     {% endblock %}
-  </ul>
+</ul>
 {% endif %}{% endif %}
 {% endblock %}
