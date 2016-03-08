@@ -8,8 +8,8 @@
 {% block content %}
 <section class="forms signup container">
 <header>
-    <h2>Como você pode ajudar?</h2>
-    <p>Preencha os dados abaixo para que o nosso sistema consiga cruzar corretamente os pedidos de ajuda</p>
+    <h2>{% trans "How can you help?" %}</h2>
+    <p>{% trans "Check the options bellow so our system can cross information of the help offers and requests" %}</p>
 </header>
 
 <form class="signup card" id="signup_form" method="post">
@@ -22,7 +22,7 @@
     {% endif %}
 
     <div class="form-group">
-        <label class="primary-label">Escolha como você pode ajudar</label>
+        <label class="primary-label">{% trans "Choose how you can help" %}</label>
         {% for code,label,checked in form.get_help_choices %}
         <label class="checkbox {% if checked %}checked{% endif %}">
             <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -39,10 +39,10 @@
            data-composed-bind="form.signup input[type=checkbox]"
            data-composed-bitoptions="true" />
 
-    <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Continuar cadastro</button>
+           <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue registration process" %}</button>
 
 </form>
 
-<p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+<p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

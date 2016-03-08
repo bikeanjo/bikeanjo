@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="primary-label" for="full-name">Nome completo</label>
                     <input class="form-control" type="text" name="{{form.name.html_name}}"
-                           id="full-name" value="{{form.name.value|default:''}}" placeholder="Seu nome completo">
+                           id="full-name" value="{{form.name.value|default:''}}" placeholder="{% trans "Your full name" %}">
                     <i class="fa fa-user form-control-icon"></i>
 
                     {% if form.name.errors %}
@@ -46,7 +46,7 @@
                     <input class="form-control" type="email" id="email"
                            name="{{ form.email.html_name }}"
                            value="{{ form.email.value|default:'' }}"
-                           placeholder="Digite seu e-mail">
+                           placeholder="{% trans "Type your e-mail" %}">
 
                     <i class="fa fa-envelope-o form-control-icon"></i>
                     {% if form.email.errors %}
@@ -78,7 +78,7 @@
                     <textarea class="form-control" rows="7"
                               name="{{ form.message.html_name }}"
                               id="message"
-                              placeholder="Digite seu e-mail">{{ form.message.value|default:'' }}</textarea>
+                              placeholder="{% trans "Type your e-mail" %}">{{ form.message.value|default:'' }}</textarea>
 
                     {% if form.message.errors %}
                         {% for error in form.message.errors %}

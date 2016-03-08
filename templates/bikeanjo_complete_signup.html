@@ -53,7 +53,7 @@
 
                         <input type="text" class="form-control" id="{{ form.gender.auto_id }}_custom"
                                value="{% if form.gender.value not in 'male,female' %}{{ form.gender.value|default:''}}{% endif %}"
-                               placeholder="Personalize">
+                               placeholder="{% trans "Customize" %}">
 
                     </label>
                 </div>
@@ -168,7 +168,7 @@
         <div class="form-group">
             <label class="primary-label" for="participate">{% trans "Do you take part of any cycling initiative?" %}</label>
             <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
-                placeholder="Descreva sua participação aqui">
+                placeholder="{% trans 'Describe your participation here' %}">
                 {{ form.initiatives.value|default:'' }}
             </textarea>
 
@@ -179,10 +179,10 @@
             {% endif %}
         </div>
 
-        <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Próximo</button>
+        <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Next" %}</button>
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %}<b> {% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
             <section class="dashboard-content col-md-7">
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Editar cadastro</h2>
+                        <h2 class="card-title">{% trans "Edit account" %}</h2>
                     </header>
                     <div class="card-content">
                         <h3 class="card-subtitle"><a href="{% url 'user_info_update' %}"><i class="fa fa-user-secret"></i> Dados pessoais</a></h3>
@@ -26,11 +27,11 @@
                         <div class="card-info">Como você pode ajudar, tempo de pedal, frequência, etc...</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'cyclist_registered_routes' 'dashboard' %}"><i class="fa fa-location-arrow"></i> Minhas rotas</a></h3>
+                        <h3 class="card-subtitle"><a href="{% url 'cyclist_registered_routes' 'dashboard' %}"><i class="fa fa-location-arrow"></i> {% trans "My Routes" %}</a></h3>
                         <div class="card-info">Rotas onde você pode atender</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-subtitle"><a href="{% url 'cyclist_register_points' 'dashboard' %}"><i class="fa fa-map-marker"></i> Pontos avulsos</a></h3>
+                        <h3 class="card-subtitle"><a href="{% url 'cyclist_register_points' 'dashboard' %}"><i class="fa fa-map-marker"></i> {% trans "Loose points" %}</a></h3>
                         <div class="card-info">Ponto avulsos onde você pode atender</div>
                     </div>
                     {% endif %}
@@ -39,6 +40,6 @@
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

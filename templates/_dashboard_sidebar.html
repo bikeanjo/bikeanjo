@@ -21,7 +21,7 @@
                     {% csrf_token %}
                     <div class="form-group">
                     <p>{% trans "Suggestions, complaints or compliments? Use in the field below" %}:</p>
-                    <textarea class="form-control" name="message" rows="5" placeholder="Enter text"></textarea>
+                    <textarea class="form-control" name="message" rows="5" placeholder="{% trans "Enter text" %}"></textarea>
                     <input type="hidden" name="{{ view.get_redirect_field_name }}" value="{{ request.get_full_path }}" />
                     </div>
                     {% if user.role == 'bikeanjo' %}
