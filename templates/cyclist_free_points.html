@@ -23,22 +23,22 @@
 
         {% if view.kwargs.context == 'dashboard' %}
             <header class="card-header negative">
-                <a href="{% url 'user_register' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
-                <span class="go-back">Pontos avulsos</span>
+                <a href="{% url 'user_register' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">{% trans "Back" %}</span></a>
+                <span class="go-back">{% trans "Loose points" %}</span>
             </header>
-            <p>Marque outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido.</p>
+            <p>{% trans "Mark loose points on the map that are not within routes (e.g., squares and parks) where you could answer a request" %}.</p>
         {% else %}
             {% if user.role == 'bikeanjo' %}
             <header>
-                <h2>Quer marcar pontos avulsos?</h2>
-                <p>Quer marcar outros pontos avulsos que não sejam rotas (ex: praças e parques) onde você poderia atender um pedido?</p>
+                <h2>{% trans "Want to add loose points?" %}</h2>
+                <p>{% trans "Do you want to add loose points on the map that are not within routes (e.g., squares and parks) where you could answer a request?" %}</p>
             </header>
             {% endif %}
 
             {% if user.role == 'requester' %}
             <header>
-                <h2>Onde pode pedalar?</h2>
-                <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>
+                <h2>{% trans "Where to cycle?" %}</h2>
+                <p>{% trans "Add points where you can go cycle, add as many as you want" %}</p>
             </header>
             {% endif %}
         {% endif %}
@@ -46,7 +46,7 @@
         <div class="hidden">{{ form.as_p }}</div>
         <div class="form-inline">
             <div class="form-group add-address">
-                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="Adicione pontos de ajuda">
+                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="{% trans "Add helping points" %}">
                 <button bikeanjo-add="point" class="btn btn-success">
                 <i class="fa fa-plus"></i></button>
 
@@ -69,23 +69,23 @@
         </ul>
 
         {% if not user.accepted_agreement %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
             <input type="hidden"
                    name="{{view.get_redirect_field_name}}"
                    value="{% url 'cyclist_agreement' %}"/>
         {% elif view.kwargs.context == 'dashboard' %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">Salvar alterações</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Save changes" %}</button>
             <input type="hidden"
                    name="{{view.get_redirect_field_name}}"
                    value="{% url 'user_register' %}"/>
         {% else %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
         {% endif %}
 
     </form>
 
     <div class="map" id="js-map"></div>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %}<b> {% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

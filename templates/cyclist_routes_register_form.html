@@ -25,24 +25,24 @@
         {% if view.kwargs.context == 'dashboard' %}
             <header class="card-header negative">
                 <a href="{% url 'user_register' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
-                <span class="go-back">Minhas rotas</span>
+                <span class="go-back">{% trans "My Routes" %}</span>
             </header>
 
-            <p>Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'. Essas rotas definirão as localidades onde você poderá atender pedidos.</p>
+            <p>{% trans "Register as many routes as you want given start point A and arrival point B. These routes will define where you can attend to requests" %}.</p>
         {% else %}
             {% if user.role == 'bikeanjo' %}
                 <header>
-                    <h2>Cadastre suas rotas</h2>
-                    <p class="visible-xs">Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'.</p>
-                    <p class="hidden-xs">Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' e chegada '(B)'. Essas rotas definirão as localidades onde você poderá atender pedidos.</p>
+                    <h2>{% trans "Register your routes" %}</h2>
+                    <p class="visible-xs">{% trans "Register as many routes as you want given start point A and arrival point B" %}.</p>
+                    <p class="hidden-xs">{% trans "Register as many routes as you want given start point A and arrival point B. These routes will define where you can attend   to requests" %}</p>
                 </header>
             {% endif %}
-            
+
             {% if user.role == 'requester' %}
                 <header>
-                    <h2>Qual é a sua rota?</h2>
-                    <p class="visible-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)'.</p>
-                    <p class="hidden-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a partir dessa informação vamos achar um bike anjo para te ajudar.</p>
+                    <h2>{% trans "What is your route?" %}</h2>
+                    <p class="visible-xs">{% trans "Register your route given start point A and arrival point B" %}.</p>
+                    <p class="hidden-xs">{% trans "Register your route given start point A and arrival point B, and we will find you a bike anjo to help you" %}.</p>
                 </header>
                 {% if view.get_redirect_field_name not in request.GET %}
                     <input type="hidden" name="next" value="{% url 'cyclist_register_points' %}" />
@@ -53,19 +53,19 @@
         <div class="add-route">
             <div class="steps"></div>
             <div class="form-group">
-                <label class="sr-only" for="departing-address">Local de partida</label>
-                <input class="form-control input-lg" type="text" id="departing-address" placeholder="Local de partida"
+                <label class="sr-only" for="departing-address">{% trans "Starting point" %}</label>
+                <input class="form-control input-lg" type="text" id="departing-address" placeholder="{% trans "Starting point" %}"
                        bikeanjo-track="start"/>
-                <label class="sr-only" for="destination-address">Local de destino</label>
-                <input class="form-control input-lg" type="text" id="destination-address" placeholder="Local de destino"
+                <label class="sr-only" for="destination-address">{% trans "Destination point" %}</label>
+                <input class="form-control input-lg" type="text" id="destination-address" placeholder="{% trans "Destination point" %}"
                        bikeanjo-track="end"/>
             </div>
         </div>
-        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Continue" %}</button>
 
     </form>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}
