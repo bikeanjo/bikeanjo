@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-07 17:58-0300\n"
-"PO-Revision-Date: 2016-03-07 17:51-0300\n"
-"Last-Translator:   <virgilio.santos@gmail.com>\n"
+"POT-Creation-Date: 2016-03-07 22:19-0300\n"
+"PO-Revision-Date: 2016-03-07 22:21-0300\n"
+"Last-Translator: Virgilio Nascimento Santos <virgilio.santos@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
+
+#: bikeanjo/settings.py:149
+msgid "Brazilian Portuguese"
+msgstr "Português Brasileiro"
+
+#: bikeanjo/settings.py:150
+msgid "Spanish"
+msgstr "Espanhol"
+
+#: bikeanjo/settings.py:151
+msgid "English"
+msgstr "Inglês"
 
 #: cities/models.py:8 cyclists/models.py:90 front/forms.py:158
 msgid "Country"
@@ -693,6 +705,9 @@ msgstr ""
 "para pedalar"
 
 #: templates/_dashboard_sidebar_requester.html:71
+#: templates/cyclist_free_points.html:73 templates/cyclist_free_points.html:83
+#: templates/cyclist_routes_list.html:79
+#: templates/cyclist_routes_register_form.html:64
 msgid "Continue"
 msgstr "Continue"
 
@@ -734,7 +749,7 @@ msgstr "Editar perfil"
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/_header.html:130
+#: templates/_header.html:130 templates/_signup_inner_form.html:154
 msgid "Sign in"
 msgstr "Entrar"
 
@@ -742,14 +757,92 @@ msgstr "Entrar"
 msgid "Get help to go cycling"
 msgstr "Ajuda para pedalar"
 
-#: templates/_signup_inner_form.html:58
+#: templates/_signup_inner_form.html:5
+msgid "Signup Now!"
+msgstr "Cadastre-se agora!"
+
+#: templates/_signup_inner_form.html:6
+msgid "Join the community that believes in transformation through the bicycle"
+msgstr ""
+"Junte-se a uma comunidade que acredita na transformação por meio da "
+"bicicleta"
+
+#: templates/_signup_inner_form.html:28
+msgid "Create your account with"
+msgstr "Crie sua conta usando"
+
+#: templates/_signup_inner_form.html:42
+msgid "Or create a account with your e-mail"
+msgstr "ou crie uma conta com seu e-mail"
+
+#: templates/_signup_inner_form.html:48
+msgid "Your full name"
+msgstr "Seu nome completo"
+
+#: templates/_signup_inner_form.html:62
 #: templates/account/password_reset.html:22
 msgid "Type your e-mail"
 msgstr "Digite seu e-mail"
 
-#: templates/_signup_inner_form.html:70
+#: templates/_signup_inner_form.html:76
 msgid "Type again your email address"
 msgstr "Digite seu e-mail novamente"
+
+#: templates/_signup_inner_form.html:90
+msgid "Your country name"
+msgstr "O nome do seu país"
+
+#: templates/_signup_inner_form.html:106
+msgid "Your city name"
+msgstr "O nome da sua cidade"
+
+#: templates/_signup_inner_form.html:125
+#: templates/account/password_reset_from_key.html:22
+msgid "Type your password"
+msgstr "Digite sua senha"
+
+#: templates/_signup_inner_form.html:141
+#: templates/account/password_reset_from_key.html:28
+#: templates/account/password_reset_from_key.html:31
+msgid "Confirm your password"
+msgstr "Confirme sua senha"
+
+#: templates/_signup_inner_form.html:153 templates/account/signup.html:6
+#: templates/bikeanjo_complete_signup.html:6
+#: templates/bikeanjo_help_offer.html:6 templates/cyclist_free_points.html:7
+#: templates/cyclist_routes_list.html:7
+#: templates/cyclist_routes_register_form.html:7
+#: templates/requester_ask_help.html:6
+#: templates/requester_ask_help_points.html:7
+#: templates/requester_ask_help_route.html:7
+#: templates/requester_complete_signup.html:6
+#: templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "Cadastrar-se"
+
+#: templates/_signup_inner_form.html:154
+msgid "Already have an account?"
+msgstr "Já faz parte?"
+
+#: templates/_signup_inner_form.html:159 templates/account/login.html:79
+#: templates/bikeanjo_complete_signup.html:186
+#: templates/bikeanjo_help_offer.html:46
+#: templates/bikeanjo_signup_terms.html:51
+#: templates/cyclist_free_points.html:90 templates/cyclist_routes_list.html:85
+#: templates/cyclist_routes_register_form.html:69
+#: templates/requester_signup_terms.html:71
+msgid "Any Trouble or Question?"
+msgstr "Problemas ou Dúvidas?"
+
+#: templates/_signup_inner_form.html:159 templates/account/login.html:79
+#: templates/bikeanjo_complete_signup.html:186
+#: templates/bikeanjo_help_offer.html:46
+#: templates/bikeanjo_signup_terms.html:51
+#: templates/cyclist_free_points.html:90 templates/cyclist_routes_list.html:85
+#: templates/cyclist_routes_register_form.html:69
+#: templates/requester_signup_terms.html:72
+msgid "Contact us!"
+msgstr "Fale com a gente"
 
 #: templates/about.html:9
 msgid "About us"
@@ -773,8 +866,8 @@ msgstr "Conheça um pouco mais do nosso trabalho"
 
 #: templates/about.html:34
 msgid ""
-"Bikeanjo is a network of passionate cyclists that promote, organize and help "
-"people getting started with the bicycle as a vehicle in urban environment. "
+"Bikeanjo is a network of passionate cyclists that promote, organize and help"
+" people getting started with the bicycle as a vehicle in urban environment. "
 "We believe that cycling is a tool to social change and the more people "
 "adhere, the better our cities will become!"
 msgstr ""
@@ -860,14 +953,6 @@ msgstr "Não tem uma conta?"
 msgid "Sign up"
 msgstr "Cadastrar-se"
 
-#: templates/account/login.html:79 templates/bikeanjo_complete_signup.html:186
-msgid "Any Trouble or Question?"
-msgstr "Problemas ou Dúvidas?"
-
-#: templates/account/login.html:79 templates/bikeanjo_complete_signup.html:186
-msgid "Contact us!"
-msgstr "Fale com a gente"
-
 #: templates/account/password_reset.html:6
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_from_key.html:6
@@ -895,7 +980,8 @@ msgstr "Sucesso"
 
 #: templates/account/password_reset_done.html:12
 msgid "An e-mail has been sent to you with a reset password link"
-msgstr "Um e-mail com o link para você alterar sua senha foi enviado para você"
+msgstr ""
+"Um e-mail com o link para você alterar sua senha foi enviado para você"
 
 #: templates/account/password_reset_done.html:17
 msgid "To change your account you should first"
@@ -912,8 +998,8 @@ msgstr "Clicar no link do e-mail enviado"
 #: templates/account/password_reset_done.html:24
 msgid "You are being redirected to the reset password page"
 msgstr ""
-"Você será redirecionado para um link em nosso site onde deverá cadastrar sua "
-"nova senha"
+"Você será redirecionado para um link em nosso site onde deverá cadastrar sua"
+" nova senha"
 
 #: templates/account/password_reset_from_key.html:11
 msgid "Reset your password?"
@@ -926,15 +1012,6 @@ msgstr "Digite e confirme sua nova senha nos campos abaixo"
 #: templates/account/password_reset_from_key.html:19
 msgid "New Password"
 msgstr "Nova senha"
-
-#: templates/account/password_reset_from_key.html:22
-msgid "Type your password"
-msgstr "Digite sua senha"
-
-#: templates/account/password_reset_from_key.html:28
-#: templates/account/password_reset_from_key.html:31
-msgid "Confirm your password"
-msgstr "Confirme sua senha"
 
 #: templates/account/password_reset_from_key_done.html:11
 #: templates/bikeanjo_dashboard.html:21
@@ -949,18 +1026,6 @@ msgstr "Sua senha foi alterada corretamente em nosso sistema"
 msgid "Go back to site"
 msgstr "Volte para o site"
 
-#: templates/account/signup.html:6 templates/bikeanjo_complete_signup.html:6
-#: templates/bikeanjo_help_offer.html:6 templates/cyclist_free_points.html:7
-#: templates/cyclist_routes_list.html:7
-#: templates/cyclist_routes_register_form.html:7
-#: templates/requester_ask_help.html:6
-#: templates/requester_ask_help_points.html:7
-#: templates/requester_ask_help_route.html:7
-#: templates/requester_complete_signup.html:6
-#: templates/socialaccount/signup.html:6
-msgid "Signup"
-msgstr "Cadastrar-se"
-
 #: templates/admin/change_form.html:12
 msgid "Previous"
 msgstr "Anterior"
@@ -974,6 +1039,7 @@ msgid "View on site"
 msgstr "Ver no site"
 
 #: templates/bikeanjo_complete_signup.html:11
+#: templates/requester_signup_terms.html:11
 msgid "Just a bit more info"
 msgstr "Só mais alguns dados"
 
@@ -1076,11 +1142,188 @@ msgstr "Dicas para ser bike anjo"
 msgid "See all tips"
 msgstr "Ver todas as dicas"
 
+#: templates/bikeanjo_help_offer.html:11
+msgid "How can you help?"
+msgstr "Como você pode ajudar?"
+
+#: templates/bikeanjo_help_offer.html:12
+msgid ""
+"Check the options bellow so our system can cross information of the help "
+"offers and requests"
+msgstr ""
+"Preencha os dados abaixo para que o nosso sistema consiga cruzar "
+"corretamente os pedidos de ajuda"
+
+#: templates/bikeanjo_help_offer.html:25
+msgid "Choose how you can help"
+msgstr "Escolha como você pode ajudar"
+
+#: templates/bikeanjo_help_offer.html:42
+msgid "Continue registration process"
+msgstr "Continuar cadastro"
+
 #: templates/bikeanjo_signup_terms.html:5
 #: templates/requester_ask_help_message.html:5
 #: templates/requester_signup_terms.html:5
 msgid "Signup agreement"
 msgstr "Termos para cadastro"
+
+#: templates/bikeanjo_signup_terms.html:10
+msgid "Just one more thing"
+msgstr "Só mais uma coisinha"
+
+#: templates/bikeanjo_signup_terms.html:11
+msgid "Accept the Terms and Conditions"
+msgstr "Aceite nossos termos e condições"
+
+#: templates/bikeanjo_signup_terms.html:47
+msgid "Accept"
+msgstr "Aceitar"
+
+#: templates/cyclist_free_points.html:26 templates/cyclist_routes_list.html:26
+msgid "Back"
+msgstr "Voltar"
+
+#: templates/cyclist_free_points.html:27
+msgid "Loose points"
+msgstr "Pontos avulsos"
+
+#: templates/cyclist_free_points.html:29
+msgid ""
+"Mark loose points on the map that are not within routes (e.g., squares and "
+"parks) where you could answer a request"
+msgstr ""
+"Marque outros pontos avulsos que não sejam rotas (ex: praças e      parques)"
+" onde você poderia atender um pedido"
+
+#: templates/cyclist_free_points.html:33
+msgid "Want to add loose points?"
+msgstr "Quer marcar pontos avulsos?"
+
+#: templates/cyclist_free_points.html:34
+msgid ""
+"Do you want to add loose points on the map that are not within routes (e.g.,"
+" squares and parks) where you could answer a request?"
+msgstr ""
+"Quer marcar outros pontos avulsos que não sejam  rotas (ex: praças e "
+"parques) onde você poderia atender um pedido?"
+
+#: templates/cyclist_free_points.html:40
+msgid "Where to cycle?"
+msgstr "Onde pode pedalar?"
+
+#: templates/cyclist_free_points.html:41
+msgid "Add points where you can go cycle, add as many as you want"
+msgstr "Adicione os pontos onde você pode pedalar, adicione quantos quiser "
+
+#: templates/cyclist_free_points.html:49
+msgid "Add helping points"
+msgstr "Adicione pontos de ajuda"
+
+#: templates/cyclist_free_points.html:78 templates/cyclist_routes_list.html:74
+msgid "Save changes"
+msgstr "Salvar Alterações"
+
+#: templates/cyclist_routes_list.html:27
+#: templates/cyclist_routes_register_form.html:28
+msgid "My Routes"
+msgstr "Minhas rotas"
+
+#: templates/cyclist_routes_list.html:42
+msgid "Route registered"
+msgstr "Rota Cadastrada!"
+
+#: templates/cyclist_routes_list.html:46
+msgid "You can create more routes or continue your registration"
+msgstr "Você pode cadastrar mais rotas ou continuar seu cadastro no  site"
+
+#: templates/cyclist_routes_list.html:48
+msgid "You can register as many routes as you want"
+msgstr "Você pode cadastrar quantas rotas quiser"
+
+#: templates/cyclist_routes_list.html:51
+msgid "Registered Routes"
+msgstr "Rotas Cadastradas"
+
+#: templates/cyclist_routes_list.html:71
+msgid "Register new route"
+msgstr "Cadastrar nova rota"
+
+#: templates/cyclist_routes_register_form.html:31
+msgid ""
+"Register as many routes as you want given start point A and arrival point B."
+" These routes will define where you can attend to requests"
+msgstr ""
+"Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' "
+"e chegada '(B)'. Essas rotas definirão as localidades onde você poderá "
+"atender pedidos"
+
+#: templates/cyclist_routes_register_form.html:35
+msgid "Register your routes"
+msgstr "Cadastre suas rotas"
+
+#: templates/cyclist_routes_register_form.html:36
+msgid ""
+"Register as many routes as you want given start point A and arrival point B"
+msgstr ""
+"Cadastre o máximo  de rotas que quiser considerando o ponto de partida '(A)'"
+" e chegada '(B)'"
+
+#: templates/cyclist_routes_register_form.html:37
+msgid ""
+"Register as many routes as you want given start point A and arrival point B."
+" These routes will define where you can attend   to requests"
+msgstr ""
+"Cadastre o máximo de rotas que quiser considerando o ponto de partida '(A)' "
+"e chegada '(B)'. Essas rotas definirão as localidades onde você poderá "
+"atender pedidos"
+
+#: templates/cyclist_routes_register_form.html:43
+msgid "What is your route?"
+msgstr "Qual é a sua rota?"
+
+#: templates/cyclist_routes_register_form.html:44
+msgid "Register your route given start point A and arrival point B"
+msgstr ""
+"Cadastre sua rota considerando o   ponto de partida '(A)' e chegada '(B)'"
+
+#: templates/cyclist_routes_register_form.html:45
+msgid ""
+"Register your route given start point A and arrival point B, and we will "
+"find you a bike anjo to help you"
+msgstr ""
+"adastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a "
+"partir dessa informação vamos achar um bike anjo para te ajudar"
+
+#: templates/cyclist_routes_register_form.html:56
+#: templates/cyclist_routes_register_form.html:57
+msgid "Starting point"
+msgstr "Local de partida"
+
+#: templates/cyclist_routes_register_form.html:59
+#: templates/cyclist_routes_register_form.html:60
+msgid "Destination point"
+msgstr "Local de destino"
+
+#: templates/requester_signup_terms.html:12
+msgid ""
+"Write bellow additional information of your request and accept the Terms and"
+" Conditions"
+msgstr ""
+"Coloque informações adicionais do seu   pedido e aceite nossos termos e "
+"condições"
+
+#: templates/requester_signup_terms.html:19
+msgid "Additional info"
+msgstr "Informações adicionais"
+
+#: templates/requester_signup_terms.html:21
+msgid "Additional Information or request conditions"
+msgstr "Informação adicional ou particularidade do pedido"
+
+#: templates/requester_signup_terms.html:67
+msgid "Send request"
+msgstr "Enviar pedido"
 
 #~ msgid "I want help to ride"
 #~ msgstr "Eu quero ajuda para pedalar"
