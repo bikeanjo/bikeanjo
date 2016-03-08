@@ -16,7 +16,7 @@
                                 onchange="this.parentElement.submit()">
                             <option>Todos os pedidos</option>
                             <option {% if filter = 'new' %}selected{% endif %}
-                                    value="new">Novos pedidos</option>
+                                    value="new">{% trans "New requests" %}</option>
                             <option {% if filter = 'orphan' %}selected{% endif %}
                                     value="orphan">Pedidos sem bikeanjo</option>
                         </select>

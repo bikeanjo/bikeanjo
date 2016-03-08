@@ -17,10 +17,10 @@
            
             <h3 class="text-center">{{ subscriber.email }}</h3 class="text-center">
 
-            <p class="create-account">Não tem uma conta? <a href="{{ signup_url }}">Cadastre-se</a></p>
+            <p class="create-account">{% trans "Doesn't have an account?" %} <a href="{{ signup_url }}">{% trans "Sign up" %}</a></p>
         </div>
 
-        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
 
     </section>
 

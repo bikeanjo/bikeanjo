@@ -8,8 +8,8 @@
 {% block content %}
 <section class="forms signup container">
     <header>
-        <h2>Só mais alguns dados</h2>
-        <p>Para melhorar seu cadastro vamos precisar só de mais alguns dados</p>
+        <h2>{% trans "Just a bit more info" %}</h2>
+        <p>{% trans "We need a little more information about you in order make a full experience" %}</p>
     </header>
 
     <form class="signup card" id="signup_form" method="post">
@@ -127,7 +127,7 @@
             <label class="primary-label">
                 <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
             </label>
-            
+
             {% for value,label in form.ride_experience.field.choices %}
             <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                 <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -148,6 +148,6 @@
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

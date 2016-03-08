@@ -4,7 +4,7 @@
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -15,7 +15,7 @@
                         <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
                     </header>
                     <div class="card-content">
-                    
+
                     {% if debug %}
                     {{ form.errors }}
                     {% endif %}
@@ -38,15 +38,15 @@
                                     <img src="{{ user.get_avatar_url }}"
                                          data-file-preview="#{{ form.avatar.auto_id }}"
                                          class="img-circle"
-                                         width="85" height="85" 
+                                         width="85" height="85"
                                          title="{{ user.get_full_name }}"
                                          onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                          alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
                                 </span>
 
-                                <label  for="{{ form.avatar.auto_id }}" 
+                                <label  for="{{ form.avatar.auto_id }}"
                                         class="col-sm-offset-2 btn btn-success">Adicionar</label>
-                                
+
                                 <div class="hidden">
                                     <input id="{{ form.avatar.auto_id }}" name="{{ form.avatar.html_name }}" type="file"/>
                                 </div>
@@ -54,7 +54,7 @@
 
                             <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
                                 <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
+                                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="{% trans "Your full name" %}">
                                 <i class="fa fa-user form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.first_name.errors %}
@@ -66,7 +66,7 @@
 
                             <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                                <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="Digite seu e-mail">
+                                <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="{% trans "Type your e-mail" %}">
                                 <i class="fa fa-envelope form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.last_name.errors %}
@@ -90,7 +90,7 @@
 
                             <div class="form-group {% if form.country.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-                                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
+                                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="{% trans "Your country name" %}">
                                 <i class="fa fa-globe form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.country.errors %}
@@ -108,7 +108,7 @@
                                        id="{{ form.city.id_for_label }}"
                                        value="{{ form.city.value|default:"" }}"
                                        autocomplete="off"
-                                       placeholder="O nome da sua cidade"
+                                       placeholder="{% trans "Your city name" %}"
                                        suggests="/api/cities" suggests-json-key="name"
                                        suggests-filter-key="state__country__name"
                                        suggests-filter-value="#id_country">
@@ -225,7 +225,7 @@
                                 <label class="primary-label">
                                     <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">Sua experiência com a bicicleta</span>
                                 </label>
-                                
+
                                 {% for value,label in form.ride_experience.field.choices %}
                                 <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -245,13 +245,13 @@
                         </div>
                     </div>
                     <div class="card-footer save-config">
-                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                        <button class="btn btn-success" type="submit">{% trans "Save changes" %}</button>
                     </div>
                 </form>
 
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}
