@@ -23,13 +23,13 @@
         {{ form.as_p }}
 
         <header>
-            <h2>Onde pode pedalar?</h2>
-            <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>
+            <h2>{% trans "Where to cycle?" %}</h2>
+            <p>{% trans "Add points where you can go cycle, add as many as you want" %}</p>
         </header>
 
         <div class="form-inline">
             <div class="form-group add-address">
-                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="Adicione pontos de ajuda">
+                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="{% trans "Add helping points" %}">
                 <button bikeanjo-add="point" class="btn btn-success">
                 <i class="fa fa-plus"></i></button>
 
@@ -50,6 +50,6 @@
     </form>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

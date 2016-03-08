@@ -7,7 +7,7 @@
 {% block content %}
     <section class="forms signup container">
         <header>
-            <h2>Só mais uma coisinha</h2>
+            <h2>{% trans "Just one more thing" %}</h2>
             <p>Coloque informações adicionais do seu pedido</p>
         </header>
 
@@ -21,8 +21,8 @@
             {% endif %}
 
             <div class="form-group">
-                <label class="primary-label" for="aditional-info">Informações adicionais</label>
-                <textarea class="form-control" rows="5" id="aditional-info" name="message" placeholder="Informação adicional ou particularidade do pedido">{{ form.message.value|default:'' }}</textarea>
+                <label class="primary-label" for="aditional-info">{% trans "Additional info" %}</label>
+                <textarea class="form-control" rows="5" id="aditional-info" name="message" placeholder="{% trans "Additional Information or request conditions" %}">{{ form.message.value|default:'' }}</textarea>
 
                 {% if request.POST and form.message.errors %}
                     {% for error in form.message.errors %}
@@ -32,10 +32,10 @@
             </div>
 
             <button class="btn btn-primary btn-block btn-lg" type="submit"
-                    name="accepted_agreement" value="true">Enviar pedido</button>
+                    name="accepted_agreement" value="true">{% trans "Send request" %}</button>
         </form>
 
-        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
                 
     </section>
 {% endblock %}

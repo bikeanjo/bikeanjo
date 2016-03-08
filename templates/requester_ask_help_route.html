@@ -25,17 +25,17 @@
         <header>
             <h2>Qual é a sua rota?</h2>
             <p class="visible-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)'.</p>
-            <p class="hidden-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a partir dessa informação vamos achar um bike anjo para te ajudar.</p>
+            <p class="hidden-xs">{% trans "Register your route given start point A and arrival point B, and we will find you a bike anjo to   help you" %}.</p>
         </header>
 
         <div class="add-route">
             <div class="steps"></div>
             <div class="form-group">
-                <label class="sr-only" for="departing-address">Local de partida</label>
-                <input class="form-control input-lg" type="text" id="departing-address" placeholder="Local de partida"
+                <label class="sr-only" for="departing-address">{% trans "Starting point" %}</label>
+                <input class="form-control input-lg" type="text" id="departing-address" placeholder="{% trans "Starting point" %}"
                        bikeanjo-track="start"/>
-                <label class="sr-only" for="destination-address">Local de destino</label>
-                <input class="form-control input-lg" type="text" id="destination-address" placeholder="Local de destino"
+                <label class="sr-only" for="destination-address">{% trans "Destination point" %}</label>
+                <input class="form-control input-lg" type="text" id="destination-address" placeholder="{% trans "Destination point" %}"
                        bikeanjo-track="end"/>
 
                 {% if form.track.errors %}
@@ -52,6 +52,6 @@
     </form>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

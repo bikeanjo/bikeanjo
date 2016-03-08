@@ -3,7 +3,7 @@
 
 {% block content %}
     <section class="dashboard bikeanjo container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -11,7 +11,8 @@
 
                 <form class="card list" method="post">{% csrf_token %}
                     <header class="card-header negative">
-                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Editar cadastro</h2>
+                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i>
+                                <span class="sr-only">{% trans "Back" %}</span></a> {% trans "Edit account" %}</h2>
                     </header>
                     <div class="card-content">
                         <div class="forms">
@@ -19,7 +20,7 @@
                                 <label class="primary-label">
                                     <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
                                 </label>
-                                
+
                                 {% for value,label in form.ride_experience.field.choices %}
                                 <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -59,8 +60,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
-                                <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
+                                <label class="primary-label" for="participate">{% trans "Do you take part of any cycling initiative?" %}</label>
+                                <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
+                                    placeholder="{% trans 'Describe your participation here' %}">{{ form.initiatives.value|default:'' }}
+                                </textarea>
 
                                 {% if form.initiatives.errors %}
                                     {% for error in form.initiatives.errors %}
@@ -70,7 +73,7 @@
                             </div>
 
                             <div class="form-group" id="help-with">
-                                <label class="primary-label">Escolha como você pode ajudar</label>
+                                <label class="primary-label">{% trans "Choose how you can help" %}</label>
                                 {% for code,label,checked in form.get_help_choices %}
                                 <label class="checkbox {% if checked %}checked{% endif %}">
                                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -105,13 +108,13 @@
                         </div>
                     </div>
                     <div class="card-footer save-config">
-                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                        <button class="btn btn-success" type="submit">{% trans "Save changes" %}</button>
                     </div>
                 </form>
 
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

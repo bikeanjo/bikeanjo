@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <section id="top" class="static event event-list">
 
     <section class="jumbotron">
         <div class="container">
-            <h2>Eventos</h2>
+            <h2>{% trans "Events" %}</h2>
         </div>
     </section>
 
@@ -47,7 +48,7 @@
                     {% endif %}
                     <div class="card-content {% if event.readed_date %}old{% endif %}">
                         <h3 class="card-subtitle text-ba">{{ event.title }}</h3>
-                        <div class="card-info">{{ event.content|safe }}</div>             
+                        <div class="card-info">{{ event.content|safe }}</div>
                     </div>
                 </a>
                 <script type="application/ld+json">{{ event.json_ld|safe }}</script>

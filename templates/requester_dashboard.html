@@ -4,7 +4,7 @@
 
 {% block content %}
     <section class="dashboard dashboard-home requester container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -91,7 +91,7 @@
                         <p class="card-info">{{message.content|striptags|truncatewords:32}}</p>
                     </div>
                     <footer class="card-footer">
-                        <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">Ver mensagem <i class="fa fa-arrow-right"></i></a>
+                        <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">{% trans "See full message" %} <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
                 {% endif %}{% endwith %}
@@ -123,7 +123,7 @@
                 {% if event_list %}
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Eventos{% if event_list.near %} na sua cidade{% endif %}</h2>
+                        <h2 class="card-title">{% trans "Events" %}{% if event_list.near %} {% trans "in your city" %}{% endif %}</h2>
                     </header>
                     {% for event in event_list|slice:'3' %}
                     <div class="card-content">
@@ -143,7 +143,7 @@
                 {% if tip %}
                 <article class="card photo small">
                     <header class="card-header negative">
-                        <h2 class="card-title">Dicas para pedalar</h2>
+                        <h2 class="card-title">{% trans "Tips for cycling" %}</h2>
                         {% comment %}
                         <button type="button" class="card-button" aria-label="Refresh">
                             <span aria-hidden="true"><i class="fa fa-refresh"></i></span>
@@ -159,13 +159,13 @@
                         <p class="card-info">{{ tip.content }}</p>
                     </div>
                     <footer class="card-footer">
-                            <a class="see-more-link" href="{% url 'tips_list' user.role %}">Ver todas as dicas <i class="fa fa-arrow-right"></i></a>
+                            <a class="see-more-link" href="{% url 'tips_list' user.role %}">{% trans "See all tips" %} <i class="fa fa-arrow-right"></i></a>
                     </footer>
                 </article>
                 {% endif %}
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}
