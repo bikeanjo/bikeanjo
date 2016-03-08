@@ -7,8 +7,8 @@
 {% block content %}
     <section class="forms signup container">
     <header>
-        <h2>Só mais uma coisinha</h2>
-        <p>Aceite nossos termos e condições</p>
+        <h2>{% trans "Just one more thing" %}</h2>
+        <p>{% trans "Accept the Terms and Conditions" %}</p>
     </header>
 
     <form class="signup card" id="signup_form" method="post">
@@ -44,11 +44,11 @@
         </div>
 
         <button class="btn btn-primary btn-block btn-lg" type="submit"
-                name="accepted_agreement" value="true">Aceitar</button>
+                name="accepted_agreement" value="true">{% trans "Accept" %}</button>
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
-        
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+
     </section>
 {% endblock %}
