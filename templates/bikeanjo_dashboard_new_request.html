@@ -14,7 +14,7 @@
 
 {% block content %}
     <section class="dashboard bikeanjo container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -38,15 +38,15 @@
                             <ul class="card-actions list-inline">
                                 <li>
                                     <button name="status" value="new" class="btn btn-sm btn-unstyled">
-                                        <span class="text visible-xs">Não posso atender</span>
-                                        <span class="text hidden-xs">Não posso atender</span>
+                                        <span class="text visible-xs">{% trans "I can't answer now" %}</span>
+                                        <span class="text hidden-xs">{% trans "I can't answer now" %}</span>
                                         <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </li>
                                 <li>
                                     <button name="status" value="open" class="btn btn-sm btn-unstyled">
-                                        <span class="text visible-xs">Atender</span>
-                                        <span class="text hidden-xs">Atender Pedido</span>
+                                        <span class="text visible-xs">{% trans "Answer" %}</span>
+                                        <span class="text hidden-xs">{% trans "Answer request" %}</span>
                                         <i class="fa fa-comment"></i>
                                     </button>
                                 </li>
@@ -56,7 +56,7 @@
                         <div class="card-content">
                             <div class="card-icon">
                                 <img src="{{ helprequest.requester.get_avatar_url }}"
-                                     width="50" height="50" 
+                                     width="50" height="50"
                                      title="{{ helprequest.requester.get_full_name }}"
                                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                      alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
@@ -74,7 +74,7 @@
                         <header class="card-header">
                             <div class="card-icon">
                                 <img src="{{ helprequest.requester.get_avatar_url }}"
-                                     width="30" height="30" 
+                                     width="30" height="30"
                                      title="{{ helpreply.author.get_full_name }}"
                                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                      alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
@@ -83,7 +83,7 @@
                         </header>
                         <div class="card-content">
                             <p class="card-info">{{ helprequest.message|linebreaksbr }}</p>
-                            
+
                             <div id="js-map" style="height: 150px"></div>
 
                             {% if helprequest.track %}
@@ -92,8 +92,8 @@
                                     <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
                                     <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
                                 </p>
-                                <input type="hidden" bikeanjo-geojson="lines" 
-                                       value="[{{ helprequest.track.json }}]"/>                           
+                                <input type="hidden" bikeanjo-geojson="lines"
+                                       value="[{{ helprequest.track.json }}]"/>
                            {% else %}
                                 <ul class="fa-ul">
                                 {% for point in helprequest.point_set.all %}
@@ -101,14 +101,14 @@
                                 {% endfor %}
                                 </ul>
 
-                                <input type="hidden" bikeanjo-geojson="points" 
+                                <input type="hidden" bikeanjo-geojson="points"
                                        value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                            {% endif %}
 
                             {% if not helprequest.helpreply_set.exists %}
                             <div class="card-buttons">
-                                <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
-                                <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
+                                <button name="status" value="open" class="btn btn-success">{% trans "Answer request" %}</button>
+                                <button name="status" value="new" class="btn btn-default">{% trans "I can't answer the request now" %}</button>
                             </div>
                             {% endif %}
                         </div>
@@ -119,7 +119,7 @@
                         <header class="card-header">
                             <div class="card-icon">
                                 <img src="{{ helpreply.author.get_avatar_url }}"
-                                     width="30" height="30" 
+                                     width="30" height="30"
                                      title="{{ helpreply.author.get_full_name }}"
                                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                      alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
@@ -131,8 +131,8 @@
                             <p class="card-info">{{ helpreply.message|linebreaksbr }}</p>
                             {% if forloop.first %}
                             <div class="card-buttons">
-                                <button name="status" value="open" class="btn btn-success">Atender Pedido</button>
-                                <button name="status" value="new" class="btn btn-default">Não posso atender o pedido</button>
+                                <button name="status" value="open" class="btn btn-success">{% trans "Answer request" %}</button>
+                                <button name="status" value="new" class="btn btn-default">{% trans "I can't answer the request now" %}</button>
                             </div>
                             {% endif %}
                         </div>
@@ -144,6 +144,6 @@
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

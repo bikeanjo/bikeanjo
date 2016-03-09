@@ -8,7 +8,7 @@
     <section class="forms signup container">
         <header>
             <h2>{% trans "Just one more thing" %}</h2>
-            <p>Coloque informações adicionais do seu pedido</p>
+            <p>{% trans "Write bellow additional information of your request" %}</p>
         </header>
 
         <form class="signup card" id="signup_form" method="post">
@@ -36,6 +36,6 @@
         </form>
 
         <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
-                
+
     </section>
 {% endblock %}
