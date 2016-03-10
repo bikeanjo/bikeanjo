@@ -33,6 +33,7 @@ class City(models.Model):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
 
+    country = models.ForeignKey(Country, null=True)
     state = models.ForeignKey(State, null=True)
     name = models.CharField(_('Name'), max_length=64, db_index=True)
     tz = models.CharField(_('Timezone'), max_length=40, blank=True)
