@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         today = now().date()
-        mails = QueuedMail.objects.filter(date=today)
+        mails = QueuedMail.objects.filter(date=today, sent=None)
 
         if mails.count() == 0:
             logger.info('No emails for today')
@@ -31,4 +31,3 @@ class Command(BaseCommand):
 
             mail.sent = now()
             mail.save()
-

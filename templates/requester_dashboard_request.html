@@ -14,7 +14,7 @@
 {% block content %}
 
     <section class="dashboard requester container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -45,7 +45,7 @@
                                     <span class="text">Responder</span>
                                     <i class="fa fa-reply"></i>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                     </header>
 
@@ -53,7 +53,7 @@
                         {% if helprequest.status != 'new' and helprequest.bikeanjo %}
                         <div class="card-icon">
                             <img src="{{ helprequest.bikeanjo.get_avatar_url }}"
-                                 width="50" height="50" 
+                                 width="50" height="50"
                                  title="{{ helprequest.bikeanjo.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ helprequest.bikeanjo.get_full_name }}"/>
@@ -93,7 +93,7 @@
                 <article class="card">
                     <div class="card-content">
                         <p class="card-info">{{ helprequest.message|linebreaksbr }}</p>
-                        
+
                         <div id="js-map" style="height: 150px"></div>
 
                         {% if helprequest.track %}
@@ -102,8 +102,8 @@
                                 <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
                                 <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
                             </p>
-                            <input type="hidden" bikeanjo-geojson="lines" 
-                                   value="[{{ helprequest.track.json }}]"/>                           
+                            <input type="hidden" bikeanjo-geojson="lines"
+                                   value="[{{ helprequest.track.json }}]"/>
                        {% else %}
                             <ul class="fa-ul">
                             {% for point in helprequest.point_set.all %}
@@ -111,7 +111,7 @@
                             {% endfor %}
                             </ul>
 
-                            <input type="hidden" bikeanjo-geojson="points" 
+                            <input type="hidden" bikeanjo-geojson="points"
                                    value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                        {% endif %}
 
@@ -151,13 +151,13 @@
                 <form class="card reply collapse {{helprequest.helpreply_set.count|yesno:',in'}}" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
                     <header class="card-header">
-                        <button type="button" data-toggle="collapse" data-target="#helpreply-form" 
+                        <button type="button" data-toggle="collapse" data-target="#helpreply-form"
                                 class="card-button" aria-label="Close">
                             <span aria-hidden="true"><i class="fa fa-times"></i></span>
                         </button>
                         <div class="card-icon">
                             <img src="{{ user.get_avatar_url }}"
-                                 width="30" height="30" 
+                                 width="30" height="30"
                                  title="{{ user.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
@@ -176,7 +176,7 @@
                     <header class="card-header">
                         <div class="card-icon">
                             <img src="{{ helpreply.author.get_avatar_url }}"
-                                 width="30" height="30" 
+                                 width="30" height="30"
                                  title="{{ helpreply.author.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
@@ -208,7 +208,7 @@
                                 </form>
                             </div>
                             {% endif %}
-                            
+
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
@@ -229,7 +229,7 @@
                 {% endfor %}
             </section>
         </div>
-        
+
         <div class="modal fade finish-request-modal" id="finishRequest" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -286,7 +286,7 @@
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
     </section>
 
 {% endblock %}
