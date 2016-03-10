@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -33,8 +33,22 @@ class City(models.Model):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
 
-    state = models.ForeignKey(State)
+    state = models.ForeignKey(State, null=True)
     name = models.CharField(_('Name'), max_length=64, db_index=True)
+    tz = models.CharField(_('Timezone'), max_length=40, blank=True)
+    coords = models.PointField(null=True)
 
     def __unicode__(self):
         return self.name
+
+
+class CityAlias(models.Model):
+    class Meta:
+        verbose_name = _('Alias')
+        verbose_name_plural = _('Aliases')
+
+    city = models.ForeignKey(City)
+    alias = models.CharField(_('Alias'), max_length=63, db_index=True)
+
+    def __unicode__(self):
+        return self.alias
