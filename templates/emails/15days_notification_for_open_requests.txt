@@ -1,8 +1,8 @@
-Olá {{ recipient.first_name }},
+{% trans "Hello" %}{{ recipient.first_name }},
 
-Você ainda está atendendo o pedido para "{{ helprequest.get_help_label }}" de {{ helprequest.requester.get_full_name }}?. Não esqueça de marcar no sistema se o pedido já foi resolvido, pois isso ajuda em nosso controle interno.
+{% trans "Are you still attending to the request from " %} "{{ helprequest.get_help_label }}"  {{ helprequest.requester.get_full_name }}?. % trans "Don't forget to check the request as  finished on the site as it help us to better handle the progress of requests" %}.
 
-Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See on" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bikeanjo team" %}
