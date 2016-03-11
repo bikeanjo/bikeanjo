@@ -37,7 +37,7 @@ class City(models.Model):
     state = models.ForeignKey(State, null=True)
     name = models.CharField(_('Name'), max_length=64, db_index=True)
     tz = models.CharField(_('Timezone'), max_length=40, blank=True)
-    coords = models.PointField(null=True)
+    point = models.PointField(null=True)
 
     def __unicode__(self):
         return self.name
@@ -47,9 +47,10 @@ class CityAlias(models.Model):
     class Meta:
         verbose_name = _('Alias')
         verbose_name_plural = _('Aliases')
+        unique_together = (('city', 'alias',),)
 
     city = models.ForeignKey(City)
-    alias = models.CharField(_('Alias'), max_length=63, db_index=True)
+    alias = models.CharField(_('Alias'), max_length=128, db_index=True)
 
     def __unicode__(self):
         return self.alias

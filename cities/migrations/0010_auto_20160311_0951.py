@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='CityAlias',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('alias', models.CharField(max_length=63, verbose_name='Alias', db_index=True)),
+                ('alias', models.CharField(max_length=128, verbose_name='Alias', db_index=True)),
             ],
             options={
                 'verbose_name': 'Alias',
@@ -25,7 +25,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='city',
-            name='coords',
+            name='country',
+            field=models.ForeignKey(to='cities.Country', null=True),
+        ),
+        migrations.AddField(
+            model_name='city',
+            name='point',
             field=django.contrib.gis.db.models.fields.PointField(srid=4326, null=True),
         ),
         migrations.AddField(
@@ -42,5 +47,9 @@ class Migration(migrations.Migration):
             model_name='cityalias',
             name='city',
             field=models.ForeignKey(to='cities.City'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='cityalias',
+            unique_together=set([('city', 'alias')]),
         ),
     ]
