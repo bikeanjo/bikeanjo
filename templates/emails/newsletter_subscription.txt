@@ -1,9 +1,9 @@
-Olá,
+{% trans "Hello" %},
 
-Alguém (com muita sorte você) usou o email "{{subscriber.email}}" para se inscrever no boletim do Bikeanjo!
+{% trans "Somebody (luckly you) used the following e-mail address" %} "{{subscriber.email}}" {% trans "to subscribe in Bikeanjo newsletter!" %}
 
-Se foi você mesmo que se inscreveu, por favor, confirme sua inscrição visitando o seguinte endereço:
+{% trans "If it was really you that subscribed, please, confirm it through the following link" %}:
 --> http://{{ site.domain }}{% url 'confirm_subscription_view' subscriber.email subscriber.token %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bikeanjo team" %}
