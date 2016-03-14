@@ -225,7 +225,8 @@
                 'minLength': 2,
                 'delay': 0,
                 'appendTo': $ac_results
-            });
+            }).attr('autocomplete', false)
+              .prop('autocomplete', false);
         });
 
         $('a[target=_popup]').click(function(evt){

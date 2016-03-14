@@ -45,5 +45,5 @@ class CityViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.extra(
                 select={'weight': function, },
                 select_params=(value,)
-            ).order_by('weight')
+            ).distinct().order_by('weight')
         return qs
