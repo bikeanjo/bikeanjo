@@ -1,6 +1,6 @@
 {% trans "Hello" %} {{ recipient.first_name }},
 
-{% trans "Your request for help to" %} "{{ helprequest.get_help_label }}"  {% trans "was solved?" %}. {% trans "for our control, would you please confirm in our system if you your request was really solved and evaluate the bikeanjo" %}.
+{% trans "Your request for help to" %} "{{ helprequest.get_help_label }}"  {% trans "was solved?" %}. {% trans "for our control, would you please confirm in our system if your request was really solved and evaluate the bikeanjo" %}.
 
 
 {% trans "See on" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
