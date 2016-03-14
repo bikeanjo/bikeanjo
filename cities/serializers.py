@@ -20,7 +20,11 @@ class CitySerializer(serializers.HyperlinkedModelSerializer):
         source='state.acronym',
         read_only=True
     )
+    country_acronym = serializers.CharField(
+        source='country.acronym',
+        read_only=True
+    )
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'state_acronym')
+        fields = ('id', 'name', 'state_acronym', 'country_acronym',)
