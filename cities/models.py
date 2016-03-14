@@ -50,7 +50,7 @@ class CityAlias(models.Model):
         unique_together = (('city', 'alias',),)
 
     city = models.ForeignKey(City)
-    alias = models.CharField(_('Alias'), max_length=128, db_index=True)
+    alias = models.CharField(_('Alias'), max_length=1024, db_index=True)
 
     def __unicode__(self):
         return self.alias

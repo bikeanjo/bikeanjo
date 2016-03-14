@@ -20,17 +20,15 @@ def load_cities_from_world(apps, schema_editor):
     Country = apps.get_model('cities', 'Country')
     path = '%s/data/cities15000.txt' % settings.BASE_DIR
 
+    City.objects.all().delete()
     countries = dict(Country.objects.values_list('acronym', 'id'))
 
     with open(path, 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=str('\t'))
+        reader = csv.reader(csvfile, delimiter=str('\t'), quotechar=None)
         for row in reader:
             aliases = row[ALIAS].decode('utf-8').split(',')
 
             city = City()
-            if row[COUNTRY] == 'BR':
-                city = City.objects.filter(name__unaccent__iexact=row[NAME]).first() or city
-
             city.name = row[NAME]
             city.country_id = countries.get(row[COUNTRY], None)
             city.tz = row[TIMEZONE]
@@ -44,7 +42,7 @@ def load_cities_from_world(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cities', '0010_auto_20160311_0951'),
+        ('cities', '0011_auto_20160314_0811'),
     ]
 
     operations = [
