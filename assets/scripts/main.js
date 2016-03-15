@@ -9,15 +9,13 @@
                 url: frm.attr('action'),
                 data: frm.serialize(),
                 success: function (data) {
-                    console.log(data);
                     if (data.success) {
                         $('.subscribe-form').hide();
                         $('.subscribe-success').show();
-                        console.log('vai');
                     }
                 },
                 error: function(data) {
-                    console.log(data);
+                    console.error(data);
                 }
             });
             return false;
@@ -275,8 +273,6 @@
 
             if(match) {
                 $el.val(decodeURI(match[1]));
-                console.log($el);
-                console.log($el.val());
             }
         });
 
