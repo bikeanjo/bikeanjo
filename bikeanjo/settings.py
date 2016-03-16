@@ -11,6 +11,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import environ
+from django.utils.translation import ugettext_lazy as _
 
 env = environ.Env()
 root = environ.Path(__file__) - 2
@@ -70,7 +71,6 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'middlewares.ViewNameMiddleware',
-    'middlewares.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,10 +140,15 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+LANGUAGES = (
+    ('pt-br', _('Brazilian Portuguese')),
+    ('es', _('Spanish')),
+    ('en', _('English')),
+)
+
 LOCALE_PATHS = (
     str(root.path('locale')),
 )
-
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
