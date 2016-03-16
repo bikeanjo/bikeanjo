@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import serializers
-from models import Country, State, City
+from models import Country, State, City, CityAlias
 
 
 class CountrySerializer(serializers.HyperlinkedModelSerializer):
@@ -28,3 +28,24 @@ class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = City
         fields = ('id', 'name', 'state_acronym', 'country_acronym',)
+
+
+class CityAliasSerializer(serializers.HyperlinkedModelSerializer):
+    country_acronym = serializers.CharField(
+        source='city.country.acronym',
+        read_only=True
+    )
+
+    city_id  = serializers.IntegerField(
+        source='city.id',
+        read_only=True
+    )
+
+    city_name = serializers.CharField(
+        source='city.name',
+        read_only=True
+    )
+
+    class Meta:
+        model = CityAlias
+        fields = ('id', 'alias', 'city_id', 'city_name', 'country_acronym',)

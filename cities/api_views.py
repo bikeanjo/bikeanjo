@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import django_filters
 from rest_framework import viewsets
-from serializers import CountrySerializer, StateSerializer, CitySerializer
-from models import Country, State, City
+from serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer
+from models import Country, State, City, CityAlias
 from rest_framework import filters
 
 
@@ -15,14 +15,15 @@ class StateViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = State.objects.all()
     serializer_class = StateSerializer
 
-
+#
+# django_filters for CityViewSet
+#
 class CityFilter(filters.FilterSet):
-    alias = django_filters.CharFilter(name="cityalias__alias", lookup_type='startswith')
+    alias = django_filters.CharFilter(name="cityalias__alias", lookup_type='lowermatch')
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'state__acronym', 'country',
-                  'country__name', 'country__acronym', 'alias',)
+        fields = ('id', 'name', 'country__acronym', 'alias',)
 
 
 class CityViewSet(viewsets.ReadOnlyModelViewSet):
@@ -41,6 +42,40 @@ class CityViewSet(viewsets.ReadOnlyModelViewSet):
         if 'alias' in self.request.REQUEST:
             value = self.request.REQUEST.get('alias', '')
             field = '"%s"."name"' % City._meta.db_table
+            function = 'levenshtein(%s, %s)' % ("%s", field)
+            qs = qs.extra(
+                select={'weight': function, },
+                select_params=(value,)
+            ).distinct().order_by('weight')
+        return qs
+
+
+#
+# django_filters for CityViewSet
+#
+class CityAliasFilter(filters.FilterSet):
+    alias = django_filters.CharFilter(name="alias", lookup_type='lowermatch')
+
+    class Meta:
+        model = CityAlias
+        fields = ('id', 'alias', 'city__name', 'city__country__acronym',)
+
+
+class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = CityAliasFilter
+
+    queryset = CityAlias.objects.all()\
+        .select_related('city')\
+        .order_by('city__name')
+    serializer_class = CityAliasSerializer
+
+    def get_queryset(self):
+        qs = super(CityAliasViewSet, self).get_queryset()
+
+        if 'alias' in self.request.REQUEST:
+            value = self.request.REQUEST.get('alias', '')
+            field = '"%s"."alias"' % CityAlias._meta.db_table
             function = 'levenshtein(%s, %s)' % ("%s", field)
             qs = qs.extra(
                 select={'weight': function, },

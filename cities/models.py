@@ -1,6 +1,18 @@
 # -*- coding: utf-8 -*-
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Lookup
+from django.db.models.fields import Field
+
+@Field.register_lookup
+class LowerMatch(Lookup):
+    lookup_name = 'lowermatch'
+
+    def as_sql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+        params = ['^' + p for p in rhs_params ]
+        return 'LOWER(%s) ~ LOWER(%s)' % (lhs, rhs), params
 
 
 class Country(models.Model):
