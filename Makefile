@@ -53,4 +53,5 @@ upgrade: clean
 	${PIP} install -r requirements.txt
 	${PYTHON} manage.py migrate
 	${PYTHON} manage.py collectstatic --noinput
+	${PYTHON} manage.py compilemessages
 	${GRUNT} all
