@@ -165,66 +165,55 @@
             });
         });
 
-        $('input[suggests]').each(function(i){
+        $('input[options-source]').each(function(i){
             var $input = $(this);
+
+            // adjust placement of dropdown
             var $ac_results = $('<div class="ac_results">')
                 .appendTo(document.body);
-
-            var filter_key = $input.attr('suggests-filter-key');
-            var $filter_value = $($input.attr('suggests-filter-value'));
-            var json_key = 'suggests-json-key';
-            
-            var url = $input.attr('suggests');
-            var query = {};
-            var suggests = [];
-            var index = [];
-
-            query[filter_key] = $filter_value.val();
 
             $(window).resize(function(){setTimeout(function(){
                 $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
                 $ac_results.css('left', ($input.offset().left) + 'px');
             }, 500);}).trigger('resize');
 
-            var dict = {'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'é': 'e',
-                'è': 'e', 'ê': 'e', 'í': 'i', 'ì': 'i', 'ó': 'o', 'ò': 'o',
-                'õ': 'o', 'ô': 'o', 'ú': 'u', 'ù': 'u', 'ç': 'c' };
+            var api = $input.attr('options-source');
+            var query = $input.attr('options-query');
+            var filters = { };
+            if($input.attr('options-filter')) {
+                eval('filters = ' + $input.attr('options-filter'));
+            }
 
-            $filter_value.change(function(evt){
-                suggests.splice(0);
-
-                $.ajax({
-                    'url': url,
-                    'data': query
-                }).success(function(response){
-                    response.forEach(function(r){
-                        suggests.push(r.name);
-
-                        var name = r.name.toLowerCase();
-                        name = name.replace(/[^\w ]/g, function(c){
-                            return dict[c] ? dict[c] : '.';
-                        });
-                        index.push(name);
+            function source(request, response) {
+                var data = jQuery.extend({}, filters);
+                data[query] = request.term;
+                $.get(api, data).success(function(data){
+                    var options = data.results.map(function(obj){
+                        return {
+                            'label': obj.alias,
+                            'value': obj.city_id,
+                            'city':  obj.city_name,
+                            'country': obj.country_acronym
+                        }
                     });
+                    response(options);
                 });
-            }).trigger('change');
-
-            function matcher(request, response) {
-                var search = request.term.trim().toLowerCase().replace(/[^\w ]/g, '.');
-                var regex = new RegExp('^' + search);
-                response( $.grep( suggests, function( item, i ){
-                    return regex.test(index[i]);
-                }));
             }
 
             $input.autocomplete({
-                'source': matcher,
+                'source': source,
                 'autoFocus': true,
                 'minLength': 2,
-                'delay': 0,
+                'delay': 100,
                 'appendTo': $ac_results
             }).attr('autocomplete', false)
-              .prop('autocomplete', false);
+              .prop('autocomplete', false)
+              .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                  return $( "<li>" )
+                    .append( "<a>" + item.label + "</a>" )
+                    .append( "<a>" + item.city + ", " + item.country + "</a>" )
+                    .appendTo( ul );
+              };
         });
 
         $('a[target=_popup]').click(function(evt){

@@ -86,7 +86,7 @@
         <div class="form-group {% if form.country.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
             <input class="form-control" type="text" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}"
-                value="{{ form.country.value|default:"Brasil" }}"
+                value="{{ form.country.value|default:"BR" }}"
                 placeholder="{% trans "Your country name" %}">
             <i class="fa fa-globe form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
@@ -104,9 +104,9 @@
                    name="{{ form.city.html_name }}"
                    id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}"
                    placeholder="{% trans "Your city name" %}"
-                   suggests="/api/cities" suggests-json-key="name"
-                   suggests-filter-key="state__country__name"
-                   suggests-filter-value="#{{ form.country.id_for_label }}">
+                   options-source="/api/cityalias"
+                   options-query="alias"
+                   options-filter='{"city__country__acronym": function(){ return $("#{{ form.country.id_for_label }}").val();} }' />
 
             <i class="fa fa-home form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>

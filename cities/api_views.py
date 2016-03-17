@@ -66,7 +66,7 @@ class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
     filter_class = CityAliasFilter
 
     queryset = CityAlias.objects.all()\
-        .select_related('city')\
+        .select_related('city', 'city__country')\
         .order_by('city__name')
     serializer_class = CityAliasSerializer
 
