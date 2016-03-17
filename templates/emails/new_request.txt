@@ -1,10 +1,10 @@
-Olá {{ recipient.first_name }},
+{% trans "Hello" %} {{ recipient.first_name }},
 
-Você tem um novo pedido de ajuda!
+{% trans "You have a new request" %}!
 
-É um pedido para "{{ helprequest.get_help_label }}" de {{ helprequest.requester.get_full_name }}.
+{% trans "It's a request to" %} "{{ helprequest.get_help_label }}" {% trans "from" %} {{ helprequest.requester.get_full_name }}.
 
-Veja em http://{{ site.domain }}{% url 'cyclist_new_request_detail' helprequest.id %}
+{% trans "See on" %} http://{{ site.domain }}{% url 'cyclist_new_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bikeanjo team" %}

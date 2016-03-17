@@ -3,7 +3,7 @@
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -11,7 +11,10 @@
 
                 <form class="card list" method="post">{% csrf_token %}
                     <header class="card-header negative">
-                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> {% trans "Edit account" %}</h2>
+                        <h2 class="card-title"><a href="{% url 'user_register' %}">
+                                <i class="fa fa-arrow-left"></i><span class="sr-only">{% trans "Back" %}</span></a>
+                            {% trans "Edit account" %}
+                        </h2>
                     </header>
                     <div class="card-content">
                         <div class="forms">
@@ -19,7 +22,7 @@
                                 <label class="primary-label">
                                     <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
                                 </label>
-                                
+
                                 {% for value,label in form.ride_experience.field.choices %}
                                 <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -79,6 +82,6 @@
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

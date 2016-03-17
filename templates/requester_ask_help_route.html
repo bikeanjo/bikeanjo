@@ -23,9 +23,9 @@
         {{ form.as_p }}
 
         <header>
-            <h2>Qual é a sua rota?</h2>
-            <p class="visible-xs">Cadastre sua rota considerando o ponto de partida '(A)' e chegada '(B)'.</p>
-            <p class="hidden-xs">{% trans "Register your route given start point A and arrival point B, and we will find you a bike anjo to   help you" %}.</p>
+            <h2>{% trans "What is your route?" %}</h2>
+            <p class="visible-xs">{% trans "Register your route considering point '(A)' as your start point and point '(B)' as your destination" %}.</p>
+            <p class="hidden-xs">{% trans "Register your route given start point A and arrival point B, and we will find you a bike anjo to help you" %}.</p>
         </header>
 
         <div class="add-route">
@@ -45,7 +45,7 @@
                 {% endif %}
             </div>
         </div>
-        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">Continuar</button>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Continue" %}</button>
         {% if not user.accepted_agreement %}
         <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
         {% endif %}

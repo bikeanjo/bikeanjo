@@ -4,7 +4,7 @@
 
 {% block content %}
     <section class="dashboard requester container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -13,22 +13,22 @@
                 <form class="dashboard-header" method="GET">
                     <select name="status" class="requests-filter form-control"
                             onchange="this.parentElement.submit()">
-                        <option>Todos os pedidos</option>
+                        <option>{% trans "All requests" %}</option>
                         {% for value,label in helprequest_list.model.STATUS.items %}
                         <option {% if request.GET.status = value %}selected="selected"{% endif %}
                                 value="{{ value }}">{{ label }}</option>
                         {% endfor %}
                     </select>
                     <ul class="requests-label list-inline">
-                        <li><i class="fa fa-times-circle"></i> Pedido Cancelado</li>
-                        <li><i class="fa fa-comment"></i> Pedido Aberto</li>
-                        <li><i class="fa fa-check-circle"></i> Pedido Finalizado</li>
+                        <li><i class="fa fa-times-circle"></i> {% trans "Request cancelled" %}</li>
+                        <li><i class="fa fa-comment"></i> {% trans "Request open" %}</li>
+                        <li><i class="fa fa-check-circle"></i> {% trans "Request finished" %}</li>
                     </ul>
                 </form>
 
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Pedidos de ajuda ({{helprequest_list.count}})</h2>
+                        <h2 class="card-title">{% trans "Help requests" %} ({{helprequest_list.count}})</h2>
                     </header>
 
                     {% for hr in helprequest_list %}
@@ -43,7 +43,7 @@
                         </h3>
                         <ul class="card-info list-info list-unstyled">
                         {% if hr.status = 'new' %}
-                            <li>Aguardando bikeanjo ...</li>
+                            <li>{% trans "Waiting for bike anjo" %} ...</li>
                         {% elif hr.bikeanjo %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
                             <li>{{ hr.bikeanjo.city }}</li>
@@ -83,6 +83,6 @@
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

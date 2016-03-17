@@ -12,7 +12,9 @@
 
                 <form class="card list" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <header class="card-header negative">
-                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
+                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i>
+                                <span class="sr-only">{% trans "Back" %}</span></a>
+                            {% trans "Profile" %}</h2>
                     </header>
                     <div class="card-content">
 
@@ -33,7 +35,7 @@
                             {% csrf_token %}
 
                             <div class="form-group">
-                                <label class="primary-label">Avatar</label>
+                                <label class="primary-label">{% trans "Avatar" %}</label>
                                 <span class="user-icon">
                                     <img src="{{ user.get_avatar_url }}"
                                          data-file-preview="#{{ form.avatar.auto_id }}"
@@ -45,7 +47,7 @@
                                 </span>
 
                                 <label  for="{{ form.avatar.auto_id }}"
-                                        class="col-sm-offset-2 btn btn-success">Adicionar</label>
+                                        class="col-sm-offset-2 btn btn-success">{% trans "Add" %}</label>
 
                                 <div class="hidden">
                                     <input id="{{ form.avatar.auto_id }}" name="{{ form.avatar.html_name }}" type="file"/>
@@ -78,7 +80,7 @@
 
                             <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Confirme seu e-mail">
+                                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="{% trans "Confirm your e-mail" %}">
                                 <i class="fa fa-envelope-o form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.email.errors %}
@@ -223,7 +225,7 @@
 
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">Sua experiência com a bicicleta</span>
+                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans "Your experience with a bike" %}</span>
                                 </label>
 
                                 {% for value,label in form.ride_experience.field.choices %}

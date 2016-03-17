@@ -4,15 +4,15 @@
 {% block content %}
 <section class="forms signup container">
     <header>
-        <h2>Faça parte dessa comunidade</h2>
-        <p>Você pode pedir ajuda para pedalar ou ser um Bike Anjo</p>
+        <h2>{% trans "Be part of this community" %}</h2>
+        <p>{% trans "You can ask help for riding or be a bike anjo" %}</p>
     </header>
 
     <div class="card">
 
         <div class="form-group">
-            <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning btn-block btn-lg">Quero ajuda para pedalar</a><br>
-            <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success btn-block btn-lg">Já pedalo e quero ajudar</a>
+            <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning btn-block btn-lg">{% trans "I need help to ride a bike" %}</a><br>
+            <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success btn-block btn-lg">{% trans "I'm an experienced cyclist and want to help" %}</a>
         </div>
 
     </div>
