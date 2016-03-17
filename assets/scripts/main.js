@@ -209,11 +209,14 @@
             }).attr('autocomplete', false)
               .prop('autocomplete', false)
               .autocomplete( "instance" )._renderItem = function( ul, item ) {
-                  return $( "<li>" )
-                    .append( "<a>" + item.label + "</a>" )
-                    .append( "<a>" + item.city + ", " + item.country + "</a>" )
-                    .appendTo( ul );
-              };
+                var li = $( "<li>" ).append( "<a>" + item.label + "</a>" );
+
+                if(item.city !== item.label){
+                    li.append( "<a>" + item.city + ", " + item.country + "</a>" )
+                }
+                
+                return li.appendTo( ul );
+            };
         });
 
         $('a[target=_popup]').click(function(evt){
