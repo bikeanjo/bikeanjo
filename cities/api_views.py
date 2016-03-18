@@ -6,10 +6,18 @@ from models import Country, State, City, CityAlias
 from rest_framework import filters
 
 
+class CountryFilter(filters.FilterSet):
+    name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
+
+    class Meta:
+        model = Country
+        fields = ('id', 'name', 'acronym',)
+
+
 class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
-
+    filter_class = CountryFilter
 
 class StateViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = State.objects.all()
