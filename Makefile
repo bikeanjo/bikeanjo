@@ -55,3 +55,12 @@ upgrade: clean
 	${PYTHON} manage.py collectstatic --noinput
 	${PYTHON} manage.py compilemessages
 	${GRUNT} all
+
+resetdb:
+	test "${ACCIDENT}" = "no"
+	psql -Upostgres -h127.0.0.1 postgres -c 'drop database bikeanjo;'
+	psql -Upostgres -h127.0.0.1 postgres -c 'create database bikeanjo owner bikeanjo;'
+	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension postgis;'
+	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension unaccent;'
+	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension fuzzystrmatch;'
+

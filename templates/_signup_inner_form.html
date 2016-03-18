@@ -105,7 +105,7 @@
                    id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}"
                    placeholder="{% trans "Your city name" %}"
                    options-source="/api/cityalias"
-                   options-query="alias"
+                   options-query="name"
                    options-filter='{"city__country__acronym": function(){ return $("#{{ form.country.id_for_label }}").val();} }' />
 
             <i class="fa fa-home form-control-icon"></i>

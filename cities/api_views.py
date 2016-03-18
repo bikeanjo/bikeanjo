@@ -54,11 +54,12 @@ class CityViewSet(viewsets.ReadOnlyModelViewSet):
 # django_filters for CityViewSet
 #
 class CityAliasFilter(filters.FilterSet):
-    alias = django_filters.CharFilter(name="alias", lookup_type='lowermatch')
+    name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
 
     class Meta:
         model = CityAlias
-        fields = ('id', 'alias', 'city__name', 'city__country__acronym',)
+        fields = ('id', 'name', 'city__name', 'city__country',
+                  'city__country__acronym',)
 
 
 class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
@@ -73,9 +74,9 @@ class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         qs = super(CityAliasViewSet, self).get_queryset()
 
-        if 'alias' in self.request.REQUEST:
-            value = self.request.REQUEST.get('alias', '')
-            field = '"%s"."alias"' % CityAlias._meta.db_table
+        if 'name' in self.request.REQUEST:
+            value = self.request.REQUEST.get('name', '')
+            field = '"%s"."name"' % CityAlias._meta.db_table
             function = 'levenshtein(%s, %s)' % ("%s", field)
             qs = qs.extra(
                 select={'weight': function, },

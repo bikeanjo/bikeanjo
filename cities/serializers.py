@@ -48,4 +48,4 @@ class CityAliasSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CityAlias
-        fields = ('id', 'alias', 'city_id', 'city_name', 'country_acronym',)
+        fields = ('id', 'name', 'city_id', 'city_name', 'country_acronym',)

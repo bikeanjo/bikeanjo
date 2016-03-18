@@ -11,9 +11,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='cityalias',
-            name='alias',
-            field=models.CharField(max_length=1024, verbose_name='Alias', db_index=True),
-        ),
     ]

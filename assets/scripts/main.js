@@ -166,22 +166,27 @@
         });
 
         $('input[options-source]').each(function(i){
-            var $input = $(this);
+            var $textfield = $(this);
+            var $input = $('<input type="hidden">').attr('name', $textfield.attr('name'));
+
+            $textfield.attr('name', '').removeAttr('name');
+            $input.insertAfter($textfield);
+            console.log($input, 'test');
 
             // adjust placement of dropdown
             var $ac_results = $('<div class="ac_results">')
                 .appendTo(document.body);
 
             $(window).resize(function(){setTimeout(function(){
-                $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
-                $ac_results.css('left', ($input.offset().left) + 'px');
+                $ac_results.css('top', ($textfield.offset().top + $textfield.outerHeight(true)) + 'px');
+                $ac_results.css('left', ($textfield.offset().left) + 'px');
             }, 500);}).trigger('resize');
 
-            var api = $input.attr('options-source');
-            var query = $input.attr('options-query');
+            var api = $textfield.attr('options-source');
+            var query = $textfield.attr('options-query');
             var filters = { };
-            if($input.attr('options-filter')) {
-                eval('filters = ' + $input.attr('options-filter'));
+            if($textfield.attr('options-filter')) {
+                eval('filters = ' + $textfield.attr('options-filter'));
             }
 
             function source(request, response) {
@@ -190,29 +195,35 @@
                 $.get(api, data).success(function(data){
                     var options = data.results.map(function(obj){
                         return {
-                            'label': obj.alias,
-                            'value': obj.city_id,
-                            'city':  obj.city_name,
-                            'country': obj.country_acronym
+                            'label': obj.name,
+                            'value': obj.id,
+                            'desc':  obj.city_name,
                         }
                     });
                     response(options);
                 });
             }
 
-            $input.autocomplete({
+            function onselect (event, ui) {
+                $input.val(ui.item.value);
+                $textfield.val(ui.item.label);
+                return false;
+            }
+
+            $textfield.autocomplete({
                 'source': source,
                 'autoFocus': true,
                 'minLength': 2,
                 'delay': 100,
-                'appendTo': $ac_results
+                'appendTo': $ac_results,
+                'select': onselect
             }).attr('autocomplete', false)
               .prop('autocomplete', false)
               .autocomplete( "instance" )._renderItem = function( ul, item ) {
                 var li = $( "<li>" ).append( "<a>" + item.label + "</a>" );
 
-                if(item.city !== item.label){
-                    li.append( "<a>" + item.city + ", " + item.country + "</a>" )
+                if(item.desc !== item.label){
+                    li.append( "<a>" + item.desc + "</a>" )
                 }
                 
                 return li.appendTo( ul );

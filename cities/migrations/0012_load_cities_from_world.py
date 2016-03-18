@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import csv
 from django.db import models, migrations
+from django.db.utils import DataError
 from django.contrib.gis.geos import Point
 from django.conf import settings
 
@@ -26,7 +27,8 @@ def load_cities_from_world(apps, schema_editor):
     with open(path, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=str('\t'), quotechar=None)
         for row in reader:
-            aliases = row[ALIAS].decode('utf-8').split(',')
+            aliases = set(row[ALIAS].decode('utf-8').split(','))
+            aliases.add(row[NAME].decode('utf-8'))
 
             city = City()
             city.name = row[NAME]
@@ -35,8 +37,9 @@ def load_cities_from_world(apps, schema_editor):
             city.point = Point(float(row[LON]), float(row[LAT]))
             city.save()
 
-            for alias in aliases:
-                CityAlias.objects.get_or_create(city=city, alias=alias)
+            gen = (CityAlias(city=city, name=alias) for alias in aliases)
+            #import ipdb; ipdb.set_trace()
+            CityAlias.objects.bulk_create(gen)
 
 
 class Migration(migrations.Migration):

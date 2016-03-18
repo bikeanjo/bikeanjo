@@ -9,5 +9,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL('CREATE INDEX city_cityalias_alias_lowercase_like ON cities_cityalias USING BTREE (LOWER(alias) varchar_pattern_ops);')
+        migrations.RunSQL('CREATE INDEX city_cityalias_alias_lowercase_like ON cities_cityalias USING BTREE (LOWER(name) varchar_pattern_ops);')
     ]

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='CityAlias',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('alias', models.CharField(max_length=128, verbose_name='Alias', db_index=True)),
+                ('name', models.CharField(max_length=1024, verbose_name='Alias name', db_index=True)),
             ],
             options={
                 'verbose_name': 'Alias',
@@ -50,6 +50,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='cityalias',
-            unique_together=set([('city', 'alias')]),
+            unique_together=set([('city', 'name')]),
         ),
     ]
