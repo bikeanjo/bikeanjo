@@ -17,7 +17,7 @@
 
 {% block content %}
 <section class="forms signup container">
-    
+
     <form class="signup fullscreen card" method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -43,7 +43,7 @@
 
         <ul class="addresses-list list-unstyled" bikeanjo-list="points"></ul>
 
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
         {% if not user.accepted_agreement %}
         <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
         {% endif %}

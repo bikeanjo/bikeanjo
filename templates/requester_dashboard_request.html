@@ -14,7 +14,7 @@
 {% block content %}
 
     <section class="dashboard requester container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -22,30 +22,32 @@
 
                 <article class="card request {{helprequest.status}} {% if not helprequest.bikeanjo %}orphan{% endif %}">
                     <header class="card-header negative">
-                        <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                        <a href="{% url 'cyclist_my_requests' %}" class="go-back">
+                            <i class="fa fa-arrow-left"></i><span class="sr-only">{% trans "Back" %}</span>
+                        </a>
                         <ul class="card-actions list-inline">
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#cancelRequest">
-                                    <span class="text visible-xs">Cancelar</span>
-                                    <span class="text hidden-xs">Cancelar Pedido</span>
+                                    <span class="text visible-xs">{% trans "Cancel" %}</span>
+                                    <span class="text hidden-xs">{% trans "Cancel request" %}</span>
                                     <i class="fa fa-times-circle"></i>
                                 </a>
                             </li>
                         {% if helprequest.status = 'open' %}
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#finishRequest">
-                                    <span class="text visible-xs">Finalizar</span>
-                                    <span class="text hidden-xs">Finalizar Pedido</span>
+                                    <span class="text visible-xs">{% trans "Finish" %}</span>
+                                    <span class="text hidden-xs">{% trans "Finish request" %}</span>
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
                         {% endif %}
                             <li>
                                 <a href="#helpreply-form" data-toggle="collapse">
-                                    <span class="text">Responder</span>
+                                    <span class="text">{% trans "Answer" %}</span>
                                     <i class="fa fa-reply"></i>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                     </header>
 
@@ -53,7 +55,7 @@
                         {% if helprequest.status != 'new' and helprequest.bikeanjo %}
                         <div class="card-icon">
                             <img src="{{ helprequest.bikeanjo.get_avatar_url }}"
-                                 width="50" height="50" 
+                                 width="50" height="50"
                                  title="{{ helprequest.bikeanjo.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ helprequest.bikeanjo.get_full_name }}"/>
@@ -63,7 +65,7 @@
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
                             {% if helprequest.status = 'new' %}
-                                <li>Aguardando bikeanjo ...</li>
+                                <li>{% trans "Waiting for bike anjo" %} ...</li>
                             {% elif helprequest.bikeanjo %}
                                 <li>{{ helprequest.bikeanjo.get_full_name }}</li>
                                 <li>{{ helprequest.bikeanjo.city }}</li>
@@ -72,11 +74,11 @@
                         </ul>
 
                         {% if helprequest.status = 'attended' %}
-                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> {% trans "Request answered" %}</div>
                         {% elif helprequest.status = 'finalized' %}
-                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Finalizado</div>
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> {% trans "Request finished" %}</div>
                         {% elif helprequest.status = 'canceled' %}
-                        <div class="label-canceled request-canceled"><i class="fa fa-times-circle"></i> Pedido Cancelado</div>
+                        <div class="label-canceled request-canceled"><i class="fa fa-times-circle"></i> {% trans "Request cancelled" %}</div>
                         {% endif %}
                     </div>
                 </article>
@@ -93,7 +95,7 @@
                 <article class="card">
                     <div class="card-content">
                         <p class="card-info">{{ helprequest.message|linebreaksbr }}</p>
-                        
+
                         <div id="js-map" style="height: 150px"></div>
 
                         {% if helprequest.track %}
@@ -102,8 +104,8 @@
                                 <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
                                 <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
                             </p>
-                            <input type="hidden" bikeanjo-geojson="lines" 
-                                   value="[{{ helprequest.track.json }}]"/>                           
+                            <input type="hidden" bikeanjo-geojson="lines"
+                                   value="[{{ helprequest.track.json }}]"/>
                        {% else %}
                             <ul class="fa-ul">
                             {% for point in helprequest.point_set.all %}
@@ -111,7 +113,7 @@
                             {% endfor %}
                             </ul>
 
-                            <input type="hidden" bikeanjo-geojson="points" 
+                            <input type="hidden" bikeanjo-geojson="points"
                                    value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                        {% endif %}
 
@@ -119,17 +121,17 @@
                             {% if not helprequest.helpreply_set.exists %}
                                 <a data-toggle="collapse"
                                         data-target="#helpreply-form"
-                                        class="btn btn-warning">Responder</a>
+                                        class="btn btn-warning">{% trans "Answer" %}</a>
 
                             {% if helprequest.status in 'open,new' %}
                                 {% if helprequest.status == 'open' %}
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">{% trans "Finish request" %}</a>
                                 {% endif %}
 
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">{% trans "Cancel request" %}</a>
                             {% elif helprequest.closed_by = 'bikeanjo' %}
                                 <form method="post" style="display: inline-block">{% csrf_token %}
-                                    <button class="btn btn-default">Ainda tenho dúvidas</button>
+                                    <button class="btn btn-default">{% trans "I still have a doubt" %}</button>
                                     <input type="hidden" name="status" value="open" />
                                     <input type="hidden" name="closed_by" value="" />
                                 </form>
@@ -138,7 +140,7 @@
 
                         {% if helprequest.status == 'canceled' and helprequest.closed_by = 'bikeanjo' and helprequest.bikeanjo %}
                             <form method="post" style="display: inline-block">{% csrf_token %}
-                                <button class="btn btn-default">Reabrir pedido</button>
+                                <button class="btn btn-default">{% trans "Reopen request" %}</button>
                                 <input type="hidden" name="status" value="open" />
                                 <input type="hidden" name="closed_by" value="" />
                             </form>
@@ -151,13 +153,13 @@
                 <form class="card reply collapse {{helprequest.helpreply_set.count|yesno:',in'}}" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
                     <header class="card-header">
-                        <button type="button" data-toggle="collapse" data-target="#helpreply-form" 
+                        <button type="button" data-toggle="collapse" data-target="#helpreply-form"
                                 class="card-button" aria-label="Close">
                             <span aria-hidden="true"><i class="fa fa-times"></i></span>
                         </button>
                         <div class="card-icon">
                             <img src="{{ user.get_avatar_url }}"
-                                 width="30" height="30" 
+                                 width="30" height="30"
                                  title="{{ user.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
@@ -167,7 +169,7 @@
                     <div class="card-content">
                         <textarea class="form-control" name="message" rows="5" placeholder="Enter text"
                         ></textarea>
-                        <button class="btn btn-warning" type="submit">Enviar</button>
+                        <button class="btn btn-warning" type="submit">{% trans "Send" %}</button>
                     </div>
                 </form>
 
@@ -176,7 +178,7 @@
                     <header class="card-header">
                         <div class="card-icon">
                             <img src="{{ helpreply.author.get_avatar_url }}"
-                                 width="30" height="30" 
+                                 width="30" height="30"
                                  title="{{ helpreply.author.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
                                  alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
@@ -195,31 +197,34 @@
                         {% if forloop.first %}
                             {% if helprequest.status = 'attended' %}
                             <div class="card-buttons">
-                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#finishRequest">Pedido foi atendido</a>
+                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#finishRequest">{% trans "Request answered" %}</a>
                                 <form method="post" class="inline-block">{% csrf_token %}
-                                    <button name="status" value="open" class="btn btn-default">Ainda tenho dúvidas</button>
+                                    <button name="status" value="open" class="btn btn-default">{% trans "I still have a doubt" %}</button>
                                     <input type="hidden" name="closed_by" value="" />
                                     <a href="#" class="btn btn-default"
                                         data-toggle="modal"
                                         data-target="#feedbackModal"
                                         send-to="#feedbackModal textarea"
-                                        send-content="Tive um problema com o pedido #{{helprequest.id}}, "
-                                        >Reportar problema</a>
+                                        send-content="Tive um problema com o pedido #{{helprequest.id}}, ">
+                                        {% trans "Report a problem" %}</a>
                                 </form>
                             </div>
                             {% endif %}
-                            
+
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
-                                        class="btn btn-warning">Responder</button>
+                                        class="btn btn-warning">{% trans "Answer" %}</button>
 
                             {% if helprequest.status in 'open,new' %}
                                 {% if helprequest.status == 'open' %}
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Finalizar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">
+                                    {% trans "Finish request" %}
+                                </a>
                                 {% endif %}
 
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">
+                                    {% trans "Cancel request" %}</a>
                             {% endif %}
                             </div>
 
@@ -229,18 +234,18 @@
                 {% endfor %}
             </section>
         </div>
-        
+
         <div class="modal fade finish-request-modal" id="finishRequest" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> Nos ajude a melhorar, avalie seu atendimento</h4>
+                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> {% trans "Help us to improve, tell us how was this service" %}</h4>
                     </div>
                     <div class="modal-body">
                         <form method="post">
                             {% csrf_token %}
-                            <p>Avalie 1 de 5 bikes:</p>
+                            <p>{% trans "Rank from 1 to 5 bikes" %}</p>
                             <div class="request-rating">
                                 <label onclick="this.parentElement.className = 'request-rating rating-1'">
                                     <span class="sr-only"><input type="radio" name="requester_rating" value="1"/>1</span>
@@ -260,10 +265,10 @@
                             </div>
 
                             <p>{% trans "Suggestions, complaints or compliments? Use in the field below" %}:</p>
-                            <textarea class="form-control" name="requester_eval" rows="5" placeholder="Enter text"></textarea>
+                            <textarea class="form-control" name="requester_eval" rows="5" placeholder="{% trans "Enter text" %}"></textarea>
                             <input type="hidden" name="status" value="finalized" />
                             <input type="hidden" name="closed_by" value="{{user.role}}" />
-                            <button class="btn btn-warning" type="submit">Enviar avaliação</button>
+                            <button class="btn btn-warning" type="submit">{% trans "Send evaluation" %}</button>
                         </form>
                     </div>
                 </div>
@@ -275,18 +280,18 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        <h4 class="modal-title"><i class="fa fa-times-circle"></i> Cancelar pedido</h4>
+                        <h4 class="modal-title"><i class="fa fa-times-circle"></i> {% trans "Cancel request" %}</h4>
                     </div>
                     <form method="post" class="modal-body">{% csrf_token %}
-                        <p>Tem certeza que deseja cancelar o pedido?</p>
-                        <button name="status" value="canceled" class="btn btn-danger" type="submit">Sim</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Não</button>
+                        <p>{% trans "Are you sure that you want to cancel the request?" %}</p>
+                        <button name="status" value="canceled" class="btn btn-danger" type="submit">{% trans "Yes" %}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">{% trans "No" %}</button>
                         <input type="hidden" name="closed_by" value="{{user.role}}" />
                         <input type="hidden" name="reason" value="user canceled request" />
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
     </section>
 
 {% endblock %}

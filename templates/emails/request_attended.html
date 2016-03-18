@@ -12,10 +12,12 @@
         <table style="width: 100%; max-width: 550px;">
             <tbody>
                 <tr>
-                    <td style="color: #F26522; font-size: 34px;padding: 40px 0px 30px; text-align: center;">Pedido Atendido</td>
+                    <td style="color: #F26522; font-size: 34px;padding: 40px 0px 30px; text-align: center;">{% trans "Request answered" %}</td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">Seu pedido de ajuda:</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">
+                            {% trans "Your request" %}:
+                    </p></td>
                 </tr>
                 <tr>
                     <td>
@@ -23,7 +25,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding:0 30px 35px 30px; color: #999999; text-align: center;">foi marcado como atendido pelo BikeAnjo. Para ajudar em nosso controle interno, confirme em nosso sistema se você foi realmente atendido(a) e faça uma avaliação do pedido.</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding:0 30px 35px 30px; color: #999999; text-align: center;">
+                            {% trans "was checked as answered by BikeAnjo" %}.
+                            {% trans "For our control, would you please confirm in our system if your request was really solved and evaluate the BikeAnjo" %}.</p></td>
                 </tr>
                 <tr>
                     <td style="text-align: center; padding: 0 0 35px;">
@@ -33,7 +37,7 @@
                         <center>
                         <![endif]-->
                         <a href="http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}"
-                        style="background-color:#F26522;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:22px;font-weight:bold;line-height:40px;text-align:center;padding: 8px 25px;text-decoration:none;-webkit-text-size-adjust:none;">RESPONDER PEDIDO</a>
+                        style="background-color:#F26522;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:22px;font-weight:bold;line-height:40px;text-align:center;padding: 8px 25px;text-decoration:none;-webkit-text-size-adjust:none;">{% trans "ANSWER REQUEST" %}</a>
                         <!--[if mso]>
                         </center>
                         </v:roundrect>

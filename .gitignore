@@ -1,4 +1,5 @@
 *.py[co]
+*.mo
 __pycache__
 db.sqlite3
 secret.txt

@@ -13,7 +13,7 @@
     <section class="event-filter">
         <form class="form-group container">
             <select class="form-control input-lg" name="city" onchange="this.parentElement.submit()">
-                <option>Filtrar por cidade</option>
+                <option>{% trans "Filter by city" %}</option>
                 {% for city in cities %}
                 <option value="{{ city }}"
                         {% if request.GET.city = city %}selected="selected"{% endif %}>{{ city }}</option>
@@ -87,7 +87,7 @@
     <section class="event-categories-list container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                <h3>Categorias</h3>
+                <h3>{% trans "Categories" %}</h3>
                 <ul>
                 {% for category in categories %}
                     <li><a href="?category={{ category.id }}">{{ category|upper }}</a></li>
