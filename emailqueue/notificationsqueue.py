@@ -5,8 +5,10 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import select_template
 from django.utils.timezone import now, timedelta
-
+from django.utils import translation
 from emailqueue.models import QueuedMail
+
+from front.utils import set_language
 
 logger = logging.getLogger('front.notifications')
 
@@ -37,11 +39,12 @@ def enqueue_30days_notification_for_closed_requests(helprequest):
     if mail:
         return mail
 
-    template_name = 'emails/30days_notification_for_closed_requests.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/30days_notification_for_closed_requests.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/30days_notification_for_closed_requests.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/30days_notification_for_closed_requests.txt'
+        text = select_template([template_name]).render(data)
 
     return QueuedMail.objects.create(
         to=recipient,
@@ -75,11 +78,12 @@ def enqueue_15days_notification_for_open_requests(helprequest):
     if mail:
         return mail
 
-    template_name = 'emails/15days_notification_for_open_requests.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/15days_notification_for_open_requests.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/15days_notification_for_open_requests.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/15days_notification_for_open_requests.txt'
+        text = select_template([template_name]).render(data)
 
     return QueuedMail.objects.create(
         to=recipient,
