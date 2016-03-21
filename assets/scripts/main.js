@@ -165,28 +165,28 @@
             });
         });
 
-        $('input[options-source]').each(function(i){
-            var $textfield = $(this);
-            var $input = $('<input type="hidden">').attr('name', $textfield.attr('name'));
+        $('input[ac-source]').each(function(i){
+            var $input = $(this);
+            var api = $input.attr('ac-source');
+            var query = $input.attr('ac-query-var');
+            var initial_text = $input.attr('ac-initial-text');
+            var initial_value = $input.attr('ac-initial-value');
 
-            $textfield.attr('name', '').removeAttr('name');
-            $input.insertAfter($textfield);
-            console.log($input, 'test');
+            var $holder = $('<input type="hidden">').attr('name', $input.attr('name'));
+            $input.attr('name', 'fake_' + Math.random().toString(16)).val(initial_text);
+            $holder.insertAfter($input).val(initial_value);
 
             // adjust placement of dropdown
-            var $ac_results = $('<div class="ac_results">')
-                .appendTo(document.body);
-
+            var $ac_results = $('<div class="ac_results">').appendTo(document.body);
             $(window).resize(function(){setTimeout(function(){
-                $ac_results.css('top', ($textfield.offset().top + $textfield.outerHeight(true)) + 'px');
-                $ac_results.css('left', ($textfield.offset().left) + 'px');
+                $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
+                $ac_results.css('left', ($input.offset().left) + 'px');
             }, 500);}).trigger('resize');
 
-            var api = $textfield.attr('options-source');
-            var query = $textfield.attr('options-query');
+
             var filters = { };
-            if($textfield.attr('options-filter')) {
-                eval('filters = ' + $textfield.attr('options-filter'));
+            if($input.attr('ac-filter')) {
+                eval('filters = ' + $input.attr('ac-filter'));
             }
 
             function source(request, response) {
@@ -205,27 +205,32 @@
             }
 
             function onselect (event, ui) {
-                $input.val(ui.item.value);
-                $textfield.val(ui.item.label);
+                $holder.val(ui.item.value);
+                $input.val(ui.item.label);
                 return false;
             }
 
-            $textfield.autocomplete({
+            function onfocus (event, ui) {
+                return false;
+            }
+
+            $input.autocomplete({
                 'source': source,
                 'autoFocus': true,
                 'minLength': 2,
                 'delay': 100,
                 'appendTo': $ac_results,
-                'select': onselect
+                'select': onselect,
+                'focus': onfocus,
             }).attr('autocomplete', false)
               .prop('autocomplete', false)
               .autocomplete( "instance" )._renderItem = function( ul, item ) {
                 var li = $( "<li>" ).append( "<a>" + item.label + "</a>" );
 
-                if(item.desc !== item.label){
+                if(item.desc && item.desc !== item.label){
                     li.append( "<a>" + item.desc + "</a>" )
                 }
-                
+
                 return li.appendTo( ul );
             };
         });

@@ -155,8 +155,6 @@ class SignupForm(forms.ModelForm):
     """
     full_name = forms.CharField(label=_('Full name'), max_length=60)
     email2 = forms.CharField(label=_('E-mail (again)'))
-    country = forms.CharField(label=_('Country'), max_length=32)
-    city = forms.CharField(label=_('City'), max_length=32)
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -175,13 +173,6 @@ class SignupForm(forms.ModelForm):
             self.fields['email2'].initial = user.email
 
         return self
-
-    def clean_city(self):
-        name = self.cleaned_data['city']
-        city = City.objects.filter(name__unaccent__iexact=name).first()
-        if city:
-            return city.name
-        raise forms.ValidationError('Verifique se a cidade está correta')
 
     def clean_email2(self):
         email = self.cleaned_data.get('email')
@@ -215,13 +206,14 @@ class SignupForm(forms.ModelForm):
         user.first_name = full_name[0]
         user.last_name = ' '.join(full_name[1:])
 
-        user.city = self.cleaned_data['city']
+        user.city_alias = self.cleaned_data.get('city_alias')
+        user.city = user.city_alias.city
         user.country = self.cleaned_data['country']
         user.save()
 
     class Meta:
         model = models.User
-        fields = ('full_name', 'first_name', 'last_name', 'email', 'country', 'city',)
+        fields = ('full_name', 'first_name', 'last_name', 'email', 'country', 'city_alias',)
 
 
 class SignupBikeanjoForm(forms.ModelForm):

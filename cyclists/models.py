@@ -7,6 +7,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 
+from cities.models import Country, City, CityAlias
+
 GENDER = (
     ('male', _('Male')),
     ('female', _('Female')),
@@ -87,8 +89,14 @@ class User(AbstractUser):
 
     avatar = models.ImageField(_('Avatar'), upload_to=get_upload_path,
                                storage=AvatarStorage(), blank=True)
-    country = models.CharField(_('Country'), max_length=32, blank=True)
-    city = models.CharField(_('City'), max_length=64, blank=True)
+
+    v1_country = models.CharField(_('Country'), max_length=32, blank=True)
+    v1_city = models.CharField(_('City'), max_length=64, blank=True)
+
+    city = models.ForeignKey(City, null=True)
+    city_alias = models.ForeignKey(CityAlias, null=True)
+    country = models.ForeignKey(Country, null=True)
+
     gender = models.CharField(_('Gender'), max_length=24, blank=True)
     birthday = models.DateField(_('Birthday'), default=date.today, null=True)
     ride_experience = models.CharField(_('Ride experience'), choices=EXPERIENCE, max_length=32, blank=True)
