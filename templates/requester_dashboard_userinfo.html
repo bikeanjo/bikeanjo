@@ -4,7 +4,6 @@
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -85,6 +84,21 @@
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.email.errors %}
                                     {% for error in form.email.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.language.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                                <select class="form-control" id="{{ form.language.id_for_label }}" name="{{ form.language.html_name }}">
+                                    {% for x,y in form.fields.language.choices %}
+                                        <option value="{{ x }}" {% if form.language.value == x %} selected{% endif %}>{{ y }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i class="fa fa-language form-control-icon"></i>
+                                {% if form.language.errors %}
+                                    {% for error in form.language.errors %}
                                     <span class="text-danger">{{ error }}</span>
                                     {% endfor %}
                                 {% endif %}

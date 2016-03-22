@@ -1,3 +1,4 @@
+{% load i18n %}
 {% trans "Hello" %} {{ recipient.first_name }},
 
 {% trans "Unfortunately your Bike Anjo request for" %} "{{ helprequest.get_help_label }}" {% trans "was cancelled because your Bike Anjo won't be able to attend. Our system will find someone to help you within 15 days, ok?" %} O=D

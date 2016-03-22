@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import select_template
-
+from django.utils import translation
+from front.utils import set_language
 logger = logging.getLogger('front.notifications')
 
 __all__ = (
@@ -33,11 +34,12 @@ def notify_that_bikeanjo_canceled_request_by_inactivity(helprequest, bikeanjo):
         'site': site,
     }
 
-    template_name = 'emails/request_canceled_by_inactivity.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/request_canceled_by_inactivity.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/request_canceled_by_inactivity.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/request_canceled_by_inactivity.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -58,11 +60,13 @@ def notify_that_bikeanjo_cannot_help_anymore(helprequest, bikeanjo):
         'site': site,
     }
 
-    template_name = 'emails/request_canceled_by_bikeanjo.html'
-    html = select_template([template_name]).render(data)
 
-    template_name = 'emails/request_canceled_by_bikeanjo.txt'
-    text = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/request_canceled_by_bikeanjo.html'
+        html = select_template([template_name]).render(data)
+
+        template_name = 'emails/request_canceled_by_bikeanjo.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -82,11 +86,12 @@ def notify_cant_find_bikeanjo(helprequest):
         'site': site,
     }
 
-    template_name = 'emails/cant_find_bikeanjo.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/cant_find_bikeanjo.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/cant_find_bikeanjo.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/cant_find_bikeanjo.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -116,11 +121,12 @@ def notify_new_reply_by_email(reply):
         'site': site,
     }
 
-    template_name = 'emails/new_msg_to_%s.html' % recipient.role
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/new_msg_to_%s.html' % recipient.role
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/new_msg_to_%s.txt' % recipient.role
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/new_msg_to_%s.txt' % recipient.role
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -140,11 +146,12 @@ def notify_requester_about_found_bikeanjo(helprequest):
         'site': site,
     }
 
-    template_name = 'emails/found_bikeanjo.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/found_bikeanjo.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/found_bikeanjo.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/found_bikeanjo.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -164,11 +171,12 @@ def notify_bikeanjo_about_new_request(helprequest):
         'site': site,
     }
 
-    template_name = 'emails/new_request.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/new_request.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/new_request.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/new_request.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -188,11 +196,12 @@ def notify_requester_about_attended_request(helprequest):
         'site': site,
     }
 
-    template_name = 'emails/request_attended.html'
-    html = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/request_attended.html'
+        html = select_template([template_name]).render(data)
 
-    template_name = 'emails/request_attended.txt'
-    text = select_template([template_name]).render(data)
+        template_name = 'emails/request_attended.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.attach_alternative(html, "text/html")
@@ -211,8 +220,9 @@ def notify_user_subscribed_in_newsletter(subscriber):
         'subscriber': subscriber,
     }
 
-    template_name = 'emails/newsletter_subscription.txt'
-    text = select_template([template_name]).render(data)
+    with translation.override(set_language(recipient)):
+        template_name = 'emails/newsletter_subscription.txt'
+        text = select_template([template_name]).render(data)
 
     msg = EmailMultiAlternatives(subject, text, from_email, [recipient.email])
     msg.send()

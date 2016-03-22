@@ -3,7 +3,7 @@ import json
 
 from django.contrib.gis import forms
 from django.contrib.gis.geos import LineString, Point
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language
 from django.utils.timezone import now
 
 import models
@@ -160,6 +160,7 @@ class SignupForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
+        self.fields['language'].initial = get_language()
         self.populate_initial_fields_if_sociallogin(*args, **kwargs)
 
     def populate_initial_fields_if_sociallogin(self, *args, **kwargs):
@@ -214,7 +215,7 @@ class SignupForm(forms.ModelForm):
 
     class Meta:
         model = models.User
-        fields = ('full_name', 'first_name', 'last_name', 'email', 'country', 'city',)
+        fields = ('full_name', 'first_name', 'last_name', 'email', 'language', 'country', 'city',)
 
 
 class SignupBikeanjoForm(forms.ModelForm):
@@ -270,8 +271,8 @@ class BikeanjoExperienceForm(forms.ModelForm):
 
 class BikeanjoUserInforForm(forms.ModelForm):
     class Meta:
-        fields = ('avatar', 'first_name', 'last_name', 'email', 'country',
-                  'city', 'gender', 'birthday',)
+        fields = ('avatar', 'first_name', 'last_name', 'email', 'language',
+                  'country', 'city', 'gender', 'birthday',)
         model = models.User
 
     def clean_city(self):
@@ -286,8 +287,8 @@ class RequesterUserInforForm(forms.ModelForm):
     ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
-        fields = ('avatar', 'first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',
-                  'ride_experience',)
+        fields = ('avatar', 'first_name', 'last_name', 'email', 'language',
+                  'country', 'city', 'gender', 'birthday', 'ride_experience',)
         model = models.User
 
     def clean_city(self):

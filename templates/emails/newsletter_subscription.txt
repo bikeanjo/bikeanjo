@@ -1,3 +1,4 @@
+{% load i18n %}
 {% trans "Hello" %},
 
 {% trans "Somebody (luckly you) used the following e-mail address" %} "{{subscriber.email}}" {% trans "to subscribe in Bikeanjo newsletter!" %}
