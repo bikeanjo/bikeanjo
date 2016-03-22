@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from django.core.urlresolvers import reverse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
@@ -6,6 +7,7 @@ from allauth.account.utils import perform_login
 from utils import DateParser
 from cyclists.models import User
 
+from cities.models import Country, CityAlias
 
 FACEBOOK_DATE_PATTERN = re.compile(r'^(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\d\d\d\d)$')
 FACEBOOK_LOCATION_PATTERN = re.compile(r'^(?P<city>[^,]+), *(?P<country>.*)$')
@@ -28,8 +30,11 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         match = FACEBOOK_LOCATION_PATTERN.match(location)
 
         if match:
-            user.city = match.groupdict().get('city', '')
-            user.country = match.groupdict().get('country', )
+            country = match.groupdict().get('country', )
+            city = match.groupdict().get('city', '').encode('utf8')
+
+            user.country = Country.objects.filter(name=country).first()
+            user.city = CityAlias.objects.filter(name__lowermatch=city).first()
         return user
 
     def __populate_with_twitter(self, sociallogin, user):
@@ -39,8 +44,11 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         match = FACEBOOK_LOCATION_PATTERN.match(location)
 
         if match:
-            user.city = match.groupdict().get('city', '')
-            user.country = match.groupdict().get('country', )
+            city = match.groupdict().get('city', '')
+            country = match.groupdict().get('country', )
+
+            user.country = Country.objects.filter(name=country).first()
+            user.city = CityAlias.objects.filter(name__lowermatch=city).first()
         return user
 
     def populate_user(self, request, sociallogin, data):

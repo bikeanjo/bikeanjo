@@ -7,7 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 import models
-from cities.models import City
+
+from cities.models import City, CityAlias
+
 from notifications import (
     notify_admins_about_new_feedback,
     notify_bikeanjo_about_new_request,
@@ -206,9 +208,11 @@ class SignupForm(forms.ModelForm):
         user.first_name = full_name[0]
         user.last_name = ' '.join(full_name[1:])
 
-        user.city_alias = self.cleaned_data.get('city_alias')
-        user.city = user.city_alias.city
+        if 'city_alias' in self.cleaned_data:
+            user.city_alias = self.cleaned_data.get('city_alias')
+            user.city = user.city_alias.city
         user.country = self.cleaned_data['country']
+
         user.save()
 
     class Meta:
