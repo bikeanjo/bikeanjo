@@ -280,15 +280,13 @@ class BikeanjoExperienceForm(forms.ModelForm):
 class BikeanjoUserInforForm(forms.ModelForm):
     class Meta:
         fields = ('avatar', 'first_name', 'last_name', 'email', 'country',
-                  'city', 'gender', 'birthday',)
+                  'city_alias', 'gender', 'birthday',)
         model = models.User
 
-    def clean_city(self):
-        name = self.cleaned_data['city']
-        city = City.objects.filter(name__unaccent__iexact=name).first()
-        if city:
-            return city.name
-        raise forms.ValidationError('Verifique se a cidade está correta')
+    def save(self, **kwargs):
+        if getattr(self, 'city_alias', None):
+            self.city = self.city_alias
+        super(BikeanjoUserInforForm, self).save(**kwargs)
 
 
 class RequesterUserInforForm(forms.ModelForm):

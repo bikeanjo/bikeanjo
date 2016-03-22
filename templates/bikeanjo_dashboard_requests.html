@@ -46,7 +46,7 @@
                         <ul class="card-info list-info list-unstyled">
                             {# <li>#{{ hr.id|stringformat:'04d' }}</li> #}
                             <li>{{ hr.requester.get_full_name }}</li>
-                            <li>{{ hr.requester.city }}</li>
+                            <li>{% firstof hr.requester.city_alias.name hr.requester.city.name hr.requester.v1_city %}</li>
                             {# <li>{{ hr.created_date|date:'d/m/Y' }}</li> #}
                         </ul>
                     </div>
