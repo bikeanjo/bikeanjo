@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.core.urlresolvers import resolve
-
+from django.utils import translation
+from django.contrib.auth.models import AnonymousUser
 
 class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
@@ -14,6 +15,23 @@ class BikeanjoSessionConfigMiddleware(object):
         request.session.set_expiry(getattr(settings, 'SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER', 600))
         if request.user.is_authenticated() and request.user.accepted_agreement:
             request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+
+
+class BikeanjoLocaleMiddleware(object):
+    '''
+    This middleware should be used after Authentication middleware and Locale
+    middleware and before Common middleware, like this: \n
+    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'middlewares.BikeanjoLocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    '''
+    def process_request(self, request):
+        if hasattr(request, 'user') and \
+                not isinstance(request.user, AnonymousUser) \
+                and request.user.language:
+            translation.activate(request.user.language)
+            request.LANGUAGE_CODE = translation.get_language()
 
 
 class ViewNameMiddleware(object):
