@@ -60,7 +60,6 @@ def notify_that_bikeanjo_cannot_help_anymore(helprequest, bikeanjo):
         'site': site,
     }
 
-
     with translation.override(set_language(recipient)):
         template_name = 'emails/request_canceled_by_bikeanjo.html'
         html = select_template([template_name]).render(data)
