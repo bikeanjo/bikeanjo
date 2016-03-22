@@ -23,32 +23,33 @@ class BikeanjoAccountAdapter(DefaultAccountAdapter):
 
 class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
 
+    def __assign_location_to_user(self, location, user):
+        country = location.get('country', '')
+        city = location.get('city', '')
+
+        user.country = Country.objects.filter(name=country).first()
+        user.city_alias = CityAlias.objects.filter(name__lowermatch=city).first()
+
+        if user.city_alias:
+            user.city = user.city_alias.city
+            if not user.country:
+                user.country = user.city.country
+        return user
+
     def __populate_with_facebook(self, sociallogin, user):
         extra = sociallogin.account.extra_data
-
         location = extra.get('location', {}).get('name', '')
         match = FACEBOOK_LOCATION_PATTERN.match(location)
-
         if match:
-            country = match.groupdict().get('country', )
-            city = match.groupdict().get('city', '').encode('utf8')
-
-            user.country = Country.objects.filter(name=country).first()
-            user.city = CityAlias.objects.filter(name__lowermatch=city).first()
+            user = self.__assign_location_to_user(match.groupdict(), user)
         return user
 
     def __populate_with_twitter(self, sociallogin, user):
         extra = sociallogin.account.extra_data
-
         location = extra.get('location', '')
         match = FACEBOOK_LOCATION_PATTERN.match(location)
-
         if match:
-            city = match.groupdict().get('city', '')
-            country = match.groupdict().get('country', )
-
-            user.country = Country.objects.filter(name=country).first()
-            user.city = CityAlias.objects.filter(name__lowermatch=city).first()
+            user = self.__assign_location_to_user(match.groupdict(), user)
         return user
 
     def populate_user(self, request, sociallogin, data):

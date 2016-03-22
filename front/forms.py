@@ -163,17 +163,23 @@ class SignupForm(forms.ModelForm):
         self.populate_initial_fields_if_sociallogin(*args, **kwargs)
 
     def populate_initial_fields_if_sociallogin(self, *args, **kwargs):
-        if hasattr(self, 'sociallogin'):
-            user = self.sociallogin.user
-            for key, field in self.fields.items():
-                field.initial = getattr(user, key, '')
-            self.fields['full_name'].initial = user.get_full_name()
-            self.fields['email2'].initial = user.email
-        elif self.instance.id:
-            user = self.instance
-            self.fields['full_name'].initial = user.get_full_name()
-            self.fields['email2'].initial = user.email
+        if hasattr(self, 'sociallogin') or self.instance.id:
+            if hasattr(self, 'sociallogin'):
+                user = self.sociallogin.user
+                for key, field in self.fields.items():
+                    field.initial = getattr(user, key, '')
+            elif self.instance.id:
+                user = self.instance
 
+            self.fields['city_alias'].initial = getattr(user, 'city_alias', None)
+            self.fields['country'].initial = getattr(user, 'country', None)
+
+            self.fields['email2'].initial = user.email
+            self.fields['full_name'].initial = user.get_full_name()
+
+            self.instance.city = getattr(user, 'city', None)
+            self.instance.city_alias = getattr(user, 'city_alias', None)
+            self.instance.country = getattr(user, 'country', None)
         return self
 
     def clean_email2(self):

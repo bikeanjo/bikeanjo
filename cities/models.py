@@ -12,8 +12,8 @@ class LowerMatch(Lookup):
     def as_sql(self, compiler, connection):
         lhs, lhs_params = self.process_lhs(compiler, connection)
         rhs, rhs_params = self.process_rhs(compiler, connection)
-        params = ['^' + p for p in rhs_params ]
-        return 'LOWER(%s) ~ LOWER(%s)' % (lhs, rhs), params
+        params = [u'^' + unicode(p) for p in rhs_params]
+        return u'LOWER(%s) ~ LOWER(%s)' % (lhs, rhs), params
 
 
 class Country(models.Model):
@@ -65,5 +65,3 @@ class CityAlias(models.Model):
     city = models.ForeignKey(City)
     name = models.CharField(_('Alias name'), max_length=1024, db_index=True)
 
-    def __unicode__(self):
-        return self.name
