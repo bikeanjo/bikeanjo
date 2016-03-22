@@ -21,10 +21,10 @@ class DateParser(object):
 
         return datetime(**params)
 
+
 def set_language(recipient):
     if not isinstance(recipient, User):
         user = User.objects.get(email=recipient)
     else:
         user = recipient
-
     return user.language or settings.LANGUAGE_CODE
