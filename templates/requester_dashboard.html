@@ -109,7 +109,7 @@
                             <li>{% trans "Waiting for bike anjo" %} ...</li>
                             {% elif hr.bikeanjo %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
-                            <li>{{ hr.bikeanjo.city }}</li>
+                            <li>{{ hr.bikeanjo.city.name }}</li>
                             {% endif %}
                         </ul>
                     </div>
@@ -130,7 +130,7 @@
                         <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ event.date }}</li>
-                            <li>{{ event.city }}</li>
+                            <li>{{ event.city.name }}</li>
                         </ul>
                     </div>
                     {% endfor %}

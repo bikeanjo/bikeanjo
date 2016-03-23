@@ -46,7 +46,7 @@
                             <li>{% trans "Waiting for bike anjo" %} ...</li>
                         {% elif hr.bikeanjo %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
-                            <li>{{ hr.bikeanjo.city }}</li>
+                            <li>{{ hr.bikeanjo.city.name }}</li>
                         {% endif %}
                         </ul>
                     </div>
