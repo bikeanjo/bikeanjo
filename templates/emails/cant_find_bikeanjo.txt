@@ -1,3 +1,4 @@
+{% load i18n %}
 {% trans "Hello" %} {{ recipient.first_name }},
 
 {% trans "Unfortunately we could not find someone to help you on Bike Anjo. This can happen if there is no Bike Anjo Volunteers available close to you, or if they are overloaded" %}.

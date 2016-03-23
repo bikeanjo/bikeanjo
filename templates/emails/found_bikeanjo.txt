@@ -1,3 +1,4 @@
+{% load i18n %}
 {% trans "Hello" %} {{ recipient.first_name }},
 
 {% trans "Our platform have found you Bike Anjo to help with your request" %}!

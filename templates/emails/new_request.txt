@@ -1,3 +1,4 @@
+{% load i18n %}
 {% trans "Hello" %} {{ recipient.first_name }},
 
 {% trans "You have a new request" %}!
