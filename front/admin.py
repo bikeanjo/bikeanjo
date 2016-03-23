@@ -4,8 +4,10 @@ from django.contrib.auth.admin import UserAdmin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.flatpages.models import FlatPage
 
 from import_export.admin import ImportExportModelAdmin
+from modeltranslation.admin import TranslationAdmin
 
 from front import models
 
@@ -225,14 +227,6 @@ class MessageAdmin(admin.ModelAdmin):
     readed_by_.short_description = _('Readed by')
 
 
-@admin.register(models.Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'address',)
-    list_filter = ('created_date', 'date',)
-    search_fields = ('title', 'address', 'content')
-    prepopulated_fields = {"slug": ("title",)}
-
-
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -291,8 +285,36 @@ class ContactMessageAdmin(admin.ModelAdmin):
     search_fields = ('message',)
 
 
+class TranslationAdminMedia(TranslationAdmin):
+    class Media:
+        js = (
+            'modeltranslation/js/force_jquery.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
+@admin.register(models.Event)
+class EventAdmin(TranslationAdminMedia):
+    list_display = ('title', 'date', 'address',)
+    list_filter = ('created_date', 'date',)
+    search_fields = ('title', 'address', 'content')
+    prepopulated_fields = {"slug": ("title",)}
+
+
+admin.site.unregister(FlatPage)
+@admin.register(FlatPage)
+class FlatPageAdmin(TranslationAdminMedia):
+    list_display = ('url', 'title')
+    list_filter = ('sites', 'enable_comments', 'registration_required')
+    search_fields = ('url', 'title')
+
+
 @admin.register(models.TipForCycling)
-class TipAdmin(admin.ModelAdmin):
+class TipAdmin(TranslationAdminMedia):
     list_display = ('title', 'target', 'created_date',)
     list_filter = ('created_date', 'target',)
     search_fields = ('title', 'content',)
