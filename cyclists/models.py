@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import FileSystemStorage
+from bikeanjo.settings import LANGUAGES
 
 from cities.models import Country, City, CityAlias
 
@@ -106,6 +107,8 @@ class User(AbstractUser):
     role = models.CharField(_('Role'), choices=CYCLIST_ROLES, max_length=32, blank=True)
     accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
     available = models.BooleanField(_('Available'), default=True)
+
+    language = models.CharField(_('Language'), max_length=8, choices=LANGUAGES, default=LANGUAGES[0][0])
 
     def get_avatar_url(self):
         if self.avatar:

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-17 12:53-0300\n"
-"PO-Revision-Date: 2016-03-15 21:32-0300\n"
+"PO-Revision-Date: 2016-03-20 18:35-0300\n"
 "Last-Translator: Luive Osiano <losiano@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -21,15 +21,15 @@ msgstr ""
 
 #: bikeanjo/settings.py:146
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "Português brasileiro"
 
 #: bikeanjo/settings.py:147
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: bikeanjo/settings.py:148
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: cities/models.py:8 cyclists/models.py:90 front/forms.py:158
 msgid "Country"
@@ -624,7 +624,8 @@ msgstr "Siguiente"
 
 #: front/templates/home.html:8 templates/_signup_inner_form.html:6
 msgid "Join the community that believes in transformation through the bicycle"
-msgstr "Únete a la comunidad que cree en la transformación a través de la bici"
+msgstr ""
+"Únete a la comunidad que cree en la transformación a través de la bici"
 
 #: front/templates/home.html:11 templates/signup_define_role.html:14
 msgid "I need help to ride a bike"
@@ -2100,33 +2101,39 @@ msgid ""
 "Register your route considering point '(A)' as your start point and point "
 "'(B)' as your destination"
 msgstr ""
+"Registre su ruta considerando el punto “(A)” como su punto de partida y el "
+"punto “(B)” como su destino"
 
 #: templates/requester_complete_signup.html:147
 msgid "Finish and ask for help"
-msgstr ""
+msgstr "Termine y solicite ayuda"
 
 #: templates/requester_dashboard.html:25
 msgid "Oh no!"
-msgstr ""
+msgstr "Oh, no!"
 
 #: templates/requester_dashboard.html:26
 msgid ""
 "Unfortunately, we don't have any bike anjo in your city yet, but don't be "
 "sad! See what you can still do on our platform"
 msgstr ""
+"Desafortunadamente, no tenemos “Bike anjo” en su ciudad, pero no se ponga "
+"triste. Vea todo lo que aún puede hacer en  nuestra plataforma."
 
 #: templates/requester_dashboard.html:30
 msgid "See cycling tips"
-msgstr ""
+msgstr "Vea indicaciones de ciclistas"
 
 #: templates/requester_dashboard.html:34
 msgid "Publish on our Facebook to find a bike anjo"
-msgstr ""
+msgstr "Publique em su Facebook para encontrar bike anjo"
 
 #: templates/requester_dashboard.html:47
 msgid ""
 "Your request was sent to our community and will be returned within 15 days"
 msgstr ""
+"Su solicitud ha sido enviada a nuestra comunidad y será respondida dentro de"
+" los próximos 15 días"
 
 #: templates/requester_dashboard.html:48
 msgid ""
@@ -2134,125 +2141,138 @@ msgid ""
 "workshop held by bike anjo volunteers to teach people how to ride a bike. To "
 "do this, click"
 msgstr ""
+"Tómese este tiempo para verificar si su ciudad tiene “EBA”- 'Escuela Bike "
+"Anjo', un taller llevado a cabo por los voluntarios de bike anjo para "
+"enseñarle a la gente a andar em bicicleta. Para esto, haga click"
 
 #: templates/requester_dashboard.html:48
 msgid "HERE"
-msgstr ""
+msgstr "aquí"
 
 #: templates/requester_dashboard.html:48
 msgid ""
 "You can also take this time to your dashboard with some tips we have for you"
 msgstr ""
+"Usted también puede tomarse este tiempo para ver su panel de\n"
+"control con algunos consejos que tenemos para usted"
 
 #: templates/requester_dashboard.html:61
 msgid ""
 "Your registration is successfully completed and your request was sent to our "
 "community. You will have a word from us within 15 days "
 msgstr ""
+"Su registro ha sido exitoso y su solicitud fue enviada a nuestra comunidad. "
+"Dentro de los 15 días, usted recibirá noticias nuestras"
 
 #: templates/requester_dashboard.html:63
-msgid "Take this time to visit your dashboard, see the events and cycling tips"
+msgid ""
+"Take this time to visit your dashboard, see the events and cycling tips"
 msgstr ""
+"Tómese este tiempo para visitar su panel de control, ver eventos y consejos "
+"a cerca de bicicletas"
 
 #: templates/requester_dashboard.html:109
 #: templates/requester_dashboard_request.html:68
 #: templates/requester_dashboard_requests.html:46
 msgid "Waiting for bike anjo"
-msgstr ""
+msgstr "Esperando por bike anjo"
 
 #: templates/requester_dashboard.html:118
 msgid "See requests"
-msgstr ""
+msgstr "Ver solicitudes"
 
 #: templates/requester_dashboard_request.html:31
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: templates/requester_dashboard_request.html:39
 msgid "Finish"
-msgstr ""
+msgstr "Finalizar"
 
 #: templates/requester_dashboard_request.html:40
 #: templates/requester_dashboard_request.html:128
 #: templates/requester_dashboard_request.html:223
 msgid "Finish request"
-msgstr ""
+msgstr "Finalizar la solicitud"
 
 #: templates/requester_dashboard_request.html:134
 #: templates/requester_dashboard_request.html:203
 msgid "I still have a doubt"
-msgstr ""
+msgstr "Todavía tengo una duda"
 
 #: templates/requester_dashboard_request.html:143
 msgid "Reopen request"
-msgstr ""
+msgstr "Reabrir una solicitud"
 
 #: templates/requester_dashboard_request.html:210
 msgid "Report a problem"
-msgstr ""
+msgstr "Reportar un problema"
 
 #: templates/requester_dashboard_request.html:244
 msgid "Help us to improve, tell us how was this service"
-msgstr ""
+msgstr "Ayúdenos a mejorar, díganos que le pareció el servicio"
 
 #: templates/requester_dashboard_request.html:249
 msgid "Rank from 1 to 5 bikes"
-msgstr ""
+msgstr "Ordene/clasifique de 1 a 5 bicicletas"
 
 #: templates/requester_dashboard_request.html:272
 msgid "Send evaluation"
-msgstr ""
+msgstr "Envíe la evaluación"
 
 #: templates/requester_dashboard_request.html:287
 msgid "Are you sure that you want to cancel the request?"
-msgstr ""
+msgstr "¿Está usted seguro que quiere cancelar la solicitud?"
 
 #: templates/requester_dashboard_request.html:288
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: templates/requester_dashboard_request.html:289
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: templates/requester_dashboard_userinfo.html:228
 msgid "Your experience with a bike"
-msgstr ""
-"Registra tu ruta marcando el punto de partida A y punto de llegada B, y "
-"buscaremos un Bici-Ángel que te ayude"
+msgstr "Su experiencia com la bicicleta"
 
 #: templates/requester_signup_terms.html:12
 msgid ""
 "Write bellow additional information of your request and accept the Terms and "
 "Conditions"
 msgstr ""
-"Escribe abajo información adicional de tu solicitud y acepta los Términos y  "
-"Condiciones."
+"Escribe abajo información adicional de tu solicitud y acepta los Términos y  Condiciones.\n"
+"\n"
+"silvia ballan traduz: Escriba abajo información adicional de su solicitud y acepte los Términos y Condiciones"
 
 #: templates/signup_define_role.html:7
 msgid "Be part of this community"
-msgstr ""
+msgstr "Sea parte de esta comunidad"
 
 #: templates/signup_define_role.html:8
 msgid "You can ask help for riding or be a bike anjo"
 msgstr ""
+"Usted puede solicitar ayuda para andar em bicicleta o ser \n"
+"un bike anjo"
 
 #: templates/subscription_confirmed.html:13
 msgid "Confirmed subscription!"
-msgstr ""
+msgstr "Suscripción confirmada!"
 
 #: templates/subscription_confirmed.html:14
 msgid "Your e-mail address is registered and validated in our list"
 msgstr ""
+"Su dirección de correo electrónico está registrada y\n"
+"validada en nuestra lista"
 
 #: templates/tips.html:15
 msgid "I am a new cyclist"
-msgstr ""
+msgstr "Soy un ciclista nuevo"
 
 #: templates/tips.html:18
 msgid "I'm an experienced cyclist"
-msgstr ""
+msgstr "soy un ciclista con experiencia"
 
 #: templates/tips.html:39
 msgid "See entire tip"
-msgstr ""
+msgstr "vea la indicación completa"
