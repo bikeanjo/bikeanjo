@@ -8,8 +8,6 @@ from django.utils.timezone import now
 
 import models
 
-from cities.models import City, CityAlias
-
 from notifications import (
     notify_admins_about_new_feedback,
     notify_bikeanjo_about_new_request,

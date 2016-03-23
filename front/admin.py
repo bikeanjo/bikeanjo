@@ -306,6 +306,8 @@ class EventAdmin(TranslationAdminMedia):
 
 
 admin.site.unregister(FlatPage)
+
+
 @admin.register(FlatPage)
 class FlatPageAdmin(TranslationAdminMedia):
     list_display = ('url', 'title')

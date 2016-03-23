@@ -19,9 +19,11 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CountrySerializer
     filter_class = CountryFilter
 
+
 class StateViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = State.objects.all()
     serializer_class = StateSerializer
+
 
 #
 # django_filters for CityViewSet

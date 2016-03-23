@@ -64,4 +64,3 @@ class CityAlias(models.Model):
 
     city = models.ForeignKey(City)
     name = models.CharField(_('Alias name'), max_length=1024, db_index=True)
-

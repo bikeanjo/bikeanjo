@@ -36,7 +36,7 @@ class CityAliasSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True
     )
 
-    city_id  = serializers.IntegerField(
+    city_id = serializers.IntegerField(
         source='city.id',
         read_only=True
     )
