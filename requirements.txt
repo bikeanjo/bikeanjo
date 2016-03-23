@@ -46,3 +46,4 @@ sqlparse==0.1.14
 tablib==0.10.0
 Unidecode==0.4.18
 Werkzeug==0.10.4
+django-modeltranslation==0.11
