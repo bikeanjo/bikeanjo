@@ -67,8 +67,9 @@ if not db_exists:
     conn.set_isolation_level(0)
     cur = conn.cursor()
 
-    cur.execute("CREATE EXTENSION  IF NOT EXISTS postgis;" % database)
-    cur.execute("CREATE EXTENSION  IF NOT EXISTS unaccent;" % database)
+    cur.execute("CREATE EXTENSION IF NOT EXISTS postgis;")
+    cur.execute("CREATE EXTENSION IF NOT EXISTS unaccent;")
+    cur.execute("CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;")
 
 cur.close()
 conn.close()
