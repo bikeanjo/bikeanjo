@@ -112,8 +112,10 @@
                                        id="{{ form.country.id_for_label }}"
                                        name="{{ form.country.html_name }}"
                                        placeholder="{% trans "Your country name" %}"
-                                       ac-source="/api/countries"
+                                       ac-source="/api/countryalias"
                                        ac-query-var="name"
+                                       ac-key-for-value="country_id"
+                                       ac-key-for-extra="country_name"
                                        ac-initial-text="{{ form.instance.country.name }}"
                                        ac-initial-value="{{ form.instance.country.id }}" />
 
