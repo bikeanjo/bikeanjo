@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import django_filters
 from rest_framework import viewsets
-from serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer
-from models import Country, State, City, CityAlias
+from serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer, CountryAliasSerializer
+from models import Country, CountryAlias, State, City, CityAlias
 from rest_framework import filters
 
 
@@ -24,6 +24,39 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         qs = super(CountryViewSet, self).get_queryset()
         return qs.distinct()
+
+
+#
+# django_filters for CoutryAliasViewSet
+#
+class CountryAliasFilter(filters.FilterSet):
+    name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
+
+    class Meta:
+        model = CountryAlias
+        fields = ('id', 'name', 'country', 'country__name', 'country__acronym',)
+
+
+class CountryAliasViewSet(viewsets.ReadOnlyModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = CountryAliasFilter
+
+    queryset = CountryAlias.objects.all()\
+        .select_related('country')
+    serializer_class = CountryAliasSerializer
+
+    def get_queryset(self):
+        qs = super(CountryAliasViewSet, self).get_queryset()
+
+        if 'name' in self.request.REQUEST:
+            value = self.request.REQUEST.get('name', '')
+            field = '"%s"."name"' % CountryAlias._meta.db_table
+            function = 'levenshtein(%s, %s)' % ("%s", field)
+            qs = qs.extra(
+                select={'weight': function, },
+                select_params=(value,)
+            ).distinct().order_by('weight')
+        return qs
 
 
 class StateViewSet(viewsets.ReadOnlyModelViewSet):

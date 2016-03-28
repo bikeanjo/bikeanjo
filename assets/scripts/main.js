@@ -172,6 +172,10 @@
             var initial_text = $input.attr('ac-initial-text');
             var initial_value = $input.attr('ac-initial-value');
 
+            var key_for_label = $input.attr('ac-key-for-label') || 'name';
+            var key_for_value = $input.attr('ac-key-for-value') || 'id';
+            var key_for_extra = $input.attr('ac-key-for-extra') || 'city_name';
+
             var $holder = $('<input type="hidden">').attr('name', $input.attr('name'));
             $input.attr('name', 'fake_' + Math.random().toString(16)).val(initial_text);
             $holder.insertAfter($input).val(initial_value);
@@ -195,9 +199,9 @@
                 $.get(api, data).success(function(data){
                     var options = data.results.map(function(obj){
                         return {
-                            'label': obj.name,
-                            'value': obj.id,
-                            'desc':  obj.city_name,
+                            'label': obj[key_for_label],
+                            'value': obj[key_for_value],
+                            'desc':  obj[key_for_extra]
                         }
                     });
                     response(options);

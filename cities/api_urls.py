@@ -5,6 +5,7 @@ from cities import api_views as views
 
 router = routers.DefaultRouter()
 router.register(r'countries', views.CountryViewSet)
+router.register(r'countryalias', views.CountryAliasViewSet)
 router.register(r'states', views.StateViewSet)
 router.register(r'cities', views.CityViewSet)
 router.register(r'cityalias', views.CityAliasViewSet)
