@@ -28,6 +28,16 @@ class Country(models.Model):
         return self.name
 
 
+class CountryAlias(models.Model):
+    class Meta:
+        verbose_name = _('Alias')
+        verbose_name_plural = _('Aliases')
+        unique_together = (('country', 'name',),)
+
+    country = models.ForeignKey(Country)
+    name = models.CharField(_('Alias name'), max_length=1024, db_index=True)
+
+
 class State(models.Model):
     class Meta:
         verbose_name = _('State')

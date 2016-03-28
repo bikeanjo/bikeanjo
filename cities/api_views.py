@@ -8,6 +8,7 @@ from rest_framework import filters
 
 class CountryFilter(filters.FilterSet):
     name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
+    alias = django_filters.CharFilter(name="countryalias__name", lookup_type='lowermatch')
 
     class Meta:
         model = Country
@@ -15,9 +16,14 @@ class CountryFilter(filters.FilterSet):
 
 
 class CountryViewSet(viewsets.ReadOnlyModelViewSet):
+    filter_backends = (filters.DjangoFilterBackend,)
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     filter_class = CountryFilter
+
+    def get_queryset(self):
+        qs = super(CountryViewSet, self).get_queryset()
+        return qs.distinct()
 
 
 class StateViewSet(viewsets.ReadOnlyModelViewSet):
@@ -29,7 +35,7 @@ class StateViewSet(viewsets.ReadOnlyModelViewSet):
 # django_filters for CityViewSet
 #
 class CityFilter(filters.FilterSet):
-    alias = django_filters.CharFilter(name="cityalias__alias", lookup_type='lowermatch')
+    alias = django_filters.CharFilter(name="cityalias__name", lookup_type='lowermatch')
 
     class Meta:
         model = City

@@ -51,6 +51,8 @@ upgrade: clean
 	npm install
 	${BOWER} install
 	${PIP} install -r requirements.txt
+	${PYTHON} manage.py sync_translation_fields --noinput
+	${PYTHON} manage.py update_translation_fields
 	${PYTHON} manage.py migrate
 	${PYTHON} manage.py collectstatic --noinput
 	${PYTHON} manage.py compilemessages
