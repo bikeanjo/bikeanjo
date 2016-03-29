@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-28 22:23-0300\n"
+"POT-Creation-Date: 2016-03-28 23:47-0300\n"
 "PO-Revision-Date: 2016-03-19 11:10-0300\n"
 "Last-Translator: Luive Osiano <losiano@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,8 +68,10 @@ msgid "State"
 msgstr "Estado"
 
 #: cities/models.py:44
+#, fuzzy
+#| msgid "State"
 msgid "States"
-msgstr "Status"
+msgstr "Estado"
 
 #: cities/models.py:56 cyclists/models.py:95 front/models.py:362
 #: templates/_signup_inner_form.html:125
@@ -108,27 +110,27 @@ msgstr "Feminino"
 
 #: cyclists/models.py:19 cyclists/models.py:147 front/admin.py:17
 #: front/models.py:23
-msgid "Bikeanjo"
+msgid "Bike Anjo"
 msgstr "Bike Anjo"
 
 #: cyclists/models.py:20 cyclists/models.py:155 front/models.py:24
-msgid "Requester"
+msgid "New cyclist"
 msgstr "Solicitante"
 
 #: cyclists/models.py:25 front/models.py:29
-msgid "Teach someone to ride a bike"
+msgid "Teach someone how to ride a bike"
 msgstr "Ensinar alguém a pedalar"
 
 #: cyclists/models.py:26 front/models.py:30
-msgid "Follow beginners on cycling"
+msgid "Follow beginners on their ride"
 msgstr "Acompanhar iniciante na pedalada"
 
 #: cyclists/models.py:27 front/models.py:31
-msgid "Advice about safe routes"
+msgid "Suggest safe routes"
 msgstr "Sugerir rotas seguras"
 
 #: cyclists/models.py:28 front/models.py:32
-msgid "Participating in the events of Bike Anjos"
+msgid "Participate of Bike Anjo events"
 msgstr "Participação nos eventos dos Bike Anjos"
 
 #: cyclists/models.py:32 front/models.py:36
@@ -136,15 +138,15 @@ msgid "Learn to ride a bike"
 msgstr "Aprender a pedalar"
 
 #: cyclists/models.py:33 front/models.py:37
-msgid "Pratice cycling"
+msgid "Pratice riding"
 msgstr "Praticar pedaladas"
 
-#: cyclists/models.py:34 front/models.py:38
-msgid "Route recomendation"
+#: cyclists/models.py:34 front/models.py:38 templates/emails/reminder.html:24
+msgid "Route recommendation"
 msgstr "Recomendação de rotas"
 
 #: cyclists/models.py:35 front/models.py:39
-msgid "Monitoring on traffic"
+msgid "Commute together"
 msgstr "Acompanhamento do trânsito"
 
 #: cyclists/models.py:41 front/models.py:45
@@ -164,19 +166,19 @@ msgid "More than 4 years"
 msgstr "Mais de 4 anos"
 
 #: cyclists/models.py:48 front/models.py:52
-msgid "I do not know pedaling yet"
+msgid "I still don't know how to ride a bike"
 msgstr "Ainda não sei pedalar"
 
 #: cyclists/models.py:49 front/models.py:53
-msgid "I know cycling, but have no experience in traffic"
+msgid "I know how to ride a bike, but have not traffic experience"
 msgstr "Já sei pedalar, mas não tenho experiência no trânsito"
 
 #: cyclists/models.py:50 front/models.py:54
-msgid "Already ride a long time but not daily"
+msgid "I bike for many years now, but not on a daily basis"
 msgstr "Já pedalo faz tempo, mas não no dia-a-dia"
 
 #: cyclists/models.py:51 front/models.py:55
-msgid "I use bike almost every day"
+msgid "I ride my bike almost every day"
 msgstr "Uso a bicicleta quase todo dia"
 
 #: cyclists/models.py:57 front/models.py:61
@@ -184,7 +186,7 @@ msgid "Everyday"
 msgstr "Diariamente"
 
 #: cyclists/models.py:58 front/models.py:62
-msgid "Just few days a week/month"
+msgid "Only a few days per week/month"
 msgstr "Somente alguns dias por semana/mês"
 
 #: cyclists/models.py:59 front/models.py:63
@@ -192,7 +194,7 @@ msgid "Once a week"
 msgstr "1 vez por semana"
 
 #: cyclists/models.py:60 front/models.py:64
-msgid "No, I use for leisure"
+msgid "I only use my bike for leisure or on weekends"
 msgstr "Só uso a bike para lazer"
 
 #: cyclists/models.py:88
@@ -213,7 +215,7 @@ msgid "Gender"
 msgstr "Gênero"
 
 #: cyclists/models.py:102 front/forms.py:231 front/forms.py:243
-msgid "Birthday"
+msgid "Date of birth"
 msgstr "Data de nascimento"
 
 #: cyclists/models.py:103 front/forms.py:232 front/forms.py:265
@@ -235,7 +237,7 @@ msgid "Role"
 msgstr "Função"
 
 #: cyclists/models.py:108
-msgid "Accepted agreement"
+msgid "Accepted Terms of Use"
 msgstr "Aceitou os termos"
 
 #: cyclists/models.py:109
@@ -247,20 +249,22 @@ msgid "Language"
 msgstr ""
 
 #: cyclists/models.py:148
-msgid "Bikeanjos"
+msgid "Bike anjos"
 msgstr "Bike Anjos"
 
 #: cyclists/models.py:156
-msgid "Requesters"
+msgid "New cyclists"
 msgstr "Solicitantes"
 
-#: emailqueue/models.py:11 front/admin_resources.py:29 front/models.py:73
+#: emailqueue/models.py:11
+#, fuzzy
+#| msgid "Rejected date"
 msgid "Created date"
-msgstr "Data de criação"
+msgstr "Data de rejeição"
 
-#: emailqueue/models.py:12 front/models.py:74
+#: emailqueue/models.py:12
 msgid "Modified date"
-msgstr "Data de modificação"
+msgstr ""
 
 #: emailqueue/models.py:20 templates/emails/new_msg_to_bikeanjo.txt:5
 msgid "From"
@@ -303,11 +307,11 @@ msgid "Queued Emails"
 msgstr "E-mails na fila"
 
 #: front/admin.py:18 templates/admin/base_site.html:4
-msgid "Bikeanjo administration"
+msgid "Bike Anjo Admin"
 msgstr "Administração do Bike Anjo"
 
 #: front/admin.py:19
-msgid "Site administration"
+msgid "Site Admin"
 msgstr "Administração do site"
 
 #: front/admin.py:28 front/forms.py:156 templates/contact_form.html:32
@@ -323,7 +327,7 @@ msgid "Active requests"
 msgstr "Pedidos ativos"
 
 #: front/admin.py:79
-msgid "Finalized requests"
+msgid "Finished requests"
 msgstr "Pedidos finalizados"
 
 #: front/admin.py:122
@@ -331,7 +335,7 @@ msgid "Service rating"
 msgstr "Avaliação do atendimento"
 
 #: front/admin.py:136 front/forms.py:30 front/models.py:245
-msgid "Tracks"
+msgid "Routes"
 msgstr "Rotas"
 
 #: front/admin.py:150 front/forms.py:92 front/forms.py:353 front/models.py:271
@@ -343,16 +347,20 @@ msgid "User name"
 msgstr "Nome de usuário"
 
 #: front/admin.py:209
-msgid "Requester name"
+msgid "New cyclist name"
 msgstr "Nome do solicitante"
 
 #: front/admin.py:215
-msgid "Bikeanjo name"
+msgid "Bike anjo name"
 msgstr "Nome do Bike Anjo"
 
 #: front/admin.py:227
-msgid "Readed by"
+msgid "Read by"
 msgstr "Lido por"
+
+#: front/admin_resources.py:29 front/models.py:73
+msgid "Date of creation"
+msgstr "Data de criação"
 
 #: front/admin_resources.py:32 front/models.py:120 front/models.py:239
 #: front/models.py:317 front/models.py:422 front/models.py:433
@@ -360,20 +368,20 @@ msgstr "Lido por"
 msgid "Message"
 msgstr "Mensagem"
 
-#: front/apps.py:7
-msgid "Control Panel"
-msgstr "Painel de Controle"
+#: front/apps.py:7 templates/_header.html:38
+msgid "Dashboard"
+msgstr "Painel"
 
 #: front/forms.py:157
 msgid "E-mail (again)"
 msgstr "E-mail (novamente)"
 
 #: front/forms.py:189
-msgid "The informed emails are different."
+msgid "The e-mails informed are different."
 msgstr "Os e-mails informados são diferentes."
 
 #: front/forms.py:199 front/forms.py:209
-msgid "Nome inválido"
+msgid "Invalid name"
 msgstr ""
 
 #: front/forms.py:233
@@ -385,7 +393,7 @@ msgid "Initiatives"
 msgstr "Iniciativas"
 
 #: front/forms.py:332 front/models.py:244 front/templates/help_offer.html:14
-msgid "Track"
+msgid "Route"
 msgstr "Rota"
 
 #: front/forms.py:348 front/forms.py:371
@@ -393,11 +401,11 @@ msgid "This field is required."
 msgstr "Esse campo é obrigatório."
 
 #: front/forms.py:432
-msgid "Requester rating"
+msgid "New cyclist rating"
 msgstr "Avaliação do solicitante"
 
 #: front/forms.py:433
-msgid "Requester evaluation"
+msgid "New cyclist evaluation"
 msgstr "Avaliação do solicitante"
 
 #: front/forms.py:434 front/forms.py:483 front/models.py:303
@@ -412,6 +420,10 @@ msgstr "Senha"
 #: front/forms.py:537
 msgid "Password (again)"
 msgstr "Senha (novamente)"
+
+#: front/models.py:74
+msgid "Date of change"
+msgstr "Data de modificação"
 
 #: front/models.py:104
 msgid "Help request"
@@ -435,7 +447,7 @@ msgid "Attended"
 msgstr "Atendido"
 
 #: front/models.py:111
-msgid "Finalized"
+msgid "Finished"
 msgstr "Finalizado"
 
 #: front/models.py:112
@@ -467,11 +479,11 @@ msgid "Evaluation"
 msgstr "Avaliação"
 
 #: front/models.py:233
-msgid "Help reply"
+msgid "Reply to the request"
 msgstr "Resposta do pedido de ajuda"
 
 #: front/models.py:234
-msgid "Help replies"
+msgid "Replies to the request"
 msgstr "Respostas do pedido de ajuda"
 
 #: front/models.py:248
@@ -519,6 +531,12 @@ msgid "Title"
 msgstr "Título"
 
 #: front/models.py:322 front/models.py:359 front/models.py:469
+#: templates/_dashboard_sidebar_requester.html:71
+#: templates/cyclist_free_points.html:73 templates/cyclist_free_points.html:83
+#: templates/cyclist_routes_list.html:79
+#: templates/cyclist_routes_register_form.html:64
+#: templates/requester_ask_help_points.html:46
+#: templates/requester_ask_help_route.html:48
 msgid "Content"
 msgstr "Conteúdo"
 
@@ -531,7 +549,7 @@ msgid "Event category"
 msgstr "Categoria de evento"
 
 #: front/models.py:337
-msgid "Events categories"
+msgid "Event categories"
 msgstr "Categorias de eventos"
 
 #: front/models.py:352
@@ -612,15 +630,17 @@ msgid "All"
 msgstr "Todos"
 
 #: front/models.py:465
-msgid "Tip for cycling"
+msgid "Cycling tip"
 msgstr "Dica para pedalar"
 
 #: front/models.py:466 templates/_dashboard_sidebar_bikeanjo.html:45
-#: templates/_footer.html:38 templates/_header.html:55
-#: templates/_header.html.py:96
+#: templates/_dashboard_sidebar_requester.html:36 templates/_footer.html:38
+#: templates/_header.html:55 templates/_header.html.py:96
 #: templates/dashboard_solicitante_recados.html:26
+#: templates/emails/request_canceled_by_inactivity.html:36
+#: templates/emails/request_canceled_by_inactivity.txt:8
 #: templates/requester_dashboard.html:146 templates/tips.html:8
-msgid "Tips for cycling"
+msgid "Cycling tips"
 msgstr "Dicas para pedalar"
 
 #: front/models.py:472
@@ -628,7 +648,7 @@ msgid "Target"
 msgstr "Alvo"
 
 #: front/templates/help_offer.html:21
-msgid "Type the addresses that you use to ride, type 'Enter' to see the address on map and confirm pressing 'Add address' button"
+msgid "Type the address where you usually ride, click 'Enter' to see the address on the map and confirm by clicking on the 'Add address' button"
 msgstr "Digite o endereço onde você costuma pedalar, tecle 'Enter' para ver esse endereço no mapa e confirme clicando no botão 'Adicionar endereço'"
 
 #: front/templates/help_offer.html:30
@@ -642,7 +662,7 @@ msgid "Next"
 msgstr "Próximo"
 
 #: front/templates/home.html:8 templates/_signup_inner_form.html:6
-msgid "Join the community that believes in transformation through the bicycle"
+msgid "Join a community that believes in change through bicycles"
 msgstr "Junte-se a uma comunidade que acredita na transformação por meio da bicicleta"
 
 #: front/templates/home.html:11 templates/signup_define_role.html:14
@@ -726,7 +746,7 @@ msgstr "Depoimentos de quem já faz parte da nossa comunidade"
 #: templates/requester_dashboard_request.html:165
 #: templates/requester_dashboard_request.html:184
 #: templates/requester_dashboard_userinfo.html:45
-msgid "Photo from"
+msgid "Photo of"
 msgstr "Foto de"
 
 #: front/templates/home.html:125 templates/admin/change_form.html:12
@@ -762,16 +782,16 @@ msgid "Oops, page not found!"
 msgstr "Página não encontrada"
 
 #: templates/404.html:73
-msgid "You may have mistyped the address or the page may have been moved"
+msgid "You may have typed the address incorrectly or the page may have been removed"
 msgstr "Você pode ter digitado errado o endereço ou a página pode ter sido movida"
 
 #: templates/_dashboard_sidebar.html:16
-msgid "Help us to get better, sent us feedback"
+msgid "Send us feeback - help us improve"
 msgstr "Ajude-nos a melhorar, envie seu feedback"
 
 #: templates/_dashboard_sidebar.html:23
 #: templates/requester_dashboard_request.html:268
-msgid "Suggestions, complaints or compliments? Use in the field below"
+msgid "Comments, suggestions or complaints? Use the field below"
 msgstr "Sugestões, reclamações ou elogios? Utilize o campo abaixo"
 
 #: templates/_dashboard_sidebar.html:24
@@ -824,36 +844,23 @@ msgstr "Como estamos pedalando?"
 msgid "Send us feedback"
 msgstr "Envie seu feedback"
 
-#: templates/_dashboard_sidebar_requester.html:36
-msgid "tips for cycling"
-msgstr "Dicas para pedalar"
-
 #: templates/_dashboard_sidebar_requester.html:40 templates/_header.html:59
 #: templates/dashboard_solicitante_recados.html:28
-msgid "I want to be Bike Anjo"
+msgid "I want to be a Bike Anjo"
 msgstr "Quero ser um Bike Anjo"
 
 #: templates/_dashboard_sidebar_requester.html:43
 #: templates/dashboard_solicitante_recados.html:30
-msgid "Request help to go cycling"
+msgid "Ask for help to ride a bike"
 msgstr "Pedir ajuda para pedalar"
 
 #: templates/_dashboard_sidebar_requester.html:61
-msgid "Want to be a Bike Anjo?"
+msgid "Do you want to be a Bike Anjo?"
 msgstr "Quer ser um Bike Anjo?"
 
 #: templates/_dashboard_sidebar_requester.html:65
-msgid "You are going to start to receive requests of people looking for help with cycling"
+msgid "You will start receiving requests from people who need help riding"
 msgstr "Você passará a receber pedidos de pessoas que precisam de ajuda para pedalar"
-
-#: templates/_dashboard_sidebar_requester.html:71
-#: templates/cyclist_free_points.html:73 templates/cyclist_free_points.html:83
-#: templates/cyclist_routes_list.html:79
-#: templates/cyclist_routes_register_form.html:64
-#: templates/requester_ask_help_points.html:46
-#: templates/requester_ask_help_route.html:48
-msgid "Continue"
-msgstr "Continuar"
 
 #: templates/_footer.html:6
 msgid "Partners"
@@ -868,7 +875,7 @@ msgid "What we do"
 msgstr "O que fazemos"
 
 #: templates/_footer.html:44 templates/_header.html:105
-msgid "Support"
+msgid "Support us"
 msgstr "Apoie"
 
 #: templates/_footer.html:54 templates/_footer.html.py:57
@@ -881,16 +888,12 @@ msgstr "Contato"
 msgid "Made in Brazil"
 msgstr "Feito no Brasil"
 
-#: templates/_header.html:38
-msgid "Panel"
-msgstr "Painel"
-
 #: templates/_header.html:53
 msgid "Edit profile"
 msgstr "Editar perfil"
 
 #: templates/_header.html:62
-msgid "Logout"
+msgid "Log out"
 msgstr "Sair"
 
 #: templates/_header.html:130 templates/_signup_inner_form.html:180
@@ -898,11 +901,11 @@ msgid "Sign in"
 msgstr "Entrar"
 
 #: templates/_header.html:133
-msgid "Get help to go cycling"
+msgid "Get help to ride a bike"
 msgstr "Ajuda para pedalar"
 
 #: templates/_signup_inner_form.html:5
-msgid "Signup Now!"
+msgid "Sign Up Now!"
 msgstr "Cadastre-se agora!"
 
 #: templates/_signup_inner_form.html:28
@@ -910,7 +913,7 @@ msgid "Create your account with"
 msgstr "Crie sua conta usando"
 
 #: templates/_signup_inner_form.html:42
-msgid "Or create a account with your e-mail"
+msgid "Or create an account with your e-mail"
 msgstr "ou crie uma conta com seu e-mail"
 
 #: templates/_signup_inner_form.html:48
@@ -929,7 +932,7 @@ msgid "Type your e-mail"
 msgstr "Digite seu e-mail"
 
 #: templates/_signup_inner_form.html:76
-msgid "Type again your email address"
+msgid "Type your e-mail address again"
 msgstr "Digite seu e-mail novamente"
 
 #: templates/_signup_inner_form.html:107
@@ -947,7 +950,7 @@ msgstr "O nome da sua cidade"
 #: templates/_signup_inner_form.html:151
 #: templates/account/password_reset_from_key.html:22
 #: templates/cyclist_dashboard_changepassword.html:32
-msgid "Type your password"
+msgid "Insert your e-mail"
 msgstr "Digite sua senha"
 
 #: templates/_signup_inner_form.html:167
@@ -967,7 +970,7 @@ msgstr "Confirme sua senha"
 #: templates/requester_ask_help_route.html:7
 #: templates/requester_complete_signup.html:6
 #: templates/socialaccount/signup.html:6
-msgid "Signup"
+msgid "Sign Up"
 msgstr "Cadastrar-se"
 
 #: templates/_signup_inner_form.html:180
@@ -988,7 +991,7 @@ msgstr "Já faz parte?"
 #: templates/requester_signup_terms.html:71
 #: templates/signup_define_role.html:22
 #: templates/subscription_confirmed.html:23
-msgid "Any Trouble or Question?"
+msgid "Any Trouble or Questions?"
 msgstr "Problemas ou Dúvidas?"
 
 #: templates/_signup_inner_form.html:185 templates/account/login.html:79
@@ -1013,11 +1016,11 @@ msgid "About us"
 msgstr "Sobre nós"
 
 #: templates/about.html:15 templates/about.html.py:27
-msgid "What is the Bike Anjo Project"
+msgid "What is Bike Anjo"
 msgstr "O que é o Bike Anjo"
 
 #: templates/about.html:16 templates/about.html.py:62
-msgid "How we organize"
+msgid "How are we organized"
 msgstr "Como nos organizamos"
 
 #: templates/about.html:17
@@ -1025,19 +1028,19 @@ msgid "Our story"
 msgstr "Nossa história"
 
 #: templates/about.html:28
-msgid "Understand our work a little more"
+msgid "Get to know a little more about us"
 msgstr "Conheça um pouco mais do nosso trabalho"
 
 #: templates/about.html:34
-msgid "Bikeanjo is a network of passionate cyclists that promote, organize and help people getting started with the bicycle as a vehicle in urban environment. We believe that cycling is a tool to social change and the more people adhere, the better our cities will become!"
+msgid "Bike Anjo means in portuguese 'Bike Angel' (as a 'guardian angel'). It is a network of passionate cyclists that promotes, mobilizes and helps people getting started with cycling as a means of transportation in cities. We believe that cycling is a tool for social change and the more people ride, the better our cities will become!"
 msgstr "Bike Anjo é uma rede de ciclistas apaixonad@s pela bicicleta que promove, mobiliza e ajuda pessoas a começarem a utilizar esse veículo nas cidades. Acreditamos que a bicicleta é   uma ferramenta de transformação social e quanto mais gente, melhor serão nossas cidades! 0=D"
 
 #: templates/about.html:37
-msgid "Long story short, Bikeanjo is"
+msgid "Long story short, Bike Anjo is"
 msgstr "Resumindo, o Bike Anjo é"
 
 #: templates/about.html:39
-msgid "A chain of goodness"
+msgid "A chain of well doing"
 msgstr "Uma corrente do bem"
 
 #: templates/about.html:40
@@ -1045,15 +1048,15 @@ msgid "An organic, spontaneous, collaborative and voluntary based network"
 msgstr "Uma rede orgânica, espontânea, colaborativa e voluntária"
 
 #: templates/about.html:41
-msgid "We spread the word about the benefits of cycling"
+msgid "A community that spreads the word of the benefits of cycling"
 msgstr "Difusores dos benefícios da bicicleta"
 
 #: templates/about.html:42
-msgid "We make dreams come true"
+msgid "A community that makes dreams come true"
 msgstr "Realizadores de sonhos"
 
 #: templates/about.html:51 templates/about.html.py:74
-msgid "Look up the places where we have been working"
+msgid "Check out the places where we have been working"
 msgstr "Veja os lugares onde temos atuado"
 
 #: templates/about.html:51 templates/about.html.py:74
@@ -1089,17 +1092,17 @@ msgstr "Faça seu login usando"
 msgid "or"
 msgstr "ou"
 
-#: templates/account/login.html:36
-msgid "E-Mail"
+#: templates/account/login.html:36 templates/contact_form.html:45
+msgid "E-mail"
 msgstr "E-mail"
 
-#: templates/account/login.html:49
-msgid "Forgot Password?"
+#: templates/account/login.html:49 templates/account/password_reset.html:11
+msgid "Forgot your password?"
 msgstr "Esqueceu sua senha?"
 
 #: templates/account/login.html:76 templates/account/password_reset.html:27
 #: templates/subscription_confirmed.html:20
-msgid "Doesn't have an account?"
+msgid "Still don't have an account?"
 msgstr "Não tem uma conta?"
 
 #: templates/account/login.html:76 templates/account/password_reset.html:27
@@ -1108,24 +1111,17 @@ msgid "Sign up"
 msgstr "Cadastrar-se"
 
 #: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:26
 #: templates/account/password_reset_done.html:6
 #: templates/account/password_reset_from_key.html:6
+#: templates/account/password_reset_from_key.html:36
 #: templates/account/password_reset_from_key_done.html:6
-msgid "Password Reset"
+msgid "Reset password"
 msgstr "Redefinir senha"
-
-#: templates/account/password_reset.html:11
-msgid "Forgot your password"
-msgstr "Esqueceu sua senha?"
 
 #: templates/account/password_reset.html:12
 msgid "Insert your e-mail and we will send you a reset password e-mail"
 msgstr "Insira seu e-mail que enviaremos um link para redefinição de sua senha"
-
-#: templates/account/password_reset.html:26
-#: templates/account/password_reset_from_key.html:36
-msgid "Reset password"
-msgstr "Redefinir senha"
 
 #: templates/account/password_reset_done.html:11
 msgid "Success"
@@ -1144,7 +1140,7 @@ msgid "Check your e-mail"
 msgstr "Verificar seu e-mail"
 
 #: templates/account/password_reset_done.html:21
-msgid "Click the link sent to you"
+msgid "Click on the link we sent you"
 msgstr "Clicar no link do e-mail enviado"
 
 #: templates/account/password_reset_done.html:24
@@ -1156,7 +1152,7 @@ msgid "Reset your password?"
 msgstr "Redefinir senha"
 
 #: templates/account/password_reset_from_key.html:12
-msgid "Type and confirm your new password bellow"
+msgid "Insert and confirm your new password below"
 msgstr "Digite e confirme sua nova senha nos campos abaixo"
 
 #: templates/account/password_reset_from_key.html:19
@@ -1193,7 +1189,7 @@ msgstr "Só mais alguns dados"
 
 #: templates/bikeanjo_complete_signup.html:12
 #: templates/requester_complete_signup.html:12
-msgid "We need a little more information about you in order make a full experience"
+msgid "We need just a little more information about you in order to complete your registration"
 msgstr "Para melhorar seu cadastro vamos precisar só de mais alguns dados"
 
 #: templates/bikeanjo_complete_signup.html:55
@@ -1225,19 +1221,19 @@ msgstr "Ano"
 #: templates/bikeanjo_dashboard_experience.html:21
 #: templates/requester_complete_signup.html:128
 #: templates/requester_dashboard_experience.html:23
-msgid "How long have you cycling?"
+msgid "How long do you ride a bike?"
 msgstr "Há quanto tempo você pedala?"
 
 #: templates/bikeanjo_complete_signup.html:148
 #: templates/bikeanjo_dashboard_experience.html:43
 #: templates/requester_dashboard_experience.html:45
-msgid "Do you use the bicycle as a means of transportation?"
+msgid "Do you use a bike to commute?"
 msgstr "Você usa a bike como meio de transporte?"
 
 #: templates/bikeanjo_complete_signup.html:168
 #: templates/bikeanjo_dashboard_experience.html:63
 #: templates/requester_dashboard_experience.html:65
-msgid "Do you take part of any cycling initiative?"
+msgid "Are you part of any cycling initiative?"
 msgstr "Participa de alguma iniciativa de bicicleta?"
 
 #: templates/bikeanjo_complete_signup.html:170
@@ -1247,15 +1243,15 @@ msgid "Describe your participation here"
 msgstr "Descreva sua participação aqui"
 
 #: templates/bikeanjo_dashboard.html:23
-msgid "Welcome to Bike Anjo network!"
+msgid "Welcome to the Bike Anjo network!"
 msgstr "Bem-vind@ a rede do Bike Anjo!"
 
 #: templates/bikeanjo_dashboard.html:25
-msgid "We going to take this opportunity to invite you to"
+msgid "We take the opportunity to invite you to"
 msgstr "Aproveitamos para te convidar para"
 
 #: templates/bikeanjo_dashboard.html:32
-msgid "Check out our Bike Anjo booklet"
+msgid "Check out our orientations for volunteers"
 msgstr "Conferir nossa cartilha para Bike Anjos"
 
 #: templates/bikeanjo_dashboard.html:39
@@ -1263,7 +1259,7 @@ msgid "Join our connection groups"
 msgstr "Entrar nos nossos grupos de conexão"
 
 #: templates/bikeanjo_dashboard.html:46
-msgid "See more tips for who is already a cyclist"
+msgid "See more tips for experienced cyclists and volunteers"
 msgstr "Ver outras dicas para quem já pedala"
 
 #: templates/bikeanjo_dashboard.html:52
@@ -1287,8 +1283,8 @@ msgstr "Ver todos"
 msgid "in your city"
 msgstr "na sua cidade"
 
-#: templates/bikeanjo_dashboard.html:154 templates/event_detail.html:69
-#: templates/requester_dashboard.html:138
+#: templates/bikeanjo_dashboard.html:154 templates/event_detail.html:65
+#: templates/event_detail.html.py:69 templates/requester_dashboard.html:138
 msgid "See all events"
 msgstr "Ver todos os eventos"
 
@@ -1387,6 +1383,8 @@ msgid "There is some requests that could not be answered by the bike anjo or our
 msgstr "Alguns pedidos não puderam ser atendidos pelo Bike Anjo ou nosso sistema não encontrou um voluntário próximo. Você pode atender quantos desses pedidos puder e ajudar o máximo de pessoas possíveis."
 
 #: templates/bikeanjo_dashboard_new_requests.html:81
+#, fuzzy
+#| msgid "See requestss without bikeanjo"
 msgid "See requests without bikeanjo"
 msgstr "Pedido sem Bike Anjo"
 
@@ -1494,17 +1492,17 @@ msgid "How can you help?"
 msgstr "Como você pode ajudar?"
 
 #: templates/bikeanjo_help_offer.html:12
-msgid "Check the options bellow so our system can cross information of the help offers and requests"
+msgid "Check the options bellow so that our system matches correctly with the requests received"
 msgstr "Preencha os dados abaixo para que o nosso sistema consiga cruzar corretamente as informações"
 
 #: templates/bikeanjo_help_offer.html:42
-msgid "Continue registration process"
+msgid "Content registration process"
 msgstr "Continuar cadastro"
 
 #: templates/bikeanjo_signup_terms.html:5
 #: templates/requester_ask_help_message.html:5
 #: templates/requester_signup_terms.html:5
-msgid "Signup agreement"
+msgid "Terms and Conditions"
 msgstr "Termos para cadastro"
 
 #: templates/bikeanjo_signup_terms.html:10
@@ -1519,10 +1517,6 @@ msgstr "Aceite nossos termos e condições"
 #: templates/bikeanjo_signup_terms.html:47
 msgid "Accept"
 msgstr "Aceitar"
-
-#: templates/contact_form.html:45
-msgid "E-mail"
-msgstr "E-mail"
 
 #: templates/contact_form.html:60 templates/requester_ask_help.html:11
 msgid "How can we help?"
@@ -1601,7 +1595,7 @@ msgstr "Rotas onde você pode atender"
 
 #: templates/cyclist_dashboard_userregister.html:34
 #: templates/cyclist_free_points.html:27
-msgid "Loose points"
+msgid "Pin points"
 msgstr "Pontos avulsos"
 
 #: templates/cyclist_dashboard_userregister.html:35
@@ -1609,30 +1603,30 @@ msgid "Loose point where you can answer requests"
 msgstr "Ponto avulsos onde você pode atender"
 
 #: templates/cyclist_free_points.html:29
-msgid "Mark loose points on the map that are not within routes (e.g., squares and parks) where you could answer a request"
+msgid "Mark pin points that are not within your routes (e.g. squares and parks) where you could help a new cyclist"
 msgstr "Marque pontos avulsos que não sejam rotas (ex., praças e parques) onde você poderia atender um pedido"
 
 #: templates/cyclist_free_points.html:33
-msgid "Want to add loose points?"
+msgid "Want to add pin points?"
 msgstr "Quer adicionar pontos avulsos?"
 
 #: templates/cyclist_free_points.html:34
-msgid "Do you want to add loose points on the map that are not within routes (e.g., squares and parks) where you could answer a request?"
+msgid "Do you want to add pin points that are not within your routes (e.g. squares and parks) where you could help a new cyclist?"
 msgstr "Quer adicionar outros pontos avulsos que não sejam rotas (ex., praças e parques) onde você poderia atender um pedido?"
 
 #: templates/cyclist_free_points.html:40
 #: templates/requester_ask_help_points.html:26
-msgid "Where to cycle?"
+msgid "Where could you ride?"
 msgstr "Onde pedalar?"
 
 #: templates/cyclist_free_points.html:41
 #: templates/requester_ask_help_points.html:27
-msgid "Add points where you can go cycle, add as many as you want"
+msgid "Add pin points where you can go cycling. Add as many as you want."
 msgstr "Adicione os pontos onde você pode pedalar, adicione quantos quiser "
 
 #: templates/cyclist_free_points.html:49
 #: templates/requester_ask_help_points.html:32
-msgid "Add helping points"
+msgid "Add pin points"
 msgstr "Adicione pontos de ajuda"
 
 #: templates/cyclist_routes_list.html:42
@@ -1656,7 +1650,7 @@ msgid "Register new route"
 msgstr "Cadastrar nova rota"
 
 #: templates/cyclist_routes_register_form.html:31
-msgid "Register as many routes as you want given start point A and arrival point B. These routes will define where you can attend to requests"
+msgid "Register as many routes as you want considering point '(A)' as your start and point '(B)' as your destination. These routes will define where you can help new cyclists"
 msgstr "Cadastre o máximo de rotas que quiser considerando o ponto de partida \"A\" e de chegada \"B\". Essas rotas definirão as localidades onde você poderá atender pedidos"
 
 #: templates/cyclist_routes_register_form.html:35
@@ -1664,11 +1658,11 @@ msgid "Register your routes"
 msgstr "Cadastre suas rotas"
 
 #: templates/cyclist_routes_register_form.html:36
-msgid "Register as many routes as you want given start point A and arrival point B"
+msgid "Register as many routes as you want considering point '(A)' as your start and point '(B)' as your destination"
 msgstr "Cadastre o máximo de rotas que quiser, considerando o ponto de partida \"A\" e de chegada \"B\""
 
 #: templates/cyclist_routes_register_form.html:37
-msgid "Register as many routes as you want given start point A and arrival point B. These routes will define where you can attend   to requests"
+msgid "Register as many routes as you want considering point '(A)' as your start and point '(B)' as your destination. These routes will define where you can attend   to requests"
 msgstr "Cadastre o máximo de rotas que quiser, considerando o ponto de partida \"A\" e de chegada \"B\". Essas rotas definirão as localidades onde você poderá atender pedidos"
 
 #: templates/cyclist_routes_register_form.html:43
@@ -1677,12 +1671,12 @@ msgid "What is your route?"
 msgstr "Qual é a sua rota?"
 
 #: templates/cyclist_routes_register_form.html:44
-msgid "Register your route given start point A and arrival point B"
+msgid "Register your route considering point '(A)' as your start and point '(B)' as your destination"
 msgstr "Cadastre sua rota, considerando o ponto de partida \"A\" e de chegada \"B\""
 
 #: templates/cyclist_routes_register_form.html:45
 #: templates/requester_ask_help_route.html:28
-msgid "Register your route given start point A and arrival point B, and we will find you a bike anjo to help you"
+msgid "Register your route considering point '(A)' as your start and point '(B)' as your destination, and we will find a bike anjo to help you"
 msgstr "Cadastre sua rota, considerando o ponto de partida \"A\" e de chegada \"B\". A partir dessa informação vamos achar um Bike Anjo para te ajudar"
 
 #: templates/cyclist_routes_register_form.html:56
@@ -1701,15 +1695,16 @@ msgstr "Local de destino"
 
 #: templates/emails/15days_notification_for_open_requests.html:19
 #: templates/emails/15days_notification_for_open_requests.txt:4
-msgid "Are you still attending to the request from "
+msgid "Are you still helping out with the request from "
 msgstr "Você ainda está atendendo o pedido para"
 
 #: templates/emails/15days_notification_for_open_requests.html:27
-msgid "Don't forget to check the request as finished on the site as it help us to better handle the progress of requests"
+msgid "Don't forget to finish the request on the site as it help us better handle the progress of our engaged new cyclists"
 msgstr "Lembre-se de marcar no sistema se o pedido já foi resolvido, pois isso ajuda em nosso controle interno"
 
 #: templates/emails/15days_notification_for_open_requests.html:37
-msgid "See request"
+#: templates/requester_dashboard.html:118
+msgid "See requests"
 msgstr "Ver pedidos"
 
 #: templates/emails/15days_notification_for_open_requests.txt:2
@@ -1734,7 +1729,7 @@ msgstr "Olá"
 #: templates/emails/new_msg_to_requester.txt:8
 #: templates/emails/new_request.txt:8 templates/emails/request_attended.txt:6
 #: templates/emails/request_canceled_by_bikeanjo.txt:6
-msgid "See on"
+msgid "See at"
 msgstr "Veja em "
 
 #: templates/emails/15days_notification_for_open_requests.txt:8
@@ -1762,7 +1757,7 @@ msgstr "Atenciosamente"
 #: templates/emails/request_attended.txt:9
 #: templates/emails/request_canceled_by_bikeanjo.txt:9
 #: templates/emails/request_canceled_by_inactivity.txt:11
-msgid "Bikeanjo team"
+msgid "Bike Anjo team"
 msgstr "Equipe Bike Anjo"
 
 #: templates/emails/30days_notification_for_closed_requests.html:19
@@ -1776,7 +1771,9 @@ msgstr "foi solucionado?"
 
 #: templates/emails/30days_notification_for_closed_requests.html:28
 #: templates/emails/30days_notification_for_closed_requests.txt:4
-msgid "for our control, would you please confirm in our system if your request was really solved and evaluate the bikeanjo"
+#: templates/emails/request_attended.html:31
+#: templates/emails/request_attended.txt:4
+msgid "Please confirm in our platform if your request was really solved and evaluate your bike anjo. Don't worry! This is only for internal purpose and won't be divulged."
 msgstr "Para ajudar em nosso controle interno, confirme em nosso sistema se você foi realmente atendido(a) e faça uma avaliação do Bike Anjo"
 
 #: templates/emails/30days_notification_for_closed_requests.html:39
@@ -1794,11 +1791,11 @@ msgstr "Oh, não!"
 
 #: templates/emails/cant_find_bikeanjo.html:20
 #: templates/emails/cant_find_bikeanjo.txt:4
-msgid "Unfortunately we could not find someone to help you on Bike Anjo. This can happen if there is no Bike Anjo Volunteers available close to you, or if they are overloaded"
+msgid "Unfortunately we could not find someone to help you at Bike Anjo. This can happen if there is no bike anjos available close to you or if they are overloaded."
 msgstr "Infelizmente, não achamos Bike Anjo para atender seu pedido. Isso pode acontecer caso não exista voluntários disponíveis em sua região, ou se estão sobrecarregados"
 
 #: templates/emails/cant_find_bikeanjo.html:25
-msgid "We will keep looking, now you can"
+msgid "We will keep looking, but in the meanwhile you can"
 msgstr "Vamos continuar procurando, mas enquanto isso você pode"
 
 #: templates/emails/cant_find_bikeanjo.html:31
@@ -1808,7 +1805,7 @@ msgstr "Conferir nossas dicas para pedalar"
 
 #: templates/emails/cant_find_bikeanjo.html:34
 #: templates/emails/cant_find_bikeanjo.txt:9
-msgid "Reorder in another region"
+msgid "Redo your request in another region"
 msgstr "Refazer o seu pedido em outra região"
 
 #: templates/emails/cant_find_bikeanjo.html:40
@@ -1821,12 +1818,12 @@ msgid "ACCESS DASHBOARD"
 msgstr "ACESSAR PAINEL"
 
 #: templates/emails/found_bikeanjo.html:17
-msgid "Bike Anjo found!"
+msgid "Bike anjo found for you!"
 msgstr "Bike Anjo encontrado!"
 
 #: templates/emails/found_bikeanjo.html:22
 #: templates/emails/found_bikeanjo.txt:4
-msgid "Our platform have found you Bike Anjo to help with your request"
+msgid "Our platform has found a bike anjo to help you with your request"
 msgstr "Nossa plataforma achou um(a) Bike Anjo para te ajudar com seu pedido"
 
 #: templates/emails/found_bikeanjo.html:39
@@ -1834,7 +1831,7 @@ msgid "SEE REQUEST ON DASHBOARD"
 msgstr "VER O PEDIDO NO PAINEL"
 
 #: templates/emails/found_bikeanjo.txt:6
-msgid "The name of the Bike Anjo is"
+msgid "The name of the bike anjo is"
 msgstr "O nome do(a) Bike Anjo é"
 
 #: templates/emails/new_msg_to_bikeanjo.html:16
@@ -1844,7 +1841,7 @@ msgstr "Nova mensagem"
 
 #: templates/emails/new_msg_to_bikeanjo.html:20
 #: templates/emails/new_msg_to_bikeanjo.txt:4
-msgid "A new message has been sent for you in one of the requests you are attending"
+msgid "A new message has been sent to you on one of the requests you are helping with"
 msgstr "Uma nova mensagem foi enviada para você em um dos pedidos de ajuda que você está atendendo"
 
 #: templates/emails/new_msg_to_bikeanjo.html:37
@@ -1886,7 +1883,7 @@ msgid "Welcome!"
 msgstr "Bem-vindo!"
 
 #: templates/emails/newsletter_subscription.html:20
-msgid "You have subscribed to our news feed and will start to receive our community newsletter with everything about our projects"
+msgid "You have subscribed to our news feed and will start receiving news from our community"
 msgstr "Você se inscreveu para receber novidades da nossa comunidade e ficar por dentro de nossos projetos"
 
 #: templates/emails/newsletter_subscription.html:25
@@ -1898,7 +1895,7 @@ msgid "Somebody (luckly you) used the following e-mail address"
 msgstr "Alguém (com muita sorte, você) usou o e-mail"
 
 #: templates/emails/newsletter_subscription.txt:4
-msgid "to subscribe in Bikeanjo newsletter!"
+msgid "to subscribe to the Bike Anjo newsletter!"
 msgstr "para se inscrever nas novidades do Bike Anjo!"
 
 #: templates/emails/newsletter_subscription.txt:6
@@ -1913,10 +1910,6 @@ msgstr "Lembrete"
 msgid "You are running out of time to accept this request"
 msgstr "O tempo para você aceitar esse pedido de ajuda está acabando"
 
-#: templates/emails/reminder.html:24
-msgid "Route recommendation"
-msgstr "Recomendação de rota"
-
 #: templates/emails/reminder.html:32
 msgid "Access the dashboard and answer the request"
 msgstr "Acesse o painel e responda o pedido"
@@ -1927,31 +1920,26 @@ msgstr "Seu pedido de ajuda"
 
 #: templates/emails/request_attended.html:30
 #: templates/emails/request_attended.txt:4
-msgid "was checked as answered by BikeAnjo"
+msgid "was checked as answered by Bike Anjo"
 msgstr "foi marcado como atendido pelo BikeAnjo"
-
-#: templates/emails/request_attended.html:31
-#: templates/emails/request_attended.txt:4
-msgid "For our control, would you please confirm in our system if your request was really solved and evaluate the BikeAnjo"
-msgstr "Para ajudar em nosso controle interno, confirme em nosso sistema se você foi realmente atendido(a) e faça uma avaliação do Bike Anjo"
 
 #: templates/emails/request_canceled_by_bikeanjo.html:20
 #: templates/emails/request_canceled_by_inactivity.html:19
-msgid "Unfortunately your Bike Anjo request"
+msgid "Unfortunately your request for help"
 msgstr "Infelizmente seu pedido de Bike Anjo"
 
 #: templates/emails/request_canceled_by_bikeanjo.html:30
 #: templates/emails/request_canceled_by_bikeanjo.txt:4
-msgid "was cancelled because your Bike Anjo won't be able to attend. Our system will find someone to help you within 15 days, ok?"
+msgid "was cancelled because your bike anjo won't be able to help you anymore. We will try to find someone else in the next 15 days."
 msgstr "foi cancelado porque o Bike Anjo não poderá te atender. Nossa plataforma, automaticamente, vai encontrar outra pessoa para te ajudar em até 15 dias, tudo bem?"
 
 #: templates/emails/request_canceled_by_bikeanjo.txt:4
-msgid "Unfortunately your Bike Anjo request for"
+msgid "Unfortunately your request for"
 msgstr "Infelizmente seu pedido de Bike Anjo para"
 
 #: templates/emails/request_canceled_by_inactivity.html:27
 #: templates/emails/request_canceled_by_inactivity.txt:4
-msgid "was cancelled because of lack of interaction or another reason. See how we can help you"
+msgid "was cancelled because there was no answer or another reason. See how we can help you"
 msgstr "Foi cancelado por falta de interação ou algum outro motivo. Veja como podemos te ajudar nesse caso"
 
 #: templates/emails/request_canceled_by_inactivity.html:32
@@ -1964,11 +1952,6 @@ msgstr "Responder mensagem e reativar"
 msgid "Make a new request"
 msgstr "Fazer um novo pedido"
 
-#: templates/emails/request_canceled_by_inactivity.html:36
-#: templates/emails/request_canceled_by_inactivity.txt:8
-msgid "Cycling tips"
-msgstr "Dicas para pedalar"
-
 #: templates/emails/request_canceled_by_inactivity.html:42
 msgid "Access your Dashboard and check out all these options"
 msgstr "Acesse seu painel e confira todas essas opções"
@@ -1976,10 +1959,6 @@ msgstr "Acesse seu painel e confira todas essas opções"
 #: templates/event_detail.html:39
 msgid "Register to attend event"
 msgstr "Inscreva-se no evento"
-
-#: templates/event_detail.html:65
-msgid "Free event"
-msgstr "Ver todos os eventos"
 
 #: templates/event_list.html:16
 msgid "Filter by city"
@@ -1990,11 +1969,11 @@ msgid "Categories"
 msgstr "Categorias"
 
 #: templates/requester_ask_help.html:12
-msgid "Choose an option which you need help"
+msgid "Choose the option in which we can help you with"
 msgstr "Escolha a opção em que você precisa da nossa ajuda"
 
 #: templates/requester_ask_help_message.html:11
-msgid "Write bellow additional information of your request"
+msgid "Give us some more information about your request"
 msgstr "Coloque informações adicionais do seu pedido"
 
 #: templates/requester_ask_help_message.html:24
@@ -2004,7 +1983,7 @@ msgstr "Informações adicionais"
 
 #: templates/requester_ask_help_message.html:25
 #: templates/requester_signup_terms.html:21
-msgid "Additional Information or request conditions"
+msgid "Additional information and request specifications"
 msgstr "Informação adicional ou particularidade do pedido"
 
 #: templates/requester_ask_help_message.html:35
@@ -2017,7 +1996,7 @@ msgid "Register your route considering point '(A)' as your start point and point
 msgstr "Cadastre sua rota considerando o ponto de partida \"A\" e de chegada \"B\""
 
 #: templates/requester_complete_signup.html:147
-msgid "Finish and ask for help"
+msgid "Finish and send request"
 msgstr "Finalizar e pedir ajuda"
 
 #: templates/requester_dashboard.html:25
@@ -2025,7 +2004,7 @@ msgid "Oh no!"
 msgstr "Oh, não!"
 
 #: templates/requester_dashboard.html:26
-msgid "Unfortunately, we don't have any bike anjo in your city yet, but don't be sad! See what you can still do on our platform"
+msgid "Unfortunately, we don't have any bike anjo in your city yet, but don't worry! Check out what else you can do in our platform"
 msgstr "Infelizmente ainda não tem Bike Anjos em sua cidade, mas não desanime! Veja o que você ainda pode fazer em nossa plataforma"
 
 #: templates/requester_dashboard.html:30
@@ -2041,7 +2020,7 @@ msgid "Your request was sent to our community and will be returned within 15 day
 msgstr "Seu pedido foi enviado para nossa comunidade e em até 15 dias você terá um retorno"
 
 #: templates/requester_dashboard.html:48
-msgid "Take this time to verify if your city has 'EBA! - Escola Bike Anjo', a workshop held by bike anjo volunteers to teach people how to ride a bike. To do this, click"
+msgid "Take this time to verify if your city has a Bike Anjo School, a workshop to teach people how to ride a bike. To do this, click"
 msgstr "Aproveite esse tempo para verificar se na sua cidade tem \"EBA! - Escola Bike Anjo\", uma oficina realizada por nossos voluntários para ensinar as pessoas a pedalar. Para fazer isso, clique"
 
 #: templates/requester_dashboard.html:48
@@ -2049,11 +2028,11 @@ msgid "HERE"
 msgstr "AQUI"
 
 #: templates/requester_dashboard.html:48
-msgid "You can also take this time to your dashboard with some tips we have for you"
+msgid "You can also check for tips and other information we have for you in your Dashboard"
 msgstr "Aproveite também para conhecer seu painel personalizado e as dicas que preparamos para você"
 
 #: templates/requester_dashboard.html:61
-msgid "Your registration is successfully completed and your request was sent to our community. You will have a word from us within 15 days "
+msgid "Your registration was successfully completed and your request was sent to our community. You will hear back from us within 15 days "
 msgstr "Seu cadastro foi efetuado com sucesso e seu pedido foi enviado para nossa comunidade. Em até 15 dias você terá um retorno"
 
 #: templates/requester_dashboard.html:63
@@ -2065,10 +2044,6 @@ msgstr "Aproveite esse tempo para conhecer seu painel personalizado, ver os even
 #: templates/requester_dashboard_requests.html:46
 msgid "Waiting for bike anjo"
 msgstr "Aguardando Bike Anjo"
-
-#: templates/requester_dashboard.html:118
-msgid "See requests"
-msgstr "Ver pedidos"
 
 #: templates/requester_dashboard_request.html:31
 msgid "Cancel"
@@ -2098,7 +2073,7 @@ msgid "Report a problem"
 msgstr "Reportar problemas"
 
 #: templates/requester_dashboard_request.html:244
-msgid "Help us to improve, tell us how was this service"
+msgid "Help us improve. Tell us how was your experience"
 msgstr "Ajude-nos a melhorar, avalie seu atendimento"
 
 #: templates/requester_dashboard_request.html:249
@@ -2122,11 +2097,11 @@ msgid "No"
 msgstr "Não"
 
 #: templates/requester_dashboard_userinfo.html:254
-msgid "Your experience with a bike"
+msgid "Your experience as a cyclist"
 msgstr "Sua experiência com a bicicleta"
 
 #: templates/requester_signup_terms.html:12
-msgid "Write bellow additional information of your request and accept the Terms and Conditions"
+msgid "Write additional information about your request and accept the Terms and Conditions"
 msgstr "Coloque informações adicionais do seu   pedido e aceite nossos termos e condições"
 
 #: templates/signup_define_role.html:7
@@ -2134,7 +2109,7 @@ msgid "Be part of this community"
 msgstr "Faça parte dessa comunidade"
 
 #: templates/signup_define_role.html:8
-msgid "You can ask help for riding or be a bike anjo"
+msgid "You can ask for help to ride a bike or become a bike anjo"
 msgstr "Você pode pedir ajuda para pedalar ou ser um Bike Anjo"
 
 #: templates/subscription_confirmed.html:13
@@ -2157,7 +2132,10 @@ msgstr "Para quem pedala"
 msgid "See entire tip"
 msgstr "Ver dica na íntegra"
 
-#~ msgid "Register your route given start point A and arrival point B, and we will find you a bike anjo to   help you"
+#~ msgid "See requestss"
+#~ msgstr "Ver pedidos"
+
+#~ msgid "Register your route considering point '(A)' as your start and point '(B)' as your destination, and we will find you a bike anjo to   help you"
 #~ msgstr "adastre sua rota considerando o ponto de partida '(A)' e chegada '(B)', a partir dessa informação vamos achar um bike anjo para te ajudar"
 
 #~ msgid "Subscriber"
@@ -2185,7 +2163,7 @@ msgstr "Ver dica na íntegra"
 #~ msgstr "Primeiro nome"
 
 #~ msgid "Django administration"
-#~ msgstr "Administração do Bikeanjo"
+#~ msgstr "Administração do Bike Anjo"
 
 #~ msgid "city"
 #~ msgstr "cidade"
