@@ -3,13 +3,13 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block content %}
 <section class="forms signup container">
 <header>
     <h2>{% trans "How can you help?" %}</h2>
-    <p>{% trans "Check the options bellow so our system can cross information of the help offers and requests" %}</p>
+    <p>{% trans "Check the options bellow so that our system matches correctly with the requests received" %}</p>
 </header>
 
 <form class="signup card" id="signup_form" method="post">
@@ -39,10 +39,10 @@
            data-composed-bind="form.signup input[type=checkbox]"
            data-composed-bitoptions="true" />
 
-           <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue registration process" %}</button>
+           <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Content registration process" %}</button>
 
 </form>
 
-<p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+<p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

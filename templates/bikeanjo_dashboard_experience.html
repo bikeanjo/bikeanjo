@@ -18,7 +18,7 @@
                         <div class="forms">
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
+                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long do you ride a bike?' %}</span>
                                 </label>
 
                                 {% for value,label in form.ride_experience.field.choices %}
@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use the bicycle as a means of transportation?' %}</span>
+                                    <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use a bike to commute?' %}</span>
                                 </label>
 
                                 {% for value,label in form.bike_use.field.choices %}
@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="primary-label" for="participate">{% trans "Do you take part of any cycling initiative?" %}</label>
+                                <label class="primary-label" for="participate">{% trans "Are you part of any cycling initiative?" %}</label>
                                 <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
                                     placeholder="{% trans 'Describe your participation here' %}">{{ form.initiatives.value|default:'' }}
                                 </textarea>
