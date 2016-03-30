@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer, CountryAliasSerializer
 from models import Country, CountryAlias, State, City, CityAlias
 from rest_framework import filters
-
+from dal import autocomplete
 
 class CountryFilter(filters.FilterSet):
     name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
@@ -131,4 +131,23 @@ class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
                 select={'weight': function, },
                 select_params=(value,)
             ).distinct().order_by('weight')
+        return qs
+
+
+# 
+# django-autocomplete-light for admin
+# 
+class CountryAutocompleteView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Country.objects.all()
+        if self.q:
+            qs = qs.filter(name__lowermatch=self.q)
+        return qs
+
+
+class CityAutocompleteView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = City.objects.all()
+        if self.q:
+            qs = qs.filter(name__lowermatch=self.q)
         return qs

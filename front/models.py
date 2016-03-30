@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from cyclists.models import User
+from cities.models import City, Country
 logger = logging.getLogger('front.models')
 
 GENDER = (
@@ -313,6 +314,10 @@ class ReadedAnnotationMixin(object):
 
 
 class Message(BaseModel):
+    TARGET_ROLES = (
+        ('all', _('All')),
+    ) + CYCLIST_ROLES
+
     class Meta:
         verbose_name = _('Message')
         verbose_name_plural = _('Messages')
@@ -321,6 +326,10 @@ class Message(BaseModel):
     title = models.CharField(_('Title'), max_length=128)
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='messages', null=True, blank=True)
+
+    target_roles = models.CharField(_('Target'), choices=TARGET_ROLES, default=TARGET_ROLES[0][0], max_length=16)
+    target_city = models.ForeignKey(City, null=True, blank=True)
+    target_country = models.ForeignKey(Country, null=True, blank=True)
 
 
 class ReadedMessage(BaseModel):

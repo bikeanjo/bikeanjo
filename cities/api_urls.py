@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url, include
 from rest_framework import routers
-from cities import api_views as views
+from cities import views
 
 router = routers.DefaultRouter()
 router.register(r'countries', views.CountryViewSet)
@@ -12,4 +12,6 @@ router.register(r'cityalias', views.CityAliasViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^ac/country', views.CountryAutocompleteView.as_view(), name='ac_country'),
+    url(r'^ac/city', views.CityAutocompleteView.as_view(), name='ac_city'),
 ]

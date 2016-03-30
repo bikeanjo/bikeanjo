@@ -8,6 +8,7 @@ from django.contrib.flatpages.models import FlatPage
 
 from import_export.admin import ImportExportModelAdmin
 from modeltranslation.admin import TranslationAdmin
+from dal import autocomplete
 
 from front import models
 
@@ -94,6 +95,12 @@ class MessageAdmin(admin.ModelAdmin):
     def readed_by_(self, obj):
         return obj.readed_by.count()
     readed_by_.short_description = _('Readed by')
+
+    def get_form(self, *argz, **kwargz):
+        form = super(MessageAdmin, self).get_form(*argz, **kwargz)
+        form.base_fields['target_country'].widget = autocomplete.ModelSelect2(url='ac_country')
+        form.base_fields['target_city'].widget = autocomplete.ModelSelect2(url='ac_city')
+        return form
 
 
 @admin.register(models.Category)

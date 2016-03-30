@@ -4,6 +4,7 @@
 {% block branding %}{{ site_header|default:_('Bikeanjo administration') }}{% endblock %}
 
 {% block extrahead %}
+<!-- beginning of extrahead -->
 <style type="text/css">
 #header #branding h1 {
     background: transparent url("{% static 'imgs/logo-bike-anjo.png' %}") no-repeat scroll 10px 5px / 90px auto;
@@ -12,4 +13,12 @@
     text-shadow: none;
 }
 </style>
+<script type='text/javascript'>
+var yl = window.yl || { };
+if(!yl.jQuery && window.jQuery) {
+    yl.jQuery = jQuery;
+}
+</script>
+{{ block.super }}
+<!-- end of extrahead -->
 {% endblock %}

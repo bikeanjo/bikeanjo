@@ -359,6 +359,8 @@ class MessageListView(DashboardMixin, ListView):
         user = self.request.user
         qs = models.Message.objects\
                    .filter(id__gt=0, created_date__gt=user.date_joined)\
+                   .filter(Q(target_city__isnull=True) | Q(target_city=user.city))\
+                   .filter(Q(target_country__isnull=True) | Q(target_country=user.country))\
                    .extra(select={'was_read': 'front_readedmessage.user_id'})
         join = Join(
             models.ReadedMessage._meta.db_table,
