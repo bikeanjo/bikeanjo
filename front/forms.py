@@ -284,8 +284,9 @@ class BikeanjoUserInforForm(forms.ModelForm):
         model = models.User
 
     def save(self, **kwargs):
-        if getattr(self, 'city_alias', None):
-            self.city = self.city_alias
+        city_alias = self.cleaned_data.get('city_alias')
+        if city_alias:
+            self.instance.city = city_alias.city
         super(BikeanjoUserInforForm, self).save(**kwargs)
 
 
@@ -298,8 +299,9 @@ class RequesterUserInforForm(forms.ModelForm):
         model = models.User
 
     def save(self, **kwargs):
-        if getattr(self, 'city_alias', None):
-            self.city = self.city_alias
+        city_alias = self.cleaned_data.get('city_alias')
+        if city_alias:
+            self.instance.city = city_alias.city
         super(BikeanjoUserInforForm, self).save(**kwargs)
 
 
