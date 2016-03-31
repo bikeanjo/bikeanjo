@@ -88,6 +88,11 @@ class HelpRequestAdmin(admin.ModelAdmin):
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
+    class Media:
+        js = (
+            'modeltranslation/js/force_jquery.js',
+        )
+
     list_display = ('created_date', 'title', 'readed_by_')
     list_filter = ('created_date',)
     search_fields = ('title',)

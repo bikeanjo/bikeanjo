@@ -12,13 +12,15 @@
     color: transparent;
     text-shadow: none;
 }
+
+.select2-container .select2-search--dropdown .select2-search__field {
+    padding: 1em 4px;
+}
 </style>
 <script type='text/javascript'>
-var yl = window.yl || { };
-if(!yl.jQuery && window.jQuery) {
-    yl.jQuery = jQuery;
-}
-</script>
 {{ block.super }}
+delete window['jQuery'];
+delete window['$'];
+</script>
 <!-- end of extrahead -->
 {% endblock %}
