@@ -6,6 +6,7 @@ from models import Country, CountryAlias, State, City, CityAlias
 from rest_framework import filters
 from dal import autocomplete
 
+
 class CountryFilter(filters.FilterSet):
     name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
     alias = django_filters.CharFilter(name="countryalias__name", lookup_type='lowermatch')
@@ -134,9 +135,9 @@ class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
         return qs
 
 
-# 
+#
 # django-autocomplete-light for admin
-# 
+#
 class CountryAutocompleteView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Country.objects.all()

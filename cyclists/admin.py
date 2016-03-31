@@ -3,16 +3,12 @@ from urllib import urlencode
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.core.urlresolvers import reverse
-from django.utils.encoding import force_text
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.flatpages.models import FlatPage
 
 from import_export.admin import ImportExportModelAdmin
-from modeltranslation.admin import TranslationAdmin
 
 from front import models
-from cities.models import City
 
 import admin_resources as resources
 import cyclists

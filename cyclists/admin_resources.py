@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.utils.translation import ugettext as _
-from import_export import resources, fields
-from front import models
+from import_export import resources
 from cyclists.models import User
 
 

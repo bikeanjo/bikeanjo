@@ -1,6 +1,5 @@
-from urllib import urlencode
+# -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +12,6 @@ from dal import autocomplete
 from front import models
 
 import admin_resources as resources
-import cyclists
 
 admin.site.site_title = _('Bike Anjo')
 admin.site.site_header = _('Bike Anjo Admin')
