@@ -33,19 +33,25 @@ def normalize_user_location(apps, schema_editor):
             sys.stdout.write('-')
 
     # The slow for countries
-    cities = set(User.objects.exclude(v1_city__regex='^\s*$')\
-                             .filter(city=None)\
-                             .values_list('v1_city', flat=True))
+    cities = set(User.objects.exclude(v1_city__regex='^\s*$')
+                     .filter(city=None)
+                     .values_list('v1_city', flat=True))
+
+    def levenshtein_ordered_qs(qs, value):
+        field = '"%s"."name"' % CityAlias._meta.db_table
+        function = 'levenshtein(%s, %s)' % ("%s", field)
+        qs = qs.extra(
+            select={'weight': function, },
+            select_params=(value,)
+        ).distinct().order_by('weight')
+        return qs
 
     punc_pattern = re.compile(' *[%s]+ *' % re.escape(string.punctuation))
     for name in cities:
         name = punc_pattern.split(name)[0]
-        try:
-            alias = CityAlias.objects.select_related('city')\
-                                     .filter(name__lowermatch=name)\
-                                     .first()
-        except:
-            import ipdb; ipdb.set_trace()
+
+        qs = CityAlias.objects.select_related('city').filter(name__lowermatch=name)
+        alias = levenshtein_ordered_qs(qs, name).first()
 
         if alias:
             User.objects.filter(v1_city=name)\
