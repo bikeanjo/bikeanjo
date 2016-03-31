@@ -26,7 +26,7 @@ class NewsletterResource(resources.ModelResource):
 
 
 class FeedbackResource(resources.ModelResource):
-    created_date = fields.Field(column_name=_('Created date'))
+    created_date = fields.Field(column_name=_('Date of creation'))
     author_name = fields.Field(column_name=_('Name'))
     author_role = fields.Field(column_name=_('Role'))
     message = fields.Field(column_name=_('Message'))

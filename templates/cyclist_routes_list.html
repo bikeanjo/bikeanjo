@@ -4,7 +4,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
@@ -75,12 +75,12 @@
                        name="{{view.get_redirect_field_name}}"
                        value="{% url 'user_register' %}"/>
             {% else %}
-                <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
+                <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Content" %}</button>
             {% endif %}
         </form>
     </div>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

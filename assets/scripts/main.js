@@ -9,15 +9,13 @@
                 url: frm.attr('action'),
                 data: frm.serialize(),
                 success: function (data) {
-                    console.log(data);
                     if (data.success) {
                         $('.subscribe-form').hide();
                         $('.subscribe-success').show();
-                        console.log('vai');
                     }
                 },
                 error: function(data) {
-                    console.log(data);
+                    console.error(data);
                 }
             });
             return false;
@@ -167,65 +165,78 @@
             });
         });
 
-        $('input[suggests]').each(function(i){
+        $('input[ac-source]').each(function(i){
             var $input = $(this);
-            var $ac_results = $('<div class="ac_results">')
-                .appendTo(document.body);
+            var api = $input.attr('ac-source');
+            var query = $input.attr('ac-query-var');
+            var initial_text = $input.attr('ac-initial-text');
+            var initial_value = $input.attr('ac-initial-value');
 
-            var filter_key = $input.attr('suggests-filter-key');
-            var $filter_value = $($input.attr('suggests-filter-value'));
-            var json_key = 'suggests-json-key';
-            
-            var url = $input.attr('suggests');
-            var query = {};
-            var suggests = [];
-            var index = [];
+            var key_for_label = $input.attr('ac-key-for-label') || 'name';
+            var key_for_value = $input.attr('ac-key-for-value') || 'id';
+            var key_for_extra = $input.attr('ac-key-for-extra') || 'city_name';
 
-            query[filter_key] = $filter_value.val();
+            var $holder = $('<input type="hidden">').attr('name', $input.attr('name'));
+            $input.attr('name', 'fake_' + Math.random().toString(16)).val(initial_text);
+            $holder.insertAfter($input).val(initial_value);
 
+            // adjust placement of dropdown
+            var $ac_results = $('<div class="ac_results">').appendTo(document.body);
             $(window).resize(function(){setTimeout(function(){
                 $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
                 $ac_results.css('left', ($input.offset().left) + 'px');
             }, 500);}).trigger('resize');
 
-            var dict = {'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'é': 'e',
-                'è': 'e', 'ê': 'e', 'í': 'i', 'ì': 'i', 'ó': 'o', 'ò': 'o',
-                'õ': 'o', 'ô': 'o', 'ú': 'u', 'ù': 'u', 'ç': 'c' };
 
-            $filter_value.change(function(evt){
-                suggests.splice(0);
+            var filters = { };
+            if($input.attr('ac-filter')) {
+                eval('filters = ' + $input.attr('ac-filter'));
+            }
 
-                $.ajax({
-                    'url': url,
-                    'data': query
-                }).success(function(response){
-                    response.forEach(function(r){
-                        suggests.push(r.name);
-
-                        var name = r.name.toLowerCase();
-                        name = name.replace(/[^\w ]/g, function(c){
-                            return dict[c] ? dict[c] : '.';
-                        });
-                        index.push(name);
+            function source(request, response) {
+                var data = jQuery.extend({}, filters);
+                data[query] = request.term;
+                $.get(api, data).success(function(data){
+                    var options = data.results.map(function(obj){
+                        return {
+                            'label': obj[key_for_label],
+                            'value': obj[key_for_value],
+                            'desc':  obj[key_for_extra]
+                        }
                     });
+                    response(options);
                 });
-            }).trigger('change');
+            }
 
-            function matcher(request, response) {
-                var search = request.term.trim().toLowerCase().replace(/[^\w ]/g, '.');
-                var regex = new RegExp('^' + search);
-                response( $.grep( suggests, function( item, i ){
-                    return regex.test(index[i]);
-                }));
+            function onselect (event, ui) {
+                $holder.val(ui.item.value);
+                $input.val(ui.item.label);
+                return false;
+            }
+
+            function onfocus (event, ui) {
+                return false;
             }
 
             $input.autocomplete({
-                'source': matcher,
+                'source': source,
                 'autoFocus': true,
                 'minLength': 2,
-                'delay': 0,
-                'appendTo': $ac_results
-            });
+                'delay': 100,
+                'appendTo': $ac_results,
+                'select': onselect,
+                'focus': onfocus,
+            }).attr('autocomplete', false)
+              .prop('autocomplete', false)
+              .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                var li = $( "<li>" ).append( "<a>" + item.label + "</a>" );
+
+                if(item.desc && item.desc !== item.label){
+                    li.append( "<a>" + item.desc + "</a>" )
+                }
+
+                return li.appendTo( ul );
+            };
         });
 
         $('a[target=_popup]').click(function(evt){
@@ -274,8 +285,6 @@
 
             if(match) {
                 $el.val(decodeURI(match[1]));
-                console.log($el);
-                console.log($el.val());
             }
         });
 

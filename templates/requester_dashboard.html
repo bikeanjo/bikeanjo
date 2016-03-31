@@ -23,7 +23,7 @@
                             <div class="card-content">
                                 <div class="card-badge bad-badge"></div>
                                 <h2 class="card-subtitle">{% trans "Oh no!" %}</h2>
-                                <p class="card-info"> {% trans "Unfortunately, we don't have any bike anjo in your city yet, but don't be sad! See what you can still do on our platform" %}:</p>
+                                <p class="card-info"> {% trans "Unfortunately, we don't have any bike anjo in your city yet, but don't worry! Check out what else you can do in our platform" %}:</p>
                                 <ul class="list-unstyled card-info">
                                     <li>
                                         <i class="fa fa-arrow-right"></i>
@@ -45,7 +45,7 @@
                                 <div class="card-badge"></div>
                                 <h2 class="card-subtitle">{% trans "Success!" %}</h2>
                                 <p class="card-info"> {% trans "Your request was sent to our community and will be returned within 15 days" %}.</p>
-                                <p class="card-info">{% trans "Take this time to verify if your city has 'EBA! - Escola Bike Anjo', a workshop held by bike anjo volunteers to teach people how to ride a bike. To do this, click" %} <a href="{% url 'dashboard_event_list' %}">{% trans "HERE" %}</a>. {% trans "You can also take this time to your dashboard with some tips we have for you" %}.</p>
+                                <p class="card-info">{% trans "Take this time to verify if your city has a Bike Anjo School, a workshop to teach people how to ride a bike. To do this, click" %} <a href="{% url 'dashboard_event_list' %}">{% trans "HERE" %}</a>. {% trans "You can also check for tips and other information we have for you in your Dashboard" %}.</p>
                             </div>
                         </article>
                     {% endif %}
@@ -58,7 +58,7 @@
                         <div class="card-content">
                             <div class="card-badge"></div>
                             <h2 class="card-subtitle">{% trans "Success!" %}</h2>
-                            <p class="card-info">{% trans "Your registration is successfully completed and your request was sent to our community. You will have a word from us within 15 days " %}.
+                            <p class="card-info">{% trans "Your registration was successfully completed and your request was sent to our community. You will hear back from us within 15 days " %}.
                             <br/>
                             <br/>{% trans "Take this time to visit your dashboard, see the events and cycling tips" %}.</p>
                         </div>
@@ -109,7 +109,7 @@
                             <li>{% trans "Waiting for bike anjo" %} ...</li>
                             {% elif hr.bikeanjo %}
                             <li>{{ hr.bikeanjo.get_full_name }}</li>
-                            <li>{{ hr.bikeanjo.city }}</li>
+                            <li>{{ hr.bikeanjo.city.name }}</li>
                             {% endif %}
                         </ul>
                     </div>
@@ -130,7 +130,7 @@
                         <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ event.date }}</li>
-                            <li>{{ event.city }}</li>
+                            <li>{{ event.city.name }}</li>
                         </ul>
                     </div>
                     {% endfor %}
@@ -143,7 +143,7 @@
                 {% if tip %}
                 <article class="card photo small">
                     <header class="card-header negative">
-                        <h2 class="card-title">{% trans "Tips for cycling" %}</h2>
+                        <h2 class="card-title">{% trans "Cycling tips" %}</h2>
                         {% comment %}
                         <button type="button" class="card-button" aria-label="Refresh">
                             <span aria-hidden="true"><i class="fa fa-refresh"></i></span>

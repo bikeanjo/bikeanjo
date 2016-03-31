@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from django.core.urlresolvers import reverse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
@@ -6,6 +7,7 @@ from allauth.account.utils import perform_login
 from utils import DateParser
 from cyclists.models import User
 
+from cities.models import Country, CityAlias
 
 FACEBOOK_DATE_PATTERN = re.compile(r'^(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\d\d\d\d)$')
 FACEBOOK_LOCATION_PATTERN = re.compile(r'^(?P<city>[^,]+), *(?P<country>.*)$')
@@ -21,26 +23,33 @@ class BikeanjoAccountAdapter(DefaultAccountAdapter):
 
 class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
 
+    def __assign_location_to_user(self, location, user):
+        country = location.get('country', '')
+        city = location.get('city', '')
+
+        user.country = Country.objects.filter(name=country).first()
+        user.city_alias = CityAlias.objects.filter(name__lowermatch=city).first()
+
+        if user.city_alias:
+            user.city = user.city_alias.city
+            if not user.country:
+                user.country = user.city.country
+        return user
+
     def __populate_with_facebook(self, sociallogin, user):
         extra = sociallogin.account.extra_data
-
         location = extra.get('location', {}).get('name', '')
         match = FACEBOOK_LOCATION_PATTERN.match(location)
-
         if match:
-            user.city = match.groupdict().get('city', '')
-            user.country = match.groupdict().get('country', )
+            user = self.__assign_location_to_user(match.groupdict(), user)
         return user
 
     def __populate_with_twitter(self, sociallogin, user):
         extra = sociallogin.account.extra_data
-
         location = extra.get('location', '')
         match = FACEBOOK_LOCATION_PATTERN.match(location)
-
         if match:
-            user.city = match.groupdict().get('city', '')
-            user.country = match.groupdict().get('country', )
+            user = self.__assign_location_to_user(match.groupdict(), user)
         return user
 
     def populate_user(self, request, sociallogin, data):

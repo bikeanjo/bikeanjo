@@ -20,16 +20,16 @@
                         <div class="card-badge"></div>
                         <h2 class="card-subtitle">{% trans "Success!" %}</h2>
                         <p class="card-info">
-                            {% trans "Welcome to Bike Anjo network!" %} 0=D
+                            {% trans "Welcome to the Bike Anjo network!" %} 0=D
                             <br/>
-                            <br/>{% trans "We going to take this opportunity to invite you to" %}:
+                            <br/>{% trans "We take the opportunity to invite you to" %}:
                         </p>
                         <ul class="list-unstyled card-info">
                             <li>
                                 <i class="fa fa-arrow-right"></i>
                                 <a href="http://bit.ly/cartilhaba"
                                     target="_blank">
-                                    {% trans "Check out our Bike Anjo booklet" %}
+                                    {% trans "Check out our orientations for volunteers" %}
                                 </a>
                             </li>
                             <li>
@@ -43,7 +43,7 @@
                                 <i class="fa fa-arrow-right"></i>
                                 <a href="{% url 'tips_list' 'bikeanjo' %}"
                                     target="_blank">
-                                    {% trans "See more tips for who is already a cyclist" %}
+                                    {% trans "See more tips for experienced cyclists and volunteers" %}
                                 </a>
                             </li>
                         </ul>
@@ -94,7 +94,7 @@
                         <ul class="card-info list-info list-unstyled">
                             {#<li>#{{ hr.id|stringformat:'04d' }}</li>#}
                             <li>{{ hr.requester.get_full_name }}</li>
-                            <li>{{ hr.requester.city }}</li>
+                            <li>{{ hr.requester.city.name }}</li>
                             {#<li>{{ hr.created_date|date:'d/m/Y' }}</li>#}
                         </ul>
                     </div>
@@ -116,7 +116,7 @@
                         <ul class="card-info list-info list-unstyled">
                             <li>#{{ helprequest.id|stringformat:'04d' }}</li>
                             <li>{{ helprequest.requester.get_full_name }}</li>
-                            <li>{{ helprequest.requester.city }}</li>
+                            <li>{{ helprequest.requester.city.name }}</li>
                             <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
                         </ul>
                     </div>
@@ -144,7 +144,7 @@
                         <h3 class="card-subtitle"><i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ event.date }}</li>
-                            <li>{{ event.city }}</li>
+                            <li>{{ event.city.name }}</li>
                         </ul>
                     </div>
                     {% endfor %}

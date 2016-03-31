@@ -210,7 +210,7 @@ def notify_requester_about_attended_request(helprequest):
 # views.HomeView
 def notify_user_subscribed_in_newsletter(subscriber):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = 'Você se inscreveu para o boletim do Bikeanjo!'
+    subject = 'Você se inscreveu para o boletim do Bike Anjo!'
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = subscriber
 

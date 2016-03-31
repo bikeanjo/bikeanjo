@@ -1,4 +1,5 @@
 {% extends 'emails/base_email.html' %}
+{% load i18n %}
 {% load static %}
 {% load i18n %}
 {% block content %}
@@ -16,12 +17,12 @@
                 </tr>
                 <tr>
                     <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">
-                            {% trans "Unfortunately we could not find someone to help you on Bike Anjo. This can happen if there is no Bike Anjo Volunteers available close to you, or if they are overloaded" %}.
+                            {% trans "Unfortunately we could not find someone to help you at Bike Anjo. This can happen if there is no bike anjos available close to you or if they are overloaded." %}.
                     </p></td>
                 </tr>
                 <tr>
                     <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">
-                            {% trans "We will keep looking, now you can" %}:
+                            {% trans "We will keep looking, but in the meanwhile you can" %}:
                     </p></td>
                 </tr>
                 <tr>
@@ -30,7 +31,7 @@
                             {% trans "Check out our cycling tips" %}
                         </a>
                         <a href="http://{{ site.domain }}{% url 'requester_help_request' %}" style="font-weight: bold; font-size: 17px; padding: 10px 30px; color: #444444; display: block; text-align: center;">
-                            {% trans "Reorder in another region" %}
+                            {% trans "Redo your request in another region" %}
                         </a>
                     </td>
                 </tr>

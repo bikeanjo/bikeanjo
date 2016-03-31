@@ -42,7 +42,7 @@
                                          width="85" height="85"
                                          title="{{ user.get_full_name }}"
                                          onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                         alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                         alt="{% trans "Photo of" %} {{ user.get_full_name }}"/>
                                 </span>
 
                                 <label  for="{{ form.avatar.auto_id }}"
@@ -106,7 +106,19 @@
 
                             <div class="form-group {% if form.country.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-                                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="{% trans "Your country name" %}">
+
+                                <input class="form-control" type="text" 
+                                       autocomplete="off"
+                                       id="{{ form.country.id_for_label }}"
+                                       name="{{ form.country.html_name }}"
+                                       placeholder="{% trans "Your country name" %}"
+                                       ac-source="/api/countryalias"
+                                       ac-query-var="name"
+                                       ac-key-for-value="country_id"
+                                       ac-key-for-extra="country_name"
+                                       ac-initial-text="{{ form.instance.country.name }}"
+                                       ac-initial-value="{{ form.instance.country.id }}" />
+
                                 <i class="fa fa-globe form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.country.errors %}
@@ -116,23 +128,23 @@
                                 {% endif %}
                             </div>
 
-                            <div class="form-group {% if form.city.errors %}has-error{% endif %}">
-                                <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                            <div class="form-group {% if form.city_alias.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.city_alias.id_for_label }}">{% trans "City" %}</label>
 
-                                <input class="form-control" type="text"
-                                       name="{{ form.city.html_name }}"
-                                       id="{{ form.city.id_for_label }}"
-                                       value="{{ form.city.value|default:"" }}"
-                                       autocomplete="off"
+                                <input class="form-control" type="text" autocomplete="off"
+                                       name="{{ form.city_alias.html_name }}"
+                                       id="{{ form.city_alias.id_for_label }}"
                                        placeholder="{% trans "Your city name" %}"
-                                       suggests="/api/cities" suggests-json-key="name"
-                                       suggests-filter-key="state__country__name"
-                                       suggests-filter-value="#id_country">
+                                       ac-source="/api/cityalias"
+                                       ac-query-var="name"
+                                       ac-initial-text="{{ form.instance.city_alias.name }}"
+                                       ac-initial-value="{{ form.instance.city_alias.id }}"
+                                       ac-filter='{"city__country":function(){return $("[name={{ form.country.html_name }}]").val();} }' />
 
                                 <i class="fa fa-home form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
-                                {% if form.city.errors %}
-                                    {% for error in form.city.errors %}
+                                {% if form.city_alias.errors %}
+                                    {% for error in form.city_alias.errors %}
                                     <span class="text-danger">{{ error }}</span>
                                     {% endfor %}
                                 {% endif %}
@@ -239,7 +251,7 @@
 
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans "Your experience with a bike" %}</span>
+                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans "Your experience as a cyclist" %}</span>
                                 </label>
 
                                 {% for value,label in form.ride_experience.field.choices %}

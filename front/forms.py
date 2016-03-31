@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _, get_language
 from django.utils.timezone import now
 
 import models
-from cities.models import City
+
 from notifications import (
     notify_admins_about_new_feedback,
     notify_bikeanjo_about_new_request,
@@ -27,7 +27,7 @@ from emailqueue.notificationsqueue import (
 
 
 class TrackForm(forms.Form):
-    tracks = forms.CharField(label=_('Tracks'),
+    tracks = forms.CharField(label=_('Routes'),
                              widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                              required=False)
 
@@ -155,8 +155,6 @@ class SignupForm(forms.ModelForm):
     """
     full_name = forms.CharField(label=_('Full name'), max_length=60)
     email2 = forms.CharField(label=_('E-mail (again)'))
-    country = forms.CharField(label=_('Country'), max_length=32)
-    city = forms.CharField(label=_('City'), max_length=32)
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -164,63 +162,73 @@ class SignupForm(forms.ModelForm):
         self.populate_initial_fields_if_sociallogin(*args, **kwargs)
 
     def populate_initial_fields_if_sociallogin(self, *args, **kwargs):
-        if hasattr(self, 'sociallogin'):
-            user = self.sociallogin.user
-            for key, field in self.fields.items():
-                field.initial = getattr(user, key, '')
-            self.fields['full_name'].initial = user.get_full_name()
-            self.fields['email2'].initial = user.email
-        elif self.instance.id:
-            user = self.instance
-            self.fields['full_name'].initial = user.get_full_name()
-            self.fields['email2'].initial = user.email
+        if hasattr(self, 'sociallogin') or self.instance.id:
+            if hasattr(self, 'sociallogin'):
+                user = self.sociallogin.user
+                for key, field in self.fields.items():
+                    field.initial = getattr(user, key, '')
+            elif self.instance.id:
+                user = self.instance
 
+            self.fields['city_alias'].initial = getattr(user, 'city_alias', None)
+            self.fields['country'].initial = getattr(user, 'country', None)
+
+            self.fields['email2'].initial = user.email
+            self.fields['full_name'].initial = user.get_full_name()
+
+            self.instance.city = getattr(user, 'city', None)
+            self.instance.city_alias = getattr(user, 'city_alias', None)
+            self.instance.country = getattr(user, 'country', None)
         return self
-
-    def clean_city(self):
-        name = self.cleaned_data['city']
-        city = City.objects.filter(name__unaccent__iexact=name).first()
-        if city:
-            return city.name
-        raise forms.ValidationError('Verifique se a cidade está correta')
 
     def clean_email2(self):
         email = self.cleaned_data.get('email')
         email2 = self.cleaned_data.get('email2')
 
         if email != email2:
-            raise forms.ValidationError(_('The informed emails are different.'))
+            raise forms.ValidationError(_('The e-mails informed are different.'))
         return email
 
     def clean_first_name(self):
-        full_name = self.cleaned_data.get('full_name').split(' ')
-        if full_name:
-            return full_name[0]
-        raise forms.ValidationError(_('Nome inválido'))
+        full_name = self.cleaned_data.get('full_name', '')
+        first_name = full_name.split(' ')[0]
+
+        if first_name:
+            return first_name
+
+        raise forms.ValidationError(_('Invalid name'))
 
     def clean_last_name(self):
-        full_name = self.cleaned_data.get('full_name').split(' ')
-        if full_name:
-            return ' '.join(full_name[1:])
-        raise forms.ValidationError(_('Nome inválido'))
+        full_name = self.cleaned_data.get('full_name', '')
+        last_parts = full_name.split(' ')[1:]
+        last_name = ' '.join(last_parts)
+
+        if last_name.strip():
+            return last_name
+
+        raise forms.ValidationError(_('Invalid name'))
 
     def signup(self, request, user):
         full_name = self.cleaned_data['full_name'].split(' ')
         user.first_name = full_name[0]
         user.last_name = ' '.join(full_name[1:])
 
-        user.city = self.cleaned_data['city']
+        if 'city_alias' in self.cleaned_data:
+            user.city_alias = self.cleaned_data.get('city_alias')
+            user.city = user.city_alias.city
         user.country = self.cleaned_data['country']
+
         user.save()
 
     class Meta:
         model = models.User
-        fields = ('full_name', 'first_name', 'last_name', 'email', 'language', 'country', 'city',)
+
+        fields = ('full_name', 'first_name', 'last_name', 'email', 'language', 'country', 'city_alias',)
 
 
 class SignupBikeanjoForm(forms.ModelForm):
     gender = forms.CharField(label=_('Gender'))
-    birthday = forms.DateField(label=_('Birthday'))
+    birthday = forms.DateField(label=_('Date of birth'))
     ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.BIKEANJO_EXPERIENCE)
     bike_use = forms.ChoiceField(label=_('Bike user'), choices=models.BIKE_USE)
     initiatives = forms.CharField(label=_('Initiatives'), required=False, max_length=256)
@@ -232,7 +240,7 @@ class SignupBikeanjoForm(forms.ModelForm):
 
 class SignupRequesterForm(forms.ModelForm):
     gender = forms.CharField(label=_('Gender'))
-    birthday = forms.DateField(label=_('Birthday'))
+    birthday = forms.DateField(label=_('Date of birth'))
     ride_experience = forms.ChoiceField(choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
@@ -272,15 +280,13 @@ class BikeanjoExperienceForm(forms.ModelForm):
 class BikeanjoUserInforForm(forms.ModelForm):
     class Meta:
         fields = ('avatar', 'first_name', 'last_name', 'email', 'language',
-                  'country', 'city', 'gender', 'birthday',)
+                  'country', 'city_alias', 'gender', 'birthday',)
         model = models.User
 
-    def clean_city(self):
-        name = self.cleaned_data['city']
-        city = City.objects.filter(name__unaccent__iexact=name).first()
-        if city:
-            return city.name
-        raise forms.ValidationError('Verifique se a cidade está correta')
+    def save(self, **kwargs):
+        if getattr(self, 'city_alias', None):
+            self.city = self.city_alias
+        super(BikeanjoUserInforForm, self).save(**kwargs)
 
 
 class RequesterUserInforForm(forms.ModelForm):
@@ -288,15 +294,13 @@ class RequesterUserInforForm(forms.ModelForm):
 
     class Meta:
         fields = ('avatar', 'first_name', 'last_name', 'email', 'language',
-                  'country', 'city', 'gender', 'birthday', 'ride_experience',)
+                  'country', 'city_alias', 'gender', 'birthday', 'ride_experience',)
         model = models.User
 
-    def clean_city(self):
-        name = self.cleaned_data['city']
-        city = City.objects.filter(name__unaccent__iexact=name).first()
-        if city:
-            return city.name
-        raise forms.ValidationError('Verifique se a cidade está correta')
+    def save(self, **kwargs):
+        if getattr(self, 'city_alias', None):
+            self.city = self.city_alias
+        super(BikeanjoUserInforForm, self).save(**kwargs)
 
 
 # Part 1
@@ -325,7 +329,7 @@ class HelpRequestForm(forms.ModelForm):
 
 # Part 2.1
 class HelpRequestRouteForm(forms.Form):
-    track = forms.CharField(label=_('Track'),
+    track = forms.CharField(label=_('Route'),
                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                             required=False)
 
@@ -425,8 +429,8 @@ class HelpRequestCompleteForm(forms.ModelForm):
 
 
 class HelpRequestUpdateForm(forms.ModelForm):
-    requester_rating = forms.IntegerField(label=_('Requester rating'), required=False)
-    requester_eval = forms.CharField(label=_('Requester evaluation'), required=False)
+    requester_rating = forms.IntegerField(label=_('New cyclist rating'), required=False)
+    requester_eval = forms.CharField(label=_('New cyclist evaluation'), required=False)
     reason = forms.CharField(label=_('Reason'), widget=forms.HiddenInput, required=False)
 
     def save(self, **kwargs):

@@ -20,23 +20,23 @@ GENDER = (
 )
 
 CYCLIST_ROLES = (
-    ('bikeanjo', _('Bikeanjo')),
-    ('requester', _('Requester')),
+    ('bikeanjo', _('Bike Anjo')),
+    ('requester', _('New cyclist')),
 )
 
 
 HELP_OFFER = (
-    (1, _('Teach someone to ride a bike')),  # Ensinando alguém a pedalar
-    (2, _('Follow beginners on cycling')),  # Acompanhando iniciantes nas pedaladas
-    (4, _('Advice about safe routes')),  # Recomendando rotas mais seguras
-    (8, _('Participating in the events of Bike Anjos')),  # Participando dos eventos dos Bikes Anjos
+    (1, _('Teach someone how to ride a bike')),  # Ensinando alguém a pedalar
+    (2, _('Follow beginners on their ride')),  # Acompanhando iniciantes nas pedaladas
+    (4, _('Suggest safe routes')),  # Recomendando rotas mais seguras
+    (8, _('Participate of Bike Anjo events')),  # Participando dos eventos dos Bikes Anjos
 )
 
 HELP_REQUEST = (
     (1, _('Learn to ride a bike')),  # Aprender a pedalar
-    (2, _('Pratice cycling')),  # Praticar pedaladas
-    (4, _('Route recomendation')),  # Recomendar rota
-    (8, _('Monitoring on traffic')),  # Acompanhamento no trânsito
+    (2, _('Pratice riding')),  # Praticar pedaladas
+    (4, _('Route recommendation')),  # Recomendar rota
+    (8, _('Commute together')),  # Acompanhamento no trânsito
 )
 
 HELP = HELP_OFFER + HELP_REQUEST
@@ -49,19 +49,19 @@ BIKEANJO_EXPERIENCE = (
 )
 
 REQUESTER_EXPERIENCE = (
-    ('do not know pedaling yet', _('I do not know pedaling yet')),
-    ('no experience in traffic', _('I know cycling, but have no experience in traffic')),
-    ('already ride a long time', _('Already ride a long time but not daily')),
-    ('use bike almost every day', _('I use bike almost every day')),
+    ('do not know pedaling yet', _('I still don\'t know how to ride a bike')),
+    ('no experience in traffic', _('I know how to ride a bike, but have not traffic experience')),
+    ('already ride a long time', _('I bike for many years now, but not on a daily basis')),
+    ('use bike almost every day', _('I ride my bike almost every day')),
 )
 
 EXPERIENCE = BIKEANJO_EXPERIENCE + REQUESTER_EXPERIENCE
 
 BIKE_USE = (
     ('everyday', _('Everyday'),),
-    ('just few days a week/month', _('Just few days a week/month'),),
+    ('just few days a week/month', _('Only a few days per week/month'),),
     ('once a week', _('Once a week'),),
-    ('no, i use for leisure', _('No, I use for leisure'),),
+    ('no, i use for leisure', _('I only use my bike for leisure or on weekends'),),
 )
 
 
@@ -70,8 +70,8 @@ class BaseModel(models.Model):
     All models here should extends this. All models will have
     the created_date and modified_date properties
     """
-    created_date = models.DateTimeField(_('Created date'), auto_now_add=True, editable=False)
-    modified_date = models.DateTimeField(_('Modified date'), auto_now=True, editable=False)
+    created_date = models.DateTimeField(_('Date of creation'), auto_now_add=True, editable=False)
+    modified_date = models.DateTimeField(_('Date of change'), auto_now=True, editable=False)
 
     class Meta:
         abstract = True
@@ -108,7 +108,7 @@ class HelpRequest(BaseModel):
         ('new', _('New')),
         ('open', _('Open')),
         ('attended', _('Attended')),
-        ('finalized', _('Finalized')),
+        ('finalized', _('Finished')),
         ('canceled', _('Canceled')),
         ('rejected', _('Rejected')),
     ))
@@ -230,8 +230,8 @@ class HelpRequest(BaseModel):
 
 class HelpReply(BaseModel):
     class Meta:
-        verbose_name = _('Help reply')
-        verbose_name_plural = _('Help replies')
+        verbose_name = _('Reply to the request')
+        verbose_name_plural = _('Replies to the request')
         ordering = ['-created_date']
 
     author = models.ForeignKey(User)
@@ -241,8 +241,8 @@ class HelpReply(BaseModel):
 
 class Track(BaseModel):
     class Meta:
-        verbose_name = _('Track')
-        verbose_name_plural = _('Tracks')
+        verbose_name = _('Route')
+        verbose_name_plural = _('Routes')
 
     user = models.ForeignKey(User)
     start = models.CharField(_('Start'), max_length=128)
@@ -334,7 +334,7 @@ class ReadedMessage(BaseModel):
 class Category(models.Model):
     class Meta:
         verbose_name = _('Event category')
-        verbose_name_plural = _('Events categories')
+        verbose_name_plural = _('Event categories')
 
     name = models.CharField(max_length=32)
 
@@ -462,8 +462,8 @@ class TipForCycling(BaseModel):
     ) + CYCLIST_ROLES
 
     class Meta:
-        verbose_name = _('Tip for cycling')
-        verbose_name_plural = _('Tips for cycling')
+        verbose_name = _('Cycling tip')
+        verbose_name_plural = _('Cycling tips')
 
     title = models.CharField(_('Title'), max_length=128)
     content = models.TextField(_('Content'))

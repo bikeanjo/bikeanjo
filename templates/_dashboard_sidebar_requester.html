@@ -8,10 +8,10 @@
                      width="85" height="85"
                      title="{{ user.get_full_name }}"
                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
+                     alt="{% trans "Photo of" %} {{ user.get_full_name }}"/></a>
             </div>
             <h2 class="profile-name"><a href="{% url 'cyclist_dashboard' %}">{% firstof user.first_name user.username %}</a></h2>
-            <p class="profile-city">{{ user.city }}</p>
+            <p class="profile-city">{{ user.city.name }}</p>
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
@@ -33,14 +33,14 @@
                 <li><a href="{% url 'dashboard_event_list' %}">
                     {% trans "Events" %}</a></li>
                 <li><a href="{% url 'tips_list' user.role %}">
-                    {% trans "tips for cycling" %}</a></li>
+                    {% trans "Cycling tips" %}</a></li>
                 <li><a class="user_register" href="{% url 'user_register' %}">
                     {% trans "Edit account" %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">
-                    {% trans "I want to be Bike Anjo" %}</a></li>
+                    {% trans "I want to be a Bike Anjo" %}</a></li>
             </ul>
             <a href="{% url 'requester_help_request' %}" class="sidebar-ask-help btn btn-warning">
-                {% trans "Request help to go cycling" %}</a>
+                {% trans "Ask for help to ride a bike" %}</a>
         </nav>
     </div>
     <div class="sidebar-feedback">
@@ -58,17 +58,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                 <h3 class="modal-title">
-                    {% trans "Want to be a Bike Anjo?" %}</h3>
+                    {% trans "Do you want to be a Bike Anjo?" %}</h3>
             </div>
             <div class="modal-body">
                 <p class="text-center">
-                    {% trans "You are going to start to receive requests of people looking for help with cycling" %}
+                    {% trans "You will start receiving requests from people who need help riding" %}
                 </p>
             </div>
             <div class="modal-footer">
                 <p class="text-center">
                     <button class="btn btn-success" type="submit">
-                        {% trans "Continue" %}</button>
+                        {% trans "Content" %}</button>
                 </p>
             </div>
         </form>

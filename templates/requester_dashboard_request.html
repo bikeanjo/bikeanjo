@@ -58,7 +58,7 @@
                                  width="50" height="50"
                                  title="{{ helprequest.bikeanjo.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                 alt="{% trans "Photo from" %} {{ helprequest.bikeanjo.get_full_name }}"/>
+                                 alt="{% trans "Photo of" %} {{ helprequest.bikeanjo.get_full_name }}"/>
                         </div>
                         {% endif %}
 
@@ -68,7 +68,7 @@
                                 <li>{% trans "Waiting for bike anjo" %} ...</li>
                             {% elif helprequest.bikeanjo %}
                                 <li>{{ helprequest.bikeanjo.get_full_name }}</li>
-                                <li>{{ helprequest.bikeanjo.city }}</li>
+                                <li>{{ helprequest.bikeanjo.city.name }}</li>
                             {% endif %}
                             {# <li>{{ helprequest.created_date|date:'d/m/Y' }}</li> #}
                         </ul>
@@ -162,7 +162,7 @@
                                  width="30" height="30"
                                  title="{{ user.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                 alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                 alt="{% trans "Photo of" %} {{ user.get_full_name }}"/>
                         </div>
                         <h2 class="card-title">{{ user.get_full_name }}</h2>
                     </header>
@@ -181,7 +181,7 @@
                                  width="30" height="30"
                                  title="{{ helpreply.author.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                 alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
+                                 alt="{% trans "Photo of" %} {{ helpreply.author.get_full_name }}"/>
                         </div>
                         <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
                         <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
@@ -240,7 +240,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> {% trans "Help us to improve, tell us how was this service" %}</h4>
+                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> {% trans "Help us improve. Tell us how was your experience" %}</h4>
                     </div>
                     <div class="modal-body">
                         <form method="post">
@@ -264,7 +264,7 @@
                                 </label>
                             </div>
 
-                            <p>{% trans "Suggestions, complaints or compliments? Use in the field below" %}:</p>
+                            <p>{% trans "Comments, suggestions or complaints? Use the field below" %}:</p>
                             <textarea class="form-control" name="requester_eval" rows="5" placeholder="{% trans "Enter text" %}"></textarea>
                             <input type="hidden" name="status" value="finalized" />
                             <input type="hidden" name="closed_by" value="{{user.role}}" />

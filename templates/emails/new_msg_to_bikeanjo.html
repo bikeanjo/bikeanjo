@@ -17,13 +17,13 @@
                 </tr>
                 <tr>
                     <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">
-                            {% trans "A new message has been sent for you in one of the requests you are attending" %}:
+                            {% trans "A new message has been sent to you on one of the requests you are helping with" %}:
                     </p></td>
                 </tr>
                 <tr>
                     <td>
                         <h3 style="color: #3c4143; font-size: 20px; margin: 0; padding: 0px 0px 10px; text-align: center;">{{ sender.get_full_name }}</h3>
-                        <p style="text-transform: uppercase; font-size: 14px; color: #3c4143; margin: 0; padding: 0 0 30px; text-align: center;">{{ sender.city }}</p>
+                        <p style="text-transform: uppercase; font-size: 14px; color: #3c4143; margin: 0; padding: 0 0 30px; text-align: center;">{{ sender.city.name }}</p>
                     </td>
                 </tr>
                 <tr>

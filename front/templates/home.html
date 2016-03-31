@@ -5,7 +5,7 @@
 <section id="top" class="home">
     <section class="jumbotron">
         <div class="container">
-            <h2>{% trans "Join the community that believes in transformation through the bicycle" %}!</h2>
+            <h2>{% trans "Join a community that believes in change through bicycles" %}!</h2>
             <p>
                 <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">
                     {% trans "I need help to ride a bike" %}</a>
@@ -110,7 +110,7 @@
                                     <img src="{{ testimony.author.get_avatar_url }}"
                                          width="85" height="85"
                                          title="{{ testimony.author.get_full_name }}"
-                                         alt="{% trans "Photo from" %} {{ testimony.author.get_full_name }}"/>
+                                         alt="{% trans "Photo of" %} {{ testimony.author.get_full_name }}"/>
                                 </div>
                                 <p class="testimonial">{{ testimony.message }}</p>
                                 <p class="author">{{ testimony.author.get_full_name }}</p>

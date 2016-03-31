@@ -4,7 +4,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
@@ -24,21 +24,21 @@
         {% if view.kwargs.context == 'dashboard' %}
             <header class="card-header negative">
                 <a href="{% url 'user_register' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">{% trans "Back" %}</span></a>
-                <span class="go-back">{% trans "Loose points" %}</span>
+                <span class="go-back">{% trans "Pin points" %}</span>
             </header>
-            <p>{% trans "Mark loose points on the map that are not within routes (e.g., squares and parks) where you could answer a request" %}.</p>
+            <p>{% trans "Mark pin points that are not within your routes (e.g. squares and parks) where you could help a new cyclist" %}.</p>
         {% else %}
             {% if user.role == 'bikeanjo' %}
             <header>
-                <h2>{% trans "Want to add loose points?" %}</h2>
-                <p>{% trans "Do you want to add loose points on the map that are not within routes (e.g., squares and parks) where you could answer a request?" %}</p>
+                <h2>{% trans "Want to add pin points?" %}</h2>
+                <p>{% trans "Do you want to add pin points that are not within your routes (e.g. squares and parks) where you could help a new cyclist?" %}</p>
             </header>
             {% endif %}
 
             {% if user.role == 'requester' %}
             <header>
-                <h2>{% trans "Where to cycle?" %}</h2>
-                <p>{% trans "Add points where you can go cycle, add as many as you want" %}</p>
+                <h2>{% trans "Where could you ride?" %}</h2>
+                <p>{% trans "Add pin points where you can go cycling. Add as many as you want." %}</p>
             </header>
             {% endif %}
         {% endif %}
@@ -46,7 +46,7 @@
         <div class="hidden">{{ form.as_p }}</div>
         <div class="form-inline">
             <div class="form-group add-address">
-                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="{% trans "Add helping points" %}">
+                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="{% trans "Add pin points" %}">
                 <button bikeanjo-add="point" class="btn btn-success">
                 <i class="fa fa-plus"></i></button>
 
@@ -69,7 +69,7 @@
         </ul>
 
         {% if not user.accepted_agreement %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Content" %}</button>
             <input type="hidden"
                    name="{{view.get_redirect_field_name}}"
                    value="{% url 'cyclist_agreement' %}"/>
@@ -79,13 +79,13 @@
                    name="{{view.get_redirect_field_name}}"
                    value="{% url 'user_register' %}"/>
         {% else %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Content" %}</button>
         {% endif %}
 
     </form>
 
     <div class="map" id="js-map"></div>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %}<b> {% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %}<b> {% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

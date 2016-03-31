@@ -13,14 +13,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                 <h4 class="modal-title"><i class="fa fa-check-circle"></i>
-                    {% trans "Help us to get better, sent us feedback" %}
+                    {% trans "Send us feeback - help us improve" %}
                 </h4>
             </div>
             <div class="modal-body">
                 <form method="post" action="{% url 'user_feedback' %}">
                     {% csrf_token %}
                     <div class="form-group">
-                    <p>{% trans "Suggestions, complaints or compliments? Use in the field below" %}:</p>
+                    <p>{% trans "Comments, suggestions or complaints? Use the field below" %}:</p>
                     <textarea class="form-control" name="message" rows="5" placeholder="{% trans "Enter text" %}"></textarea>
                     <input type="hidden" name="{{ view.get_redirect_field_name }}" value="{{ request.get_full_path }}" />
                     </div>

@@ -4,7 +4,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
@@ -25,7 +25,7 @@
         <header>
             <h2>{% trans "What is your route?" %}</h2>
             <p class="visible-xs">{% trans "Register your route considering point '(A)' as your start point and point '(B)' as your destination" %}.</p>
-            <p class="hidden-xs">{% trans "Register your route given start point A and arrival point B, and we will find you a bike anjo to help you" %}.</p>
+            <p class="hidden-xs">{% trans "Register your route considering point '(A)' as your start and point '(B)' as your destination, and we will find a bike anjo to help you" %}.</p>
         </header>
 
         <div class="add-route">
@@ -45,13 +45,13 @@
                 {% endif %}
             </div>
         </div>
-        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Continue" %}</button>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Content" %}</button>
         {% if not user.accepted_agreement %}
         <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
         {% endif %}
     </form>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

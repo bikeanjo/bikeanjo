@@ -141,7 +141,7 @@ class DashBoardView(DashboardMixin, TemplateView):
     def get_event_list(self):
         user = self.request.user
 
-        event_list = models.Event.objects.filter(city=user.city, date__gte=timezone.now())
+        event_list = models.Event.objects.filter(city=user.v1_city, date__gte=timezone.now())
         setattr(event_list, 'near', True)
 
         if not event_list.exists():
@@ -273,10 +273,10 @@ class NewRequestsListView(DashboardMixin, ListView):
 
             if qs.count() == 0:
                 self.no_new_requests = True
-                qs = queryset.filter(bikeanjo=None, requester__city__unaccent__iexact=user.city)
+                qs = queryset.filter(bikeanjo=None, requester__city=user.city)
 
         elif _filter == 'orphan':
-            qs = queryset.filter(bikeanjo=None, requester__city__unaccent__iexact=user.city)
+            qs = queryset.filter(bikeanjo=None, requester__city=user.city)
         else:
             qs = queryset.filter(Q(bikeanjo=user) | Q(bikeanjo=None))
 

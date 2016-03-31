@@ -1,4 +1,5 @@
 {% extends 'emails/base_email.html' %}
+{% load i18n %}
 {% load static %}
 {% load i18n %}
 {% block content %}
@@ -15,7 +16,7 @@
                     <td style="color: #F26522; font-size: 34px; padding: 40px 0px 30px; text-align: center;">{% trans "Request cancelled" %}</td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">{% trans "Unfortunately your Bike Anjo request" %}:</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">{% trans "Unfortunately your request for help" %}:</p></td>
                 </tr>
                 <tr>
                     <td>
@@ -23,7 +24,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">{% trans "was cancelled because of lack of interaction or another reason. See how we can help you" %}:</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">{% trans "was cancelled because there was no answer or another reason. See how we can help you" %}:</p></td>
                 </tr>
                 <tr>
                     <td>

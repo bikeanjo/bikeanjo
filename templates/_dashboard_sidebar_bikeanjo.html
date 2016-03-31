@@ -9,11 +9,11 @@
                      width="85" height="85"
                      title="{{ user.get_full_name }}"
                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                     alt="{% trans "Photo from" %} {{ user.get_full_name }}"/></a>
+                     alt="{% trans "Photo of" %} {{ user.get_full_name }}"/></a>
             </div>
             <h2 class="profile-name"><a href="{% url 'cyclist_dashboard' %}">
                 {% firstof user.first_name user.username %}</a></h2>
-            <p class="profile-city">{{ user.city }}</p>
+            <p class="profile-city">{{ user.city_alias.name }}</p>
         </header>
         <nav class="sidebar-nav">
             <ul class="list-unstyled">
@@ -42,7 +42,7 @@
                 <li><a target="_blank" href="http://bikeanjo.org/novobikeanjo/foruns/">
                     {% trans "Discussion forum" %}</a></li>
                 <li><a href="{% url 'tips_list' user.role %}">
-                    {% trans "Tips for cycling" %}</a></li>
+                    {% trans "Cycling tips" %}</a></li>
                 <li><a class="user_register" href="{% url 'user_register' %}">
                     {% trans "Edit account" %}</a></li>
             </ul>

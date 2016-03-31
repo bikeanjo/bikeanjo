@@ -2,14 +2,14 @@
 {% load url from future %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup agreement" %}{% endblock %}
+{% block head_title %}{% trans "Terms and Conditions" %}{% endblock %}
 
 {% block content %}
     <section class="forms signup container">
 
         <header>
             <h2>{% trans "Just a bit more info" %}</h2>
-            <p>{% trans "Write bellow additional information of your request and accept the Terms and Conditions" %}</p>
+            <p>{% trans "Write additional information about your request and accept the Terms and Conditions" %}</p>
         </header>
 
         <form class="signup card" id="signup_form" method="post">
@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label class="primary-label" for="aditional-info">{% trans "Additional info" %}</label>
                 <textarea class="form-control" rows="5" id="aditional-info" name="message"
-                    placeholder="{% trans 'Additional Information or request conditions' %}">
+                    placeholder="{% trans 'Additional information and request specifications' %}">
                     {{ form.message.value|default:'' }}</textarea>
 
                 {% if request.POST and form.message.errors %}
@@ -68,7 +68,7 @@
 
         </form>
 
-        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %}
+        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %}
                 <b>{% trans "Contact us!" %}</b></a></p>
 
     </section>

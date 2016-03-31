@@ -4,7 +4,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
@@ -28,21 +28,21 @@
                 <span class="go-back">{% trans "My Routes" %}</span>
             </header>
 
-            <p>{% trans "Register as many routes as you want given start point A and arrival point B. These routes will define where you can attend to requests" %}.</p>
+            <p>{% trans "Register as many routes as you want considering point '(A)' as your start and point '(B)' as your destination. These routes will define where you can help new cyclists" %}.</p>
         {% else %}
             {% if user.role == 'bikeanjo' %}
                 <header>
                     <h2>{% trans "Register your routes" %}</h2>
-                    <p class="visible-xs">{% trans "Register as many routes as you want given start point A and arrival point B" %}.</p>
-                    <p class="hidden-xs">{% trans "Register as many routes as you want given start point A and arrival point B. These routes will define where you can attend   to requests" %}</p>
+                    <p class="visible-xs">{% trans "Register as many routes as you want considering point '(A)' as your start and point '(B)' as your destination" %}.</p>
+                    <p class="hidden-xs">{% trans "Register as many routes as you want considering point '(A)' as your start and point '(B)' as your destination. These routes will define where you can attend   to requests" %}</p>
                 </header>
             {% endif %}
 
             {% if user.role == 'requester' %}
                 <header>
                     <h2>{% trans "What is your route?" %}</h2>
-                    <p class="visible-xs">{% trans "Register your route given start point A and arrival point B" %}.</p>
-                    <p class="hidden-xs">{% trans "Register your route given start point A and arrival point B, and we will find you a bike anjo to help you" %}.</p>
+                    <p class="visible-xs">{% trans "Register your route considering point '(A)' as your start and point '(B)' as your destination" %}.</p>
+                    <p class="hidden-xs">{% trans "Register your route considering point '(A)' as your start and point '(B)' as your destination, and we will find a bike anjo to help you" %}.</p>
                 </header>
                 {% if view.get_redirect_field_name not in request.GET %}
                     <input type="hidden" name="next" value="{% url 'cyclist_register_points' %}" />
@@ -61,11 +61,11 @@
                        bikeanjo-track="end"/>
             </div>
         </div>
-        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Continue" %}</button>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Content" %}</button>
 
     </form>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

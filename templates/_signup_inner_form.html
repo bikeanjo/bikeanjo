@@ -2,11 +2,11 @@
 {% providers_media_js %}
 
 <header>
-    <h2>{% trans "Signup Now!" %}</h2>
-    <p>{% trans "Join the community that believes in transformation through the bicycle" %}</p>
+    <h2>{% trans "Sign Up Now!" %}</h2>
+    <p>{% trans "Join a community that believes in change through bicycles" %}</p>
 </header>
 
-<form class="signup card" id="signup_form" method="post" {% if action %}action="{% url action %}"{% endif %}>
+<form class="signup card" id="signup_form" method="post" {% if action %}action="{% url action %}"{% endif %} autocomplete="off">
     {% csrf_token %}
 
     {% if form.errors and debug %}
@@ -39,7 +39,7 @@
 
     <fieldset {% if sociallogin or form.instance.id %}style="border:none"{% endif %}>
         {% if not sociallogin and not form.instance.id %}
-        <legend>{% trans "Or create a account with your e-mail" %}</legend>
+        <legend>{% trans "Or create an account with your e-mail" %}</legend>
         {% endif %}
         <div class="form-group {% if form.full_name.errors %}has-error has-feedback{% endif %}">
             <label class="primary-label" for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }}</label>
@@ -73,7 +73,7 @@
             <label class="primary-label" for="{{ form.email2.id_for_label }}">{{ form.email2.label }}</label>
             <input class="form-control" type="email2" name="{{ form.email2.html_name }}" id="{{ form.email2.id_for_label }}"
                 value="{{ form.email2.value|default:"" }}"
-                placeholder="{% trans 'Type again your email address' %}">
+                placeholder="{% trans 'Type your e-mail address again' %}">
             <i class="fa fa-envelope-o form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.email2.errors %}
@@ -100,9 +100,18 @@
 
         <div class="form-group {% if form.country.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-            <input class="form-control" type="text" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}"
-                value="{{ form.country.value|default:"Brasil" }}"
-                placeholder="{% trans "Your country name" %}">
+            <input class="form-control" type="text" 
+                   autocomplete="off"
+                   id="{{ form.country.id_for_label }}"
+                   name="{{ form.country.html_name }}"
+                   placeholder="{% trans "Your country name" %}"
+                   ac-source="/api/countryalias"
+                   ac-query-var="name"
+                   ac-key-for-value="country_id"
+                   ac-key-for-extra="country_name"
+                   ac-initial-text="{{ form.instance.country.name }}"
+                   ac-initial-value="{{ form.instance.country.id }}" />
+
             <i class="fa fa-globe form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.country.errors %}
@@ -112,20 +121,22 @@
             {% endif %}
         </div>
 
-        <div class="form-group {% if form.city.errors %}has-error{% endif %}">
-            <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+        <div class="form-group {% if form.city_alias.errors %}has-error{% endif %}">
+            <label class="primary-label" for="{{ form.city_alias.id_for_label }}">{% trans "City" %}</label>
 
             <input class="form-control" type="text" autocomplete="off"
-                   name="{{ form.city.html_name }}"
-                   id="{{ form.city.id_for_label }}" value="{{ form.city.value|default:"" }}"
+                   name="{{ form.city_alias.html_name }}"
+                   id="{{ form.city_alias.id_for_label }}"
                    placeholder="{% trans "Your city name" %}"
-                   suggests="/api/cities" suggests-json-key="name"
-                   suggests-filter-key="state__country__name"
-                   suggests-filter-value="#{{ form.country.id_for_label }}">
+                   ac-source="/api/cityalias"
+                   ac-query-var="name"
+                   ac-initial-text="{{ form.instance.city_alias.name }}"
+                   ac-initial-value="{{ form.instance.city_alias.id }}"
+                   ac-filter='{"city__country":function(){return $("[name={{ form.country.html_name }}]").val();} }' />
 
             <i class="fa fa-home form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
-            {% if form.city.errors %}
+            {% if form.city_alias.errors %}
                 {% for error in form.city.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
@@ -137,7 +148,7 @@
             <label class="primary-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
             <input class="form-control" type="password" name="{{ form.password1.html_name }}"
                 id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}"
-                placeholder="{% trans "Type your password" %}">
+                placeholder="{% trans "Insert your e-mail" %}">
             <i class="fa fa-lock form-control-icon"></i>
                 <i class="fa fa-times form-control-feedback"></i>
             {% if form.password1.errors %}
@@ -165,10 +176,10 @@
         {% endif %}
     </fieldset>
 
-    <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Signup" %}</button>
+    <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Sign Up" %}</button>
     <p class="create-account">{% trans "Already have an account?" %} <a href="{{ login_url }}">{% trans "Sign in" %}</a></p>
 
 </form>
 
 <p class="questions"><a href="#"><i class="fa fa-question-circle"></i>
-        <i class="fa fa-times form-control-feedback"></i>{% trans "Any Trouble or Question?" %}<b> {% trans "Contact us!" %}</b></a></p>
+        <i class="fa fa-times form-control-feedback"></i>{% trans "Any Trouble or Questions?" %}<b> {% trans "Contact us!" %}</b></a></p>
