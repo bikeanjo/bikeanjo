@@ -122,7 +122,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
             )
 
         return counter
-    finalized_requests.short_description = _('Finalized requests')
+    finalized_requests.short_description = _('Finished requests')
 
     def lookup_allowed(self, lookup, value):
         allow = [

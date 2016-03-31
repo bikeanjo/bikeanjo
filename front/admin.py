@@ -15,9 +15,9 @@ from front import models
 import admin_resources as resources
 import cyclists
 
-admin.site.site_title = _('Bikeanjo')
-admin.site.site_header = _('Bikeanjo administration')
-admin.site.index_title = _('Site administration')
+admin.site.site_title = _('Bike Anjo')
+admin.site.site_header = _('Bike Anjo Admin')
+admin.site.index_title = _('Site Admin')
 
 
 @admin.register(models.Track)
@@ -76,13 +76,13 @@ class HelpRequestAdmin(admin.ModelAdmin):
 
     def requester_name(self, obj):
         return obj.requester.get_full_name() or obj.requester.username
-    requester_name.short_description = _('Requester name')
+    requester_name.short_description = _('New cyclist name')
 
     def bikeanjo_name(self, obj):
         if obj.bikeanjo is None:
             return ''
         return obj.bikeanjo.get_full_name()
-    bikeanjo_name.short_description = _('Bikeanjo name')
+    bikeanjo_name.short_description = _('Bike anjo name')
     bikeanjo_name.admin_order_field = 'bikeanjo__first_name'
 
 
@@ -99,7 +99,7 @@ class MessageAdmin(admin.ModelAdmin):
 
     def readed_by_(self, obj):
         return obj.readed_by.count()
-    readed_by_.short_description = _('Readed by')
+    readed_by_.short_description = _('Read by')
 
     def get_form(self, *argz, **kwargz):
         form = super(MessageAdmin, self).get_form(*argz, **kwargz)

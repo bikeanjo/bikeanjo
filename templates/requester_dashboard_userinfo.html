@@ -42,7 +42,7 @@
                                          width="85" height="85"
                                          title="{{ user.get_full_name }}"
                                          onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                         alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                         alt="{% trans "Photo of" %} {{ user.get_full_name }}"/>
                                 </span>
 
                                 <label  for="{{ form.avatar.auto_id }}"
@@ -251,7 +251,7 @@
 
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans "Your experience with a bike" %}</span>
+                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans "Your experience as a cyclist" %}</span>
                                 </label>
 
                                 {% for value,label in form.ride_experience.field.choices %}

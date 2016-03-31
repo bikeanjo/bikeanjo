@@ -35,13 +35,13 @@
                     <li><a href="{% url 'dashboard_event_list' %}">
                         {% trans "Events" %}</a></li>
                     <li><a href="{% url 'tips_list' %}">
-                        {% trans "Tips for cycling" %}</a></li>
+                        {% trans "Cycling tips" %}</a></li>
                 </ul>
             </li>
 
             {% get_flatpages '/support/' as support_pages %}
             {% if support_pages %}
-            <li><a href="#">{% trans "Support" %}</a>
+            <li><a href="#">{% trans "Support us" %}</a>
                 <ul class="list-unstyled">
                     {% for page in support_pages %}
                         <li><a href="{{page.url}}">{{page.title}}</a></li>

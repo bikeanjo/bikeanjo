@@ -1,15 +1,15 @@
 {% load i18n %}
 {% trans "Hello" %} {{ recipient.first_name }},
 
-{% trans "Unfortunately we could not find someone to help you on Bike Anjo. This can happen if there is no Bike Anjo Volunteers available close to you, or if they are overloaded" %}.
+{% trans "Unfortunately we could not find someone to help you at Bike Anjo. This can happen if there is no bike anjos available close to you or if they are overloaded." %}.
 
-% trans "We will keep looking, now you can" %}
+% trans "We will keep looking, but in the meanwhile you can" %}
 
 * {% trans "Check out our cycling tips" %} (http://{{ site.domain }}{% url 'tips_list' %})
-* {% trans "Reorder in another region" %} (http://{{ site.domain }}{% url 'requester_help_request' %})
+* {% trans "Redo your request in another region" %} (http://{{ site.domain }}{% url 'requester_help_request' %})
 
 
-{% trans "See on" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
 {% trans "Best regards" %},
-{% trans "Bikeanjo team" %}
+{% trans "Bike Anjo team" %}

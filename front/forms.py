@@ -27,7 +27,7 @@ from emailqueue.notificationsqueue import (
 
 
 class TrackForm(forms.Form):
-    tracks = forms.CharField(label=_('Tracks'),
+    tracks = forms.CharField(label=_('Routes'),
                              widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                              required=False)
 
@@ -186,7 +186,7 @@ class SignupForm(forms.ModelForm):
         email2 = self.cleaned_data.get('email2')
 
         if email != email2:
-            raise forms.ValidationError(_('The informed emails are different.'))
+            raise forms.ValidationError(_('The e-mails informed are different.'))
         return email
 
     def clean_first_name(self):
@@ -196,7 +196,7 @@ class SignupForm(forms.ModelForm):
         if first_name:
             return first_name
 
-        raise forms.ValidationError(_('Nome inválido'))
+        raise forms.ValidationError(_('Invalid name'))
 
     def clean_last_name(self):
         full_name = self.cleaned_data.get('full_name', '')
@@ -206,7 +206,7 @@ class SignupForm(forms.ModelForm):
         if last_name.strip():
             return last_name
 
-        raise forms.ValidationError(_('Nome inválido'))
+        raise forms.ValidationError(_('Invalid name'))
 
     def signup(self, request, user):
         full_name = self.cleaned_data['full_name'].split(' ')
@@ -228,7 +228,7 @@ class SignupForm(forms.ModelForm):
 
 class SignupBikeanjoForm(forms.ModelForm):
     gender = forms.CharField(label=_('Gender'))
-    birthday = forms.DateField(label=_('Birthday'))
+    birthday = forms.DateField(label=_('Date of birth'))
     ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.BIKEANJO_EXPERIENCE)
     bike_use = forms.ChoiceField(label=_('Bike user'), choices=models.BIKE_USE)
     initiatives = forms.CharField(label=_('Initiatives'), required=False, max_length=256)
@@ -240,7 +240,7 @@ class SignupBikeanjoForm(forms.ModelForm):
 
 class SignupRequesterForm(forms.ModelForm):
     gender = forms.CharField(label=_('Gender'))
-    birthday = forms.DateField(label=_('Birthday'))
+    birthday = forms.DateField(label=_('Date of birth'))
     ride_experience = forms.ChoiceField(choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
@@ -331,7 +331,7 @@ class HelpRequestForm(forms.ModelForm):
 
 # Part 2.1
 class HelpRequestRouteForm(forms.Form):
-    track = forms.CharField(label=_('Track'),
+    track = forms.CharField(label=_('Route'),
                             widget=forms.HiddenInput(attrs={'bikeanjo-geojson': 'lines'}),
                             required=False)
 
@@ -431,8 +431,8 @@ class HelpRequestCompleteForm(forms.ModelForm):
 
 
 class HelpRequestUpdateForm(forms.ModelForm):
-    requester_rating = forms.IntegerField(label=_('Requester rating'), required=False)
-    requester_eval = forms.CharField(label=_('Requester evaluation'), required=False)
+    requester_rating = forms.IntegerField(label=_('New cyclist rating'), required=False)
+    requester_eval = forms.CharField(label=_('New cyclist evaluation'), required=False)
     reason = forms.CharField(label=_('Reason'), widget=forms.HiddenInput, required=False)
 
     def save(self, **kwargs):

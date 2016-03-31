@@ -30,12 +30,12 @@
                                  width="45" height="45"
                                  title="{{ user.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                 alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                 alt="{% trans "Photo of" %} {{ user.get_full_name }}"/>
                         </span>
                         {% firstof user.first_name user.username %}
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{% url 'cyclist_dashboard' %}">{% trans "Panel" %}</a></li>
+                            <li><a href="{% url 'cyclist_dashboard' %}">{% trans "Dashboard" %}</a></li>
                             <li><a href="{% url 'cyclist_my_requests' %}">
                                 {% trans "My requests" %}
                                 {% if unread.requests.exists %}
@@ -52,14 +52,14 @@
                             <li><a href="{% url 'user_register' %}">
                                 {% trans "Edit profile" %}</a></li>
                             <li><a href="{% url 'tips_list' user.role %}">
-                                {% trans "Tips for cycling" %}</a></li>
+                                {% trans "Cycling tips" %}</a></li>
 
                             {% if user.role = 'requester' %}
                             <li><a href="#" data-toggle="modal" data-target="#becomebikeanjoModal">
-                                {% trans "I want to be Bike Anjo" %}</a></li>
+                                {% trans "I want to be a Bike Anjo" %}</a></li>
                             {% endif %}
 
-                            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
+                            <li><a href="{% url 'account_logout' %}">{% trans "Log out" %}</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -93,7 +93,7 @@
                             <li><a href="{% url 'dashboard_event_list' %}">
                                 {% trans "Events" %}</a></li>
                             <li><a href="{% url 'tips_list' %}">
-                                {% trans "Tips for cycling" %}</a></li>
+                                {% trans "Cycling tips" %}</a></li>
                         </ul>
                     </li>
                     {% endif %}
@@ -102,7 +102,7 @@
                     {% if support_pages %}
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                           aria-expanded="false">{% trans "Support" %}
+                           aria-expanded="false">{% trans "Support us" %}
                         <i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             {% for page in support_pages %}
@@ -130,7 +130,7 @@
                 <a href="{% url 'account_login' %}" class="btn btn-primary">{% trans "Sign in" %}</a>
                 {% elif user.role == 'requester' %}
                 <a href="{% url 'requester_help_request' %}" class="visible-xs-block visible-sm-block btn btn-primary">
-                    {% trans "Get help to go cycling" %}</a>
+                    {% trans "Get help to ride a bike" %}</a>
                 {% endif %}
             </div>
         </nav><!--/.navbar-collapse -->

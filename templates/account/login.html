@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label class="primary-label" for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
-                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value|default:'' }}" placeholder="{% trans 'E-Mail' %}" tabindex="1">
+                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value|default:'' }}" placeholder="{% trans 'E-mail' %}" tabindex="1">
                     <i class="fa fa-envelope form-control-icon"></i>
                     <i class="fa fa-times form-control-feedback"></i>
                     {% if form.login.errors %}
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label class="primary-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
 
-                    <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                    <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot your password?" %}</a>
 
                     <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value|default:'' }}" placeholder="{% trans 'Password' %}" tabindex="2" />
                     <i class="fa fa-lock form-control-icon"></i>
@@ -73,10 +73,10 @@
 
             <button class="send-form btn btn-primary btn-block btn-lg primaryAction" type="submit" tabindex="3">{% trans "Sign In" %}</button>
 
-            <p class="create-account">{% trans "Doesn't have an account?" %} <a href="{{ signup_url }}">{% trans "Sign up" %}</a></p>
+            <p class="create-account">{% trans "Still don't have an account?" %} <a href="{{ signup_url }}">{% trans "Sign up" %}</a></p>
         </form>
 
-        <p class="questions"><a href="{% url 'contact_view' %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+        <p class="questions"><a href="{% url 'contact_view' %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 
     </section>
 

@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup agreement" %}{% endblock %}
+{% block head_title %}{% trans "Terms and Conditions" %}{% endblock %}
 
 {% block content %}
     <section class="forms signup container">
@@ -48,7 +48,7 @@
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 
     </section>
 {% endblock %}

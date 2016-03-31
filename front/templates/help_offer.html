@@ -11,14 +11,14 @@
 {% block content %}
 <div class="container">
     <div class="col-sm-12">
-        <h2>{% trans "Track" %}</h2>
+        <h2>{% trans "Route" %}</h2>
 
         <form class="form-horizontal" method="post">
             {% csrf_token %}
 
             <div id="js-map" class="form-group" style="min-height: 300px;"></div>
 
-            <p>{% blocktrans %}Type the addresses that you use to ride, type 'Enter' to see the address on map and confirm pressing 'Add address' button{% endblocktrans %}</p>
+            <p>{% blocktrans %}Type the address where you usually ride, click 'Enter' to see the address on the map and confirm by clicking on the 'Add address' button{% endblocktrans %}</p>
 
             <ol id="js-addresses"></ol>
 
