@@ -15,8 +15,8 @@
             <select class="form-control input-lg" name="city" onchange="this.parentElement.submit()">
                 <option>{% trans "Filter by city" %}</option>
                 {% for city in cities %}
-                <option value="{{ city }}"
-                        {% if request.GET.city = city %}selected="selected"{% endif %}>{{ city }}</option>
+                <option value="{{ city.name }}"
+                        {% if request.GET.city = city %}selected="selected"{% endif %}>{{ city.name }}</option>
                 {% endfor %}
             </select>
         </form>

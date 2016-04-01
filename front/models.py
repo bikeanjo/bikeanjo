@@ -368,7 +368,8 @@ class Event(BaseModel):
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
     date = models.DateTimeField(_('Date'))
-    city = models.CharField(_('City'), max_length='64')
+    v1_city = models.CharField(_('City'), max_length='64', editable=False, blank=True)
+    city = models.ForeignKey(City, null=True)
     address = models.CharField(_('Address'), max_length='128', blank=True)
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
     subscription_link = models.CharField(_('Link'), max_length='255', blank=True)
@@ -405,10 +406,10 @@ class Event(BaseModel):
         ld['location'] = OrderedDict()
         ld['location']["@type"] = "Place"
 
-        ld['location']['name'] = self.city or ""
+        ld['location']['name'] = getattr(self.city, 'name', '')
         ld['location']['address'] = OrderedDict()
         ld['location']['address']["@type"] = "PostalAddress"
-        ld['location']['address']['addressLocality'] = self.city or ""
+        ld['location']['address']['addressLocality'] = getattr(self.city, 'name', '')
 
         if self.address:
             ld['location']['address']['streetAddress'] = self.address

@@ -24,6 +24,7 @@ import forms
 import models
 
 import cyclists.models
+import cities.models
 from notifications import notify_admins_about_new_contact_message, notify_user_subscribed_in_newsletter
 
 
@@ -145,7 +146,7 @@ class DashBoardView(DashboardMixin, TemplateView):
     def get_event_list(self):
         user = self.request.user
 
-        event_list = models.Event.objects.filter(city=user.v1_city, date__gte=timezone.now())
+        event_list = models.Event.objects.filter(city=user.city, date__gte=timezone.now())
         setattr(event_list, 'near', True)
 
         if not event_list.exists():
@@ -403,10 +404,10 @@ class EventListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
         context['categories'] = models.Category.objects.all()
-        context['cities'] = models.Event.objects\
-                                        .order_by('city')\
-                                        .distinct('city')\
-                                        .values_list('city', flat=True)
+        context['cities'] = cities.models.City.objects \
+                                              .filter(event__isnull=False) \
+                                              .distinct() \
+                                              .order_by('name')
         return context
 
     def get_queryset(self):
@@ -414,10 +415,11 @@ class EventListView(ListView):
 
         filters = {}
         for f in self.request.GET.keys():
-            if f in ['category', 'city']:
+            f = map(lambda k: 'city__name' if k == 'city' else k, f)
+            if f in ['category', 'city__name']:
                 filters[f] = self.request.GET.get(f, '')
 
-        qs = qs.filter(**filters).order_by('-id')
+        qs = qs.filter(**filters).order_by('date', '-id')
         return qs
 
 

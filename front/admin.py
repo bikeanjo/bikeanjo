@@ -183,6 +183,11 @@ class EventAdmin(TranslationAdminMedia):
     search_fields = ('title', 'address', 'content')
     prepopulated_fields = {"slug": ("title",)}
 
+    def get_form(self, *argz, **kwargz):
+        form = super(EventAdmin, self).get_form(*argz, **kwargz)
+        form.base_fields['city'].widget = autocomplete.ModelSelect2(url='ac_city')
+        return form
+
 
 admin.site.unregister(FlatPage)
 
