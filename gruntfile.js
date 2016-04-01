@@ -47,6 +47,13 @@ module.exports = function (grunt) {
                     ],
                 },
             },
+            vendor_admin: {
+                files: {
+                    'static/js/vendor_admin.js': [
+                        'bower_components/jquery.browser/dist/jquery.browser.js'
+                    ],
+                },
+            },
             main: {
                 files: {
                     'static/js/main.js': [

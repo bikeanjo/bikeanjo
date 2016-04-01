@@ -20,6 +20,9 @@ admin.site.index_title = _('Site Admin')
 
 @admin.register(models.Track)
 class TrackAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('created_date', 'user_name', 'start', 'end', 'track',)
     list_filter = ('created_date', 'user__role')
     search_fields = ('user__first_name', 'user__last_name', 'start', 'end')
@@ -36,6 +39,9 @@ class TrackAdmin(admin.ModelAdmin):
 
 @admin.register(models.Point)
 class PointAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('created_date', 'address', 'coords',)
     list_filter = ('created_date', 'user__role')
     search_fields = ('user__first_name', 'user__last_name', 'address')
@@ -51,6 +57,9 @@ class PointAdmin(admin.ModelAdmin):
 
 
 class HelpReplyInline(admin.TabularInline):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     extra = 0
     model = models.HelpReply
     ordering = ['id']
@@ -59,6 +68,9 @@ class HelpReplyInline(admin.TabularInline):
 
 @admin.register(models.HelpRequest)
 class HelpRequestAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     inlines = [HelpReplyInline]
     search_fields = ('requester__first_name', 'requester__last_name',
                      'bikeanjo__first_name', 'bikeanjo__last_name',
@@ -88,6 +100,7 @@ class HelpRequestAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin):
     class Media:
         js = (
+            'js/vendor_admin.js',
             'modeltranslation/js/force_jquery.js',
         )
 
@@ -108,11 +121,17 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('name',)
 
 
 @admin.register(models.Testimony)
 class TestimonyAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('created_date', 'author_name', 'message',)
     list_filter = ('created_date',)
     search_fields = ('author__first_name', 'author__last_name', 'message',)
@@ -178,6 +197,12 @@ class TranslationAdminMedia(TranslationAdmin):
 
 @admin.register(models.Event)
 class EventAdmin(TranslationAdminMedia):
+    class Media:
+        js = (
+            'js/vendor_admin.js',
+            'modeltranslation/js/force_jquery.js',
+        )
+
     list_display = ('title', 'date', 'address',)
     list_filter = ('created_date', 'date',)
     search_fields = ('title', 'address', 'content')
@@ -194,6 +219,9 @@ admin.site.unregister(FlatPage)
 
 @admin.register(FlatPage)
 class FlatPageAdmin(TranslationAdminMedia):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('url', 'title')
     list_filter = ('sites', 'enable_comments', 'registration_required')
     search_fields = ('url', 'title')
@@ -201,6 +229,9 @@ class FlatPageAdmin(TranslationAdminMedia):
 
 @admin.register(models.TipForCycling)
 class TipAdmin(TranslationAdminMedia):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('title', 'target', 'created_date',)
     list_filter = ('created_date', 'target',)
     search_fields = ('title', 'content',)

@@ -369,7 +369,7 @@ class Event(BaseModel):
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
     date = models.DateTimeField(_('Date'))
     v1_city = models.CharField(_('City'), max_length='64', editable=False, blank=True)
-    city = models.ForeignKey(City, null=True)
+    city = models.ForeignKey(City, null=True, blank=True)
     address = models.CharField(_('Address'), max_length='128', blank=True)
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
     subscription_link = models.CharField(_('Link'), max_length='255', blank=True)
