@@ -3,13 +3,13 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block content %}
 <section class="forms signup container">
     <header>
         <h2>{% trans "How can we help?" %}</h2>
-        <p>{% trans "Choose an option which you need help" %}</p>
+        <p>{% trans "Choose the option in which we can help you with" %}</p>
     </header>
 
     <form class="signup card" id="signup_form" method="post">
@@ -28,6 +28,6 @@
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %} <b>{% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

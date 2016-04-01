@@ -3,13 +3,13 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block content %}
 <section class="forms signup container">
     <header>
         <h2>{% trans "Just a bit more info" %}</h2>
-        <p>{% trans "We need a little more information about you in order make a full experience" %}</p>
+        <p>{% trans "We need just a little more information about you in order to complete your registration" %}</p>
     </header>
 
     <form class="signup card" id="signup_form" method="post">
@@ -124,7 +124,7 @@
 
         <div class="form-group">
             <label class="primary-label">
-                <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
+                <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long do you ride a bike?' %}</span>
             </label>
 
             {% for value,label in form.ride_experience.field.choices %}
@@ -145,7 +145,7 @@
 
         <div class="form-group">
             <label class="primary-label">
-                <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use the bicycle as a means of transportation?' %}</span>
+                <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use a bike to commute?' %}</span>
             </label>
 
             {% for value,label in form.bike_use.field.choices %}
@@ -165,7 +165,7 @@
         </div>
 
         <div class="form-group">
-            <label class="primary-label" for="participate">{% trans "Do you take part of any cycling initiative?" %}</label>
+            <label class="primary-label" for="participate">{% trans "Are you part of any cycling initiative?" %}</label>
             <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
                 placeholder="{% trans 'Describe your participation here' %}">
                 {{ form.initiatives.value|default:'' }}
@@ -182,6 +182,6 @@
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Question?" %}<b> {% trans "Contact us!" %}</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %}<b> {% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

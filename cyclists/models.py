@@ -16,23 +16,23 @@ GENDER = (
 )
 
 CYCLIST_ROLES = (
-    ('bikeanjo', _('Bikeanjo')),
-    ('requester', _('Requester')),
+    ('bikeanjo', _('Bike Anjo')),
+    ('requester', _('New cyclist')),
 )
 
 
 HELP_OFFER = (
-    (1, _('Teach someone to ride a bike')),  # Ensinando alguém a pedalar
-    (2, _('Follow beginners on cycling')),  # Acompanhando iniciantes nas pedaladas
-    (4, _('Advice about safe routes')),  # Recomendando rotas mais seguras
-    (8, _('Participating in the events of Bike Anjos')),  # Participando dos eventos dos Bikes Anjos
+    (1, _('Teach someone how to ride a bike')),  # Ensinando alguém a pedalar
+    (2, _('Follow beginners on their ride')),  # Acompanhando iniciantes nas pedaladas
+    (4, _('Suggest safe routes')),  # Recomendando rotas mais seguras
+    (8, _('Participate of Bike Anjo events')),  # Participando dos eventos dos Bikes Anjos
 )
 
 HELP_REQUEST = (
     (1, _('Learn to ride a bike')),  # Aprender a pedalar
-    (2, _('Pratice cycling')),  # Praticar pedaladas
-    (4, _('Route recomendation')),  # Recomendar rota
-    (8, _('Monitoring on traffic')),  # Acompanhamento no trânsito
+    (2, _('Pratice riding')),  # Praticar pedaladas
+    (4, _('Route recommendation')),  # Recomendar rota
+    (8, _('Commute together')),  # Acompanhamento no trânsito
 )
 
 HELP = HELP_OFFER + HELP_REQUEST
@@ -45,19 +45,19 @@ BIKEANJO_EXPERIENCE = (
 )
 
 REQUESTER_EXPERIENCE = (
-    ('do not know pedaling yet', _('I do not know pedaling yet')),
-    ('no experience in traffic', _('I know cycling, but have no experience in traffic')),
-    ('already ride a long time', _('Already ride a long time but not daily')),
-    ('use bike almost every day', _('I use bike almost every day')),
+    ('do not know pedaling yet', _('I still don\'t know how to ride a bike')),
+    ('no experience in traffic', _('I know how to ride a bike, but have not traffic experience')),
+    ('already ride a long time', _('I bike for many years now, but not on a daily basis')),
+    ('use bike almost every day', _('I ride my bike almost every day')),
 )
 
 EXPERIENCE = BIKEANJO_EXPERIENCE + REQUESTER_EXPERIENCE
 
 BIKE_USE = (
     ('everyday', _('Everyday'),),
-    ('just few days a week/month', _('Just few days a week/month'),),
+    ('just few days a week/month', _('Only a few days per week/month'),),
     ('once a week', _('Once a week'),),
-    ('no, i use for leisure', _('No, I use for leisure'),),
+    ('no, i use for leisure', _('I only use my bike for leisure or on weekends'),),
 )
 
 
@@ -99,13 +99,13 @@ class User(AbstractUser):
     country = models.ForeignKey(Country, null=True)
 
     gender = models.CharField(_('Gender'), max_length=24, blank=True)
-    birthday = models.DateField(_('Birthday'), default=date.today, null=True)
+    birthday = models.DateField(_('Date of birth'), default=date.today, null=True)
     ride_experience = models.CharField(_('Ride experience'), choices=EXPERIENCE, max_length=32, blank=True)
     bike_use = models.CharField(_('Bike use'), choices=BIKE_USE, max_length=32, blank=True)
     help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP
     initiatives = models.TextField(blank=True)
     role = models.CharField(_('Role'), choices=CYCLIST_ROLES, max_length=32, blank=True)
-    accepted_agreement = models.BooleanField(_('Accepted agreement'), default=False)
+    accepted_agreement = models.BooleanField(_('Accepted Terms of Use'), default=False)
     available = models.BooleanField(_('Available'), default=True)
 
     language = models.CharField(_('Language'), max_length=8, choices=LANGUAGES, default=LANGUAGES[0][0])
@@ -144,15 +144,15 @@ class RequesterManager(models.Manager):
 
 class Bikeanjo(User):
     class Meta:
-        verbose_name = _('Bikeanjo')
-        verbose_name_plural = _('Bikeanjos')
+        verbose_name = _('Bike Anjo')
+        verbose_name_plural = _('Bike anjos')
         proxy = True
     objects = BikeanjoManager()
 
 
 class Requester(User):
     class Meta:
-        verbose_name = _('Requester')
-        verbose_name_plural = _('Requesters')
+        verbose_name = _('New cyclist')
+        verbose_name_plural = _('New cyclists')
         proxy = True
     objects = RequesterManager()

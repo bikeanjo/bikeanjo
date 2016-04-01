@@ -2,6 +2,7 @@ diff-match-patch==20121119
 dj-database-url==0.3.0
 Django==1.8.2
 django-allauth==0.19.1
+django-autocomplete-light==3.1.5
 django-braces==1.4.0
 django-crispy-forms==1.4.0
 django-db-mailer==2.1.0
@@ -17,7 +18,7 @@ django-pipeline==1.4.2
 django-polymorphic==0.7.1
 django-rosetta==0.7.6
 django-sitetree==1.4.0
-django-suit==0.2.13
+django-suit==0.2.18
 djangorestframework==3.1.2
 djrill==1.4.0
 easy-thumbnails==2.2

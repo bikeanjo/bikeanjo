@@ -63,6 +63,8 @@ INSTALLED_APPS = (
     'djrill',
     'import_export',
     'rest_framework',
+    'dal',
+    'dal_select2',
     'cities',
     'cyclists',
     'front',

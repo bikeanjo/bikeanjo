@@ -104,7 +104,11 @@ class DashboardMixin(RegisteredUserMixin):
         user = self.request.user
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
-            'messages': models.Message.objects.exclude(readed_by__user=user) .filter(created_date__gt=user.date_joined),
+            'messages': models.Message.objects.exclude(readed_by__user=user)
+                                      .filter(Q(target_roles='all') | Q(target_roles=user.role))
+                                      .filter(Q(target_city__isnull=True) | Q(target_city=user.city))
+                                      .filter(Q(target_country__isnull=True) | Q(target_country=user.country))
+                                      .filter(created_date__gt=user.date_joined),
         }
 
         if user.role == 'bikeanjo':
@@ -359,6 +363,9 @@ class MessageListView(DashboardMixin, ListView):
         user = self.request.user
         qs = models.Message.objects\
                    .filter(id__gt=0, created_date__gt=user.date_joined)\
+                   .filter(Q(target_roles='all') | Q(target_roles=user.role))\
+                   .filter(Q(target_city__isnull=True) | Q(target_city=user.city))\
+                   .filter(Q(target_country__isnull=True) | Q(target_country=user.country))\
                    .extra(select={'was_read': 'front_readedmessage.user_id'})
         join = Join(
             models.ReadedMessage._meta.db_table,

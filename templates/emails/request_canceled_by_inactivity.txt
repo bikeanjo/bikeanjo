@@ -1,11 +1,11 @@
 {% load i18n %}
 {% trans "Hello" %} {{ recipient.first_name }},
 
-{% trans "was cancelled because of lack of interaction or another reason. See how we can help you" %}
+{% trans "was cancelled because there was no answer or another reason. See how we can help you" %}
 
 * {% trans "Answer the message and reactivate request" %} (http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %})
 * {% trans "Make a new request" %} (http://{{ site.domain }}{% url 'requester_help_request' %})
 * {% trans "Cycling tips" %} (http://{{ site.domain }}{% url 'tips_list' %})
 
 {% trans "Best regards" %},
-{% trans "Bikeanjo team" %}
+{% trans "Bike Anjo team" %}

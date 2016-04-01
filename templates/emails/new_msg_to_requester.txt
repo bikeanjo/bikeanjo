@@ -5,7 +5,7 @@
 
 {% trans "Request" %}: {{ helprequest.get_help_label }}
 
-{% trans "See on" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
 {% trans "Best regards" %},
-{% trans "Bikeanjo team" %}
+{% trans "Bike Anjo team" %}
