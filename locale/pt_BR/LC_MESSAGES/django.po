@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-17 12:53-0300\n"
-"PO-Revision-Date: 2016-03-19 11:10-0300\n"
+"PO-Revision-Date: 2016-03-22 13:10-0300\n"
 "Last-Translator: Luive Osiano <losiano@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -61,7 +61,7 @@ msgstr "Status"
 #: cities/models.py:33 cyclists/models.py:91 front/forms.py:159
 #: front/models.py:362
 msgid "City"
-msgstr "Cidade"
+msgstr "Ciudad"
 
 #: cities/models.py:34 front/templates/home.html:36
 msgid "Cities"
@@ -1173,8 +1173,8 @@ msgstr "Clicar no link do e-mail enviado"
 #: templates/account/password_reset_done.html:24
 msgid "You are being redirected to the reset password page"
 msgstr ""
-"Você será redirecionado para um link em nosso site onde deverá definir sua "
-" nova senha"
+"Você será redirecionado para um link em nosso site onde deverá definir sua  "
+"nova senha"
 
 #: templates/account/password_reset_from_key.html:11
 msgid "Reset your password?"
