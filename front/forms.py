@@ -217,6 +217,7 @@ class SignupForm(forms.ModelForm):
             user.city_alias = self.cleaned_data.get('city_alias')
             user.city = user.city_alias.city
         user.country = self.cleaned_data['country']
+        user.language = self.cleaned_data.get('language', get_language())
 
         user.save()
 
