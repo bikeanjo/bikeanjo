@@ -58,6 +58,13 @@ upgrade: clean
 	${PYTHON} manage.py compilemessages
 	${GRUNT} all
 
+messages:
+	${PYTHON} manage.py makemessages -d django --all\
+		--ignore=node_modules\
+		--ignore=bower_components\
+		--ignore=local_data\
+		--ignore=data
+
 resetdb:
 	test "${ACCIDENT}" = "no"
 	psql -Upostgres -h127.0.0.1 postgres -c 'drop database bikeanjo;'
