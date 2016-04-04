@@ -10,7 +10,7 @@
                 <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">
                     {% trans "I need help to ride a bike" %}</a>
                 <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success" role="button">
-                {% trans "I'm an experienced cyclist and want to help" %}</a>
+                {% trans "I ride a bike and want to help" %}</a>
             </p>
         </div>
     </section>
@@ -71,7 +71,7 @@
     <section class="how-it-works container">
         <header>
             <h2>{% trans "How it works?" %}</h2>
-            <p>{% trans "We are a community of volunteers cyclists passionate about to use a bike to commute" %}</p>
+            <p>{% trans "We are a community of passionate cyclists who help out new cyclists voluntarily" %}</p>
         </header>
         <div class="row">
             <div class="ask-help box col-md-4">
@@ -159,11 +159,11 @@
 
                     <div class="form-group">
                         <input type="email"
-                               placeholder="Digite seu e-mail"
+                               placeholder="{% trans "Digite seu e-mail"}"
                                class="form-control"
                                name="{{form.email.html_name}}"
                                value="{{form.email.value|default:''}}">
-                        <input type="submit" class="btn btn-info btn-lg" value="Enviar">
+                        <input type="submit" class="btn btn-info btn-lg" value="{% trans "Send" %}">
                     </div>
                 </form>
             </div>

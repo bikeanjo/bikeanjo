@@ -670,7 +670,7 @@ msgid "I need help to ride a bike"
 msgstr "Quero ajuda para pedalar"
 
 #: front/templates/home.html:13 templates/signup_define_role.html:15
-msgid "I'm an experienced cyclist and want to help"
+msgid "I ride a bike and want to help"
 msgstr "Já pedalo e quero ajudar"
 
 #: front/templates/home.html:21
@@ -690,7 +690,7 @@ msgid "How it works?"
 msgstr "Como funciona nossa plataforma?"
 
 #: front/templates/home.html:74
-msgid "We are a community of volunteers cyclists passionate about to use a bike to commute"
+msgid "We are a community of passionate cyclists who help out new cyclists voluntarily"
 msgstr "Somos uma comunidade de ciclistas voluntários apaixonados pelo seu meio de transporte"
 
 #: front/templates/home.html:79
@@ -768,6 +768,10 @@ msgstr "Receba as novidades"
 #: front/templates/home.html:155
 msgid "Be informed of all our news"
 msgstr "Fique por dentro de todas nossas novidades"
+
+#: front/templates/home.html:162
+msgid "Type your email"
+msgstr "Digite seu e-mail"
 
 #: front/views.py:183
 msgid "Your information has been updated!"
