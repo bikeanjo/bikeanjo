@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-04 11:26-0300\n"
+"POT-Creation-Date: 2016-04-04 14:19-0300\n"
 "PO-Revision-Date: 2016-03-20 18:35-0300\n"
 "Last-Translator: Luive Osiano <losiano@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -812,6 +812,14 @@ msgstr "Reciba novedades"
 msgid "Be informed of all our news"
 msgstr "Entérate de todas nuestras novedades"
 
+#: front/templates/home.html:162 templates/_signup_inner_form.html:62
+#: templates/account/password_reset.html:22
+#: templates/bikeanjo_dashboard_userinfo.html:65 templates/contact_form.html:49
+#: templates/contact_form.html.py:81
+#: templates/requester_dashboard_userinfo.html:70
+msgid "Type your e-mail"
+msgstr "Escribe tu e-mail"
+
 #: front/templates/home.html:166 templates/_dashboard_sidebar.html:28
 #: templates/_dashboard_sidebar.html:30
 #: templates/bikeanjo_dashboard_request.html:134
@@ -971,14 +979,6 @@ msgstr "o crea tu cuenta con tu e-mail"
 msgid "Your full name"
 msgstr "Tu nombre completo"
 
-#: templates/_signup_inner_form.html:62
-#: templates/account/password_reset.html:22
-#: templates/bikeanjo_dashboard_userinfo.html:65 templates/contact_form.html:49
-#: templates/contact_form.html.py:81
-#: templates/requester_dashboard_userinfo.html:70
-msgid "Type your e-mail"
-msgstr "Escribe tu e-mail"
-
 #: templates/_signup_inner_form.html:76
 msgid "Type your e-mail address again"
 msgstr "Escribe nuevamente tu e-mail"
@@ -1036,7 +1036,7 @@ msgstr "¿Tienes una cuenta creada?"
 #: templates/requester_ask_help_points.html:53
 #: templates/requester_ask_help_route.html:55
 #: templates/requester_complete_signup.html:151
-#: templates/requester_signup_terms.html:71
+#: templates/requester_signup_terms.html:70
 #: templates/signup_define_role.html:22
 #: templates/subscription_confirmed.html:23
 msgid "Any Trouble or Questions?"
@@ -1053,7 +1053,7 @@ msgstr "¿Alguna duda o pregunta?"
 #: templates/requester_ask_help_points.html:53
 #: templates/requester_ask_help_route.html:55
 #: templates/requester_complete_signup.html:151
-#: templates/requester_signup_terms.html:72
+#: templates/requester_signup_terms.html:71
 #: templates/signup_define_role.html:22
 #: templates/subscription_confirmed.html:23
 msgid "Contact us!"
@@ -1600,6 +1600,40 @@ msgstr "Solo algo más"
 #: templates/bikeanjo_signup_terms.html:11
 msgid "Accept the Terms and Conditions"
 msgstr "Aceptar los Términos y Condiciones"
+
+#: templates/bikeanjo_signup_terms.html:21
+msgid ""
+"Entendo que os atendimentos realizados por mim como bike anjo devem ser "
+"gratuitos, não cabendo remuneração a título de contraprestação, nem havendo "
+"vínculo trabalhista ou qualquer outro."
+msgstr ""
+
+#: templates/bikeanjo_signup_terms.html:28
+msgid ""
+"Eu aceito os riscos (positivos ou negativos) associados a me encontrar com "
+"estranhos. Eu entendo que o Bike Anjo não seleciona os solicitantes que se "
+"cadastram nesta plataforma, portanto concordo em tomar as precauções "
+"sensatas, como faria encontrando qualquer nova pessoa por uma plataforma "
+"virtual, por exemplo marcando o primeiro encontro em um espaço público "
+"seguro."
+msgstr ""
+
+#: templates/bikeanjo_signup_terms.html:35
+msgid ""
+"Estou de acordo de que a minha segurança ao pedalar é de minha própria "
+"responsabilidade a todo o tempo, compreendendo os riscos envolvidos. "
+"Concordo em repassar essa segurança e conforto aos que solicitarem a minha "
+"ajuda como bike anjo."
+msgstr ""
+
+#: templates/bikeanjo_signup_terms.html:42
+msgid ""
+"Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos "
+"materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que "
+"venham a ser causados a mim ou aos meus bens enquanto trafego durante meus "
+"atendimentos como bike anjo, bem como posteriormente, quando estiver "
+"pedalando pelas vias autonomamente ou com outrem."
+msgstr ""
 
 #: templates/bikeanjo_signup_terms.html:47
 msgid "Accept"
@@ -2179,7 +2213,7 @@ msgid "Additional information and request specifications"
 msgstr "Información adicional o condiciones de la solicitud"
 
 #: templates/requester_ask_help_message.html:35
-#: templates/requester_signup_terms.html:67
+#: templates/requester_signup_terms.html:66
 msgid "Send request"
 msgstr "Enviar solicitud"
 
@@ -2341,6 +2375,40 @@ msgstr ""
 "\n"
 "silvia ballan traduz: Escriba abajo información adicional de su solicitud y "
 "acepte los Términos y Condiciones"
+
+#: templates/requester_signup_terms.html:35
+msgid ""
+"Declaro ser de minha livre e espontânea vontade utilizar a bicicleta estando "
+"apto(a) física e psicologicamente para tomar esta decisão, além de consultar "
+"as recomendações, direitos e deveres como ciclista, para, sozinho(a), "
+"utilizar a bicicleta, antes ou após a interação com meu bike anjo."
+msgstr ""
+
+#: templates/requester_signup_terms.html:44
+msgid ""
+"Declaro que seguirei as recomendações do instrutor para garantir a minha "
+"segurança durante a prática e assumirei uma conduta responsável para me "
+"precaver de qualquer acidente."
+msgstr ""
+
+#: templates/requester_signup_terms.html:53
+msgid ""
+"Eu aceito os riscos (positivos e negativos) associados a me encontrar com "
+"estranhos. Eu entendo que o Bike Anjo não conhece pessoalmente todos os "
+"membros que se cadastram nesta plataforma, portanto concordo em tomar as "
+"precauções sensatas, como faria encontrando qualquer nova pessoa por uma "
+"plataforma virtual, por exemplo marcando o primeiro encontro em um espaço "
+"público seguro."
+msgstr ""
+
+#: templates/requester_signup_terms.html:61
+msgid ""
+"Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos "
+"materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que "
+"venham a ser causados a mim ou aos meus bens enquanto trafego durante minha "
+"preparação, bem como posteriormente à minha formação, quando estiver "
+"pedalando pela vias autonomamente ou com outrem."
+msgstr ""
 
 #: templates/signup_define_role.html:7
 msgid "Be part of this community"
