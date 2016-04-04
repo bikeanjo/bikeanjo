@@ -363,9 +363,9 @@ class Event(BaseModel):
         ordering = ['-created_date']
 
     site = models.ForeignKey(Site, default=default_to_first_site)
-    title = models.CharField(_('Title'), max_length=128)
+    title = models.CharField(_('Title'), max_length=128, blank=True)
     slug = models.SlugField(_('Slug'), max_length=128)
-    content = models.TextField(_('Content'))
+    content = models.TextField(_('Content'), blank=True)
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
     date = models.DateTimeField(_('Date'))
     v1_city = models.CharField(_('City'), max_length='64', editable=False, blank=True)
@@ -475,8 +475,8 @@ class TipForCycling(BaseModel):
         verbose_name = _('Cycling tip')
         verbose_name_plural = _('Cycling tips')
 
-    title = models.CharField(_('Title'), max_length=128)
-    content = models.TextField(_('Content'))
+    title = models.CharField(_('Title'), max_length=128, blank=True)
+    content = models.TextField(_('Content'), blank=True)
     image = models.ImageField(_('Image'), upload_to='tips', null=True, blank=True)
     link = models.CharField(_('Link'), max_length='255', blank=True)
     target = models.CharField(_('Target'), choices=TARGETS, default=TARGETS[0][0], max_length=16)

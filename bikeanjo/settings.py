@@ -219,6 +219,13 @@ FORMAT_MODULE_PATH = [
     'bikeanjo.formats',
 ]
 
+MODELTRANSLATION_AUTO_POPULATE = True
+MODELTRANSLATION_FALLBACK_LANGUAGES = {
+    'default': ('es', 'en',),
+    'en': ('pt-br', 'es'),
+    'es': ('pt-br', 'en')
+}
+
 try:
     from .settings_local import *
 except ImportError:
