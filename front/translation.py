@@ -1,5 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions
-from front.models import (Event, TipForCycling)
+from front.models import (Event, TipForCycling, Testimony)
 from django.contrib.flatpages.models import FlatPage
 
 
@@ -22,3 +22,9 @@ class TipForCyclingTranslationOptions(TranslationOptions):
 
 
 translator.register(TipForCycling, TipForCyclingTranslationOptions)
+
+
+class TestimonyTranslationOptions(TranslationOptions):
+    fields = ['message']
+
+translator.register(Testimony, TestimonyTranslationOptions)
