@@ -2298,7 +2298,7 @@ msgstr "Para quem pedala"
 msgid "See entire tip"
 msgstr "Ver dica na íntegra"
 
-#~ msgid "Type your email"
+#~ msgid "Type your e-mail"
 #~ msgstr "Digite seu e-mail"
 
 #~ msgid "See requestss"
