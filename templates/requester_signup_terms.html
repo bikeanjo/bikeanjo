@@ -18,8 +18,7 @@
             <div class="form-group">
                 <label class="primary-label" for="aditional-info">{% trans "Additional info" %}</label>
                 <textarea class="form-control" rows="5" id="aditional-info" name="message"
-                    placeholder="{% trans 'Additional information and request specifications' %}">
-                    {{ form.message.value|default:'' }}</textarea>
+                    placeholder="{% trans 'Additional information and request specifications' %}">{{ form.message.value|default:'' }}</textarea>
 
                 {% if request.POST and form.message.errors %}
                     {% for error in form.message.errors %}
