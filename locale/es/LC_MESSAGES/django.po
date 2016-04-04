@@ -689,7 +689,7 @@ msgid "I ride a bike and want to help"
 msgstr "Soy un ciclista con experiencia y quiero ayudar"
 
 #: front/templates/home.html:21
-msgid "Our community is growing"
+msgid "Our community is continuously growing"
 msgstr "Nuestra comunidad no para de crecer"
 
 #: front/templates/home.html:26

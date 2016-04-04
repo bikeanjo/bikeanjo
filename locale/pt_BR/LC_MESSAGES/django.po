@@ -683,7 +683,7 @@ msgid "I ride a bike and want to help"
 msgstr "Já pedalo e quero ajudar"
 
 #: front/templates/home.html:21
-msgid "Our community is growing"
+msgid "Our community is continuously growing"
 msgstr "Nossa comunidade não para de crescer"
 
 #: front/templates/home.html:26
