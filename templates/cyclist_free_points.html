@@ -69,7 +69,7 @@
         </ul>
 
         {% if not user.accepted_agreement %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Content" %}</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
             <input type="hidden"
                    name="{{view.get_redirect_field_name}}"
                    value="{% url 'cyclist_agreement' %}"/>
@@ -79,7 +79,7 @@
                    name="{{view.get_redirect_field_name}}"
                    value="{% url 'user_register' %}"/>
         {% else %}
-            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Content" %}</button>
+            <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
         {% endif %}
 
     </form>

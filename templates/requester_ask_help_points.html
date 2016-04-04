@@ -43,7 +43,7 @@
 
         <ul class="addresses-list list-unstyled" bikeanjo-list="points"></ul>
 
-        <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Content" %}</button>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
         {% if not user.accepted_agreement %}
         <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
         {% endif %}
