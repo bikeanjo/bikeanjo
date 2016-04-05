@@ -11,7 +11,20 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
 {% endblock %}
 
-{% block js %}{{ block.super }}
+{% block js %}
+<script type="text/javascript">
+    var map_cfg = {
+        {% if user and user.city %}
+        "center": [{{user.city.point.get_y}}, {{user.city.point.get_x}}],
+        {% endif %}
+
+        {% if user and user.country %}
+        "country": "{{ user.country.acronym }}",
+        {% endif %}
+    };
+</script>
+
+{{ block.super }}
 <script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
 {% endblock %}
 
@@ -45,7 +58,7 @@
                 {% endif %}
             </div>
         </div>
-        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Content" %}</button>
+        <button class="btn btn-primary btn-block btn-lg" id="js-add-address" type="submit">{% trans "Continue" %}</button>
         {% if not user.accepted_agreement %}
         <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
         {% endif %}
