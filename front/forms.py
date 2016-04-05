@@ -303,7 +303,7 @@ class RequesterUserInforForm(forms.ModelForm):
         city_alias = self.cleaned_data.get('city_alias')
         if city_alias:
             self.instance.city = city_alias.city
-        super(BikeanjoUserInforForm, self).save(**kwargs)
+        super(RequesterUserInforForm, self).save(**kwargs)
 
 
 # Part 1
