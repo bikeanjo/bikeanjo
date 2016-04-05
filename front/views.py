@@ -790,7 +790,7 @@ class FeedbackView(LoginRequiredMixin, RedirectUrlMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, 'Seu feedback foi enviado. Obrigado!')
+        messages.success(self.request, _('Your feedback has been sent. Thank you!'))
         return super(FeedbackView, self).form_valid(form)
 
 
