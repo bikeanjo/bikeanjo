@@ -891,7 +891,7 @@ msgid "Ask for help to ride a bike"
 msgstr "Pedir ajuda para pedalar"
 
 #: templates/_dashboard_sidebar_requester.html:61
-msgid "Do you want to be a Bike Anjo?"
+msgid "Do you want to be a bike anjo volunteer?"
 msgstr "Quer ser um Bike Anjo?"
 
 #: templates/_dashboard_sidebar_requester.html:65

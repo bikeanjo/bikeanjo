@@ -910,7 +910,7 @@ msgid "Ask for help to ride a bike"
 msgstr "Solicitar ayuda para pedalear"
 
 #: templates/_dashboard_sidebar_requester.html:61
-msgid "Do you want to be a Bike Anjo?"
+msgid "Do you want to be a bike anjo volunteer?"
 msgstr "¿Quieres ser un Bici-Ángel?"
 
 #: templates/_dashboard_sidebar_requester.html:65
