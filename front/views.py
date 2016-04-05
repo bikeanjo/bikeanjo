@@ -311,6 +311,10 @@ class RequestUpdateView(DashboardMixin, UpdateView):
     form_class = forms.HelpRequestUpdateForm
 
     def get(self, request, **kwargs):
+        obj = self.get_object()
+        if obj.status == 'new' and request.user.role == 'bikeanjo':
+            return HttpResponseRedirect(redirect_to=reverse('cyclist_new_request_detail', args=[obj.id]))
+
         response = super(RequestUpdateView, self).get(request, **kwargs)
 
         if request.user.role in ['bikeanjo', 'requester']:
