@@ -1721,7 +1721,7 @@ msgstr ""
 
 #: templates/cyclist_free_points.html:40
 #: templates/requester_ask_help_points.html:26
-msgid "Where could you ride?"
+msgid "Where can you go for a ride?"
 msgstr "Onde pedalar?"
 
 #: templates/cyclist_free_points.html:41
