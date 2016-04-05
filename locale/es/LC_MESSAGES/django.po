@@ -152,7 +152,7 @@ msgid "Teach someone how to ride a bike"
 msgstr "Enseña a pedalear a alguien"
 
 #: cyclists/models.py:26 front/models.py:31
-msgid "Follow beginners on their ride"
+msgid "Commute together with beginners on their first rides"
 msgstr "Sigue a otros aprendices"
 
 #: cyclists/models.py:27 front/models.py:32
@@ -160,7 +160,7 @@ msgid "Suggest safe routes"
 msgstr "Consejos sobre rutas seguras"
 
 #: cyclists/models.py:28 front/models.py:33
-msgid "Participate of Bike Anjo events"
+msgid "Participate on Bike Anjo events"
 msgstr "Participa en los eventos de BikeAnjo"
 
 #: cyclists/models.py:32 front/models.py:37

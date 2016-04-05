@@ -28,9 +28,9 @@ CYCLIST_ROLES = (
 
 HELP_OFFER = (
     (1, _('Teach someone how to ride a bike')),  # Ensinando alguém a pedalar
-    (2, _('Follow beginners on their ride')),  # Acompanhando iniciantes nas pedaladas
+    (2, _('Commute together with beginners on their first rides')),  # Acompanhando iniciantes nas pedaladas
     (4, _('Suggest safe routes')),  # Recomendando rotas mais seguras
-    (8, _('Participate of Bike Anjo events')),  # Participando dos eventos dos Bikes Anjos
+    (8, _('Participate on Bike Anjo events')),  # Participando dos eventos dos Bikes Anjos
 )
 
 HELP_REQUEST = (
