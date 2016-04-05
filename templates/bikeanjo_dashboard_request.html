@@ -11,7 +11,7 @@
 <script type="text/javascript">
     var map_cfg = {
         {% if user and user.city %}
-        "center": [{{user.city.point.get_y}}, {{user.city.point.get_x}}],
+        "center": [{{user.city.point.get_y|stringformat:"f"}}, {{user.city.point.get_x|stringformat:"f"}}],
         {% endif %}
 
         {% if user and user.country %}
