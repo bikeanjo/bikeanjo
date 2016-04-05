@@ -167,9 +167,7 @@
         <div class="form-group">
             <label class="primary-label" for="participate">{% trans "Are you part of any cycling initiative?" %}</label>
             <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
-                placeholder="{% trans 'Describe your participation here' %}">
-                {{ form.initiatives.value|default:'' }}
-            </textarea>
+                placeholder="{% trans 'Describe your participation here' %}">{{ form.initiatives.value|default:'' }}</textarea>
 
             {% if form.initiatives.errors %}
                 {% for error in form.initiatives.errors %}
