@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-05 17:24-0300\n"
+"POT-Creation-Date: 2016-04-06 08:48-0300\n"
 "PO-Revision-Date: 2016-03-20 18:35-0300\n"
 "Last-Translator: Luive Osiano <losiano@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,21 +57,11 @@ msgstr ""
 msgid "Aliases"
 msgstr ""
 
-#: cities/models.py:38 cities/models.py:76
-#, fuzzy
-#| msgid "Full name"
-msgid "Alias name"
-msgstr "Nombre completo"
 
 #: cities/models.py:43
 msgid "State"
 msgstr "Estado"
 
-#: cities/models.py:44
-#, fuzzy
-#| msgid "State"
-msgid "States"
-msgstr "Estado"
 
 #: cities/models.py:56 cyclists/admin.py:18 cyclists/models.py:95
 #: front/models.py:371 templates/_signup_inner_form.html:125
@@ -151,17 +141,11 @@ msgstr "Solicitante"
 msgid "Teach someone how to ride a bike"
 msgstr "Enseña a pedalear a alguien"
 
-#: cyclists/models.py:26 front/models.py:31
-msgid "Commute together with beginners on their first rides"
-msgstr "Sigue a otros aprendices"
 
 #: cyclists/models.py:27 front/models.py:32
 msgid "Suggest safe routes"
 msgstr "Consejos sobre rutas seguras"
 
-#: cyclists/models.py:28 front/models.py:33
-msgid "Participate on Bike Anjo events"
-msgstr "Participa en los eventos de BikeAnjo"
 
 #: cyclists/models.py:32 front/models.py:37
 msgid "Learn to ride a bike"
@@ -286,11 +270,6 @@ msgstr "Bici-ángeles"
 msgid "New cyclists"
 msgstr "Solicitantes"
 
-#: emailqueue/models.py:11
-#, fuzzy
-#| msgid "Rejected date"
-msgid "Created date"
-msgstr "Fecha de rechazo"
 
 #: emailqueue/models.py:12
 msgid "Modified date"
@@ -427,6 +406,14 @@ msgstr "Contraseña"
 msgid "Password (again)"
 msgstr "Contraseña (nuevamente)"
 
+#: front/models.py:31
+msgid "Commute together with beginners on their first rides"
+msgstr "Sigue a otros aprendices"
+
+#: front/models.py:33
+msgid "Participate on Bike Anjo events"
+msgstr "Participa en los eventos de BikeAnjo"
+
 #: front/models.py:75
 msgid "Date of change"
 msgstr "Fecha de modificación"
@@ -488,11 +475,6 @@ msgstr "Evaluación"
 msgid "Reply to the request"
 msgstr "Respuesta de la solicitud de ayuda"
 
-#: front/models.py:235
-#, fuzzy
-#| msgid "Reply to the request"
-msgid "Replies to the request"
-msgstr "Respuesta de la solicitud de ayuda"
 
 #: front/models.py:249
 msgid "Start"
@@ -649,18 +631,22 @@ msgstr "Tip para pedalear"
 msgid "Cycling tips"
 msgstr "Tips para pedalear"
 
-#: front/templates/help_offer.html:21
-#, fuzzy
-#| msgid ""
-#| "Type the addresses that you use to ride, type 'Enter' to see the address "
-#| "on map and confirm pressing 'Add address' button"
-msgid ""
-"Type the address where you usually ride, click 'Enter' to see the address on "
-"the map and confirm by clicking on the 'Add address' button"
+#: front/notifications.py:29 front/notifications.py:54
+#, python-format
+msgid "Your request #%(id)d was cancelled by %(ba)s!"
 msgstr ""
-"Escribe las direcciones a las que sueles pedalear, escribe 'Ingresar' para "
-"ver la dirección en el mapa y confirma presionando el boton 'Añadir "
-"dirección'"
+
+
+
+
+
+#: front/notifications.py:190
+#, python-format
+msgid "Did you have your request #%(id)d attended by %(ba)s?"
+msgstr ""
+
+
+
 
 #: front/templates/help_offer.html:30
 msgid "Add address"
@@ -688,11 +674,6 @@ msgstr "Soy un ciclista con experiencia y quiero ayudar"
 msgid "Our community is continuously growing"
 msgstr "Nuestra comunidad no para de crecer"
 
-#: front/templates/home.html:26
-#, fuzzy
-#| msgid "Bike anjo name"
-msgid "Bike Anjo volunteers"
-msgstr "Nombre del Bici-ángel voluntario"
 
 #: front/templates/home.html:31 templates/bikeanjo_dashboard_requests.html:33
 msgid "Requests"
@@ -710,11 +691,6 @@ msgstr ""
 "Somos una comunidad de ciclistas voluntarios enamorados de su medio de "
 "transporte"
 
-#: front/templates/home.html:79
-#, fuzzy
-#| msgid "How can you help?"
-msgid "You ask for help"
-msgstr "¿Cómo puedes ayudar?"
 
 #: front/templates/home.html:80
 msgid ""
@@ -724,11 +700,6 @@ msgstr ""
 "En la plataforma encuentras ayuda para aprender a practicar sus pedaleos, "
 "recomendaciones de rutas, acompañamiento en el tráfico y mucho más"
 
-#: front/templates/home.html:84
-#, fuzzy
-#| msgid "Check out our orientations for volunteers"
-msgid "Find your Bike Anjo volunteer"
-msgstr "Mira nuestro folleto Bike Anjo"
 
 #: front/templates/home.html:85
 msgid ""
@@ -750,17 +721,7 @@ msgstr ""
 "A partir del momento que recibes ayuda podrás animar a otras personas a "
 "hacer lo mismo y cambiar tu ciudad"
 
-#: front/templates/home.html:92
-#, fuzzy
-#| msgid "Learn to ride a bike"
-msgid "Learn more"
-msgstr "Aprende a pedalear"
 
-#: front/templates/home.html:92
-#, fuzzy
-#| msgid "Welcome to the Bike Anjo network!"
-msgid "about how Bike Anjo works"
-msgstr "Bienvenido a la red Bike Anjo!"
 
 #: front/templates/home.html:98
 msgid "Check out who have already used it"
@@ -794,11 +755,6 @@ msgstr "Página previa"
 msgid "Registration successfully complete!"
 msgstr "¡Registro efectuado con éxito!"
 
-#: front/templates/home.html:148
-#, fuzzy
-#| msgid "Thank you for joining our community"
-msgid "Thank you for becoming part of this community"
-msgstr "Gracias por unirte a nuestra comunidad"
 
 #: front/templates/home.html:154
 msgid "Get the news"
@@ -827,7 +783,7 @@ msgstr "Enviar"
 msgid "Your information has been updated!"
 msgstr "Tu información ha sido actualizada!"
 
-#: front/views.py:793
+#: front/views.py:797
 msgid "Your feedback has been sent. Thank you!"
 msgstr ""
 
@@ -1084,24 +1040,6 @@ msgstr "Nuestra historia"
 msgid "Get to know a little more about us"
 msgstr "Conoce un poco más de nuestro trabajo"
 
-#: templates/about.html:34
-#, fuzzy
-#| msgid ""
-#| "Bikeanjo is a network of passionate cyclists that promote, organize and "
-#| "help people getting started with the bicycle as a vehicle in urban "
-#| "environment. We believe that cycling is a tool to social change and the "
-#| "more people adhere, the better our cities will become!"
-msgid ""
-"Bike Anjo means in portuguese 'Bike Angel' (as a 'guardian angel'). It is a "
-"network of passionate cyclists that promotes, mobilizes and helps people "
-"getting started with cycling as a means of transportation in cities. We "
-"believe that cycling is a tool for social change and the more people ride, "
-"the better our cities will become!"
-msgstr ""
-"Bike Anjo es una red de ciclistas apasionados que promueven, organizan y "
-"ayudan a otras personas a comenzar a usar la bici como un vehículo en el "
-"entorno urbano. Creemos que pedalear es una herramienta para un cambio "
-"social y mientras más personas se sumen, ¡mejores serán nuestras ciudades!"
 
 #: templates/about.html:37
 msgid "Long story short, Bike Anjo is"
@@ -1468,11 +1406,6 @@ msgstr ""
 "sistema no pudo encontrar ningún Bici-ángel cerca para ayudar. Puedes tomar "
 "solicitudes como éstas y ayudar a tanta gente como puedas"
 
-#: templates/bikeanjo_dashboard_new_requests.html:81
-#, fuzzy
-#| msgid "See requestss without bikeanjo"
-msgid "See requests without bikeanjo"
-msgstr "Ver solicitudes sin bici-ángeles"
 
 #: templates/bikeanjo_dashboard_request.html:45
 #: templates/bikeanjo_dashboard_request.html:180
@@ -1609,36 +1542,37 @@ msgstr "Aceptar los Términos y Condiciones"
 
 #: templates/bikeanjo_signup_terms.html:21
 msgid ""
-"Entendo que os atendimentos realizados por mim como bike anjo devem ser "
-"gratuitos, não cabendo remuneração a título de contraprestação, nem havendo "
-"vínculo trabalhista ou qualquer outro."
+"I understand that the services performed by me as a bike anjo volunteer must "
+"be free of charge, and no payment whatsoever may be made or requested, and I "
+"have no employment relationship or any other relationship with Bike Anjo."
 msgstr ""
 
 #: templates/bikeanjo_signup_terms.html:28
 msgid ""
-"Eu aceito os riscos (positivos ou negativos) associados a me encontrar com "
-"estranhos. Eu entendo que o Bike Anjo não seleciona os solicitantes que se "
-"cadastram nesta plataforma, portanto concordo em tomar as precauções "
-"sensatas, como faria encontrando qualquer nova pessoa por uma plataforma "
-"virtual, por exemplo marcando o primeiro encontro em um espaço público "
-"seguro."
+"I accept the risks (positive and negative) associated with meeting "
+"strangers. I understand that the Bike Anjo organization does not select the "
+"people who ask for help from a bike anjo volunteer on this platform. I "
+"therefore agree to take the necessary precautions, as I would do with any "
+"new person I meet on an online platform, for example, by scheduling the "
+"first meeting at a public and safe place."
 msgstr ""
 
 #: templates/bikeanjo_signup_terms.html:35
 msgid ""
-"Estou de acordo de que a minha segurança ao pedalar é de minha própria "
-"responsabilidade a todo o tempo, compreendendo os riscos envolvidos. "
-"Concordo em repassar essa segurança e conforto aos que solicitarem a minha "
-"ajuda como bike anjo."
+"I agree that my safety while riding a bicycle is of my own responsibility at "
+"all times, and I fully understand all risks involved. I agree to transfer "
+"the same notions of safety and comfort to those who request my help as a "
+"bike anjo volunteer."
 msgstr ""
 
 #: templates/bikeanjo_signup_terms.html:42
 msgid ""
-"Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos "
-"materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que "
-"venham a ser causados a mim ou aos meus bens enquanto trafego durante meus "
-"atendimentos como bike anjo, bem como posteriormente, quando estiver "
-"pedalando pelas vias autonomamente ou com outrem."
+"I agree to release Bike Anjo, the employees, contractors, volunteers and "
+"agents thereof from and against any and all claim or actions that I may have "
+"against them. I accept liability for any loss, injury or illness resulting "
+"from my preparation or participation during the activities as a bike anjo "
+"volunteer, as well as during my bicycle rides by myself or with others, "
+"aside from Bike Anjo."
 msgstr ""
 
 #: templates/bikeanjo_signup_terms.html:47
@@ -1673,11 +1607,6 @@ msgstr "Quiero convertirme en un socio"
 msgid "Other"
 msgstr "Otros"
 
-#: templates/contact_form.html:77
-#, fuzzy
-#| msgid "Write yout message"
-msgid "Write your message"
-msgstr "Escribe tu mensaje"
 
 #: templates/contact_form.html:92
 msgid "Send message"
@@ -1731,33 +1660,11 @@ msgstr "Ubicaciones separadas"
 msgid "Loose point where you can answer requests"
 msgstr "Ubicaciones separadas donde puedes atender solicitudes"
 
-#: templates/cyclist_free_points.html:42
-#, fuzzy
-#| msgid ""
-#| "Mark loose points on the map that are not within routes (e.g., squares "
-#| "and parks) where you could answer a request"
-msgid ""
-"Mark pin points that are not within your routes (e.g. squares and parks) "
-"where you could help a new cyclist"
-msgstr ""
-"Señale otras ubicaciones separadas que no sean rutas (ej.: plazas y parques) "
-"donde puedes atender una solicitud"
 
 #: templates/cyclist_free_points.html:46
 msgid "Want to add pin points?"
 msgstr "¿Quieres agregar ubicaciones separadas?"
 
-#: templates/cyclist_free_points.html:47
-#, fuzzy
-#| msgid ""
-#| "Do you want to add loose points on the map that are not within routes (e."
-#| "g., squares and parks) where you could answer a request?"
-msgid ""
-"Do you want to add pin points that are not within your routes (e.g. squares "
-"and parks) where you could help a new cyclist?"
-msgstr ""
-"¿Quieres agregar otras ubicaciones separadas que no sean rutas (ej.: plazas "
-"y parques) donde puedes atender una solicitud?"
 
 #: templates/cyclist_free_points.html:53
 #: templates/requester_ask_help_points.html:39
@@ -1774,15 +1681,6 @@ msgstr "Añade puntos donde puedas pedalear, añade todos los que quieras"
 msgid "Add pin points"
 msgstr "Añade puntos de ayuda"
 
-#: templates/cyclist_free_points.html:86 templates/cyclist_free_points.html:96
-#: templates/cyclist_routes_list.html:92
-#: templates/cyclist_routes_register_form.html:77
-#: templates/requester_ask_help_points.html:59
-#: templates/requester_ask_help_route.html:61
-#, fuzzy
-#| msgid "Content"
-msgid "Continue"
-msgstr "Contenido"
 
 #: templates/cyclist_routes_list.html:55
 msgid "Route registered"
@@ -1804,18 +1702,6 @@ msgstr "Rutas Registradas"
 msgid "Register new route"
 msgstr "Registrar nueva ruta"
 
-#: templates/cyclist_routes_register_form.html:44
-#, fuzzy
-#| msgid ""
-#| "Register as many routes as you want considering point '(A)' as your start "
-#| "and point '(B)' as your destination"
-msgid ""
-"Register as many routes as you want considering point '(A)' as your start "
-"and point '(B)' as your destination. These routes will define where you can "
-"help new cyclists"
-msgstr ""
-"Registra todas las rutas que quieras marcando punto de salida A y punto de "
-"llegada B. "
 
 #: templates/cyclist_routes_register_form.html:48
 msgid "Register your routes"
@@ -1829,18 +1715,6 @@ msgstr ""
 "Registra todas las rutas que quieras marcando punto de salida A y punto de "
 "llegada B. "
 
-#: templates/cyclist_routes_register_form.html:50
-#, fuzzy
-#| msgid ""
-#| "Register as many routes as you want given start point A and arrival point "
-#| "B. These routes will define where you can attend   to requests"
-msgid ""
-"Register as many routes as you want considering point '(A)' as your start "
-"and point '(B)' as your destination. These routes will define where you can "
-"attend   to requests"
-msgstr ""
-"Registra todas las rutas que quieras marcando punto de salida A y punto de "
-"llegada B. Estas rutas definirán dónde puedes responder a solicitudes."
 
 #: templates/cyclist_routes_register_form.html:56
 #: templates/requester_ask_help_route.html:39
@@ -1908,18 +1782,6 @@ msgstr "Ver solicituds"
 msgid "Hello"
 msgstr "Hola"
 
-#: templates/emails/15days_notification_for_open_requests.txt:6
-#: templates/emails/30days_notification_for_closed_requests.txt:7
-#: templates/emails/cant_find_bikeanjo.txt:12
-#: templates/emails/found_bikeanjo.txt:8
-#: templates/emails/new_msg_to_bikeanjo.txt:7
-#: templates/emails/new_msg_to_requester.txt:8
-#: templates/emails/new_request.txt:8 templates/emails/request_attended.txt:6
-#: templates/emails/request_canceled_by_bikeanjo.txt:6
-#, fuzzy
-#| msgid "See all tips"
-msgid "See at"
-msgstr "Ver todos los consejos"
 
 #: templates/emails/15days_notification_for_open_requests.txt:8
 #: templates/emails/30days_notification_for_closed_requests.txt:9
@@ -2031,11 +1893,6 @@ msgstr ""
 msgid "SEE REQUEST ON DASHBOARD"
 msgstr "VER LA SOLICITUD EN EL PANEL"
 
-#: templates/emails/found_bikeanjo.txt:6
-#, fuzzy
-#| msgid "Get help from a bike anjo"
-msgid "The name of the bike anjo is"
-msgstr "Consigue ayuda de un Bici-ángel"
 
 #: templates/emails/new_msg_to_bikeanjo.html:16
 #: templates/emails/new_msg_to_requester.html:16
@@ -2089,17 +1946,6 @@ msgstr "De"
 msgid "Welcome!"
 msgstr "¡Bienvenido!"
 
-#: templates/emails/newsletter_subscription.html:20
-#, fuzzy
-#| msgid ""
-#| "You have subscribed to our news feed and will start to receive our "
-#| "community newsletter with everything about our projects"
-msgid ""
-"You have subscribed to our news feed and will start receiving news from our "
-"community"
-msgstr ""
-"Te suscribiste para recibir novedades de nuestra comunidad y enterarte de "
-"nuestros proyectos"
 
 #: templates/emails/newsletter_subscription.html:25
 msgid "In order to finish your registration, access the link bellow"
@@ -2109,11 +1955,6 @@ msgstr "Para finalizar tu registro accede el enlace abajo"
 msgid "Somebody (luckly you) used the following e-mail address"
 msgstr "Alguien (con mucha suerte, tú) usó el e-mail"
 
-#: templates/emails/newsletter_subscription.txt:4
-#, fuzzy
-#| msgid "Welcome to the Bike Anjo network!"
-msgid "to subscribe to the Bike Anjo newsletter!"
-msgstr "Bienvenido a la red Bike Anjo!"
 
 #: templates/emails/newsletter_subscription.txt:6
 msgid ""
@@ -2147,12 +1988,6 @@ msgstr ""
 "para ayudar en nuestro control interno, confirme en nuestro sistema si "
 "fuiste atendido(a) y haz una evaluación de Bike Anjo"
 
-#: templates/emails/request_canceled_by_bikeanjo.html:20
-#: templates/emails/request_canceled_by_inactivity.html:19
-#, fuzzy
-#| msgid "Unfortunately your Bike Anjo request for"
-msgid "Unfortunately your request for help"
-msgstr "Infelizmente, tu solicitud de Bike Anjo para"
 
 #: templates/emails/request_canceled_by_bikeanjo.html:30
 #: templates/emails/request_canceled_by_bikeanjo.txt:4
@@ -2164,11 +1999,6 @@ msgstr ""
 "automaticamente va a encontrar otra persona para ayudarte en hasta 15 días, "
 "¿de acuerdo?"
 
-#: templates/emails/request_canceled_by_bikeanjo.txt:4
-#, fuzzy
-#| msgid "Unfortunately your Bike Anjo request for"
-msgid "Unfortunately your request for"
-msgstr "Infelizmente, tu solicitud de Bike Anjo para"
 
 #: templates/emails/request_canceled_by_inactivity.html:27
 #: templates/emails/request_canceled_by_inactivity.txt:4
@@ -2234,10 +2064,6 @@ msgstr ""
 "Registre su ruta considerando el punto “(A)” como su punto de partida y el "
 "punto “(B)” como su destino"
 
-#: templates/requester_complete_signup.html:147
-msgid "Finish and send request"
-msgstr "Termine y solicite ayuda"
-
 #: templates/requester_dashboard.html:25
 msgid "Oh no!"
 msgstr "Oh, no!"
@@ -2265,19 +2091,6 @@ msgstr ""
 "Su solicitud ha sido enviada a nuestra comunidad y será respondida dentro de "
 "los próximos 15 días"
 
-#: templates/requester_dashboard.html:48
-#, fuzzy
-#| msgid ""
-#| "Take this time to verify if your city has 'EBA! - Escola Bike Anjo', a "
-#| "workshop held by bike anjo volunteers to teach people how to ride a bike. "
-#| "To do this, click"
-msgid ""
-"Take this time to verify if your city has a Bike Anjo School, a workshop to "
-"teach people how to ride a bike. To do this, click"
-msgstr ""
-"Tómese este tiempo para verificar si su ciudad tiene “EBA”- 'Escuela Bike "
-"Anjo', un taller llevado a cabo por los voluntarios de bike anjo para "
-"enseñarle a la gente a andar em bicicleta. Para esto, haga click"
 
 #: templates/requester_dashboard.html:48
 msgid "HERE"
@@ -2291,17 +2104,6 @@ msgstr ""
 "Usted también puede tomarse este tiempo para ver su panel de\n"
 "control con algunos consejos que tenemos para usted"
 
-#: templates/requester_dashboard.html:61
-#, fuzzy
-#| msgid ""
-#| "Your registration is successfully completed and your request was sent to "
-#| "our community. You will have a word from us within 15 days "
-msgid ""
-"Your registration was successfully completed and your request was sent to "
-"our community. You will hear back from us within 15 days "
-msgstr ""
-"Su registro ha sido exitoso y su solicitud fue enviada a nuestra comunidad. "
-"Dentro de los 15 días, usted recibirá noticias nuestras"
 
 #: templates/requester_dashboard.html:63
 msgid "Take this time to visit your dashboard, see the events and cycling tips"
@@ -2366,20 +2168,6 @@ msgstr "No"
 msgid "Your experience as a cyclist"
 msgstr "Su experiencia com la bicicleta"
 
-#: templates/requester_signup_terms.html:12
-#, fuzzy
-#| msgid ""
-#| "Write bellow additional information of your request and accept the Terms "
-#| "and Conditions"
-msgid ""
-"Write additional information about your request and accept the Terms and "
-"Conditions"
-msgstr ""
-"Escribe abajo información adicional de tu solicitud y acepta los Términos y  "
-"Condiciones.\n"
-"\n"
-"silvia ballan traduz: Escriba abajo información adicional de su solicitud y "
-"acepte los Términos y Condiciones"
 
 #: templates/requester_signup_terms.html:35
 msgid ""
@@ -2447,6 +2235,9 @@ msgstr "soy un ciclista con experiencia"
 #: templates/tips.html:39
 msgid "See entire tip"
 msgstr "vea la indicación completa"
+
+#~ msgid "Finish and send request"
+#~ msgstr "Termine y solicite ayuda"
 
 #~ msgid "Monitoring on traffic"
 #~ msgstr "Monitoreo en tráfico"
