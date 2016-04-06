@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-06 08:48-0300\n"
-"PO-Revision-Date: 2016-04-06 08:53-0300\n"
+"POT-Creation-Date: 2016-04-06 10:15-0300\n"
+"PO-Revision-Date: 2016-04-06 10:19-0300\n"
 "Last-Translator: Fabio Montefuscolo <fabio.montefuscolo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -57,9 +57,17 @@ msgstr "Apelido"
 msgid "Aliases"
 msgstr "Apelidos"
 
+#: cities/models.py:38 cities/models.py:76
+msgid "Alias name"
+msgstr "Alias name"
+
 #: cities/models.py:43
 msgid "State"
 msgstr "Estado"
+
+#: cities/models.py:44
+msgid "States"
+msgstr "Estados"
 
 #: cities/models.py:56 cyclists/admin.py:18 cyclists/models.py:95
 #: front/models.py:371 templates/_signup_inner_form.html:125
@@ -139,9 +147,17 @@ msgstr "Solicitante"
 msgid "Teach someone how to ride a bike"
 msgstr "Ensinar alguém a pedalar"
 
+#: cyclists/models.py:26 front/models.py:31
+msgid "Commute together with beginners on their first rides"
+msgstr "Acompanhar iniciante na pedalada"
+
 #: cyclists/models.py:27 front/models.py:32
 msgid "Suggest safe routes"
 msgstr "Sugerir rotas seguras"
+
+#: cyclists/models.py:28 front/models.py:33
+msgid "Participate on Bike Anjo events"
+msgstr "Participação nos eventos dos Bike Anjos"
 
 #: cyclists/models.py:32 front/models.py:37
 msgid "Learn to ride a bike"
@@ -265,6 +281,10 @@ msgstr "Bike Anjos"
 #: cyclists/models.py:156
 msgid "New cyclists"
 msgstr "Solicitantes"
+
+#: emailqueue/models.py:11
+msgid "Created date"
+msgstr "Data de criação"
 
 #: emailqueue/models.py:12
 msgid "Modified date"
@@ -400,14 +420,6 @@ msgstr "Senha"
 #: front/forms.py:540
 msgid "Password (again)"
 msgstr "Senha (novamente)"
-
-#: front/models.py:31
-msgid "Commute together with beginners on their first rides"
-msgstr "Acompanhar iniciante na pedalada"
-
-#: front/models.py:33
-msgid "Participate on Bike Anjo events"
-msgstr "Participação nos eventos dos Bike Anjos"
 
 #: front/models.py:75
 msgid "Date of change"
@@ -634,10 +646,38 @@ msgstr "Dicas para pedalar"
 msgid "Your request #%(id)d was cancelled by %(ba)s!"
 msgstr "Seu pedido #%(id)d foi cancelado por %(ba)s!"
 
-#: front/notifications.py:190
+#: front/notifications.py:80
+msgid "We can't find a bike anjo yet, but we want to help you!"
+msgstr "Ainda não achamos seu bike anjo, mas queremos te ajudar!"
+
+#: front/notifications.py:116
+#, python-format
+msgid "You have a new message from %(user)s!"
+msgstr "Você recebeu uma nova mensagem de %(user)s!"
+
+#: front/notifications.py:140
+#, python-format
+msgid "We found a bike anjo to help you with request #%(id)d!"
+msgstr "O Bike Anjo achou alguém para te ajudar com o pedido #%(id)d!"
+
+#: front/notifications.py:165
+#, python-format
+msgid "You got a new help request #%(id)d!"
+msgstr "Você recebeu um pedido #%(id)d de ajuda!"
+
+#: front/notifications.py:200
 #, python-format
 msgid "Did you have your request #%(id)d attended by %(ba)s?"
 msgstr "Seu pedido #%(id)d de Bike Anjo foi atendido por %(ba)s?"
+
+#: front/notifications.py:216
+msgid "You subscribed to Bike Anjo mailing news!"
+msgstr "Você se inscreveu para o boletim do Bike Anjo!"
+
+#: front/notifications.py:255
+#, python-format
+msgid "Feedback from %s"
+msgstr "Feedback de %s"
 
 #: front/templates/help_offer.html:21
 msgid ""
@@ -1442,6 +1482,10 @@ msgstr ""
 " encontrou um voluntário próximo. Você pode atender quantos desses pedidos "
 "puder e ajudar o máximo de pessoas possíveis."
 
+#: templates/bikeanjo_dashboard_new_requests.html:81
+msgid "See requests without bikeanjo"
+msgstr "Ver pedidos sem bike anjo"
+
 #: templates/bikeanjo_dashboard_request.html:45
 #: templates/bikeanjo_dashboard_request.html:180
 #: templates/requester_dashboard_request.html:45
@@ -1751,6 +1795,15 @@ msgstr "Adicione os pontos onde você pode pedalar, adicione quantos quiser "
 #: templates/requester_ask_help_points.html:45
 msgid "Add pin points"
 msgstr "Adicione pontos de ajuda"
+
+#: templates/cyclist_free_points.html:86 templates/cyclist_free_points.html:96
+#: templates/cyclist_routes_list.html:92
+#: templates/cyclist_routes_register_form.html:77
+#: templates/requester_ask_help_points.html:59
+#: templates/requester_ask_help_route.html:61
+#: templates/requester_complete_signup.html:147
+msgid "Continue"
+msgstr "Continuar"
 
 #: templates/cyclist_routes_list.html:55
 msgid "Route registered"
