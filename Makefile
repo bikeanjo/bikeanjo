@@ -72,3 +72,6 @@ resetdb:
 	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension unaccent;'
 	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension fuzzystrmatch;'
 
+remove-fuzzy-trans:
+	sed -i -z -r -e 's/(#[^\n]+\n)*(#, fuzzy[^\n]*\n)(#\| msgid[^\n]+\n)(#[^\n]+\n)*(msgid[^\n]+\n)("[^"]+"\n)*(msgstr[^\n]+\n)("[^"]+"\n)*//g' \
+		`find locale -name "*.po"`
