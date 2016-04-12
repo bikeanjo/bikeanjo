@@ -708,7 +708,7 @@ msgid "I ride a bike and want to help"
 msgstr "Soy un ciclista con experiencia y quiero ayudar"
 
 #: front/templates/home.html:21
-msgid "Our community is continuously growing"
+msgid "Our community is always growing"
 msgstr "Nuestra comunidad no para de crecer"
 
 #: front/templates/home.html:26
@@ -725,7 +725,7 @@ msgstr "¿Cómo funciona nuestra plataforma?"
 
 #: front/templates/home.html:74
 msgid ""
-"We are a community of passionate cyclists who help out new cyclists "
+"We are a community of passionate cyclists who voluntarily help out new cyclists"
 "voluntarily"
 msgstr ""
 "Somos una comunidad de ciclistas voluntarios enamorados de su medio de "
