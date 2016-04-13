@@ -151,7 +151,7 @@ def notify_requester_about_found_bikeanjo(helprequest):
     }
 
     with translation.override(set_language(recipient)):
-        subject = _('We found a bike anjo to help you with request #%(id)d!') % {'id': helprequest.id}
+        subject = _('Bike Anjo found someone to help you on your request #%(id)d!') % {'id': helprequest.id}
 
         template_name = 'emails/found_bikeanjo.html'
         html = select_template([template_name]).render(data)
@@ -177,7 +177,7 @@ def notify_bikeanjo_about_new_request(helprequest):
     }
 
     with translation.override(set_language(recipient)):
-        subject = _('You got a new help request #%(id)d!') % {'id': helprequest.id}
+        subject = _('You have a new request for help #%(id)d!') % {'id': helprequest.id}
 
         template_name = 'emails/new_request.html'
         html = select_template([template_name]).render(data)
@@ -203,7 +203,7 @@ def notify_requester_about_attended_request(helprequest):
     }
 
     with translation.override(set_language(recipient)):
-        subject = _('Did you have your request #%(id)d attended by %(ba)s?') % {'id': helprequest.id, 'ba': helprequest.bikeanjo.get_full_name()}
+        subject = _('Was you request #%(id)d at Bike Anjo attended by %(ba)s?') % {'id': helprequest.id, 'ba': helprequest.bikeanjo.get_full_name()}
 
         template_name = 'emails/request_attended.html'
         html = select_template([template_name]).render(data)

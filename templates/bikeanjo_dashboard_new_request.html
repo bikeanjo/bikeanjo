@@ -59,7 +59,7 @@
                                 <li>
                                     <button name="status" value="open" class="btn btn-sm btn-unstyled">
                                         <span class="text visible-xs">{% trans "Answer" %}</span>
-                                        <span class="text hidden-xs">{% trans "Answer request" %}</span>
+                                        <span class="text hidden-xs">{% trans "Accept request" %}</span>
                                         <i class="fa fa-comment"></i>
                                     </button>
                                 </li>
@@ -120,8 +120,8 @@
 
                             {% if not helprequest.helpreply_set.exists %}
                             <div class="card-buttons">
-                                <button name="status" value="open" class="btn btn-success">{% trans "Answer request" %}</button>
-                                <button name="status" value="new" class="btn btn-default">{% trans "I can't answer the request now" %}</button>
+                                <button name="status" value="open" class="btn btn-success">{% trans "Accept request" %}</button>
+                                <button name="status" value="new" class="btn btn-default">{% trans "I can't accept the request now" %}</button>
                             </div>
                             {% endif %}
                         </div>
@@ -144,8 +144,8 @@
                             <p class="card-info">{{ helpreply.message|linebreaksbr }}</p>
                             {% if forloop.first %}
                             <div class="card-buttons">
-                                <button name="status" value="open" class="btn btn-success">{% trans "Answer request" %}</button>
-                                <button name="status" value="new" class="btn btn-default">{% trans "I can't answer the request now" %}</button>
+                                <button name="status" value="open" class="btn btn-success">{% trans "Accept request" %}</button>
+                                <button name="status" value="new" class="btn btn-default">{% trans "I can't accept the request now" %}</button>
                             </div>
                             {% endif %}
                         </div>

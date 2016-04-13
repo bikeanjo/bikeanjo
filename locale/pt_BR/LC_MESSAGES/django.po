@@ -657,17 +657,17 @@ msgstr "Você recebeu uma nova mensagem de %(user)s!"
 
 #: front/notifications.py:140
 #, python-format
-msgid "We found a bike anjo to help you with request #%(id)d!"
+msgid "Bike Anjo found someone to help you on your request #%(id)d!"
 msgstr "O Bike Anjo achou alguém para te ajudar com o pedido #%(id)d!"
 
 #: front/notifications.py:165
 #, python-format
-msgid "You got a new help request #%(id)d!"
+msgid "You have a new request for help #%(id)d!"
 msgstr "Você recebeu um pedido #%(id)d de ajuda!"
 
 #: front/notifications.py:200
 #, python-format
-msgid "Did you have your request #%(id)d attended by %(ba)s?"
+msgid "Was you request #%(id)d at Bike Anjo attended by %(ba)s?"
 msgstr "Seu pedido #%(id)d de Bike Anjo foi atendido por %(ba)s?"
 
 #: front/notifications.py:216
@@ -1427,12 +1427,12 @@ msgstr "Atender"
 #: templates/bikeanjo_dashboard_new_request.html:62
 #: templates/bikeanjo_dashboard_new_request.html:123
 #: templates/bikeanjo_dashboard_new_request.html:147
-msgid "Answer request"
+msgid "Accept request"
 msgstr "Responder pedido"
 
 #: templates/bikeanjo_dashboard_new_request.html:124
 #: templates/bikeanjo_dashboard_new_request.html:148
-msgid "I can't answer the request now"
+msgid "I can't accept the request now"
 msgstr "Não posso atender o pedido"
 
 #: templates/bikeanjo_dashboard_new_requests.html:17
@@ -1501,7 +1501,7 @@ msgstr "Já atendi"
 
 #: templates/bikeanjo_dashboard_request.html:52
 #: templates/bikeanjo_dashboard_request.html:179
-msgid "I've already answered the request"
+msgid "I've already finished this request"
 msgstr "Já atendi o pedido"
 
 #: templates/bikeanjo_dashboard_request.html:82
@@ -2084,7 +2084,7 @@ msgstr "Você tem um novo pedido de ajuda"
 
 #: templates/emails/new_request.html:36 templates/emails/reminder.html:43
 #: templates/emails/request_attended.html:41
-msgid "ANSWER REQUEST"
+msgid "ACCEPT REQUEST"
 msgstr "RESPONDER PEDIDO"
 
 #: templates/emails/new_request.txt:6
