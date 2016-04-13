@@ -4,6 +4,7 @@ from django.core.urlresolvers import resolve
 from django.utils import translation
 from django.contrib.auth.models import AnonymousUser
 
+
 class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
@@ -12,7 +13,7 @@ class ForceDefaultLanguageMiddleware(object):
 
 class BikeanjoSessionConfigMiddleware(object):
     def process_request(self, request):
-        request.session.set_expiry(getattr(settings, 'SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER', 600))
+        request.session.set_expiry(getattr(settings, 'SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER', 21600))
         if request.user.is_authenticated() and request.user.accepted_agreement:
             request.session.set_expiry(settings.SESSION_COOKIE_AGE)
 
