@@ -71,43 +71,34 @@
             <div class="select-birthday">
                 <select class="form-control">
                     <option>{% trans 'Day' %}</option>
-                    <script type="text/javascript">
-                    var birthday = "{% firstof form.birthday.value|date:'d/m/Y' form.birthday.value '' %}";
-                    var birthday_match = birthday.match(/^(\d\d)\/(\d\d)\/(\d\d\d\d)$/);
-
-                    for(var i = 1; i <= 31; i++){
-                        document.write('<option value="'+i+'"');
-                        if(birthday_match && i == birthday_match[1]) {
-                            document.write(' selected="selected"');
-                        }
-                        document.write('>'+i+'</option>');
-                    }
-                    </script>
+                {% for i in days %}
+                    {% if form.birthday.value.day == i %}
+                    <option value="{{ i }}" selected="selected">{{ i }}</option>
+                    {% else %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
                 </select>
                 <select class="form-control">
                     <option>{% trans 'Month' %}</option>
-                    <script type="text/javascript">(function(){
-                    for(var i = 1; i <= 12; i++){
-                        var m = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-                                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-                        document.write('<option value="'+i+'"');
-                        if(birthday_match && i == birthday_match[2]) {
-                            document.write(' selected="selected"');
-                        }
-                        document.write('>'+m[i-1]+'</option>');
-                    }})();</script>
+
+                {% for i,month in months.items %}
+                    {% if form.birthday.value.month == i %}
+                    <option value="{{ i }}" selected="selected">{{ month }}</option>
+                    {% else %}
+                    <option value="{{ i }}">{{ month }}</option>
+                    {% endif %}
+                {% endfor %}
                 </select>
                 <select class="form-control">
                     <option>{% trans 'Year' %}</option>
-                    <script type="text/javascript">
-                    for(var i = 1950; i <= (new Date()).getFullYear(); i++){
-                        document.write('<option value="'+i+'"');
-                        if(birthday_match && i == birthday_match[3]) {
-                            document.write(' selected="selected"');
-                        }
-                        document.write('>'+i+'</option>');
-                    }
-                    </script>
+                {% for i in years %}
+                    {% if form.birthday.value.year == i %}
+                    <option value="{{ i }}" selected="selected">{{ i }}</option>
+                    {% else %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
                 </select>
             </div>
             <input type="hidden" name="{{ form.birthday.html_name }}"

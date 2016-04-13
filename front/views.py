@@ -13,6 +13,7 @@ from django.views.generic import FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView
 from django.utils import timezone
+from django.utils.dates import MONTHS
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
 
@@ -486,6 +487,13 @@ class SignupBikeanjoView(LoginRequiredMixin, FormView):
     form_class = forms.SignupBikeanjoForm
     template_name = 'bikeanjo_complete_signup.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(SignupBikeanjoView, self).get_context_data(**kwargs)
+        context['months'] = MONTHS
+        context['days'] = [i for i in range(1, 32)]
+        context['years'] = [i for i in range(1950, timezone.now().year)]
+        return context
+
     def get_success_url(self):
         return reverse('bikeanjo_help_offer')
 
@@ -502,6 +510,13 @@ class SignupBikeanjoView(LoginRequiredMixin, FormView):
 class SignupRequesterView(LoginRequiredMixin, FormView):
     form_class = forms.SignupRequesterForm
     template_name = 'requester_complete_signup.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SignupRequesterView, self).get_context_data(**kwargs)
+        context['months'] = MONTHS
+        context['days'] = [i for i in range(1, 32)]
+        context['years'] = [i for i in range(1950, timezone.now().year)]
+        return context
 
     def get_success_url(self):
         return reverse('requester_help_request')

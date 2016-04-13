@@ -229,7 +229,7 @@ class SignupForm(forms.ModelForm):
 
 class SignupBikeanjoForm(forms.ModelForm):
     gender = forms.CharField(label=_('Gender'))
-    birthday = forms.DateField(label=_('Date of birth'))
+    birthday = forms.DateField(label=_('Date of birth'), input_formats=["%d/%m/%Y"])
     ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.BIKEANJO_EXPERIENCE)
     bike_use = forms.ChoiceField(label=_('Bike user'), choices=models.BIKE_USE)
     initiatives = forms.CharField(label=_('Initiatives'), required=False, max_length=256)
@@ -241,7 +241,7 @@ class SignupBikeanjoForm(forms.ModelForm):
 
 class SignupRequesterForm(forms.ModelForm):
     gender = forms.CharField(label=_('Gender'))
-    birthday = forms.DateField(label=_('Date of birth'))
+    birthday = forms.DateField(label=_('Date of birth'), input_formats=["%d/%m/%Y"])
     ride_experience = forms.ChoiceField(choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
