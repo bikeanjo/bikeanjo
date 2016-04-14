@@ -218,7 +218,7 @@
                                         data-toggle="modal"
                                         data-target="#feedbackModal"
                                         send-to="#feedbackModal textarea"
-                                        send-content="Tive um problema com o pedido #{{helprequest.id}}, ">
+                                        send-content="{% blocktrans with id=helprequest.id%}I had a problem with request #{{id}}{% endblocktrans %}, ">
                                         {% trans "Report a problem" %}</a>
                                 </form>
                             </div>
