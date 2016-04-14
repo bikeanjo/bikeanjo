@@ -92,11 +92,10 @@ class HelpStatusManager(models.Manager):
         return self.filter(bikeanjo=None)
 
     def unread(self):
-        base = self.filter(status='open')
         if 'bikeanjo' in self.core_filters:
-            return base.filter(bikeanjo_access__lt=models.F('helpreply__created_date'))
+            return self.filter(bikeanjo_access__lt=models.F('helpreply__created_date'))
         elif 'requester' in self.core_filters:
-            return base.filter(requester_access__lt=models.F('helpreply__created_date'))
+            return self.filter(requester_access__lt=models.F('helpreply__created_date'))
         return self.none()
 
 

@@ -96,13 +96,13 @@
                 </article>
                 {% endif %}{% endwith %}
 
-                {% if user.helprequested_set.active.exists %}
+                {% if helprequest_list.exists %}
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">{% trans "Help requests" %} ({{user.helprequested_set.active.count}})</h2>
                     </header>
-                    {% for hr in user.helprequested_set.active %}
-                    <div class="card-content">
+                    {% for hr in helprequest_list %}
+                    <div class="card-content {{ hr.status }}">
                         <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{ hr.get_help_label }}</a></h3>
                         <ul class="card-info list-info list-unstyled">
                             {% if hr.status = 'new' %}

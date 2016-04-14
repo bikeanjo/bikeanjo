@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.models import Site
-from django.db.models import Q, Max
+from django.db.models import Q, F, Max
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404
 from django.views.generic import View, FormView, TemplateView, DetailView
@@ -151,9 +151,17 @@ class DashBoardView(DashboardMixin, TemplateView):
                      .order_by('?').first()
 
     def get_helprequest_list(self):
-        return models.HelpRequest.objects.open()\
-                     .filter(**{self.request.user.role: self.request.user})\
-                     .annotate(last_reply=Max('helpreply__created_date'))
+        user = self.request.user
+        access_field = '{0}_access'.format(user.role)
+
+        status = ['open']
+        if user.role == 'requester':
+            status.append('new')
+
+        return models.HelpRequest.objects\
+                     .annotate(last_reply=Max('helpreply__created_date'))\
+                     .filter(Q(status__in=status) | Q(last_reply__gt=F(access_field)))\
+                     .filter(**{user.role: user})
 
     def get_event_list(self):
         user = self.request.user
@@ -327,12 +335,11 @@ class RequestUpdateView(DashboardMixin, UpdateView):
         if obj.status == 'new' and request.user.role == 'bikeanjo':
             return HttpResponseRedirect(redirect_to=reverse('cyclist_new_request_detail', args=[obj.id]))
 
-        response = super(RequestUpdateView, self).get(request, **kwargs)
-
         if request.user.role in ['bikeanjo', 'requester']:
             field = '{0}_access'.format(request.user.role)
-            self.model.objects.filter(id=self.object.id).update(**{field: timezone.now()})
+            self.model.objects.filter(id=obj.id).update(**{field: timezone.now()})
 
+        response = super(RequestUpdateView, self).get(request, **kwargs)
         return response
 
     def get_success_url(self):

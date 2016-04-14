@@ -83,12 +83,12 @@
                 </article>
                 {% endif %}{% endwith %}
 
-                {% if user.helpbikeanjo_set.open.exists %}
+                {% if helprequest_list.exists %}
                 <article class="card list">
                     <header class="card-header negative">
                         <h2 class="card-title">{% trans "My Requests" %}({{user.helpbikeanjo_set.open.count}})</h2>
                     </header>
-                    {% for hr in user.helpbikeanjo_set.open %}
+                    {% for hr in helprequest_list %}
                     <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
                         <h3 class="card-subtitle"><i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a></h3>
                         <ul class="card-info list-info list-unstyled">
