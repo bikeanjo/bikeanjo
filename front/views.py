@@ -412,10 +412,12 @@ class MessageDetailView(DashboardMixin, DetailView):
     template_name = 'dashboard_message_detail.html'
 
     def get(self, request, **kwargs):
-        response = super(MessageDetailView, self).get(request, **kwargs)
+        obj = self.get_object()
         user = request.user
-        if not self.object.readed_by.filter(user=user).exists():
-            self.object.readed_by.create(user=user)
+        if not obj.readed_by.filter(user=user).exists():
+            obj.readed_by.create(user=user)
+
+        response = super(MessageDetailView, self).get(request, **kwargs)
         return response
 
 
