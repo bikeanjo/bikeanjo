@@ -287,6 +287,8 @@ class BikeanjoExperienceForm(forms.ModelForm):
 
 
 class BikeanjoUserInforForm(forms.ModelForm):
+    birthday = forms.DateField(label=_('Date of birth'), input_formats=["%d/%m/%Y"])
+
     class Meta:
         fields = ('avatar', 'first_name', 'last_name', 'email', 'language',
                   'country', 'city_alias', 'gender', 'birthday',)
@@ -300,6 +302,7 @@ class BikeanjoUserInforForm(forms.ModelForm):
 
 
 class RequesterUserInforForm(forms.ModelForm):
+    birthday = forms.DateField(label=_('Date of birth'), input_formats=["%d/%m/%Y"])
     ride_experience = forms.ChoiceField(label=_('Ride experience'), choices=models.REQUESTER_EXPERIENCE)
 
     class Meta:
