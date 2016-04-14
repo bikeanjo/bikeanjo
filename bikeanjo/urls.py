@@ -18,6 +18,10 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rosetta/', include('rosetta.urls')),
 
+    # languages
+    url(r'^(?P<language>%s)/$' % '|'.join(map(lambda l: l[0], settings.LANGUAGES)),
+        front.views.AnonymousSetLanguageView.as_view(), name='set_language_view'),
+
     # django allauth
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^accounts/signup/$', TemplateView.as_view(template_name='signup_define_role.html'),

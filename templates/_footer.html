@@ -58,17 +58,17 @@
                 </ul>
             </li>
             <li><a href="http://bikeanjo.org/blog/" target="_blank">Blog</a></li>
-            <!--li>Idioma
-                <select class="form-control">
-                    <option>PT</option>
-                    <option>EN</option>
-                    <option>ES</option>
+            <li>{% trans "Language" %}
+                <select class="form-control" onchange="document.location.href = '/' + this.value;">
+                    {% for code,lang in languages %}
+                    <option value="{{ code }}">{{ lang }}</option>
+                    {% endfor %}
                 </select>
-            </li>-->
+            </li>
         </ul>
         <div class="footer-bottom row hidden-xs">
             <div class="col-md-3 col-sm-4">
-                <p class="credits">Bike Anjo - 2015 - {% trans "Made in Brazil" %}</p>
+                <p class="credits">Bike Anjo - {% now "Y" %} - {% trans "Made in Brazil" %}</p>
             </div>
             <div class="col-md-6 col-sm-7">
                 <ul class="social-buttons list-inline unstyled">
@@ -125,7 +125,7 @@
 
             <a href="#top" class="back-to-top"></a>
 
-            <p class="credits">Bike Anjo - 2016 - {% trans "Made in Brazil" %}</p>
+            <p class="credits">Bike Anjo - {% now "Y" %} - {% trans "Made in Brazil" %}</p>
         </div>
     </div>
 </footer>

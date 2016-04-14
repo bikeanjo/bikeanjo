@@ -34,6 +34,10 @@ class BikeanjoLocaleMiddleware(object):
             translation.activate(request.user.language)
             request.LANGUAGE_CODE = translation.get_language()
 
+        elif request.session.get('language') in map(lambda l: l[0], settings.LANGUAGES):
+            translation.activate(request.session.get('language'))
+            request.LANGUAGE_CODE = translation.get_language()
+
 
 class ViewNameMiddleware(object):
     def process_view(self, request, view_func, view_args, view_kwargs):

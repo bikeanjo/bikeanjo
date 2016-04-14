@@ -9,7 +9,7 @@ from django.contrib.sites.models import Site
 from django.db.models import Q, Max
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404
-from django.views.generic import FormView, TemplateView, DetailView
+from django.views.generic import View, FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView
 from django.utils import timezone
@@ -58,6 +58,16 @@ class RedirectUrlMixin(object):
         return None
 
 
+class AnonymousSetLanguageView(View):
+    def get(self, request, **kwargs):
+        language = kwargs.get('language')
+        url = reverse('home')  # todo, get referer in a safe way
+
+        if language in map(lambda l: l[0], settings.LANGUAGES):
+            request.session['language'] = language
+        return HttpResponseRedirect(redirect_to=url)
+
+
 class HomeView(CreateView):
     template_name = 'home.html'
     model = models.Subscriber
@@ -75,6 +85,7 @@ class HomeView(CreateView):
         context['force_header'] = True
         context['force_footer'] = True
         context['site'] = Site.objects.filter(id=settings.SITE_ID).first()
+        context['languages'] = settings.LANGUAGES
         return context
 
     def get(self, request, **kwargs):
