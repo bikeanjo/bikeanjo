@@ -58,10 +58,11 @@
                 </ul>
             </li>
             <li><a href="http://bikeanjo.org/blog/" target="_blank">Blog</a></li>
-            <li>{% trans "Language" %}
+            <li>{% trans "Language" %}            
                 <select class="form-control" onchange="document.location.href = '/' + this.value;">
                     {% for code,lang in languages %}
-                    <option value="{{ code }}">{{ lang }}</option>
+                    <option {% if request.LANGUAGE_CODE = code %}selected="selected"{% endif %}
+                            value="{{ code }}">{{ lang }}</option>
                     {% endfor %}
                 </select>
             </li>
