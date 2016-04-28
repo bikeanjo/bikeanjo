@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load i18n %}
-<html>
-
+<html lang="{{request.LANGUAGE_CODE}}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +31,7 @@
 
         {% block extrahead %}{% endblock %}
     </head>
-    <body class="{{request.url_name}}">
+    <body class="{{request.url_name}} {{request.LANGUAGE_CODE}}">
         {% if form and not force_header %}
             {% include '_header-form.html' %}
         {% else %}

@@ -164,7 +164,7 @@ msgid "Learn to ride a bike"
 msgstr "Aprender a pedalar"
 
 #: cyclists/models.py:33 front/models.py:38
-msgid "Pratice riding"
+msgid "Practice riding"
 msgstr "Praticar pedaladas"
 
 #: cyclists/models.py:34 front/models.py:39 templates/emails/reminder.html:24

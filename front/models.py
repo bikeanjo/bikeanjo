@@ -35,7 +35,7 @@ HELP_OFFER = (
 
 HELP_REQUEST = (
     (1, _('Learn to ride a bike')),  # Aprender a pedalar
-    (2, _('Pratice riding')),  # Praticar pedaladas
+    (2, _('Practice riding')),  # Praticar pedaladas
     (4, _('Route recommendation')),  # Recomendar rota
     (8, _('Commute together')),  # Acompanhamento no trânsito
 )
