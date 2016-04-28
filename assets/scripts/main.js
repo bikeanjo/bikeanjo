@@ -293,6 +293,10 @@
             $($el.attr('send-to')).val($el.attr('send-content'));
         });
 
+        $('[href]').click(function(evt){
+            document.location.href = $(this).attr('href');
+        });
+
         (function setupMobileMenu(){
             $('button.toggle-menu').jPushMenu({
                 menuOpenClass      : 'cbp-spmenu-open',

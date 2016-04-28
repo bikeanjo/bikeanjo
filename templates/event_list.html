@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                 {% for event in event_list %}
-                <a href="{% url 'dashboard_event_detail' event.slug %}" class="card">
+                <div href="{% url 'dashboard_event_detail' event.slug %}" class="card">
                     {% if event.image %}
                     <div class="event-image" style="background-image: url('{{ event.image.url }}');">
                         <ul class="event-info">
@@ -50,7 +50,7 @@
                         <h3 class="card-subtitle text-ba">{{ event.title }}</h3>
                         <div class="card-info">{{ event.content|safe }}</div>
                     </div>
-                </a>
+                </div>
                 <script type="application/ld+json">{{ event.json_ld|safe }}</script>
                 {% endfor %}
 
