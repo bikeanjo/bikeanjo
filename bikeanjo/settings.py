@@ -22,7 +22,8 @@ environ.Env.read_env(str(root.path('.env')))
 BASE_DIR = str(root)
 
 ADMINS = (
-    ('Fabio Montefuscolo', 'fabio.montefuscolo@hacklab.com.br'),
+    ('Bikeanjo', 'jp@bikeanjo.org'),
+    ('Hacklab', 'contato@hacklab.com.br'),
 )
 
 
