@@ -17,7 +17,9 @@
             {% csrf_token %}
 
             <fieldset>
-                <legend>{% trans "Login with" %}</legend>
+                <div class="flexbox">
+                    <legend>{% trans "Login with" %}</legend>
+                </div>
                 {# include "socialaccount/snippets/provider_list.html" with process="login" #}
                 <div class="login-social">
                     {% for provider in socialaccount.providers reversed %}
@@ -29,7 +31,9 @@
             </fieldset>
 
             <fieldset>
-                <legend>{% trans 'or' %}</legend>
+                <div class="flexbox">
+                    <legend>{% trans 'or' %}</legend>
+                </div>
 
                 <div class="form-group">
                     <label class="primary-label" for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
