@@ -7,3 +7,7 @@ def bikeconf(request):
         'GOOGLE_ANALYTICS': getattr(settings, 'GOOGLE_ANALYTICS', ''),
         'GOOGLE_SITE_VERIFICATION': getattr(settings, 'GOOGLE_SITE_VERIFICATION', ''),
     }
+
+
+def languages(request):
+    return {'languages': settings.LANGUAGES}

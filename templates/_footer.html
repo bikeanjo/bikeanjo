@@ -58,13 +58,18 @@
                 </ul>
             </li>
             <li><a href="http://bikeanjo.org/blog/" target="_blank">Blog</a></li>
-            <li>{% trans "Language" %}            
-                <select class="form-control" onchange="document.location.href = '/' + this.value;">
-                    {% for code,lang in languages %}
-                    <option {% if request.LANGUAGE_CODE = code %}selected="selected"{% endif %}
-                            value="{{ code }}">{{ lang }}</option>
-                    {% endfor %}
-                </select>
+            <li>{% trans "Language" %}
+                <form action="{% url 'set_language_view' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}" />
+                    <select class="form-control" name="lang"
+                            onchange="jQuery(this).parent('form').submit()">
+                        {% for code,lang in languages %}
+                        <option {% if request.LANGUAGE_CODE = code %}selected="selected"{% endif %}
+                                value="{{ code }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </li>
         </ul>
         <div class="footer-bottom row hidden-xs">

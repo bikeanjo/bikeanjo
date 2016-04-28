@@ -58,14 +58,20 @@ class RedirectUrlMixin(object):
         return None
 
 
-class AnonymousSetLanguageView(View):
-    def get(self, request, **kwargs):
-        language = kwargs.get('language')
-        url = reverse('home')  # todo, get referer in a safe way
+class SetLanguageView(View):
+
+    def post(self, request, **kwargs):
+        user = request.user
+        target = request.POST.get('next', reverse('home'))
+        language = request.POST.get('lang')
 
         if language in map(lambda l: l[0], settings.LANGUAGES):
-            request.session['language'] = language
-        return HttpResponseRedirect(redirect_to=url)
+            if user.is_authenticated():
+                models.User.objects.filter(id=user.id).update(language=language)
+            else:
+                request.session['language'] = language
+
+        return HttpResponseRedirect(redirect_to=target)
 
 
 class HomeView(CreateView):
@@ -85,7 +91,6 @@ class HomeView(CreateView):
         context['force_header'] = True
         context['force_footer'] = True
         context['site'] = Site.objects.filter(id=settings.SITE_ID).first()
-        context['languages'] = settings.LANGUAGES
         return context
 
     def get(self, request, **kwargs):

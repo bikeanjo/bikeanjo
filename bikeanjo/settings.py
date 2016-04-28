@@ -100,6 +100,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'bikeanjo.context_processors.bikeconf',
+                'bikeanjo.context_processors.languages',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

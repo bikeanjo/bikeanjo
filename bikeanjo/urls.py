@@ -19,8 +19,7 @@ urlpatterns = [
     url(r'^rosetta/', include('rosetta.urls')),
 
     # languages
-    url(r'^(?P<language>%s)/$' % '|'.join(map(lambda l: l[0], settings.LANGUAGES)),
-        front.views.AnonymousSetLanguageView.as_view(), name='set_language_view'),
+    url(r'^set-language/$', front.views.SetLanguageView.as_view(), name='set_language_view'),
 
     # django allauth
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
