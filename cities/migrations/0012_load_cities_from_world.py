@@ -19,7 +19,7 @@ def load_cities_from_world(apps, schema_editor):
     City = apps.get_model('cities', 'City')
     CityAlias = apps.get_model('cities', 'CityAlias')
     Country = apps.get_model('cities', 'Country')
-    path = '%s/data/cities15000.txt' % settings.BASE_DIR
+    path = '%s/data/cities.txt' % settings.BASE_DIR
 
     City.objects.all().delete()
     countries = dict(Country.objects.values_list('acronym', 'id'))
