@@ -190,30 +190,30 @@ class SignupForm(forms.ModelForm):
         return email
 
     def clean_first_name(self):
-        full_name = self.cleaned_data.get('full_name')
+        full_name = self.cleaned_data.get('full_name', [''])
         first_name = full_name[0]
 
         if first_name:
             return first_name
 
-        raise forms.ValidationError(_('Invalid name'))
+        raise forms.ValidationError(_('Fill with your full name'))
 
     def clean_last_name(self):
-        full_name = self.cleaned_data.get('full_name')
+        full_name = self.cleaned_data.get('full_name', [''])
         last_parts = full_name[1:]
         last_name = ' '.join(last_parts)
 
         if last_name.strip():
             return last_name
 
-        raise forms.ValidationError(_('Invalid name'))
+        raise forms.ValidationError(_('Fill with your full name'))
 
     def clean_full_name(self):
         full_name = self.cleaned_data.get('full_name', '').split(' ')
         full_name = [name.strip() for name in full_name if name.strip()]
 
         if len(full_name) < 2:
-            raise forms.ValidationError(_('Invalid name'))
+            raise forms.ValidationError(_('Fill with your full name'))
         return full_name
 
     def signup(self, request, user):
