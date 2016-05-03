@@ -3,7 +3,6 @@ import hashlib
 import json
 import logging
 from collections import OrderedDict
-from django.db.models import Q
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import Distance as D
