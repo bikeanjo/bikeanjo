@@ -3,6 +3,7 @@ import hashlib
 import json
 import logging
 from collections import OrderedDict
+from django.db.models import Q
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import Distance as D
@@ -153,9 +154,16 @@ class HelpRequest(BaseModel):
         return total
 
     def find_bikeanjo(self):
-        bikeanjos = User.objects.filter(role='bikeanjo', available=True, accepted_agreement=True)\
-                                .exclude(match__isnull=False, match__helprequest=self)
-        DISTANCE = 50000
+        bikeanjos = User.objects.filter(
+            role='bikeanjo',
+            available=True,
+            accepted_agreement=True
+        ).exclude(
+            match__isnull=False,
+            match__helprequest=self
+        )
+
+        DISTANCE = 10000
 
         # 3 ponto, 12 rota
         if self.help_with | 12 and self.track:
@@ -163,8 +171,10 @@ class HelpRequest(BaseModel):
             linestring = self.track.track
             center = linestring.centroid
 
-            available = Track.objects.filter(user__in=bikeanjos,
-                                             track__distance_lte=(center, D(m=DISTANCE)))
+            near_cities = City.objects.distance(center).order_by('distance')[:2]
+
+            qs = Track.objects.filter(user__in=bikeanjos)
+            available = qs.filter(user__city__in=near_cities)
 
             saida_pedido = linestring[0]
             chegada_pedido = linestring[-1]

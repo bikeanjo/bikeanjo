@@ -62,6 +62,8 @@ class City(models.Model):
     tz = models.CharField(_('Timezone'), max_length=40, blank=True)
     point = models.PointField(null=True)
 
+    objects = models.GeoManager()
+
     def __unicode__(self):
         return self.name
 
