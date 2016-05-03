@@ -1611,7 +1611,7 @@ msgstr ""
 "corretamente as informações"
 
 #: templates/bikeanjo_help_offer.html:42
-msgid "Content registration process"
+msgid "Continue registration process"
 msgstr "Continuar cadastro"
 
 #: templates/bikeanjo_signup_terms.html:5

@@ -1598,7 +1598,7 @@ msgstr ""
 "ofertas de ayuda y solicitudes"
 
 #: templates/bikeanjo_help_offer.html:42
-msgid "Content registration process"
+msgid "Continue registration process"
 msgstr "Continuar el proceso de registro"
 
 #: templates/bikeanjo_signup_terms.html:5
