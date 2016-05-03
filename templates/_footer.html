@@ -129,7 +129,19 @@
                 </li>
             </ul>
 
-            <a href="#top" class="back-to-top"></a>
+                <form action="{% url 'set_language_view' %}" method="post">
+                    <input type="hidden" name="next" value="{{ request.path }}" />
+                    {% csrf_token %}
+                    <ul class="list-inline langs-list unstyled">
+                        {% for code,lang in languages %}
+                        <li><button name="lang" class="btn flag {{ code }}{% if request.LANGUAGE_CODE = code %} selected{% endif %}"
+                                value="{{ code }}">{{ code }}</button></li>
+                        {% endfor %}
+                    </ul>
+                </form>
+
+                <a href="#top" class="back-to-top"></a>
+            </div>
 
             <p class="credits">Bike Anjo - {% now "Y" %} - {% trans "Made in Brazil" %}</p>
         </div>
