@@ -708,7 +708,7 @@ msgstr "Quiero ayuda para pedalear"
 
 #: front/templates/home.html:13 templates/signup_define_role.html:15
 msgid "I ride a bike and want to help"
-msgstr "Soy un ciclista con experiencia y quiero ayudar"
+msgstr "¡Yo puedo ayudar!"
 
 #: front/templates/home.html:21
 msgid "Our community is always growing"
