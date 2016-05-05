@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 import re
 import sys
 import string
+import unicodedata
 
+from django.db.models import Q
 from django.db import models, migrations
 
 def normalize_user_location(apps, schema_editor):
@@ -47,15 +49,19 @@ def normalize_user_location(apps, schema_editor):
         return qs
 
     punc_pattern = re.compile(' *[%s]+ *' % re.escape(string.punctuation))
-    for name in cities:
-        name = punc_pattern.split(name)[0]
+    for v1_name in cities:
+        name = ' '.join(v1_name.split())
+        name = punc_pattern.split(name)[0].strip()
+        clean = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore')
 
-        qs = CityAlias.objects.select_related('city').filter(name__lowermatch=name)
-        alias = levenshtein_ordered_qs(qs, name).first()
+        qs = CityAlias.objects\
+                      .select_related('city')\
+                      .filter(Q(name__lowermatch=name) | Q(name__lowermatch=clean))
+        obj = levenshtein_ordered_qs(qs, name).first()
 
-        if alias:
-            User.objects.filter(v1_city=name)\
-                        .update(city_alias=alias, city=alias.city)
+        if obj:
+            User.objects.filter(v1_city=v1_name)\
+                        .update(city_alias=obj, city=obj.city)
 
 
 class Migration(migrations.Migration):

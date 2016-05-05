@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import csv
+import json
 from django.db import models, migrations
 from django.db.utils import DataError
 from django.contrib.gis.geos import Point
@@ -40,6 +41,18 @@ def load_cities_from_world(apps, schema_editor):
             gen = (CityAlias(city=city, name=alias) for alias in aliases)
             #import ipdb; ipdb.set_trace()
             CityAlias.objects.bulk_create(gen)
+
+    # cidades do brasil
+    br_id = countries['BR']
+    path = '%s/data/cities_brasil.json' % settings.BASE_DIR
+
+    for c in json.load(open(path, 'r')):
+        city = City()
+        city.name = c['name']
+        city.country_id = br_id
+        city.point = Point(float(c['lon']), float(c['lat']))
+        city.save()
+        CityAlias.objects.create(city=city, name=c['name'])
 
 
 class Migration(migrations.Migration):
