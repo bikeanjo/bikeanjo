@@ -36,7 +36,7 @@
                     {% if event.subscription_link %}
                     <a href="{{event.subscription_link}}"
                        target="_blank"
-                       class="btn btn-lg btn-primary">Inscreva-se no evento</a>
+                       class="btn btn-lg btn-primary">{% trans "Register to attend event" %}</a>
                     {% endif %}
                 </p>
 
@@ -62,10 +62,11 @@
                                 {% endif %}
                         </li>
                         {% endif %}
-                        <li><i class="fa-li fa fa-dollar"></i>{{ event.price|default:'Evento gratuito' }}</li>
+                        {% trans 'See all events' as free_event %}
+                        <li><i class="fa-li fa fa-dollar"></i>{{ event.price|default:free_event }}</li>
                     </ul>
 
-                    <p class="see-all-events"><a href="{% url 'dashboard_event_list' %}">Ver todos os eventos</a></p>
+                    <p class="see-all-events"><a href="{% url 'dashboard_event_list' %}">{% trans "See all events" %}</a></p>
                     </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -12,10 +12,11 @@
 
                 <form class="card list" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <header class="card-header negative">
-                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Cadastro pessoal</h2>
+                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i>
+                                <span class="sr-only">{% trans "Back" %}</span></a> {% trans "Profile" %}</h2>
                     </header>
                     <div class="card-content">
-                    
+
                         {% for message in messages %}
                         <div class="alert alert-{{ message.level_tag }}" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -28,20 +29,20 @@
                         <div class="forms">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label class="primary-label">Avatar</label>
+                                <label class="primary-label">{% trans "Avatar" %}</label>
                                 <span class="user-icon">
                                     <img src="{{ user.get_avatar_url }}"
                                          data-file-preview="#{{ form.avatar.auto_id }}"
                                          class="img-circle"
-                                         width="85" height="85" 
+                                         width="85" height="85"
                                          title="{{ user.get_full_name }}"
                                          onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                         alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                         alt="{% trans "Photo of" %} {{ user.get_full_name }}"/>
                                 </span>
 
-                                <label  for="{{ form.avatar.auto_id }}" 
-                                        class="col-sm-offset-2 btn btn-success">Adicionar</label>
-                                
+                                <label  for="{{ form.avatar.auto_id }}"
+                                        class="col-sm-offset-2 btn btn-success">{% trans "Add" %}</label>
+
                                 <div class="hidden">
                                     <input id="{{ form.avatar.auto_id }}" name="{{ form.avatar.html_name }}" type="file"/>
                                 </div>
@@ -49,7 +50,7 @@
 
                             <div class="form-group {% if form.first_name.errors %}has-error has-feedback{% endif %}">
                                 <label class="primary-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="Seu nome completo">
+                                <input class="form-control" type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:"" }}" placeholder="{% trans "Your full name" %}">
                                 <i class="fa fa-user form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.first_name.errors %}
@@ -61,7 +62,7 @@
 
                             <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                                <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="Digite seu e-mail">
+                                <input class="form-control" type="last_name" name="{{ form.last_name.html_name }}" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:"" }}" placeholder="{% trans "Type your e-mail" %}">
                                 <i class="fa fa-envelope form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.last_name.errors %}
@@ -73,7 +74,7 @@
 
                             <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="Confirme seu e-mail">
+                                <input class="form-control" type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:"" }}" placeholder="{% trans "Confirm your e-mail" %}">
                                 <i class="fa fa-envelope-o form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.email.errors %}
@@ -83,9 +84,36 @@
                                 {% endif %}
                             </div>
 
+                            <div class="form-group {% if form.language.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                                <select class="form-control" id="{{ form.language.id_for_label }}" name="{{ form.language.html_name }}">
+                                    {% for x,y in form.fields.language.choices %}
+                                        <option value="{{ x }}" {% if form.language.value == x %} selected{% endif %}>{{ y }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i class="fa fa-language form-control-icon"></i>
+                                {% if form.language.errors %}
+                                    {% for error in form.language.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
                             <div class="form-group {% if form.country.errors %}has-error{% endif %}">
                                 <label class="primary-label" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-                                <input class="form-control" type="tel" name="{{ form.country.html_name }}" id="{{ form.country.id_for_label }}" value="{{ form.country.value|default:"" }}" placeholder="O nome do seu país">
+
+                                <input class="form-control" type="text" 
+                                       autocomplete="off"
+                                       id="{{ form.country.id_for_label }}"
+                                       name="{{ form.country.html_name }}"
+                                       placeholder="{% trans "Your country name" %}"
+                                       ac-source="/api/countryalias"
+                                       ac-query-var="name"
+                                       ac-key-for-value="country_id"
+                                       ac-key-for-extra="country_name"
+                                       ac-initial-text="{{ form.instance.country.name }}"
+                                       ac-initial-value="{{ form.instance.country.id }}" />
+
                                 <i class="fa fa-globe form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
                                 {% if form.country.errors %}
@@ -95,27 +123,27 @@
                                 {% endif %}
                             </div>
 
-                            <div class="form-group {% if form.city.errors %}has-error{% endif %}">
-                                <label class="primary-label" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
-                                <input class="form-control" type="text"
-                                       name="{{ form.city.html_name }}"
-                                       id="{{ form.city.id_for_label }}"
-                                       value="{{ form.city.value|default:"" }}"
-                                       autocomplete="off"
-                                       placeholder="O nome da sua cidade"
-                                       suggests="/api/cities" suggests-json-key="name"
-                                       suggests-filter-key="state__country__name"
-                                       suggests-filter-value="#id_country">
+                            <div class="form-group {% if form.city_alias.errors %}has-error{% endif %}">
+                                <label class="primary-label" for="{{ form.city_alias.id_for_label }}">{% trans "City" %}</label>
+
+                                <input class="form-control" type="text" autocomplete="off"
+                                       name="{{ form.city_alias.html_name }}"
+                                       id="{{ form.city_alias.id_for_label }}"
+                                       placeholder="{% trans "Your city name" %}"
+                                       ac-source="/api/cityalias"
+                                       ac-query-var="name"
+                                       ac-initial-text="{{ form.instance.city_alias.name }}"
+                                       ac-initial-value="{{ form.instance.city_alias.id }}"
+                                       ac-filter='{"city__country":function(){return $("[name={{ form.country.html_name }}]").val();} }' />
 
                                 <i class="fa fa-home form-control-icon"></i>
                                 <i class="fa fa-times form-control-feedback"></i>
-                                {% if form.city.errors %}
-                                    {% for error in form.city.errors %}
+                                {% if form.city_alias.errors %}
+                                    {% for error in form.city_alias.errors %}
                                     <span class="text-danger">{{ error }}</span>
                                     {% endfor %}
                                 {% endif %}
                             </div>
-
                             <div class="form-group {% if form.gender.errors %}has-error{% endif %}">
                                 <div><label class="primary-label">{{ form.gender.label }}</label></div>
 
@@ -216,13 +244,13 @@
                         </div>
                     </div>
                     <div class="card-footer save-config">
-                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                        <button class="btn btn-success" type="submit">{% trans "Save changes" %}</button>
                     </div>
                 </form>
 
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

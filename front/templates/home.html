@@ -5,12 +5,12 @@
 <section id="top" class="home">
     <section class="jumbotron">
         <div class="container">
-            <h2>Junte-se a uma comunidade que acredita na transformação por meio da bicicleta!</h2>
+            <h2>{% trans "Join a community that believes in change through bicycles" %}!</h2>
             <p>
                 <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">
-                Quero ajuda para pedalar</a>
+                    {% trans "I need help to ride a bike" %}</a>
                 <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success" role="button">
-                Já pedalo e quero ajudar</a>
+                {% trans "I ride a bike and want to help" %}</a>
             </p>
         </div>
     </section>
@@ -18,27 +18,27 @@
     <section class="statistics">
         <div class="container">
             <header>
-                <h2>Nossa comunidade não para de crescer</h2>
+                <h2>{% trans "Our community is always growing" %}</h2>
             </header>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
                       data-counter="{{counters.bikeanjos}}">{{counters.bikeanjos}}</span>
-                <span class="info">Bike Anjos</span>
+                  <span class="info">{% trans "Bike Anjo volunteers" %}</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
                       data-counter="{{counters.requests}}">{{counters.requests}}</span>
-                <span class="info">Pedidos</span>
+                <span class="info">{% trans "Requests" %}</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
                       data-counter="{{counters.cities}}">{{counters.cities}}</span>
-                <span class="info">cidades</span>
+                <span class="info">{% trans "Cities" %}</span>
             </div>
             <div class="box col-xs-6 col-md-3">
                 <span class="number"
                       data-counter="{{counters.countries}}">{{counters.countries}}</span>
-                <span class="info">Países</span>
+                <span class="info">{% trans "Countries" %}</span>
             </div>
         </div>
     </section>
@@ -70,33 +70,33 @@
 
     <section class="how-it-works container">
         <header>
-            <h2>Como funciona nossa plataforma?</h2>
-            <p>Somos uma comunidade de ciclistas voluntários apaixonados pelo seu meio de transporte</p>
+            <h2>{% trans "How it works?" %}</h2>
+            <p>{% trans "We are a community of passionate cyclists who voluntarily help out new cyclists" %}</p>
         </header>
         <div class="row">
             <div class="ask-help box col-md-4">
                 <div class="icon"></div>
-                <h3>Você pede ajuda</h3>
-                <p>Na plataforma você encontra ajuda para aprender e praticar suas pedaladas, recomendações de rotas, acompanhamento no trânsito e muito mais.</p>
+                <h3>{% trans "You ask for help" %}</h3>
+                <p>{% trans "You can find help to learn how to practice your skills, find route recomendations, traffic information and much more" %}.</p>
             </div>
             <div class="find-help box col-md-4">
                 <div class="icon"></div>
-                <h3>Encontra seu Bike Anjo</h3>
-                <p>Analisamos seu pedido em nossa base e conectamos com um(a) bike anjo mais próximo(a) de você para ajudar com o seu pedido.</p>
+                <h3>{% trans "Find your Bike Anjo volunteer" %}</h3>
+                <p>{% trans "We analyze your request in our database and connect you with a bike anjo close to you to help with your request" %}.</p>
             </div>
             <div class="community box col-md-4">
                 <div class="icon"></div>
-                <h3>E faz parte da comunidade</h3>
-                <p>A partir do momento que você recebe ajuda você poderá engajar outras pessoas a fazer o mesmo e transformar a sua cidade.</p>
+                <h3>{% trans "And be part of the community" %}</h3>
+                <p>{% trans "By the moment you get help you can get other people to do the same and change your city" %}.</p>
             </div>
-            <a href="http://bikeanjo.org/about/sobre-nos/" class="btn btn-success col-xs-12"><u><b>Saiba mais</b></u> sobre como funciona o Bike Anjo</a>
+            <a href="http://bikeanjo.org/about/sobre-nos/" class="btn btn-success col-xs-12"><u><b>{% trans "Learn more" %}</b></u> {% trans "about how Bike Anjo works" %}</a>
         </div>
     </section>
 
     <section class="who-used container">
         <header>
-            <h2>Confira quem já usou</h2>
-            <p>Depoimentos de quem já fez parte da nossa comunidade</p>
+            <h2>{% trans "Check out who have already used it" %}</h2>
+            <p>{% trans "Testimonials from people already in our community" %}</p>
         </header>
         <div class="row">
             <div id="carousel-who-used" class="carousel slide col-xs-12 col-sm-8 col-sm-push-2" data-ride="carousel"  data-interval="false">
@@ -108,9 +108,9 @@
                             <div class="card">
                                 <div class="icon">
                                     <img src="{{ testimony.author.get_avatar_url }}"
-                                         width="85" height="85" 
+                                         width="85" height="85"
                                          title="{{ testimony.author.get_full_name }}"
-                                         alt="{% trans "Photo from" %} {{ testimony.author.get_full_name }}"/>
+                                         alt="{% trans "Photo of" %} {{ testimony.author.get_full_name }}"/>
                                 </div>
                                 <p class="testimonial">{{ testimony.message }}</p>
                                 <p class="author">{{ testimony.author.get_full_name }}</p>
@@ -122,11 +122,11 @@
 
                 <a class="left carousel-control" href="#carousel-who-used" role="button" data-slide="prev">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    <span class="sr-only">Anterior</span>
+                    <span class="sr-only">{% trans "Previous" %}</span>
                 </a>
                 <a class="right carousel-control" href="#carousel-who-used" role="button" data-slide="next">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                    <span class="sr-only">Próximo</span>
+                    <span class="sr-only">{% trans "Next" %}</span>
                 </a>
 
                 <ol class="carousel-indicators">
@@ -144,26 +144,26 @@
         <div class="container">
             <div class="subscribe-success" style="display: none">
                 <header>
-                    <h2>Cadastro efetuado com sucesso!</h2>
-                    <p>Obrigado por fazer parte dessa comunidade</p>
+                    <h2>{% trans "Registration successfully complete!" %}</h2>
+                    <p>{% trans "Thank you for becoming part of this community" %}</p>
                 </header>
             </div>
 
             <div class="subscribe-form">
                 <header>
-                    <h2>Receba Novidades</h2>
-                    <p>Fique por dentro de todas nossas novidades</p>
+                    <h2>{% trans "Get the news" %}</h2>
+                    <p>{% trans "Be informed of all our news" %}</p>
                 </header>
                 <form class="form-inline" method="post" ajax
                       ajax-success="$('.subscribe-success,.subscribe-form').toggle()">{% csrf_token %}
 
                     <div class="form-group">
                         <input type="email"
-                               placeholder="Digite seu e-mail"
+                               placeholder="{% trans "Type your e-mail" %}"
                                class="form-control"
                                name="{{form.email.html_name}}"
                                value="{{form.email.value|default:''}}">
-                        <input type="submit" class="btn btn-info btn-lg" value="Enviar">
+                        <input type="submit" class="btn btn-info btn-lg" value="{% trans "Send" %}">
                     </div>
                 </form>
             </div>

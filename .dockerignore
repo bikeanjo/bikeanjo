@@ -1,0 +1,5 @@
+.dockerignore
+bower_components/
+Dockerfile
+node_modules/
+bikeanjo/settings_local.py*

@@ -1,4 +1,4 @@
-.PHONY: pre-ci setup-ci all tests
+.PHONY: pre-ci setup-ci all assets tests
 .SILENT: all
 
 GRUNT=./node_modules/grunt-cli/bin/grunt
@@ -15,13 +15,19 @@ all:
 		test ! -d ${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo && \
 		test -n ${VIRTUALENVWRAPPER_SCRIPT} && \
 		source ${VIRTUALENVWRAPPER_SCRIPT} && \
-	 	mkvirtualenv bikeanjo -p /usr/bin/python2 || \
-	 	exit 0"
+		mkvirtualenv bikeanjo -p /usr/bin/python2 || \
+		exit 0"
 	npm install
 	${BOWER} install
 	${PIP} install -r requirements.txt
 	${PYTHON} manage.py migrate ${NOINPUT}
 	${GRUNT} all
+
+assets:
+	npm install
+	${BOWER} install
+	${GRUNT} all
+	${GRUNT} watch
 
 pre-ci:
 	npm install grunt-cli bower
@@ -46,5 +52,26 @@ upgrade: clean
 	${BOWER} install
 	${PIP} install -r requirements.txt
 	${PYTHON} manage.py migrate
+	${PYTHON} manage.py update_translation_fields
 	${PYTHON} manage.py collectstatic --noinput
+	${PYTHON} manage.py compilemessages
 	${GRUNT} all
+
+messages:
+	${PYTHON} manage.py makemessages -d django --all\
+		--ignore=node_modules\
+		--ignore=bower_components\
+		--ignore=local_data\
+		--ignore=data
+
+resetdb:
+	test "${ACCIDENT}" = "no"
+	psql -Upostgres -h127.0.0.1 postgres -c 'drop database bikeanjo;'
+	psql -Upostgres -h127.0.0.1 postgres -c 'create database bikeanjo owner bikeanjo;'
+	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension postgis;'
+	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension unaccent;'
+	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension fuzzystrmatch;'
+
+remove-fuzzy-trans:
+	sed -i -z -r -e 's/((#[^\n]+\n)*)(#, fuzzy[^\n]*\n)(#\| msgid[^\n]+\n)(#[^\n]+\n)*((msgid[^\n]+\n)("[^"]+"\n)*)(msgstr[^\n]+\n)("[^"]+"\n)*/\1\6msgstr ""/g' \
+		`find locale -name "*.po"`

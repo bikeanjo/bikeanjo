@@ -10,29 +10,36 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import environ
+from django.utils.translation import ugettext_lazy as _
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+env = environ.Env()
+root = environ.Path(__file__) - 2
+environ.Env.read_env(str(root.path('.env')))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
+BASE_DIR = str(root)
+
+ADMINS = (
+    ('Bikeanjo', 'jp@bikeanjo.org'),
+    ('Hacklab', 'contato@hacklab.com.br'),
+)
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%1f#2u69h04ng=1@m-7l_bcql+fz%cyz@rgkys8zao%zpw9mt('
+SECRET_KEY = env('DJANGO_SECRET_KEY', default='%1f#2u69h04113465m-7l_bc3456`[]~z@rgkys8zao%zpw9mt(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
+TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['*'])
 
 # Application definition
-
 INSTALLED_APPS = (
     'suit',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,19 +64,22 @@ INSTALLED_APPS = (
     'djrill',
     'import_export',
     'rest_framework',
+    'dal',
+    'dal_select2',
     'cities',
     'cyclists',
     'front',
+    'emailqueue',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'middlewares.ViewNameMiddleware',
-    'middlewares.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'middlewares.BikeanjoLocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'middlewares.BikeanjoSessionConfigMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -84,12 +94,13 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            str(root.path('templates')),
         ],
         # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'bikeanjo.context_processors.bikeconf',
+                'bikeanjo.context_processors.languages',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -120,46 +131,44 @@ WSGI_APPLICATION = 'bikeanjo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'bikeanjo',
-    }
+    'default': env.db("DJANGO_DATABASE_URL", default='postgis://postgis/bikeanjo' ),
 }
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
-
-TIME_ZONE = 'America/Sao_Paulo'
+LANGUAGE_CODE = env('DJANGO_LANGUAGE_CODE', default='pt-br')
+TIME_ZONE = env('DJANGO_TIME_ZONE', default='America/Sao_Paulo')
 
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
+LANGUAGES = (
+    ('pt-br', _('Brazilian Portuguese')),
+    ('es', _('Spanish')),
+    ('en', _('English')),
 )
 
+LOCALE_PATHS = (
+    str(root.path('locale')),
+)
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGE_SIZE': 100
 }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATIC_URL = env('DJANGO_STATIC_URL', default='/static/')
+STATIC_ROOT = str(root.path('static'))
+STATICFILES_DIRS = env.list('STATICFILES_DIRS', default=[])
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = env('DJANGO_MEDIA_URL', default='/media/')
+MEDIA_ROOT = str(root.path('media'))
 
 
 SITE_ID = 1
@@ -191,10 +200,33 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 LOGIN_REDIRECT_URL = '/'
-SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER = 600
+SESSION_COOKIE_AGE_FOR_INCOMPLETE_REGISTER = 21600
 
-MANDRILL_API_KEY = "brack3t-is-awesome"
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+
+EMAIL_USE_TLS = env('DJANGO_EMAIL_USE_TLS', default=None)
+EMAIL_HOST = env('DJANGO_EMAIL_HOST', default=None)
+EMAIL_PORT = env('DJANGO_EMAIL_PORT', default=None)
+EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD', default=None)
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER', default=None)
+
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL', default='Equipe Bike Anjo<noreply@bikeanjo.org>')
+DEFAULT_TO_EMAIL = env('DJANGO_DEFAULT_TO_EMAIL', default='Equipe Bike Anjo<contato@bikeanjo.org>')
+
+MANDRILL_API_KEY = env('MANDRILL_API_KEY', default='brack3t-is-awesome')
+GOOGLE_ANALYTICS = env('DJANGO_GOOGLE_ANALYTICS', default='')
+GOOGLE_SITE_VERIFICATION = env('DJANGO_GOOGLE_SITE_VERIFICATION', default='')
+
+FORMAT_MODULE_PATH = [
+    'bikeanjo.formats',
+]
+
+MODELTRANSLATION_AUTO_POPULATE = True
+MODELTRANSLATION_FALLBACK_LANGUAGES = {
+    'default': ('es', 'en',),
+    'en': ('pt-br', 'es'),
+    'es': ('pt-br', 'en')
+}
 
 try:
     from .settings_local import *

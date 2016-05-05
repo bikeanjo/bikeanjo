@@ -1,10 +1,11 @@
-Olá {{ recipient.first_name }},
+{% load i18n %}
+{% trans "Hello" %} {{ recipient.first_name }},
 
-Uma nova mensagem foi enviada a você sobre o seu pedido de ajuda!
+{% trans "A new message was sent to you about your request" %}!
 
-Pedido: {{ helprequest.get_help_label }}
+{% trans "Request" %}: {{ helprequest.get_help_label }}
 
-Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bike Anjo team" %}

@@ -1,12 +1,14 @@
-{% load staticfiles %}<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load i18n %}
+<html lang="{{request.LANGUAGE_CODE}}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>{% block title %}Bike Anjo{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Hacklab" />
-        
+
         {% block opengraph %}
         <meta name="description"          content="Uma comunidade que acredita na transformação por meio da bicicleta!">
         <meta property="og:url"           content="http://{{site.domain}}/" />
@@ -29,20 +31,20 @@
 
         {% block extrahead %}{% endblock %}
     </head>
-    <body class="{{request.url_name}}">
+    <body class="{{request.url_name}} {{request.LANGUAGE_CODE}}">
         {% if form and not force_header %}
             {% include '_header-form.html' %}
         {% else %}
             {% include '_header.html' %}
         {% endif %}
-        
+
         <div class="main-content" role="main">
             {% block content %}
                 <h1>bloco content</h1>
             {% endblock %}
         </div>
 
-        {% block footer %}        
+        {% block footer %}
             {% if not form or force_footer %}
                 {% include '_footer.html' %}
             {% endif %}

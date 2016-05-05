@@ -2,21 +2,6 @@
 from django.utils.translation import ugettext as _
 from import_export import resources, fields
 from front import models
-from cyclists.models import User
-
-
-class UserResource(resources.ModelResource):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email', 'date_joined', 'last_login',
-                  'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country', 'accepted_agreement',)
-        export_order = ('first_name', 'last_name', 'email', 'date_joined', 'last_login',
-                        'gender', 'birthday', 'role', 'help_with', 'available', 'city', 'country', 'accepted_agreement',)
-
-    def dehydrate_help_with(self, obj):
-        if obj.role == 'requester':
-            return ''
-        return ' / '.join([str(label) for label in obj.help_labels()])
 
 
 class NewsletterResource(resources.ModelResource):
@@ -26,7 +11,7 @@ class NewsletterResource(resources.ModelResource):
 
 
 class FeedbackResource(resources.ModelResource):
-    created_date = fields.Field(column_name=_('Created date'))
+    created_date = fields.Field(column_name=_('Date of creation'))
     author_name = fields.Field(column_name=_('Name'))
     author_role = fields.Field(column_name=_('Role'))
     message = fields.Field(column_name=_('Message'))

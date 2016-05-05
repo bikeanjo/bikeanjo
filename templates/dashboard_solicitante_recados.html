@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% block content %}
     <section class="dashboard requester container">
-       
+
         <div class="row">
 
             <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
@@ -16,22 +17,22 @@
                     </header>
                     <nav class="sidebar-nav">
                         <ul class="list-unstyled">
-                            <li><a href="#">Meus pedidos
+                            <li><a href="#">{% trans "My requests" %}
                             <span class="alert bubble">1</span></a></li>
-                            <li><a href="#">Recados
+                            <li><a href="#">{% trans "Messages" %}
                             <span class="alert bubble">1</span></a></li>
-                            <li><a href="#">Eventos</a></li>
-                            <li><a href="#">Fórum de discussão</a></li>
-                            <li><a href="#">Dicas para pedalar</a></li>
-                            <li><a href="#">Editar cadastro</a></li>
-                            <li><a href="#">Quero ser um Bike Anjo</a></li>
+                            <li><a href="#">{% trans "Events" %}</a></li>
+                            <li><a href="#">{% trans "Discussion forum" %}</a></li>
+                            <li><a href="#">{% trans "Cycling tips" %}</a></li>
+                            <li><a href="#">{% trans "Edit account" %}</a></li>
+                            <li><a href="#">{% trans "I want to be a Bike Anjo" %}</a></li>
                         </ul>
-                        <a href="#" class="sidebar-ask-help btn btn-warning">Pedir ajuda para pedalar</a>
-                    </nav>            
+                        <a href="#" class="sidebar-ask-help btn btn-warning">{% trans "Ask for help to ride a bike" %}</a>
+                    </nav>
                 </div>
                 <div class="sidebar-feedback">
-                    <a href="#"><span>Como estamos pedalando?</span><br>
-                    Envie seu feedback</a>
+                    <a href="#"><span>{% trans "How are we riding?" %}</span><br>
+                    {% trans "Send us feedback" %}</a>
                 </div>
             </aside>
 
@@ -39,7 +40,7 @@
 
                 <article class="card list">
                     <header class="card-header negative">
-                        <h3 class="card-title">Recados (6)</h3>
+                        <h3 class="card-title">{% trans "Messages" %} (6)</h3>
                     </header>
 
                     <div class="card-content">
@@ -64,6 +65,6 @@
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

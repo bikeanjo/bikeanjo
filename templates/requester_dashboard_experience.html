@@ -3,7 +3,7 @@
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -11,15 +11,18 @@
 
                 <form class="card list" method="post">{% csrf_token %}
                     <header class="card-header negative">
-                        <h2 class="card-title"><a href="{% url 'user_register' %}"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a> Editar cadastro</h2>
+                        <h2 class="card-title"><a href="{% url 'user_register' %}">
+                                <i class="fa fa-arrow-left"></i><span class="sr-only">{% trans "Back" %}</span></a>
+                            {% trans "Edit account" %}
+                        </h2>
                     </header>
                     <div class="card-content">
                         <div class="forms">
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
+                                    <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long do you ride a bike?' %}</span>
                                 </label>
-                                
+
                                 {% for value,label in form.ride_experience.field.choices %}
                                 <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -39,7 +42,7 @@
 
                             <div class="form-group">
                                 <label class="primary-label">
-                                    <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use the bicycle as a means of transportation?' %}</span>
+                                    <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use a bike to commute?' %}</span>
                                 </label>
 
                                 {% for value,label in form.bike_use.field.choices %}
@@ -59,8 +62,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
-                                <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
+                                <label class="primary-label" for="participate">{% trans "Are you part of any cycling initiative?" %}</label>
+                                <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="{% trans "Describe your participation here" %}">{{ form.initiatives.value|default:'' }}</textarea>
 
                                 {% if form.initiatives.errors %}
                                     {% for error in form.initiatives.errors %}
@@ -72,13 +75,13 @@
                         </div>
                     </div>
                     <div class="card-footer save-config">
-                        <button class="btn btn-success" type="submit">Salvar alterações</button>
+                        <button class="btn btn-success" type="submit">{% trans "Save changes" %}</button>
                     </div>
                 </form>
 
             </section>
 
         </div>
-        
+
     </section>
 {% endblock %}

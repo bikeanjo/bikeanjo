@@ -4,32 +4,45 @@
 {% load i18n %}
 {% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
 {% endblock %}
 
-{% block js %}{{ block.super }}
+{% block js %}
+<script type="text/javascript">
+    var map_cfg = {
+        {% if user and user.city %}
+        "center": [{{user.city.point.get_y|stringformat:"f"}}, {{user.city.point.get_x|stringformat:"f"}}],
+        {% endif %}
+
+        {% if user and user.country %}
+        "country": "{{ user.country.acronym }}",
+        {% endif %}
+    };
+</script>
+
+{{ block.super }}
 <script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
 {% endblock %}
 
 {% block content %}
 <section class="forms signup container">
-    
+
     <form class="signup fullscreen card" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
         <header>
-            <h2>Onde pode pedalar?</h2>
-            <p>Adicione os pontos onde você pode pedalar, adicione quantos quiser</p>
+            <h2>{% trans "Where can you go for a ride?" %}</h2>
+            <p>{% trans "Add pin points where you can go cycling. Add as many as you want." %}</p>
         </header>
 
         <div class="form-inline">
             <div class="form-group add-address">
-                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="Adicione pontos de ajuda">
+                <input bikeanjo-track="point" class="form-control input-lg" type="text" id="help-points" placeholder="{% trans "Add pin points" %}">
                 <button bikeanjo-add="point" class="btn btn-success">
                 <i class="fa fa-plus"></i></button>
 
@@ -43,13 +56,13 @@
 
         <ul class="addresses-list list-unstyled" bikeanjo-list="points"></ul>
 
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Continuar</button>
+        <button class="btn btn-primary btn-block btn-lg" type="submit">{% trans "Continue" %}</button>
         {% if not user.accepted_agreement %}
         <input type="hidden" name="next" value="{% url 'cyclist_agreement' %}" />
         {% endif %}
     </form>
 
     <div class="map" id="js-map"></div>
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

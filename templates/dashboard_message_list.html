@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
             <section class="dashboard-content col-md-7">
                 <article class="card list">
                     <header class="card-header negative">
-                        <h2 class="card-title">Recados ({{unread.messages.count}})</h2>
+                        <h2 class="card-title">{% trans "Messages" %} ({{unread.messages.count}})</h2>
                     </header>
                     {% for message in message_list %}
                     <div class="card-content {% if message.was_read %}old{% endif %}">

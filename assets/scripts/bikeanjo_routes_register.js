@@ -27,7 +27,8 @@
 
         var config = $.extend({
             center: [-23.548991, -46.633328],
-            zoom: 14
+            zoom: 14,
+            country: null
         }, cfg);
 
         var map;
@@ -260,7 +261,7 @@
                 new google.maps.places.Autocomplete(el,{
                     //types: ['address'],
                     changed: $el.trigger.bind($el, 'address-changed'),
-                    componentRestrictions: {country: 'br'}
+                    componentRestrictions: { country: config.country }
                 });
             });
 
@@ -327,8 +328,9 @@
 
     $(function(){
         var map_canvas = document.getElementById('js-map');
+        var map_cfg = window.map_cfg || {};
         if(map_canvas) {
-            window.bikemap = new Bikemap(map_canvas);
+            window.bikemap = new Bikemap(map_canvas, map_cfg);
         }
     });
 

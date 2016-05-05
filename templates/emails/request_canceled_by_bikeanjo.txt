@@ -1,8 +1,9 @@
-Olá {{ recipient.first_name }},
+{% load i18n %}
+{% trans "Hello" %} {{ recipient.first_name }},
 
-Infelizmente seu pedido de Bike Anjo para "{{ helprequest.get_help_label }}" foi cancelado porque o seu o Bike Anjo não vai  conseguir mais te atender. Nossa plataforma automaticamente vai encontrar outra pessoa para te ajudar em até 15 dias, tudo bem? O=D
+{% trans "Unfortunately your request for" %} "{{ helprequest.get_help_label }}" {% trans "was cancelled because your bike anjo won't be able to help you anymore. We will try to find someone else in the next 15 days." %} O=D
 
-Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bike Anjo team" %}

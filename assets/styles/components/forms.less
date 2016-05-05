@@ -85,6 +85,24 @@
         font-weight: 500;
     }
 
+    &.login {
+        fieldset:first-of-type {
+            margin-top: 15px;
+        }
+
+        .flexbox {
+            display: flex;
+            justify-content: center;
+
+            legend {
+                display: inline;
+                margin-top: -15px;
+                background-color: white;
+            }
+        }
+    }
+
+
     // fix size for large buttons on mobile
     /*@media screen and (max-width: @screen-xs-max) {
         .btn-lg {
@@ -417,5 +435,3 @@
         }
     }
 }
-
-

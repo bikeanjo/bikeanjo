@@ -6,13 +6,14 @@ from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.models import Site
-from django.db.models import Q, Max
+from django.db.models import Q, F, Max
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404
-from django.views.generic import FormView, TemplateView, DetailView
+from django.views.generic import View, FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView
 from django.utils import timezone
+from django.utils.dates import MONTHS
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
 
@@ -24,6 +25,7 @@ import forms
 import models
 
 import cyclists.models
+import cities.models
 from notifications import notify_admins_about_new_contact_message, notify_user_subscribed_in_newsletter
 
 
@@ -54,6 +56,22 @@ class RedirectUrlMixin(object):
             return next_page
 
         return None
+
+
+class SetLanguageView(View):
+
+    def post(self, request, **kwargs):
+        user = request.user
+        target = request.POST.get('next', reverse('home'))
+        language = request.POST.get('lang')
+
+        if language in map(lambda l: l[0], settings.LANGUAGES):
+            if user.is_authenticated():
+                models.User.objects.filter(id=user.id).update(language=language)
+            else:
+                request.session['language'] = language
+
+        return HttpResponseRedirect(redirect_to=target)
 
 
 class HomeView(CreateView):
@@ -104,7 +122,11 @@ class DashboardMixin(RegisteredUserMixin):
         user = self.request.user
         data = super(DashboardMixin, self).get_context_data(**kwargs)
         data['unread'] = {
-            'messages': models.Message.objects.exclude(readed_by__user=user) .filter(created_date__gt=user.date_joined),
+            'messages': models.Message.objects.exclude(readed_by__user=user)
+                                      .filter(Q(target_roles='all') | Q(target_roles=user.role))
+                                      .filter(Q(target_city__isnull=True) | Q(target_city=user.city))
+                                      .filter(Q(target_country__isnull=True) | Q(target_country=user.country))
+                                      .filter(created_date__gt=user.date_joined),
         }
 
         if user.role == 'bikeanjo':
@@ -134,9 +156,17 @@ class DashBoardView(DashboardMixin, TemplateView):
                      .order_by('?').first()
 
     def get_helprequest_list(self):
-        return models.HelpRequest.objects.open()\
-                     .filter(**{self.request.user.role: self.request.user})\
-                     .annotate(last_reply=Max('helpreply__created_date'))
+        user = self.request.user
+        access_field = '{0}_access'.format(user.role)
+
+        status = ['open']
+        if user.role == 'requester':
+            status.append('new')
+
+        return models.HelpRequest.objects\
+                     .annotate(last_reply=Max('helpreply__created_date'))\
+                     .filter(Q(status__in=status) | Q(last_reply__gt=F(access_field)))\
+                     .filter(**{user.role: user})
 
     def get_event_list(self):
         user = self.request.user
@@ -273,10 +303,10 @@ class NewRequestsListView(DashboardMixin, ListView):
 
             if qs.count() == 0:
                 self.no_new_requests = True
-                qs = queryset.filter(bikeanjo=None, requester__city__unaccent__iexact=user.city)
+                qs = queryset.filter(bikeanjo=None, requester__city=user.city)
 
         elif _filter == 'orphan':
-            qs = queryset.filter(bikeanjo=None, requester__city__unaccent__iexact=user.city)
+            qs = queryset.filter(bikeanjo=None, requester__city=user.city)
         else:
             qs = queryset.filter(Q(bikeanjo=user) | Q(bikeanjo=None))
 
@@ -306,12 +336,15 @@ class RequestUpdateView(DashboardMixin, UpdateView):
     form_class = forms.HelpRequestUpdateForm
 
     def get(self, request, **kwargs):
-        response = super(RequestUpdateView, self).get(request, **kwargs)
+        obj = self.get_object()
+        if obj.status == 'new' and request.user.role == 'bikeanjo':
+            return HttpResponseRedirect(redirect_to=reverse('cyclist_new_request_detail', args=[obj.id]))
 
         if request.user.role in ['bikeanjo', 'requester']:
             field = '{0}_access'.format(request.user.role)
-            self.model.objects.filter(id=self.object.id).update(**{field: timezone.now()})
+            self.model.objects.filter(id=obj.id).update(**{field: timezone.now()})
 
+        response = super(RequestUpdateView, self).get(request, **kwargs)
         return response
 
     def get_success_url(self):
@@ -359,6 +392,9 @@ class MessageListView(DashboardMixin, ListView):
         user = self.request.user
         qs = models.Message.objects\
                    .filter(id__gt=0, created_date__gt=user.date_joined)\
+                   .filter(Q(target_roles='all') | Q(target_roles=user.role))\
+                   .filter(Q(target_city__isnull=True) | Q(target_city=user.city))\
+                   .filter(Q(target_country__isnull=True) | Q(target_country=user.country))\
                    .extra(select={'was_read': 'front_readedmessage.user_id'})
         join = Join(
             models.ReadedMessage._meta.db_table,
@@ -381,10 +417,12 @@ class MessageDetailView(DashboardMixin, DetailView):
     template_name = 'dashboard_message_detail.html'
 
     def get(self, request, **kwargs):
-        response = super(MessageDetailView, self).get(request, **kwargs)
+        obj = self.get_object()
         user = request.user
-        if not self.object.readed_by.filter(user=user).exists():
-            self.object.readed_by.create(user=user)
+        if not obj.readed_by.filter(user=user).exists():
+            obj.readed_by.create(user=user)
+
+        response = super(MessageDetailView, self).get(request, **kwargs)
         return response
 
 
@@ -396,10 +434,10 @@ class EventListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
         context['categories'] = models.Category.objects.all()
-        context['cities'] = models.Event.objects\
-                                        .order_by('city')\
-                                        .distinct('city')\
-                                        .values_list('city', flat=True)
+        context['cities'] = cities.models.City.objects \
+                                              .filter(event__isnull=False) \
+                                              .distinct() \
+                                              .order_by('name')
         return context
 
     def get_queryset(self):
@@ -407,10 +445,11 @@ class EventListView(ListView):
 
         filters = {}
         for f in self.request.GET.keys():
-            if f in ['category', 'city']:
+            f = map(lambda k: 'city__name' if k == 'city' else k, f)
+            if f in ['category', 'city__name']:
                 filters[f] = self.request.GET.get(f, '')
 
-        qs = qs.filter(**filters).order_by('-id')
+        qs = qs.filter(**filters).order_by('date', '-id')
         return qs
 
 
@@ -473,6 +512,13 @@ class SignupBikeanjoView(LoginRequiredMixin, FormView):
     form_class = forms.SignupBikeanjoForm
     template_name = 'bikeanjo_complete_signup.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(SignupBikeanjoView, self).get_context_data(**kwargs)
+        context['months'] = MONTHS
+        context['days'] = [i for i in range(1, 32)]
+        context['years'] = [i for i in range(1950, timezone.now().year)]
+        return context
+
     def get_success_url(self):
         return reverse('bikeanjo_help_offer')
 
@@ -489,6 +535,13 @@ class SignupBikeanjoView(LoginRequiredMixin, FormView):
 class SignupRequesterView(LoginRequiredMixin, FormView):
     form_class = forms.SignupRequesterForm
     template_name = 'requester_complete_signup.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SignupRequesterView, self).get_context_data(**kwargs)
+        context['months'] = MONTHS
+        context['days'] = [i for i in range(1, 32)]
+        context['years'] = [i for i in range(1950, timezone.now().year)]
+        return context
 
     def get_success_url(self):
         return reverse('requester_help_request')
@@ -781,7 +834,7 @@ class FeedbackView(LoginRequiredMixin, RedirectUrlMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, 'Seu feedback foi enviado. Obrigado!')
+        messages.success(self.request, _('Your feedback has been sent. Thank you!'))
         return super(FeedbackView, self).form_valid(form)
 
 

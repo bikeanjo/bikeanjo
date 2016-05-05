@@ -1,9 +1,10 @@
 {% extends 'admin:admin/base_site.html' %}
 {% load static %}
 
-{% block branding %}{{ site_header|default:_('Bikeanjo administration') }}{% endblock %}
+{% block branding %}{{ site_header|default:_('Bike Anjo Admin') }}{% endblock %}
 
 {% block extrahead %}
+<!-- beginning of extrahead -->
 <style type="text/css">
 #header #branding h1 {
     background: transparent url("{% static 'imgs/logo-bike-anjo.png' %}") no-repeat scroll 10px 5px / 90px auto;
@@ -11,5 +12,15 @@
     color: transparent;
     text-shadow: none;
 }
+
+.select2-container .select2-search--dropdown .select2-search__field {
+    padding: 1em 4px;
+}
 </style>
+<script type='text/javascript'>
+{{ block.super }}
+delete window['jQuery'];
+delete window['$'];
+</script>
+<!-- end of extrahead -->
 {% endblock %}

@@ -3,13 +3,13 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Sign Up" %}{% endblock %}
 
 {% block content %}
 <section class="forms signup container">
     <header>
-        <h2>Só mais alguns dados</h2>
-        <p>Para melhorar seu cadastro vamos precisar só de mais alguns dados</p>
+        <h2>{% trans "Just a bit more info" %}</h2>
+        <p>{% trans "We need just a little more information about you in order to complete your registration" %}</p>
     </header>
 
     <form class="signup card" id="signup_form" method="post">
@@ -25,7 +25,6 @@
             <label class="primary-label">
                 <span class="{% if form.gender.errors %}text-danger{% endif %}">{{ form.gender.label }}</span>
             </label>
-
             <div class="clear">
                 <div class="select-gender">
                     <label class="radio {% if form.gender.value = 'female' %}checked{% endif %}">
@@ -53,7 +52,7 @@
 
                         <input type="text" class="form-control" id="{{ form.gender.auto_id }}_custom"
                                value="{% if form.gender.value not in 'male,female' %}{{ form.gender.value|default:''}}{% endif %}"
-                               placeholder="Personalize">
+                               placeholder="{% trans "Customize" %}">
 
                     </label>
                 </div>
@@ -72,43 +71,34 @@
             <div class="select-birthday">
                 <select class="form-control">
                     <option>{% trans 'Day' %}</option>
-                    <script type="text/javascript">
-                    var birthday = "{% firstof form.birthday.value|date:'d/m/Y' form.birthday.value '' %}";
-                    var birthday_match = birthday.match(/^(\d\d)\/(\d\d)\/(\d\d\d\d)$/);
-
-                    for(var i = 1; i <= 31; i++){
-                        document.write('<option value="'+i+'"');
-                        if(birthday_match && i == birthday_match[1]) {
-                            document.write(' selected="selected"');
-                        }
-                        document.write('>'+i+'</option>');
-                    }
-                    </script>
+                {% for i in days %}
+                    {% if form.birthday.value.day == i %}
+                    <option value="{{ i }}" selected="selected">{{ i }}</option>
+                    {% else %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
                 </select>
                 <select class="form-control">
                     <option>{% trans 'Month' %}</option>
-                    <script type="text/javascript">(function(){
-                    for(var i = 1; i <= 12; i++){
-                        var m = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-                                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-                        document.write('<option value="'+i+'"');
-                        if(birthday_match && i == birthday_match[2]) {
-                            document.write(' selected="selected"');
-                        }
-                        document.write('>'+m[i-1]+'</option>');
-                    }})();</script>
+
+                {% for i,month in months.items %}
+                    {% if form.birthday.value.month == i %}
+                    <option value="{{ i }}" selected="selected">{{ month }}</option>
+                    {% else %}
+                    <option value="{{ i }}">{{ month }}</option>
+                    {% endif %}
+                {% endfor %}
                 </select>
                 <select class="form-control">
                     <option>{% trans 'Year' %}</option>
-                    <script type="text/javascript">
-                    for(var i = 1950; i <= (new Date()).getFullYear(); i++){
-                        document.write('<option value="'+i+'"');
-                        if(birthday_match && i == birthday_match[3]) {
-                            document.write(' selected="selected"');
-                        }
-                        document.write('>'+i+'</option>');
-                    }
-                    </script>
+                {% for i in years %}
+                    {% if form.birthday.value.year == i %}
+                    <option value="{{ i }}" selected="selected">{{ i }}</option>
+                    {% else %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
                 </select>
             </div>
             <input type="hidden" name="{{ form.birthday.html_name }}"
@@ -125,9 +115,9 @@
 
         <div class="form-group">
             <label class="primary-label">
-                <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long have you cycling?' %}</span>
+                <span class="{% if form.ride_experience.errors %}text-danger{% endif %}">{% trans 'How long do you ride a bike?' %}</span>
             </label>
-            
+
             {% for value,label in form.ride_experience.field.choices %}
             <label class="radio {% if form.ride_experience.value = value %}checked{% endif %}">
                 <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
@@ -146,7 +136,7 @@
 
         <div class="form-group">
             <label class="primary-label">
-                <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use the bicycle as a means of transportation?' %}</span>
+                <span class="{% if form.bike_use.errors %}text-danger{% endif %}">{% trans 'Do you use a bike to commute?' %}</span>
             </label>
 
             {% for value,label in form.bike_use.field.choices %}
@@ -166,8 +156,9 @@
         </div>
 
         <div class="form-group">
-            <label class="primary-label" for="participate">Participa de alguma iniciativa de bicicleta?</label>
-            <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate" placeholder="Descreva sua participação aqui">{{ form.initiatives.value|default:'' }}</textarea>
+            <label class="primary-label" for="participate">{% trans "Are you part of any cycling initiative?" %}</label>
+            <textarea class="form-control" name="{{form.initiatives.html_name}}" rows="5" id="participate"
+                placeholder="{% trans 'Describe your participation here' %}">{{ form.initiatives.value|default:'' }}</textarea>
 
             {% if form.initiatives.errors %}
                 {% for error in form.initiatives.errors %}
@@ -176,10 +167,10 @@
             {% endif %}
         </div>
 
-        <button class="send-form btn btn-primary btn-block btn-lg" type="submit">Próximo</button>
+        <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Next" %}</button>
 
     </form>
 
-    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+    <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %}<b> {% trans "Contact us!" %}</b></a></p>
 </section>
 {% endblock %}

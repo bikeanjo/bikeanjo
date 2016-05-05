@@ -7,20 +7,20 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-    {% providers_media_js %}    
+    {% providers_media_js %}
     <section class="forms login container">
         <header>
-            <h2>Inscrição confirmada!</h2>
-            <p>Seu email agora está cadastrado e validado em nossa lista.</p>
+            <h2>{% trans "Confirmed subscription!" %}</h2>
+            <p>{% trans "Your e-mail address is registered and validated in our list" %}.</p>
         </header>
         <div class="card" method="post">
-           
+
             <h3 class="text-center">{{ subscriber.email }}</h3 class="text-center">
 
-            <p class="create-account">Não tem uma conta? <a href="{{ signup_url }}">Cadastre-se</a></p>
+            <p class="create-account">{% trans "Still don't have an account?" %} <a href="{{ signup_url }}">{% trans "Sign up" %}</a></p>
         </div>
 
-        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 
     </section>
 

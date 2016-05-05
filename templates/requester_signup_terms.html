@@ -2,22 +2,23 @@
 {% load url from future %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup agreement" %}{% endblock %}
+{% block head_title %}{% trans "Terms and Conditions" %}{% endblock %}
 
 {% block content %}
     <section class="forms signup container">
 
         <header>
-            <h2>Só mais uma coisinha</h2>
-            <p>Coloque informações adicionais do seu pedido e aceite nossos termos e condições</p>
+            <h2>{% trans "Just a bit more info" %}</h2>
+            <p>{% trans "Write additional information about your request and accept the Terms and Conditions" %}</p>
         </header>
 
         <form class="signup card" id="signup_form" method="post">
             {% csrf_token %}
 
             <div class="form-group">
-                <label class="primary-label" for="aditional-info">Informações adicionais</label>
-                <textarea class="form-control" rows="5" id="aditional-info" name="message" placeholder="Informação adicional ou particularidade do pedido">{{ form.message.value|default:'' }}</textarea>
+                <label class="primary-label" for="aditional-info">{% trans "Additional info" %}</label>
+                <textarea class="form-control" rows="5" id="aditional-info" name="message"
+                    placeholder="{% trans 'Additional information and request specifications' %}">{{ form.message.value|default:'' }}</textarea>
 
                 {% if request.POST and form.message.errors %}
                     {% for error in form.message.errors %}
@@ -31,7 +32,7 @@
                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                     <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                     {{ form.check1 }}
-                    <span class="text terms">Declaro ser de minha livre e espontânea vontade utilizar a bicicleta estando apto(a) física e psicologicamente para tomar esta decisão, além de consultar as recomendações, direitos e deveres como ciclista, para, sozinho(a), utilizar a bicicleta, antes ou após a interação com meu bike anjo.</span>
+                    <span class="text terms">{% trans "I hereby declare that it is of my free will to ride a bicycle and that I am in good physical and psychological conditions to make this decision, and I have consulted the recommendations, rights and duties as a cyclist to ride a bicycle alone before or after my interaction with my bike anjo volunteer." %}</span>
                 </label>
             </div>
 
@@ -40,7 +41,7 @@
                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                     <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                     {{ form.check2 }}
-                    <span class="text terms">Declaro que seguirei as recomendações do instrutor para garantir a minha segurança durante a prática e assumirei uma conduta responsável para me precaver de qualquer acidente.</span>
+                    <span class="text terms">{% trans "I declare that I will follow the recommendations of my instructor to ensure my safety when cycling and will undertake responsible conduct to protect myself from and prevent any accident." %}</span>
                 </label>
             </div>
 
@@ -49,7 +50,7 @@
                     <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                     <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
                     {{ form.check3 }}
-                    <span class="text terms">Eu aceito os riscos (positivos e negativos) associados a me encontrar com estranhos. Eu entendo que o Bike Anjo não conhece pessoalmente todos os membros que se cadastram nesta plataforma, portanto concordo em tomar as precauções sensatas, como faria encontrando qualquer nova pessoa por uma plataforma virtual, por exemplo marcando o primeiro encontro em um espaço público seguro.</span>
+                    <span class="text terms">{% trans "I accept the risks (positive and negative) associated with meeting strangers. I understand that the Bike Anjo organization does not personally know all of the members registered with this platform. I therefore agree to take the necessary precautions, as I would do with any new person I meet on an online platform, for example, by scheduling the first meeting at a public and safe place." %}</span>
                 </label>
             </div>
 
@@ -57,16 +58,17 @@
             <label class="checkbox {% if form.check4.value %}checked{% endif %}">
                 <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
                 <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
-                {{ form.check4 }}<span class="text terms">Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que venham a ser causados a mim ou aos meus bens enquanto trafego durante minha preparação, bem como posteriormente à minha formação, quando estiver pedalando pela vias autonomamente ou com outrem.</span>
+                {{ form.check4 }}<span class="text terms">{% trans "I agree to release Bike Anjo, the employees, contractors, volunteers and agents thereof from and against any and all claims or actions that I may have against them. I accept liability for any loss, injury or illness resulting from my preparation or participation during the activities organized by Bike Anjo, as well as after my experience with my instructor, during my bicycle rides by myself." %}</span>
             </label>
         </div>
 
         <button class="btn btn-primary btn-block btn-lg" type="submit"
-                name="accepted_agreement" value="true">Enviar pedido</button>
+                name="accepted_agreement" value="true">{% trans "Send request" %}</button>
 
         </form>
 
-        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
-                
+        <p class="questions"><a href="{% url "contact_view" %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %}
+                <b>{% trans "Contact us!" %}</b></a></p>
+
     </section>
 {% endblock %}

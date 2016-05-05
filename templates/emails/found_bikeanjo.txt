@@ -1,10 +1,11 @@
-Olá {{ recipient.first_name }},
+{% load i18n %}
+{% trans "Hello" %} {{ recipient.first_name }},
 
-Nossa plataforma achou um(a) Bike Anjo para te ajudar no seu pedido!
+{% trans "Our platform has found a bike anjo to help you with your request" %}!
 
-O nome do(a) Bike Anjo é {{ helprequest.bikeanjo.get_full_name }}.
+{% trans "The name of the bike anjo is" %} {{ helprequest.bikeanjo.get_full_name }}.
 
-Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bike Anjo team" %}

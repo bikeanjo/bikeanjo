@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% block content %}
 <section id="top" class="static tips-for-cycling">
     <section class="jumbotron">
         <div class="container">
-            <h2>Dicas para pedalar</h2>
+            <h2>{% trans "Cycling tips" %}</h2>
         </div>
     </section>
 
     <nav class="navigation">
         <ul>
             <li><a {% if view.kwargs.target = 'requester' %}class="active"{% endif %}
-                   href="{% url 'tips_list' 'requester' %}">Para quem não pedala</a></li>
+                   href="{% url 'tips_list' 'requester' %}">{% trans "I am a new cyclist" %}</a></li>
 
             <li><a {% if view.kwargs.target = 'bikeanjo' %}class="active"{% endif %}
-                   href="{% url 'tips_list' 'bikeanjo' %}">Para quem pedala</a></li>
+                   href="{% url 'tips_list' 'bikeanjo' %}">{% trans "I'm an experienced cyclist" %}</a></li>
         </ul>
     </nav>
 </section>
@@ -35,7 +36,7 @@
                         </div>
                         {% if tip.link %}
                         <footer class="card-footer">
-                            <a class="see-more-link" target="_blank" href="{{ tip.link }}">Ver dica na íntegra <i class="fa fa-arrow-right"></i></a>
+                            <a class="see-more-link" target="_blank" href="{{ tip.link }}">{% trans "See entire tip" %}<i class="fa fa-arrow-right"></i></a>
                         </footer>
                         {% endif %}
                     </article>

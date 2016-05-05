@@ -1,9 +1,10 @@
-Olá {{ recipient.first_name }},
+{% load i18n %}
+{% trans "Hello" %} {{ recipient.first_name }},
 
-Uma nova mensagem foi enviada para você em um dos pedidos de ajuda que você está atendendo!
-De: {{ sender.get_full_name }}, {{ sender.city }}.
+{% trans "A new message has been sent to you on one of the requests you are helping with" %}!
+{% trans "From" %}: {{ sender.get_full_name }}, {{ sender.city }}.
 
-Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bike Anjo team" %}

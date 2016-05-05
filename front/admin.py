@@ -1,155 +1,28 @@
-from urllib import urlencode
+# -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.flatpages.models import FlatPage
 
 from import_export.admin import ImportExportModelAdmin
+from modeltranslation.admin import TranslationAdmin
+from dal import autocomplete
 
 from front import models
 
 import admin_resources as resources
-import cyclists
 
-admin.site.site_title = _('Bikeanjo')
-admin.site.site_header = _('Bikeanjo administration')
-admin.site.index_title = _('Site administration')
-
-
-class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
-    list_filter = ('city', 'country', 'date_joined', 'last_login', 'accepted_agreement')
-    resource_class = resources.UserResource
-
-    def full_name(self, obj):
-        return obj.get_full_name() or obj.username
-    full_name.short_description = _('Full name')
-    full_name.admin_order_field = 'first_name'
-
-    def active_requests(self, obj):
-        counter = 0
-        if obj.role == 'bikeanjo':
-            counter = obj.helpbikeanjo_set.active().count()
-        elif obj.role == 'requester':
-            counter = obj.helprequested_set.active().count()
-        else:
-            return '-'
-
-        if counter > 0:
-            query = {
-                obj.role: obj.id,
-                'status__in': 'new,open',
-            }
-            return format_html(
-                u'{} <small><a href="{}?{}">{}</a></small>',
-                counter,
-                reverse('admin:front_helprequest_changelist'),
-                urlencode(query),
-                _('List')
-            )
-
-        return counter
-    active_requests.short_description = _('Active requests')
-
-    def finalized_requests(self, obj):
-        counter = 0
-        if obj.role == 'bikeanjo':
-            counter = obj.helpbikeanjo_set.filter(status='finalized').count()
-        elif obj.role == 'requester':
-            counter = obj.helprequested_set.filter(status='finalized').count()
-        else:
-            return '-'
-
-        if counter > 0:
-            query = {
-                obj.role: obj.id,
-                'status__in': 'finalized',
-            }
-            return format_html(
-                u'{} <small><a href="{}?{}">{}</a></small>',
-                counter,
-                reverse('admin:front_helprequest_changelist'),
-                urlencode(query),
-                _('List')
-            )
-
-        return counter
-    finalized_requests.short_description = _('Finalized requests')
-
-    def lookup_allowed(self, lookup, value):
-        allow = [
-            'contentreadlog__object_id',
-            'contentreadlog__content_type__model',
-            'contentreadlog__content_type__app_label',
-        ]
-
-        if lookup in allow:
-            return True
-
-        return super(CustomUserAdmin, self).lookup_allowed(lookup, value)
-
-
-@admin.register(cyclists.models.User)
-class User(CustomUserAdmin):
-    list_display = ('full_name', 'email', 'role', 'date_joined',
-                    'last_login', 'city', 'country', 'accepted_agreement')
-    list_filter = ('role', 'city', 'country', 'date_joined', 'last_login', 'accepted_agreement')
-
-
-@admin.register(cyclists.models.Requester)
-class Requester(CustomUserAdmin):
-    list_display = ('full_name', 'date_joined', 'last_login', 'city', 'country',
-                    'active_requests', 'finalized_requests',)
-
-
-@admin.register(cyclists.models.Bikeanjo)
-class Bikeanjo(CustomUserAdmin):
-    list_display = ('full_name', 'date_joined', 'last_login', 'available', 'city', 'country',
-                    'active_requests', 'finalized_requests', 'service_rating',
-                    'tracks', 'points')
-    list_filter = ('city', 'country', 'available', 'date_joined', 'last_login')
-
-    def service_rating(self, obj):
-        if obj.role != 'bikeanjo':
-            return '-'
-        rating = obj.helpbikeanjo_set\
-                    .filter(status='finalized')\
-                    .aggregate(avg_rating=models.models.Avg('requester_rating'))\
-                    .values()[0]
-        return rating or 0
-    service_rating.short_description = _('Service rating')
-
-    def tracks(self, obj):
-        counter = obj.track_set.count()
-        if counter > 0:
-            query = {'user': obj.id}
-            return format_html(
-                '{} <small><a href="{}?{}">{}</a></small>',
-                counter,
-                reverse('admin:front_track_changelist'),
-                urlencode(query),
-                _('List')
-            )
-        return counter
-    tracks.short_description = _('Tracks')
-
-    def points(self, obj):
-        counter = obj.point_set.count()
-        if counter > 0:
-            query = {'user': obj.id}
-            return format_html(
-                u'{} <small><a href="{}?{}">{}</a></small>',
-                counter,
-                reverse('admin:front_point_changelist'),
-                urlencode(query),
-                _('List')
-            )
-        return counter
-    points.short_description = _('Points')
+admin.site.site_title = _('Bike Anjo')
+admin.site.site_header = _('Bike Anjo Admin')
+admin.site.index_title = _('Site Admin')
 
 
 @admin.register(models.Track)
 class TrackAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('created_date', 'user_name', 'start', 'end', 'track',)
     list_filter = ('created_date', 'user__role')
     search_fields = ('user__first_name', 'user__last_name', 'start', 'end')
@@ -166,6 +39,9 @@ class TrackAdmin(admin.ModelAdmin):
 
 @admin.register(models.Point)
 class PointAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('created_date', 'address', 'coords',)
     list_filter = ('created_date', 'user__role')
     search_fields = ('user__first_name', 'user__last_name', 'address')
@@ -181,6 +57,9 @@ class PointAdmin(admin.ModelAdmin):
 
 
 class HelpReplyInline(admin.TabularInline):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     extra = 0
     model = models.HelpReply
     ordering = ['id']
@@ -189,6 +68,9 @@ class HelpReplyInline(admin.TabularInline):
 
 @admin.register(models.HelpRequest)
 class HelpRequestAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     inlines = [HelpReplyInline]
     search_fields = ('requester__first_name', 'requester__last_name',
                      'bikeanjo__first_name', 'bikeanjo__last_name',
@@ -204,42 +86,52 @@ class HelpRequestAdmin(admin.ModelAdmin):
 
     def requester_name(self, obj):
         return obj.requester.get_full_name() or obj.requester.username
-    requester_name.short_description = _('Requester name')
+    requester_name.short_description = _('New cyclist name')
 
     def bikeanjo_name(self, obj):
         if obj.bikeanjo is None:
             return ''
         return obj.bikeanjo.get_full_name()
-    bikeanjo_name.short_description = _('Bikeanjo name')
+    bikeanjo_name.short_description = _('Bike anjo name')
     bikeanjo_name.admin_order_field = 'bikeanjo__first_name'
 
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
+    class Media:
+        js = (
+            'js/vendor_admin.js',
+            'modeltranslation/js/force_jquery.js',
+        )
+
     list_display = ('created_date', 'title', 'readed_by_')
     list_filter = ('created_date',)
     search_fields = ('title',)
 
     def readed_by_(self, obj):
         return obj.readed_by.count()
-    readed_by_.short_description = _('Readed by')
+    readed_by_.short_description = _('Read by')
 
-
-@admin.register(models.Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'address',)
-    list_filter = ('created_date', 'date',)
-    search_fields = ('title', 'address', 'content')
-    prepopulated_fields = {"slug": ("title",)}
+    def get_form(self, *argz, **kwargz):
+        form = super(MessageAdmin, self).get_form(*argz, **kwargz)
+        form.base_fields['target_country'].widget = autocomplete.ModelSelect2(url='ac_country')
+        form.base_fields['target_city'].widget = autocomplete.ModelSelect2(url='ac_city')
+        return form
 
 
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('name',)
 
 
 @admin.register(models.Testimony)
 class TestimonyAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('created_date', 'author_name', 'message',)
     list_filter = ('created_date',)
     search_fields = ('author__first_name', 'author__last_name', 'message',)
@@ -291,8 +183,55 @@ class ContactMessageAdmin(admin.ModelAdmin):
     search_fields = ('message',)
 
 
+class TranslationAdminMedia(TranslationAdmin):
+    class Media:
+        js = (
+            'modeltranslation/js/force_jquery.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
+@admin.register(models.Event)
+class EventAdmin(TranslationAdminMedia):
+    class Media:
+        js = (
+            'js/vendor_admin.js',
+            'modeltranslation/js/force_jquery.js',
+        )
+
+    list_display = ('title', 'date', 'address',)
+    list_filter = ('created_date', 'date',)
+    search_fields = ('title', 'address', 'content')
+    prepopulated_fields = {"slug": ("title",)}
+
+    def get_form(self, *argz, **kwargz):
+        form = super(EventAdmin, self).get_form(*argz, **kwargz)
+        form.base_fields['city'].widget = autocomplete.ModelSelect2(url='ac_city')
+        return form
+
+
+admin.site.unregister(FlatPage)
+
+
+@admin.register(FlatPage)
+class FlatPageAdmin(TranslationAdminMedia):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
+    list_display = ('url', 'title')
+    list_filter = ('sites', 'enable_comments', 'registration_required')
+    search_fields = ('url', 'title')
+
+
 @admin.register(models.TipForCycling)
-class TipAdmin(admin.ModelAdmin):
+class TipAdmin(TranslationAdminMedia):
+    class Media:
+        js = ('js/vendor_admin.js', )
+
     list_display = ('title', 'target', 'created_date',)
     list_filter = ('created_date', 'target',)
     search_fields = ('title', 'content',)

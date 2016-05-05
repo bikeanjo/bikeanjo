@@ -1,6 +1,7 @@
 {% extends 'emails/base_email.html' %}
+{% load i18n %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <tr>
     <td align="center" style="padding: 20px 0px 15px;" bgcolor="#F26522">
@@ -12,10 +13,12 @@
         <table style="width: 100%; max-width: 550px;">
             <tbody>
                 <tr>
-                    <td style="color: #F26522; font-size: 34px;padding: 40px 0px 30px; text-align: center;">Pedido Cancelado</td>
+                    <td style="color: #F26522; font-size: 34px;padding: 40px 0px 30px; text-align: center;">{% trans "Request cancelled" %}</td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">Infelizmente seu pedido de Bike Anjo:</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding: 0 65px 30px; color: #999999; text-align: center;">
+                            {% trans "Unfortunately your request for help" %}:
+                    </p></td>
                 </tr>
                 <tr>
                     <td>
@@ -23,7 +26,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding:0 30px 65px 30px; color: #999999; text-align: center;">foi cancelado porque o seu o Bike Anjo não vai  conseguir mais te atender. Nossa plataforma automaticamente vai encontrar outra pessoa para te ajudar em até 15 dias, tudo bem? O=D</p></td>
+                    <td><p style="font-size: 17px; font-size: 18px; line-height: 28px; margin: 0; padding:0 30px 65px 30px; color: #999999; text-align: center;">
+                            {% trans "was cancelled because your bike anjo won't be able to help you anymore. We will try to find someone else in the next 15 days." %} O=D
+                    </p></td>
                 </tr>
             </tbody>
         </table>

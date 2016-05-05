@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from cyclists.models import User
+from cities.models import City, Country
 logger = logging.getLogger('front.models')
 
 GENDER = (
@@ -20,23 +21,23 @@ GENDER = (
 )
 
 CYCLIST_ROLES = (
-    ('bikeanjo', _('Bikeanjo')),
-    ('requester', _('Requester')),
+    ('bikeanjo', _('Bike Anjo')),
+    ('requester', _('New cyclist')),
 )
 
 
 HELP_OFFER = (
-    (1, _('Teach someone to ride a bike')),  # Ensinando alguém a pedalar
-    (2, _('Follow beginners on cycling')),  # Acompanhando iniciantes nas pedaladas
-    (4, _('Advice about safe routes')),  # Recomendando rotas mais seguras
-    (8, _('Participating in the events of Bike Anjos')),  # Participando dos eventos dos Bikes Anjos
+    (1, _('Teach someone how to ride a bike')),  # Ensinando alguém a pedalar
+    (2, _('Commute together with beginners on their first rides')),  # Acompanhando iniciantes nas pedaladas
+    (4, _('Suggest safe routes')),  # Recomendando rotas mais seguras
+    (8, _('Participate on Bike Anjo events')),  # Participando dos eventos dos Bikes Anjos
 )
 
 HELP_REQUEST = (
     (1, _('Learn to ride a bike')),  # Aprender a pedalar
-    (2, _('Pratice cycling')),  # Praticar pedaladas
-    (4, _('Route recomendation')),  # Recomendar rota
-    (8, _('Monitoring on traffic')),  # Acompanhamento no trânsito
+    (2, _('Practice riding')),  # Praticar pedaladas
+    (4, _('Route recommendation')),  # Recomendar rota
+    (8, _('Commute together')),  # Acompanhamento no trânsito
 )
 
 HELP = HELP_OFFER + HELP_REQUEST
@@ -49,19 +50,19 @@ BIKEANJO_EXPERIENCE = (
 )
 
 REQUESTER_EXPERIENCE = (
-    ('do not know pedaling yet', _('I do not know pedaling yet')),
-    ('no experience in traffic', _('I know cycling, but have no experience in traffic')),
-    ('already ride a long time', _('Already ride a long time but not daily')),
-    ('use bike almost every day', _('I use bike almost every day')),
+    ('do not know pedaling yet', _('I still don\'t know how to ride a bike')),
+    ('no experience in traffic', _('I know how to ride a bike, but have not traffic experience')),
+    ('already ride a long time', _('I bike for many years now, but not on a daily basis')),
+    ('use bike almost every day', _('I ride my bike almost every day')),
 )
 
 EXPERIENCE = BIKEANJO_EXPERIENCE + REQUESTER_EXPERIENCE
 
 BIKE_USE = (
     ('everyday', _('Everyday'),),
-    ('just few days a week/month', _('Just few days a week/month'),),
+    ('just few days a week/month', _('Only a few days per week/month'),),
     ('once a week', _('Once a week'),),
-    ('no, i use for leisure', _('No, I use for leisure'),),
+    ('no, i use for leisure', _('I only use my bike for leisure or on weekends'),),
 )
 
 
@@ -70,8 +71,8 @@ class BaseModel(models.Model):
     All models here should extends this. All models will have
     the created_date and modified_date properties
     """
-    created_date = models.DateTimeField(_('Created date'), auto_now_add=True, editable=False)
-    modified_date = models.DateTimeField(_('Modified date'), auto_now=True, editable=False)
+    created_date = models.DateTimeField(_('Date of creation'), auto_now_add=True, editable=False)
+    modified_date = models.DateTimeField(_('Date of change'), auto_now=True, editable=False)
 
     class Meta:
         abstract = True
@@ -91,11 +92,10 @@ class HelpStatusManager(models.Manager):
         return self.filter(bikeanjo=None)
 
     def unread(self):
-        base = self.filter(status='open')
         if 'bikeanjo' in self.core_filters:
-            return base.filter(bikeanjo_access__lt=models.F('helpreply__created_date'))
+            return self.filter(bikeanjo_access__lt=models.F('helpreply__created_date'))
         elif 'requester' in self.core_filters:
-            return base.filter(requester_access__lt=models.F('helpreply__created_date'))
+            return self.filter(requester_access__lt=models.F('helpreply__created_date'))
         return self.none()
 
 
@@ -108,7 +108,7 @@ class HelpRequest(BaseModel):
         ('new', _('New')),
         ('open', _('Open')),
         ('attended', _('Attended')),
-        ('finalized', _('Finalized')),
+        ('finalized', _('Finished')),
         ('canceled', _('Canceled')),
         ('rejected', _('Rejected')),
     ))
@@ -153,9 +153,16 @@ class HelpRequest(BaseModel):
         return total
 
     def find_bikeanjo(self):
-        bikeanjos = User.objects.filter(role='bikeanjo', available=True, accepted_agreement=True)\
-                                .exclude(match__isnull=False, match__helprequest=self)
-        DISTANCE = 50000
+        bikeanjos = User.objects.filter(
+            role='bikeanjo',
+            available=True,
+            accepted_agreement=True
+        ).exclude(
+            match__isnull=False,
+            match__helprequest=self
+        )
+
+        DISTANCE = 10000
 
         # 3 ponto, 12 rota
         if self.help_with | 12 and self.track:
@@ -163,8 +170,10 @@ class HelpRequest(BaseModel):
             linestring = self.track.track
             center = linestring.centroid
 
-            available = Track.objects.filter(user__in=bikeanjos,
-                                             track__distance_lte=(center, D(m=DISTANCE)))
+            near_cities = City.objects.distance(center).order_by('distance')[:2]
+
+            qs = Track.objects.filter(user__in=bikeanjos)
+            available = qs.filter(user__city__in=near_cities)
 
             saida_pedido = linestring[0]
             chegada_pedido = linestring[-1]
@@ -230,8 +239,8 @@ class HelpRequest(BaseModel):
 
 class HelpReply(BaseModel):
     class Meta:
-        verbose_name = _('Help reply')
-        verbose_name_plural = _('Help replies')
+        verbose_name = _('Reply to the request')
+        verbose_name_plural = _('Replies to the request')
         ordering = ['-created_date']
 
     author = models.ForeignKey(User)
@@ -241,8 +250,8 @@ class HelpReply(BaseModel):
 
 class Track(BaseModel):
     class Meta:
-        verbose_name = _('Track')
-        verbose_name_plural = _('Tracks')
+        verbose_name = _('Route')
+        verbose_name_plural = _('Routes')
 
     user = models.ForeignKey(User)
     start = models.CharField(_('Start'), max_length=128)
@@ -313,6 +322,10 @@ class ReadedAnnotationMixin(object):
 
 
 class Message(BaseModel):
+    TARGET_ROLES = (
+        ('all', _('All')),
+    ) + CYCLIST_ROLES
+
     class Meta:
         verbose_name = _('Message')
         verbose_name_plural = _('Messages')
@@ -321,6 +334,10 @@ class Message(BaseModel):
     title = models.CharField(_('Title'), max_length=128)
     content = models.TextField(_('Content'))
     image = models.ImageField(_('Image'), upload_to='messages', null=True, blank=True)
+
+    target_roles = models.CharField(_('Target'), choices=TARGET_ROLES, default=TARGET_ROLES[0][0], max_length=16)
+    target_city = models.ForeignKey(City, null=True, blank=True)
+    target_country = models.ForeignKey(Country, null=True, blank=True)
 
 
 class ReadedMessage(BaseModel):
@@ -334,7 +351,7 @@ class ReadedMessage(BaseModel):
 class Category(models.Model):
     class Meta:
         verbose_name = _('Event category')
-        verbose_name_plural = _('Events categories')
+        verbose_name_plural = _('Event categories')
 
     name = models.CharField(max_length=32)
 
@@ -354,12 +371,13 @@ class Event(BaseModel):
         ordering = ['-created_date']
 
     site = models.ForeignKey(Site, default=default_to_first_site)
-    title = models.CharField(_('Title'), max_length=128)
+    title = models.CharField(_('Title'), max_length=128, blank=True)
     slug = models.SlugField(_('Slug'), max_length=128)
-    content = models.TextField(_('Content'))
+    content = models.TextField(_('Content'), blank=True)
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
     date = models.DateTimeField(_('Date'))
-    city = models.CharField(_('City'), max_length='64')
+    v1_city = models.CharField(_('City'), max_length='64', editable=False, blank=True)
+    city = models.ForeignKey(City, null=True, blank=True)
     address = models.CharField(_('Address'), max_length='128', blank=True)
     address_link = models.CharField(_('Address link'), max_length='255', blank=True)
     subscription_link = models.CharField(_('Link'), max_length='255', blank=True)
@@ -396,10 +414,10 @@ class Event(BaseModel):
         ld['location'] = OrderedDict()
         ld['location']["@type"] = "Place"
 
-        ld['location']['name'] = self.city or ""
+        ld['location']['name'] = getattr(self.city, 'name', '')
         ld['location']['address'] = OrderedDict()
         ld['location']['address']["@type"] = "PostalAddress"
-        ld['location']['address']['addressLocality'] = self.city or ""
+        ld['location']['address']['addressLocality'] = getattr(self.city, 'name', '')
 
         if self.address:
             ld['location']['address']['streetAddress'] = self.address
@@ -462,11 +480,11 @@ class TipForCycling(BaseModel):
     ) + CYCLIST_ROLES
 
     class Meta:
-        verbose_name = _('Tip for cycling')
-        verbose_name_plural = _('Tips for cycling')
+        verbose_name = _('Cycling tip')
+        verbose_name_plural = _('Cycling tips')
 
-    title = models.CharField(_('Title'), max_length=128)
-    content = models.TextField(_('Content'))
+    title = models.CharField(_('Title'), max_length=128, blank=True)
+    content = models.TextField(_('Content'), blank=True)
     image = models.ImageField(_('Image'), upload_to='tips', null=True, blank=True)
     link = models.CharField(_('Link'), max_length='255', blank=True)
     target = models.CharField(_('Target'), choices=TARGETS, default=TARGETS[0][0], max_length=16)

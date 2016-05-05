@@ -1,14 +1,15 @@
-Olá {{ recipient.first_name }},
+{% load i18n %}
+{% trans "Hello" %} {{ recipient.first_name }},
 
-Infelizmente não achamos alguém para atender seu pedido no Bike Anjo. Isso pode acontecer se não existir Bike Anjos disponíveis na tua região, ou se estão muito sobrecarregados.
+{% trans "Unfortunately we could not find someone to help you at Bike Anjo. This can happen if there is no bike anjos available close to you or if they are overloaded." %}.
 
-Vamos continuar procurando, mas enquanto isso você pode:
+% trans "We will keep looking, but in the meanwhile you can" %}
 
-* Conferir nossas dicas para pedalar (http://{{ site.domain }}{% url 'tips_list' %})
-* Refazer o seu pedido em outra região (http://{{ site.domain }}{% url 'requester_help_request' %})
+* {% trans "Check out our cycling tips" %} (http://{{ site.domain }}{% url 'tips_list' %})
+* {% trans "Redo your request in another region" %} (http://{{ site.domain }}{% url 'requester_help_request' %})
 
 
-Veja em http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
-Att,
-Equipe Bikeanjo
+{% trans "Best regards" %},
+{% trans "Bike Anjo team" %}

@@ -1,4 +1,5 @@
 *.py[co]
+*.mo
 __pycache__
 db.sqlite3
 secret.txt
@@ -6,3 +7,4 @@ settings_local.py
 bower_components/
 node_modules/
 static/
+.env

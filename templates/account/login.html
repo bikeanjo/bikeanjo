@@ -7,33 +7,37 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-    {% providers_media_js %}    
+    {% providers_media_js %}
     <section class="forms login container">
         <header>
-            <h2>Vamos pedalar?</h2>
-            <p>Faça seu login para acessar seu painel de informações exclusivo.</p>
+            <h2>{% trans "Let's ride?" %}</h2>
+            <p>{% trans "Login to access your Dashboard" %}</p>
         </header>
         <form class="card" method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
-         
+
             <fieldset>
-                <legend>Faça seu login usando</legend>
+                <div class="flexbox">
+                    <legend>{% trans "Login with" %}</legend>
+                </div>
                 {# include "socialaccount/snippets/provider_list.html" with process="login" #}
                 <div class="login-social">
                     {% for provider in socialaccount.providers reversed %}
-                    <a title="{{provider.name}}" class="{{provider.id}} btn btn-default" 
+                    <a title="{{provider.name}}" class="{{provider.id}} btn btn-default"
                        href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
                        ><i class="fa fa-{{provider.id}}"></i> {{provider.name}}</a>
                     {% endfor %}
                 </div>
             </fieldset>
-            
+
             <fieldset>
-                <legend>{% trans 'or' %}</legend>
+                <div class="flexbox">
+                    <legend>{% trans 'or' %}</legend>
+                </div>
 
                 <div class="form-group">
                     <label class="primary-label" for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
-                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value|default:'' }}" placeholder="{% trans 'E-Mail' %}" tabindex="1">
+                    <input type="email" class="form-control" name="{{ form.login.html_name }}" id="{{ form.login.id_for_label }}" value="{{ form.login.value|default:'' }}" placeholder="{% trans 'E-mail' %}" tabindex="1">
                     <i class="fa fa-envelope form-control-icon"></i>
                     <i class="fa fa-times form-control-feedback"></i>
                     {% if form.login.errors %}
@@ -46,8 +50,8 @@
                 <div class="form-group">
                     <label class="primary-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
 
-                    <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-                        
+                    <a class="forgot-password secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot your password?" %}</a>
+
                     <input type="password" class="form-control" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" value="{{ form.password.value|default:'' }}" placeholder="{% trans 'Password' %}" tabindex="2" />
                     <i class="fa fa-lock form-control-icon"></i>
                     <i class="fa fa-times form-control-feedback"></i>
@@ -73,10 +77,10 @@
 
             <button class="send-form btn btn-primary btn-block btn-lg primaryAction" type="submit" tabindex="3">{% trans "Sign In" %}</button>
 
-            <p class="create-account">Não tem uma conta? <a href="{{ signup_url }}">Cadastre-se</a></p>
+            <p class="create-account">{% trans "Still don't have an account?" %} <a href="{{ signup_url }}">{% trans "Sign up" %}</a></p>
         </form>
 
-        <p class="questions"><a href="{% url 'contact_view' %}"><i class="fa fa-question-circle"></i>Problemas ou Dúvidas? <b>Fale com a gente!</b></a></p>
+        <p class="questions"><a href="{% url 'contact_view' %}"><i class="fa fa-question-circle"></i>{% trans "Any Trouble or Questions?" %} <b>{% trans "Contact us!" %}</b></a></p>
 
     </section>
 

@@ -7,7 +7,20 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
 {% endblock %}
 
-{% block js %}{{ block.super }}
+{% block js %}
+<script type="text/javascript">
+    var map_cfg = {
+        {% if user and user.city %}
+        "center": [{{user.city.point.get_y|stringformat:"f"}}, {{user.city.point.get_x|stringformat:"f"}}],
+        {% endif %}
+
+        {% if user and user.country %}
+        "country": "{{ user.country.acronym }}",
+        {% endif %}
+    };
+</script>
+
+{{ block.super }}
 <script type="text/javascript">L.Icon.Default.imagePath = '{% static 'imgs' %}';</script>
 {% endblock %}
 
@@ -15,7 +28,7 @@
 {% block content %}
 
     <section class="dashboard {{ user.role }} container">
-       
+
         <div class="row">
             {% include '_dashboard_sidebar.html' %}
 
@@ -23,54 +36,54 @@
 
                 <article class="card request {% if not helprequest.bikeanjo %}orphan{% endif %}">
                     <header class="card-header negative">
-                        <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">Voltar</span></a>
+                        <a href="{% url 'cyclist_my_requests' %}" class="go-back"><i class="fa fa-arrow-left"></i><span class="sr-only">{% trans "Back" %}</span></a>
                         <ul class="card-actions list-inline">
                         {% if helprequest.status == 'open' %}
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#cancelRequest">
                                     <span class="text visible-xs">Cancelar</span>
-                                    <span class="text hidden-xs">Cancelar Pedido</span>
+                                    <span class="text hidden-xs">{% trans "Cancel request" %}</span>
                                     <i class="fa fa-times-circle"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" data-toggle="modal" data-target="#finishRequest">
-                                    <span class="text visible-xs">Já atendi</span>
-                                    <span class="text hidden-xs">Já atendi o pedido</span>
+                                    <span class="text visible-xs">{% trans "Already answered" %}</span>
+                                    <span class="text hidden-xs">{% trans "I've already finished this request" %}</span>
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                             </li>
                         {% endif %}
                             <li>
                                 <a href="#helpreply-form" data-toggle="collapse">
-                                    <span class="text">Responder</span>
+                                    <span class="text">{% trans "Reply" %}</span>
                                     <i class="fa fa-reply"></i>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                     </header>
 
                     <div class="card-content">
                         <div class="card-icon">
                             <img src="{{ helprequest.requester.get_avatar_url }}"
-                                 width="50" height="50" 
+                                 width="50" height="50"
                                  title="{{ helprequest.requester.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                 alt="{% trans "Photo from" %} {{ helprequest.requester.get_full_name }}"/>
+                                 alt="{% trans "Photo of" %} {{ helprequest.requester.get_full_name }}"/>
                         </div>
                         <h3 class="card-subtitle">{{ helprequest.get_help_label }}</h3>
                         <ul class="card-info list-info list-unstyled">
                             <li>{{ helprequest.requester.get_full_name }}</li>
-                            <li>{{ helprequest.requester.city }}</li>
+                            <li>{{ helprequest.requester.city.name }}</li>
                             {# <li>{{ helprequest.created_date|date:'d/m/Y' }}</li> #}
                         </ul>
 
                         {% if helprequest.status = 'attended' %}
-                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Atendido</div>
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> {% trans "Request answered" %}</div>
                         {% elif helprequest.status = 'finalized' %}
-                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> Pedido Finalizado</div>
+                        <div class="label-finished request-finished"><i class="fa fa-check-circle"></i> {% trans "Request finished" %}</div>
                         {% elif helprequest.status = 'canceled' %}
-                        <div class="label-canceled request-canceled"><i class="fa fa-times-circle"></i> Pedido Cancelado</div>
+                        <div class="label-canceled request-canceled"><i class="fa fa-times-circle"></i> {% trans "Request cancelled" %}</div>
                         {% endif %}
                     </div>
                 </article>
@@ -87,7 +100,7 @@
                 <article class="card">
                     <div class="card-content">
                         <p class="card-info">{{ helprequest.message|linebreaksbr }}</p>
-                        
+
                         <div id="js-map" style="height: 150px"></div>
 
                         {% if helprequest.track %}
@@ -96,8 +109,8 @@
                                 <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;
                                 <small>{{helprequest.requester.track_set.reverse.first.end}}</small>
                             </p>
-                            <input type="hidden" bikeanjo-geojson="lines" 
-                                   value="[{{ helprequest.track.json }}]"/>                           
+                            <input type="hidden" bikeanjo-geojson="lines"
+                                   value="[{{ helprequest.track.json }}]"/>
                        {% else %}
                             <ul class="fa-ul">
                             {% for point in helprequest.point_set.all %}
@@ -105,7 +118,7 @@
                             {% endfor %}
                             </ul>
 
-                            <input type="hidden" bikeanjo-geojson="points" 
+                            <input type="hidden" bikeanjo-geojson="points"
                                    value="[{% for point in helprequest.point_set.all %}{{ point.json }}{% if not forloop.last %},{% endif %}{% endfor %}]"/>
                        {% endif %}
                     </div>
@@ -115,23 +128,23 @@
                 <form class="card reply collapse {{helprequest.helpreply_set.count|yesno:',in'}}" method="post" id="helpreply-form" action="{% url 'cyclist_request_reply' helprequest.id %}">
                     {% csrf_token %}
                     <header class="card-header">
-                        <button type="button" data-toggle="collapse" data-target="#helpreply-form" 
+                        <button type="button" data-toggle="collapse" data-target="#helpreply-form"
                                 class="card-button" aria-label="Close">
                             <span aria-hidden="true"><i class="fa fa-times"></i></span>
                         </button>
                         <div class="card-icon">
                             <img src="{{ user.get_avatar_url }}"
-                                 width="30" height="30" 
+                                 width="30" height="30"
                                  title="{{ user.get_full_name }}"
                                  onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                 alt="{% trans "Photo from" %} {{ user.get_full_name }}"/>
+                                 alt="{% trans "Photo of" %} {{ user.get_full_name }}"/>
                         </div>
                         <h2 class="card-title">{{ user.get_full_name }}</h2>
                     </header>
                     <div class="card-content">
                         <textarea class="form-control" name="message" rows="5" placeholder="Enter text"
                         ></textarea>
-                        <button class="btn btn-success" type="submit">Enviar</button>
+                        <button class="btn btn-success" type="submit">{% trans "Send" %}</button>
                     </div>
                 </form>
 
@@ -140,10 +153,10 @@
                     <header class="card-header">
                             <div class="card-icon">
                                 <img src="{{ helpreply.author.get_avatar_url }}"
-                                     width="30" height="30" 
+                                     width="30" height="30"
                                      title="{{ helpreply.author.get_full_name }}"
                                      onerror="this.src='{% static "imgs/empty-avatar.png" %}'"
-                                     alt="{% trans "Photo from" %} {{ helpreply.author.get_full_name }}"/>
+                                     alt="{% trans "Photo of" %} {{ helpreply.author.get_full_name }}"/>
                             </div>
                             <h2 class="card-title">{{ helpreply.author.get_full_name }}</h2>
                             <div class="card-date">{{ helpreply.created_date|date:'d/m/Y H:i' }}</div>
@@ -160,10 +173,10 @@
                             <div class="card-buttons">
                                 <button data-toggle="collapse"
                                         data-target="#helpreply-form"
-                                        class="btn btn-success">Responder</button>
+                                        class="btn btn-success">{% trans "Reply" %}</button>
                             {% if helprequest.status == 'open' %}
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">Já atendi o pedido</a>
-                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">Cancelar Pedido</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#finishRequest">{% trans "I've already finished this request" %}</a>
+                                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#cancelRequest">{% trans "Cancel request" %}</a>
                             {% endif %}
                             </div>
                         {% endif %}
@@ -178,11 +191,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> Marcar esse pedido como atendido?</h4>
+                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> {% trans "Check this requests as answered?" %}</h4>
                     </div>
-                    <form class="modal-body" method="POST">{% csrf_token %}               
-                        <p>Tem certeza que deseja marcar esse pedido como atendido?</p>
-                        <button name="status" value="attended" class="btn btn-success" type="submit">Marcar como atendido</button>
+                    <form class="modal-body" method="POST">{% csrf_token %}
+                        <p>{% trans "Are you sure that you want to check as answered?" %}</p>
+                        <button name="status" value="attended" class="btn btn-success" type="submit">{% trans "Check as answered" %}</button>
                         <input type="hidden" name="closed_by" value="{{user.role}}" />
                     </form>
                 </div>
@@ -194,25 +207,25 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> Escolha o motivo do cancelamento</h4>
+                        <h4 class="modal-title"><i class="fa fa-check-circle"></i> {% trans "Choose the reason to cancelling" %}</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Para encaminharmos e analisarmos melhor o pedido, escolha uma das opções abaixo</p>
+                        <p>{% trans "Choose one of the options bellow in order to help us analyse and forward the request" %}</p>
                         <form method="post">{% csrf_token %}
-                            <button name="status" value="new" class="btn btn-block btn-success" type="submit">Encaminhar para outro Bike Anjo</button>
+                            <button name="status" value="new" class="btn btn-block btn-success" type="submit">{% trans "Foward it to another bike anjo" %}</button>
                             <input type="hidden" name="reason" value="bikeanjo forwarded the request" />
                             <input type="hidden" name="closed_by" value="{{user.role}}" />
                         </form>
                         <br/>
                         <form method="post">{% csrf_token %}
-                            <button name="status" value="canceled" class="btn btn-block btn-success" type="submit">Não responde / Não quer ajuda</button>
+                            <button name="status" value="canceled" class="btn btn-block btn-success" type="submit">{% trans "Doesn't answer / Doesn't want help" %}</button>
                             <input type="hidden" name="closed_by" value="{{user.role}}" />
                             <input type="hidden" name="reason" value="bikeanjo canceled the request due inactivity" />
                         </form>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
 
     </section>
 

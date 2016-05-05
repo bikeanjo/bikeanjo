@@ -1,21 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <section id="top" class="static event event-list">
 
     <section class="jumbotron">
         <div class="container">
-            <h2>Eventos</h2>
+            <h2>{% trans "Events" %}</h2>
         </div>
     </section>
 
     <section class="event-filter">
         <form class="form-group container">
             <select class="form-control input-lg" name="city" onchange="this.parentElement.submit()">
-                <option>Filtrar por cidade</option>
+                <option>{% trans "Filter by city" %}</option>
                 {% for city in cities %}
-                <option value="{{ city }}"
-                        {% if request.GET.city = city %}selected="selected"{% endif %}>{{ city }}</option>
+                <option value="{{ city.name }}"
+                        {% if request.GET.city = city %}selected="selected"{% endif %}>{{ city.name }}</option>
                 {% endfor %}
             </select>
         </form>
@@ -47,7 +48,7 @@
                     {% endif %}
                     <div class="card-content {% if event.readed_date %}old{% endif %}">
                         <h3 class="card-subtitle text-ba">{{ event.title }}</h3>
-                        <div class="card-info">{{ event.content|safe }}</div>             
+                        <div class="card-info">{{ event.content|safe }}</div>
                     </div>
                 </div>
                 <script type="application/ld+json">{{ event.json_ld|safe }}</script>
@@ -86,7 +87,7 @@
     <section class="event-categories-list container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                <h3>Categorias</h3>
+                <h3>{% trans "Categories" %}</h3>
                 <ul>
                 {% for category in categories %}
                     <li><a href="?category={{ category.id }}">{{ category|upper }}</a></li>

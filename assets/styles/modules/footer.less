@@ -80,11 +80,41 @@
         background-size: 40px;
         display: block;
         height: 40px;
-        margin: 40px auto 20px;
+        margin: 20px auto 20px;
         width: 40px;
         @media screen and (min-width: @screen-sm-min) {
             float: right;
             margin: 0;
         }
     }
+
+    .langs-list {
+        text-align: center;
+        margin-top: 20px;
+
+        .btn.flag {
+            width: 48px;
+            height: 48px;
+            background: transparent url(../imgs/country-flags.png) no-repeat 0 0;
+            color: transparent;
+            border-radius: 25px;
+
+            &.selected{
+                box-shadow: 0 0 5px black;
+            }
+
+            &.pt-br {
+                background-position: -289px -1px;
+            }
+
+            &.es {
+                background-position: -3841px -1px;
+            }
+
+            &.en {
+                background-position: -4321px -1px;
+            }
+        }
+    }
+
 }
