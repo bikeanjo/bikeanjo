@@ -129,21 +129,22 @@
                 </li>
             </ul>
 
+            <div class="langs-list">
                 <form action="{% url 'set_language_view' %}" method="post">
-                    <input type="hidden" name="next" value="{{ request.path }}" />
                     {% csrf_token %}
-                    <ul class="list-inline langs-list unstyled">
+                    <input type="hidden" name="next" value="{{ request.path }}" />
+                    <select class="form-control" name="lang"
+                            onchange="jQuery(this).parent('form').submit()">
                         {% for code,lang in languages %}
-                        <li><button name="lang" class="btn flag {{ code }}{% if request.LANGUAGE_CODE = code %} selected{% endif %}"
-                                value="{{ code }}">{{ code }}</button></li>
+                        <option {% if request.LANGUAGE_CODE = code %}selected="selected"{% endif %}
+                                value="{{ code }}">{{ lang }}</option>
                         {% endfor %}
-                    </ul>
+                    </select>
                 </form>
-
-                <a href="#top" class="back-to-top"></a>
-                <p class="credits">Bike Anjo - {% now "Y" %} - {% trans "Made in Brazil" %}</p>
             </div>
 
+            <a href="#top" class="back-to-top"></a>
+            <p class="credits">Bike Anjo - {% now "Y" %} - {% trans "Made in Brazil" %}</p>
         </div>
     </div>
 </footer>
