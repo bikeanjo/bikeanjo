@@ -74,7 +74,7 @@ msgstr "Estados"
 #: templates/bikeanjo_dashboard_userinfo.html:127
 #: templates/requester_dashboard_userinfo.html:132
 msgid "City"
-msgstr "Ciudad"
+msgstr "Cidade"
 
 #: cities/models.py:57 front/templates/home.html:36
 msgid "Cities"
