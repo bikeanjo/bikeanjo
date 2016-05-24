@@ -7,6 +7,7 @@ from django.template.loader import select_template
 from django.utils.timezone import now, timedelta
 from django.utils import translation
 from emailqueue.models import QueuedMail
+from django.utils.translation import ugettext_lazy as _
 
 from front.utils import set_language
 
@@ -24,7 +25,7 @@ def dequeue_30days_notification_for_closed_requests(helprequest):
 
 def enqueue_30days_notification_for_closed_requests(helprequest):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = u'Seu pedido #%d foi atendido?' % helprequest.id
+    subject = _('Your request #%d was attended?') % helprequest.id
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = helprequest.requester
     tag = '30_days_closed_%d' % helprequest.id
@@ -63,7 +64,7 @@ def dequeue_15days_notification_for_open_requests(helprequest):
 
 def enqueue_15days_notification_for_open_requests(helprequest):
     site = Site.objects.filter(id=settings.SITE_ID).first()
-    subject = u'Você já atendeu o pedido #%d?' % helprequest.id
+    subject = _('Did you answer the request #%d?') % helprequest.id
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient = helprequest.bikeanjo
     tag = '15_days_open_%d' % helprequest.id
