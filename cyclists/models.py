@@ -94,9 +94,9 @@ class User(AbstractUser):
     v1_country = models.CharField(_('Country'), max_length=32, blank=True)
     v1_city = models.CharField(_('City'), max_length=64, blank=True)
 
-    city = models.ForeignKey(City, null=True)
-    city_alias = models.ForeignKey(CityAlias, null=True)
-    country = models.ForeignKey(Country, null=True)
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
+    city_alias = models.ForeignKey(CityAlias, null=True, on_delete=models.SET_NULL)
+    country = models.ForeignKey(Country, null=True, on_delete=models.SET_NULL)
 
     gender = models.CharField(_('Gender'), max_length=24, blank=True)
     birthday = models.DateField(_('Date of birth'), default=date.today, null=True)

@@ -15,3 +15,13 @@ class UserResource(resources.ModelResource):
         if obj.role == 'requester':
             return ''
         return ' / '.join([str(label) for label in obj.help_labels()])
+
+    def dehydrate_city(self, obj):
+        if obj.city and obj.city.name:
+            return obj.city.name
+        return '*' + obj.v1_city
+
+    def dehydrate_country(self, obj):
+        if obj.country and obj.country.name:
+            return obj.country.name
+        return '*' + obj.v1_country

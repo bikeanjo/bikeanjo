@@ -293,9 +293,30 @@
             $($el.attr('send-to')).val($el.attr('send-content'));
         });
 
-        $('[href]').click(function(evt){
-            document.location.href = $(this).attr('href');
-        });
+        (function open_any_href () {
+            var pressed = {};
+
+            $(window).on('keydown keyup', function(evt){
+                if (evt.type === 'keyup') {
+                    pressed[evt.keyCode] = false;
+                }
+                else if (evt.type === 'keydown') {
+                    pressed[evt.keyCode] = true;
+                }
+            });
+
+            $('[href]:not(a)').click(function(evt){
+                var href = $(this).attr('href');
+                var win;
+                console.log(pressed);
+                if(pressed['16'] || pressed['17']) {
+                    win = window.open(href, '_blank');
+                    win.focus();
+                } else {
+                    document.location.href = $(this).attr('href');
+                }
+            });
+        })();
 
         (function setupMobileMenu(){
             $('button.toggle-menu').jPushMenu({
