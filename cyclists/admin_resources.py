@@ -19,9 +19,9 @@ class UserResource(resources.ModelResource):
     def dehydrate_city(self, obj):
         if obj.city and obj.city.name:
             return obj.city.name
-        return ''
+        return '*' + obj.v1_city
 
     def dehydrate_country(self, obj):
         if obj.country and obj.country.name:
             return obj.country.name
-        return ''
+        return '*' + obj.v1_country
