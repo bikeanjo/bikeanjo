@@ -4,7 +4,7 @@
 
 {% block extrahead %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key={{ GOOGLE_API_KEY }}&amp;libraries=places"></script>
 {% endblock %}
 
 {% block js %}
