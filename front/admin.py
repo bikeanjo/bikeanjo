@@ -67,7 +67,9 @@ class HelpReplyInline(admin.TabularInline):
 
 
 @admin.register(models.HelpRequest)
-class HelpRequestAdmin(admin.ModelAdmin):
+class HelpRequestAdmin(ImportExportModelAdmin):
+    resource_class = resources.HelpRequestResource
+
     class Media:
         js = ('js/vendor_admin.js', )
 

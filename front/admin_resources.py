@@ -32,3 +32,43 @@ class FeedbackResource(resources.ModelResource):
 
     def dehydrate_message(self, obj):
         return obj.message
+
+
+class HelpRequestResource(resources.ModelResource):
+    created_date = fields.Field(column_name=_('Date of creation'))
+    requester = fields.Field(column_name=_('Requester'))
+    bikeanjo = fields.Field(column_name=_('Bikeanjo'))
+    help_with = fields.Field(column_name=_('Help with'))
+    status = fields.Field(column_name=_('Status'))
+    rating = fields.Field(column_name=_('Rating'))
+
+    class Meta:
+        model = models.HelpRequest
+        fields = ('created_date', 'requester', 'bikeanjo', 'help_with', 'status', 'rating',)
+        export_order = ('created_date', 'requester', 'bikeanjo', 'help_with', 'status', 'rating',)
+
+
+    def dehydrate_created_date(self, obj):
+        return obj.created_date.strftime('%d/%m/%Y')
+
+    def dehydrate_requester(self, obj):
+        return obj.requester.get_full_name()
+
+    def dehydrate_bikeanjo(self, obj):
+        if obj and obj.bikeanjo:
+            return obj.bikeanjo.get_full_name()
+        return ''
+
+    def dehydrate_help_with(self, obj):
+        return obj.get_help_label()
+
+    def dehydrate_status(self, obj):
+        status_labels = models.HelpRequest.STATUS
+        if obj.status:
+            return status_labels.get(obj.status, '')
+        return ''
+
+    def dehydrate_rating(self, obj):
+        if obj.requester_rating > 0:
+            return obj.requester_rating
+        return ''
