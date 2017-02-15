@@ -1,7 +1,7 @@
 {% load i18n %}
-{% trans "Hello" %}{{ recipient.first_name }},
+{% trans "Hello" %} {{ recipient.first_name }},
 
-{% trans "Are you still helping out with the request from " %} "{{ helprequest.get_help_label }}"  {{ helprequest.requester.get_full_name }}?. % trans "Don't forget to check the request as  finished on the site as it help us to better handle the progress of requests" %}.
+{% trans "Are you still helping out with the request from " %} "{{ helprequest.get_help_label }}"  {{ helprequest.requester.get_full_name }}?. {% trans "Don't forget to check the request as  finished on the site as it help us to better handle the progress of requests" %}.
 
 {% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
