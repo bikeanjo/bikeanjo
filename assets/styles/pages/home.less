@@ -4,6 +4,10 @@
 //## Common styles for all home sections
 
 .home {
+    #top {
+        padding-top: 0;
+    }
+
     section {
         padding-top: 40px;
         padding-bottom: 40px;
@@ -34,8 +38,27 @@
                 font-size: 16px;
             }
         }
-        &:first-child {
-            padding-top: 0;
+        &.home .jumbotron {
+            padding: 0;
+            position: relative;
+            
+            #jumbotron-carousel {
+                height: 100%;
+                width: 100%;
+
+                .carousel-inner, .carousel-inner .item {
+                    height: 100%;
+                    width: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    filter: brightness(80%);
+                }
+            }
+
+            .container {
+                position: absolute;
+                top: 0;
+            }
         }
     }
 

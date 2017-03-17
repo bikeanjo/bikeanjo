@@ -26,6 +26,7 @@ import models
 
 import cyclists.models
 import cities.models
+import slider.models
 from notifications import notify_admins_about_new_contact_message, notify_user_subscribed_in_newsletter
 
 
@@ -91,6 +92,7 @@ class HomeView(CreateView):
         context['force_header'] = True
         context['force_footer'] = True
         context['site'] = Site.objects.filter(id=settings.SITE_ID).first()
+        context['slides'] = slider.models.SlideItem.objects.filter(active=True)
         return context
 
     def get(self, request, **kwargs):
