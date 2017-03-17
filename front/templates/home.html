@@ -34,10 +34,10 @@
         <div class="container">
             <h2>{% trans "Join a community that believes in change through bicycles" %}!</h2>
             <p>
-                <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">
-                    {% trans "I need help to ride a bike" %}</a>
-                <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success" role="button">
-                {% trans "I ride a bike and want to help" %}</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">{% trans "I need help to ride a bike" %}</a>
+                <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success" role="button">{% trans "I ride a bike and want to help" %}</a>
+                {% endif %}
             </p>
         </div>
     </section>

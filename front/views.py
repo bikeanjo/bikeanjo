@@ -96,8 +96,6 @@ class HomeView(CreateView):
         return context
 
     def get(self, request, **kwargs):
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('cyclist_dashboard'))
         return super(HomeView, self).get(request, **kwargs)
 
     def get_success_url(self):
