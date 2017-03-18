@@ -22,6 +22,19 @@
     padding-right: 1em;
     box-sizing: border-box;
 }
+
+body .ui-tabs .ui-tabs-nav li.ui-tabs-active,
+body .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+    padding-bottom: 0;
+}
+
+body .ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+body .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
 </style>
 <script type='text/javascript'>
 {{ block.super }}
