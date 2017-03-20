@@ -107,6 +107,8 @@ class HomeView(CreateView):
         return response
 
 
+
+
 class RawTemplateView(TemplateView):
     def get_template_names(self):
         tpl = '%s.html' % self.kwargs.get('tpl')

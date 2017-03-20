@@ -89,5 +89,7 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
             sociallogin.state['next'] = reverse('cyclist_dashboard')
             sociallogin.state['process'] = 'connect'
             perform_login(request, user, 'none')
-        except User.DoesNotExist:
-            pass
+        except User.DoesNotExist as e:
+            if not request.session.has_key('user_role'):
+                sociallogin.state['next'] = reverse('signup_define_role')
+                sociallogin.state['process'] = 'redirect'
