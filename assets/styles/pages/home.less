@@ -6,6 +6,12 @@
 .home {
     #top {
         padding-top: 0;
+
+        h2 {
+            max-width: 1140px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
     section {
@@ -45,13 +51,20 @@
             #jumbotron-carousel {
                 height: 100%;
                 width: 100%;
-
+                
                 .carousel-inner, .carousel-inner .item {
                     height: 100%;
                     width: 100%;
+                }
+                .carousel-inner .item {
                     background-size: cover;
                     background-position: center;
                     filter: brightness(80%);
+
+                    &.default {
+                        background-position: top right;
+                        filter: brightness(100%);
+                    }
                 }
             }
 
