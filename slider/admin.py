@@ -22,10 +22,10 @@ class SlideItemAdmin(SortableModelAdmin):
     def __init__(self, *argz, **kwargz):
         super(self.__class__, self).__init__(*argz, **kwargz)
 
-    list_display = ('title', 'alt', 'thumb', 'active', 'order')
+    list_display = ('title', 'thumb', 'active', 'order')
     list_editable = ('active', 'order')
     list_filter = ('active',)
-    search_fields = ('title', 'alt', 'image',)
+    search_fields = ('title', 'image',)
     sortable = 'order'
 
     formfield_overrides = {

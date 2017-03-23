@@ -19,7 +19,6 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(auto_now_add=True, verbose_name='Date of creation')),
                 ('modified_date', models.DateTimeField(auto_now=True, verbose_name='Date of change')),
                 ('active', models.BooleanField(default=False, verbose_name='Valid')),
-                ('alt', models.CharField(max_length=256, verbose_name='Alternative text')),
                 ('image', models.ImageField(upload_to=b'slides', verbose_name='Image')),
                 ('order', models.PositiveIntegerField(default=0, verbose_name='Order')),
                 ('title', models.CharField(max_length=256, verbose_name='Title')),

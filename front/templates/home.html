@@ -5,7 +5,7 @@
 
 <section id="top" class="home">
     <section class="jumbotron">
-        <div id="jumbotron-carousel" class="carousel slide" data-ride="carousel">
+        <div id="jumbotron-carousel" class="carousel slide" data-ride="carousel" data-interval="6000">
 
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -26,16 +26,6 @@
                 <div class="item default active" style="background-image:url({% static 'imgs/bg-jumbotron.jpg' %});"></div>
                 {% endif %}
             </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
 
         <div class="container">

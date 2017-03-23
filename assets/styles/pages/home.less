@@ -60,6 +60,26 @@
                     background-size: cover;
                     background-position: center;
                     filter: brightness(80%);
+                    opacity: 0;
+
+                    transform: none;
+                    transition: opacity 0.6s ease-in-out;
+
+                    &.active {
+                        opacity: 1;
+                    }
+
+                    &.active.left,
+                    &.active.right {
+                      left: 0;
+                      opacity: 0;
+                      z-index: 1;
+                    }
+
+                    &.next.left,
+                    &.prev.right {
+                      opacity: 1;
+                    }
 
                     &.default {
                         background-position: top right;
