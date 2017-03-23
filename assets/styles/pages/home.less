@@ -4,6 +4,16 @@
 //## Common styles for all home sections
 
 .home {
+    #top {
+        padding-top: 0;
+
+        h2 {
+            max-width: 1140px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
     section {
         padding-top: 40px;
         padding-bottom: 40px;
@@ -34,8 +44,55 @@
                 font-size: 16px;
             }
         }
-        &:first-child {
-            padding-top: 0;
+        &.home .jumbotron {
+            padding: 0;
+            position: relative;
+            
+            #jumbotron-carousel {
+                height: 100%;
+                width: 100%;
+                
+                .carousel-inner, .carousel-inner .item {
+                    height: 100%;
+                    width: 100%;
+                }
+                .carousel-inner .item {
+                    background-size: cover;
+                    background-position: center;
+                    filter: brightness(80%);
+                    opacity: 0;
+
+                    transform: none;
+                    transition: opacity 0.6s ease-in-out;
+
+                    &.active {
+                        opacity: 1;
+                    }
+
+                    &.active.left,
+                    &.active.right {
+                      left: 0;
+                      opacity: 0;
+                      z-index: 1;
+                    }
+
+                    &.next.left,
+                    &.prev.right {
+                      opacity: 1;
+                    }
+
+                    &.default {
+                        background-position: top right;
+                        filter: brightness(100%);
+                    }
+                }
+            }
+
+            .container {
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
         }
     }
 

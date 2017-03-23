@@ -1,16 +1,40 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load staticfiles %}
 {% block content %}
 
 <section id="top" class="home">
     <section class="jumbotron">
+        <div id="jumbotron-carousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+            {% if slides.count > 1 %}
+                {% for slide in slides %}
+                <li data-target="#jumbotron-carousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                {% endfor %}
+            {% endif %}
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                {% for slide in slides %}
+                <div class="item {% if forloop.first %}active{% endif %}" style="background-image:url({{ slide.get_image_url }});"></div>
+                {% endfor %}
+
+                {% if slides.count < 1 %}
+                <div class="item default active" style="background-image:url({% static 'imgs/bg-jumbotron.jpg' %});"></div>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="container">
             <h2>{% trans "Join a community that believes in change through bicycles" %}!</h2>
             <p>
-                <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">
-                    {% trans "I need help to ride a bike" %}</a>
-                <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success" role="button">
-                {% trans "I ride a bike and want to help" %}</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'cyclist_account_signup' 'requester' %}" class="btn btn-warning" role="button">{% trans "I need help to ride a bike" %}</a>
+                <a href="{% url 'cyclist_account_signup' 'bikeanjo' %}" class="btn btn-success" role="button">{% trans "I ride a bike and want to help" %}</a>
+                {% endif %}
             </p>
         </div>
     </section>
