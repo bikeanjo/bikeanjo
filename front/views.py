@@ -7,7 +7,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.models import Site
 from django.db.models import Q, F, Max
-from django.http import HttpResponseRedirect, HttpResponseNotAllowed
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View, FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
@@ -466,6 +466,41 @@ class EventDetailView(DetailView):
             for app in data['site'].socialapp_set.all():
                 data[app.provider] = app
         return data
+
+
+class WhereWeAreView(TemplateView):
+    template_name = 'where_we_are.html'
+
+class BikeanjoPointsJsonView(TemplateView):
+    def render_to_json_response(self, context, **response_kwargs):
+        return JsonResponse(
+            context.get('points', []),
+            safe=False,
+            **response_kwargs
+        )
+
+    def get_context_data(self, **kwargs):
+        points = models.Point.objects         \
+            .distinct('user')                 \
+            .filter(user__role='bikeanjo')    \
+            .values_list('coords', flat=True)
+        
+        tracks = models.Track.objects         \
+            .distinct('user')                 \
+            .filter(user__role='bikeanjo')    \
+            .exclude(
+                track=None,
+                user__in=models.Point.objects.distinct('user').values('user')
+            ).values_list('track', flat=True)
+        
+        points = map(lambda p: {'lat': p.get_y(), 'lng': p.get_x()}, points)
+        tracks = map(lambda t: {'lat': t.y[0], 'lng': t.x[0]}, tracks)
+        points.extend(tracks);
+        return { 'points': points }
+
+    def render_to_response(self, context, **response_kwargs):
+        return self.render_to_json_response(context, **response_kwargs)
+
 
 #
 # Views to register user and his role

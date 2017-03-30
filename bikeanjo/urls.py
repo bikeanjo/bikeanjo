@@ -100,6 +100,12 @@ urlpatterns = [
     url(r'^tips/(?P<target>bikeanjo|requester)/$',
         front.views.TipsListView.as_view(), name='tips_list'),
 
+    url(r'^where-we-are/$',
+        front.views.WhereWeAreView.as_view(), name='where_we_are'),
+    url(r'^where-we-are/_locations/$',
+        front.views.BikeanjoPointsJsonView.as_view(), name='bikeanjo_locations'),
+    
+
     #
     # Dashboard User Info and Profile
     #

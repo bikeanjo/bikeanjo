@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block js %}{{block.super}}
+<script type="text/javascript">;(function($){
+    var mapsStyleQuery = $.ajax({
+        'url': '{% static 'data/google-maps-style.json' %}',
+        'dataType': 'json'
+    });
+    var locationsQuery = $.ajax({
+        'url': '{% url 'bikeanjo_locations' %}',
+        'dataType': 'json'
+    });
+
+    $(function(){
+        var $nav = $('#top > .navigation');
+        var $map = $('#where-we-are');
+        var $par = $('.partners.container');
+
+        var $win = $(window);
+        var height = 100 - Math.round( 100 * ($nav.height() + $par.height()) / $win.height() );
+        $map.css('height', height + 'vh');
+
+        var mapapi;
+        var markers = [];
+        var markerCluster;
+        
+        mapsStyleQuery
+            .then(function(styles){
+                mapapi = new google.maps.Map($map.get(0), {
+                    zoom: 6,
+                    center: {lat: -23.024, lng: -48.887},
+                    styles: styles
+                });
+                return locationsQuery
+            })
+            .then(function(locations){
+                markers = locations.map(function(location, i) {
+                    return new google.maps.Marker({
+                        position: location,
+                        icon: '{% static 'imgs/where-we-are-icon.png' %}'
+                    });
+                });
+                markerCluster = new MarkerClusterer(mapapi, markers,
+                    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            });
+    });
+})(jQuery);
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key={{ GOOGLE_API_KEY }}&amp;libraries=places"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+{% endblock %}
+
+{% block content %}
+<section id="top" class="static where-we-are">
+    <section class="jumbotron">
+        <div class="container">
+            <h2>{% trans "Where we are" %}</h2>
+        </div>
+    </section>
+
+    <nav class="navigation">
+        <form class="form-group container" style="padding-top: 25px; max-width:300px;">
+            <select class="form-control input-lg" name="city">
+                <option>Cidade</option>
+            </select>
+        </form>
+    </nav>
+</section>
+
+<section id="where-we-are"></section>
+{% endblock %}
