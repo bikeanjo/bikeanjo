@@ -486,17 +486,15 @@ class BikeanjoPointsJsonView(TemplateView):
             .filter(user__role='bikeanjo') \
             .select_related('user__city')
 
-        cities = { p.user.city.id: p.user.city.name for p in locations }
-        locations = map( lambda p: {
-                    'lat': round( p.coords.get_y(), 4 ),
-                    'lng': round( p.coords.get_x(), 4 ),
-                    'city': p.user.city.id
-                    }, locations)
-        locations.sort(lambda p1, p2: int(ceil(
-            hypot(p1['lat'], p1['lng']) - hypot(p2['lat'], p2['lng'])
-        )))
+        locations = {
+            p.coords.hex : {
+                'lat': round( p.coords.get_y(), 4 ),
+                'lng': round( p.coords.get_x(), 4 ),
+                'addr': p.address
+            } for p in locations
+        }
 
-        return { 'locations': locations, 'cities': cities }
+        return { 'locations': locations.values() }
 
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, **response_kwargs)
