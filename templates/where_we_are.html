@@ -17,33 +17,75 @@
         var $nav = $('#top > .navigation');
         var $map = $('#where-we-are');
         var $par = $('.partners.container');
+        var $cit = $('#city');
 
         var $win = $(window);
         var height = 100 - Math.round( 100 * ($nav.height() + $par.height()) / $win.height() );
         $map.css('height', height + 'vh');
 
+        var cities = [];
+        var index = {};
         var mapapi;
         var markers = [];
         var markerCluster;
+        var boundary = new google.maps.LatLngBounds();
         
         mapsStyleQuery
             .then(function(styles){
                 mapapi = new google.maps.Map($map.get(0), {
-                    zoom: 6,
-                    center: {lat: -23.024, lng: -48.887},
+                    zoom: 3,
+                    center: {lat: 12.024, lng: -48.887},
                     styles: styles
                 });
                 return locationsQuery
             })
-            .then(function(locations){
-                markers = locations.map(function(location, i) {
-                    return new google.maps.Marker({
-                        position: location,
-                        icon: '{% static 'imgs/where-we-are-icon.png' %}'
-                    });
+            .then(function(data){
+                cities = data.cities;
+                var ids = Object.keys(cities) || [];
+                ids = ids.sort(function(i1, i2){
+                    return cities[i1] == cities[i2] ? 0 : ( cities[i1] > cities[i2] ? 1 : -1 );
                 });
+                $cit.html(ids.reduce(function(html, id){
+                    return html + '<option value="' + id + '">' + cities[id] + '</option>';
+                }, '<option>Cidades</option>'));
+                return data;
+            })
+            .then(function(data){
+                index = {};
+
+                var locations = data.locations;
+                locations = locations
+                    .sort(function(l1, l2){
+                        return Math.sqrt( Math.pow(l1.lat, 2) + Math.pow(l1.lng, 2) )
+                             - Math.sqrt( Math.pow(l2.lat, 2) + Math.pow(l2.lng, 2) )
+                    });
+                markers = locations.map(function(location, i) {
+                        var bounds = index[location.city]
+                            || new google.maps.LatLngBounds();
+
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            icon: '{% static 'imgs/where-we-are-icon.png' %}'
+                        });
+                        
+                        bounds.extend(marker.position);
+                        boundary.extend(marker.position);
+                        index[location.city] = bounds;
+                        return marker;
+                    });
+
                 markerCluster = new MarkerClusterer(mapapi, markers,
                     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                return data;
+            })
+            .then(function(data){
+                $cit.change(function(){
+                    var city_id = $cit.val();
+                    var bounds = index[ city_id ];
+                    mapapi.fitBounds(bounds);
+                });
+                mapapi.fitBounds(boundary);
+                return data;
             });
     });
 })(jQuery);
@@ -62,8 +104,8 @@
 
     <nav class="navigation">
         <form class="form-group container" style="padding-top: 25px; max-width:300px;">
-            <select class="form-control input-lg" name="city">
-                <option>Cidade</option>
+            <select class="form-control input-lg" id="city">
+                <option></option>
             </select>
         </form>
     </nav>
