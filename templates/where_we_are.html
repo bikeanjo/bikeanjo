@@ -28,14 +28,15 @@
             };
         }
 
-        var $nav = $('#top > .navigation');
+        var $nav = $('#top .navigation');
         var $map = $('#where-we-are');
         var $par = $('.partners.container');
         var $city = $('#city');
         var $form = $city.parents('form');
+        var $outer = $("#maps-app");
 
         var $win = $(window);
-        var height = 100 - Math.round( 100 * ($nav.height() + $par.height()) / $win.height() );
+        var height = 100 - Math.round( 100 * ($nav.height()) / $win.height() );
         $map.css('height', height + 'vh');
 
         var cities = [];
@@ -74,12 +75,27 @@
 
         $(document).keydown(function(evt){
             if(evt.keyCode === 191 && evt.shiftKey) {
+                $(document.body).animate({
+                    'scrollTop': $nav.offset().top
+                });
                 $city.focus();
                 evt.preventDefault();
                 return false;
+            } else if(evt.keyCode === 13 && evt.ctrlKey) {
+                $outer.each(function(){
+                    this.requestFullscreen 
+                    ? this.requestFullscreen() 
+                    : this.msRequestFullscreen 
+                    ? this.msRequestFullscreen() 
+                    : this.mozRequestFullScreen 
+                    ? this.mozRequestFullScreen() 
+                    : this.webkitRequestFullscreen 
+                    ? this.webkitRequestFullscreen() 
+                    : false;
+                });
             }
         });
-        
+
         mapsStyleQuery
             .then(function(styles){
                 mapapi = new google.maps.Map($map.get(0), {
@@ -137,12 +153,14 @@
         </div>
     </section>
 
-    <nav class="navigation">
-        <form class="form-group container" style="padding-top: 25px; max-width:300px;">
-            <input type="text" class="form-control input-lg" id="city" placeholder="{% trans "Type city name" %}"/>
-        </form>
-    </nav>
-</section>
+    <div id="maps-app" style="width:100%;">
+        <nav class="navigation">
+            <form class="form-group container" style="padding-top: 25px; max-width:500px;">
+                <input type="text" class="form-control input-lg" id="city" placeholder="{% trans "Type city name" %}"/>
+            </form>
+        </nav>
 
-<section id="where-we-are"></section>
+        <div id="where-we-are"></div>
+    </div>
+</section>
 {% endblock %}
