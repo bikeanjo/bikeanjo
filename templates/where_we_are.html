@@ -12,6 +12,13 @@
         'url': '{% url 'bikeanjo_locations' %}',
         'dataType': 'json'
     });
+    
+    var hereQueryDefer = $.Deferred();
+    var hereQuery = hereQueryDefer.promise();
+    navigator.geolocation.getCurrentPosition(
+        hereQueryDefer.resolve.bind(hereQueryDefer),
+        hereQueryDefer.reject.bind(hereQueryDefer)
+    );
 
     $(function(){
         var Geocoder = function() {
@@ -36,12 +43,12 @@
         var $outer = $("#maps-app");
 
         var $win = $(window);
-        var height = 100 - Math.round( 100 * ($nav.height()) / $win.height() );
+        var height = 100 - Math.ceil( 100 * ($nav.height()) / $win.height() );
         $map.css('height', height + 'vh');
 
         var cities = [];
         var index = {};
-        var mapapi;
+        window.mapapi;
         var markers = [];
         var markerCluster;
         var boundary = new google.maps.LatLngBounds();
@@ -68,16 +75,26 @@
                 } else if(address === '') {
                     mapapi.fitBounds(boundary);
                 }
-                $city.focus();
                 $city.get(0).setSelectionRange(0, address.length);
             });
         });
+        
+        $city
+            .blur(function(){
+                mapapi.setOptions({'scrollwheel': false});
+                mapapi.setOptions({'gestureHandling': 'cooperative'});
+            })
+            .click(function(){
+                $(document.body).animate({'scrollTop': $nav.offset().top });
+            })
+            .focus(function(){
+                $(document.body).animate({'scrollTop': $nav.offset().top });
+                mapapi.setOptions({'scrollwheel': true});
+                mapapi.setOptions({'gestureHandling': 'greedy'});
+            });
 
         $(document).keydown(function(evt){
             if(evt.keyCode === 191 && evt.shiftKey) {
-                $(document.body).animate({
-                    'scrollTop': $nav.offset().top
-                });
                 $city.focus();
                 evt.preventDefault();
                 return false;
@@ -93,14 +110,16 @@
                     ? this.webkitRequestFullscreen() 
                     : false;
                 });
+            } else if(evt.keyCode === 27) {
+                $city.blur();
             }
         });
 
         mapsStyleQuery
             .then(function(styles){
                 mapapi = new google.maps.Map($map.get(0), {
-                    zoom: 3,
-                    center: {lat: 12.024, lng: -48.887},
+                    zoom: 4,
+                    center: {lat: -23.522944, lng: -47.1313491},
                     scrollwheel: false,
                     styles: styles
                 });
@@ -132,11 +151,10 @@
 
                 markerCluster = new MarkerClusterer(mapapi, markers,
                     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-                return data;
+                return hereQuery;
             })
-            .then(function(data){
-                mapapi.fitBounds(boundary);
-                return data;
+            .then(function(pos){
+                mapapi.setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
             });
     });
 })(jQuery);
@@ -153,7 +171,7 @@
         </div>
     </section>
 
-    <div id="maps-app" style="width:100%;">
+    <div id="maps-app">
         <nav class="navigation">
             <form class="form-group container" style="padding-top: 25px; max-width:500px;">
                 <input type="text" class="form-control input-lg" id="city" placeholder="{% trans "Type city name" %}"/>
