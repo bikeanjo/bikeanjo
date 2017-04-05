@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from math import ceil, hypot
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -106,8 +105,6 @@ class HomeView(CreateView):
         response = super(HomeView, self).form_valid(form)
         notify_user_subscribed_in_newsletter(form.instance)
         return response
-
-
 
 
 class RawTemplateView(TemplateView):
@@ -472,6 +469,7 @@ class EventDetailView(DetailView):
 class WhereWeAreView(TemplateView):
     template_name = 'where_we_are.html'
 
+
 class BikeanjoPointsJsonView(TemplateView):
     def render_to_json_response(self, context, **response_kwargs):
         return JsonResponse(
@@ -487,14 +485,14 @@ class BikeanjoPointsJsonView(TemplateView):
             .select_related('user__city')
 
         locations = {
-            p.coords.hex : {
-                'lat': round( p.coords.get_y(), 4 ),
-                'lng': round( p.coords.get_x(), 4 ),
+            p.coords.hex: {
+                'lat': round(p.coords.get_y(), 4),
+                'lng': round(p.coords.get_x(), 4),
                 'addr': p.address
             } for p in locations
         }
 
-        return { 'locations': locations.values() }
+        return {'locations': locations.values()}
 
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, **response_kwargs)

@@ -77,7 +77,7 @@ def notify_that_bikeanjo_cannot_help_anymore(helprequest, bikeanjo):
 
 
 # management/commands/review_matches.py
-# TODO: send this email for requests without bikeanjo 
+# TODO: send this email for requests without bikeanjo
 def notify_cant_find_bikeanjo(helprequest):
     site = Site.objects.filter(id=settings.SITE_ID).first()
     from_email = settings.DEFAULT_FROM_EMAIL

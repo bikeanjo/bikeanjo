@@ -47,7 +47,6 @@ class HelpRequestResource(resources.ModelResource):
         fields = ('created_date', 'requester', 'bikeanjo', 'help_with', 'status', 'rating',)
         export_order = ('created_date', 'requester', 'bikeanjo', 'help_with', 'status', 'rating',)
 
-
     def dehydrate_created_date(self, obj):
         return obj.created_date.strftime('%d/%m/%Y')
 
