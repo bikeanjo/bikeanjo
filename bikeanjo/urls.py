@@ -104,7 +104,7 @@ urlpatterns = [
     url(r'^where-we-are/$',
         front.views.WhereWeAreView.as_view(), name='where_we_are'),
     url(r'^where-we-are/_locations/$',
-        cache_page(60*60)(front.views.BikeanjoPointsJsonView.as_view()), name='bikeanjo_locations'),
+        cache_page(60 * 60)(front.views.BikeanjoPointsJsonView.as_view()), name='bikeanjo_locations'),
 
     #
     # Dashboard User Info and Profile
