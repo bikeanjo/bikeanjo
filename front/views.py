@@ -492,7 +492,20 @@ class BikeanjoPointsJsonView(TemplateView):
             } for p in locations
         }
 
-        return {'locations': locations.values()}
+        locations = locations.values()
+
+        routes = models.Track.objects      \
+            .distinct('user')              \
+            .filter(user__role='bikeanjo')
+
+        for route in routes:
+            locations.append({
+                'lat': route.track.y[0],
+                'lng': route.track.x[0],
+                'addr': route.start
+            })
+
+        return {'locations': locations}
 
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, **response_kwargs)
