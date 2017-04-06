@@ -1,0 +1,116 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block content %}
+<style type="text/css">
+    .bikeanjo-summary h1 {
+        border-bottom: 1px solid lightgrey;
+    }
+
+    .summary-box.ba {
+        box-shadow: 
+    }
+
+    .summary-box.ba h2 {
+        background-color: #00aeef;
+    }
+
+    .summary-box.request h2 {
+        background-color: #f26522;
+    }
+
+    .summary-box h2 {
+        background-color: #333;
+        color: white;
+        font-size: 1em;
+        margin: 0;
+        padding: 0.5em 0;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .summary-box p {
+        background-color: white;
+        font-size: 2em;
+        font-weight: bold;
+        padding: 1em 0;
+        text-align: center;
+    }
+</style>
+<div class="container-fluid bikeanjo-summary">
+    <form action="#">
+        <div class="row-fluid">
+            <div class="span5">
+                <select>
+                    <option>Brasil</option>
+                </select>
+                <select>
+                    <option>São Paulo</option>
+                </select>
+            </div>
+
+            <div class="span5">
+                <input type="date" placeholder="Data inicial" />
+                <input type="date" placeholder="Data final" />
+            </div>
+        </div>
+    </form>
+
+    <h1>Brasil &raquo; São Paulo</h1>
+    <div class="row-fluid">
+        <div class="span5">
+            <div class="row-fluid">
+                <div class="span6 summary-box ba">
+                    <h2>BikeAnjos</h2>
+                    <p>4997</p>
+                </div>
+                <div class="span6 summary-box request">
+                    <h2>Pedidos</h2>
+                    <p>11507</p>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6 summary-box">
+                    <h2>Média atendimento BA</h2>
+                    <p>2.5</p>
+                </div>
+                <div class="span6 summary-box">
+                    <h2>Média Feedback</h2>
+                    <p>2.5</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="span7">
+            <div class="row-fluid">
+                <div class="span4 summary-box">
+                    <h2>Atendidos</h2>
+                    <p>5000</p>
+                </div>
+                <div class="span4 summary-box">
+                    <h2>Não atendidos</h2>
+                    <p>45</p>
+                </div>
+                <div class="span4 summary-box">
+                    <h2>Não finalizados</h2>
+                    <p>1000</p>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span4 summary-box">
+                    <h2>Cancelado BA</h2>
+                    <p>1000</p>
+                </div>
+                <div class="span4 summary-box">
+                    <h2>Cancelado Solic.</h2>
+                    <p>1000</p>
+                </div>
+                <div class="span4 summary-box">
+                    <h2>Abandonados</h2>
+                    <p>1000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

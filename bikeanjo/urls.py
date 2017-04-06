@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles import views
 from django.views.generic import TemplateView
-
 import front.views
+import extradmin.views
 
 admin.autodiscover()
 
@@ -17,6 +17,7 @@ urlpatterns = [
 
     # the django admin
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/summary/$', admin.site.admin_view(extradmin.views.SummaryAdminView.as_view()), name='admin_summary'),
     url(r'^rosetta/', include('rosetta.urls')),
 
     # languages
