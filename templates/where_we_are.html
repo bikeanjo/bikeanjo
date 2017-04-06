@@ -149,8 +149,29 @@
                         return marker;
                     });
 
-                markerCluster = new MarkerClusterer(mapapi, markers,
-                    {imagePath: "{% static 'imgs/' %}cluster-"});
+                markerCluster = new MarkerClusterer(mapapi, markers, {
+                    imagePath: "{% static 'imgs/' %}cluster-",
+                    styles: [
+                        {
+                            url: "{% static 'imgs/' %}cluster-1.png",
+                            height: 53,
+                            width: 53,
+                            textColor: 'white'
+                        },
+                        {
+                            url: "{% static 'imgs/' %}cluster-2.png",
+                            height: 56,
+                            width: 56,
+                            textColor: 'black'
+                        },
+                        {
+                            url: "{% static 'imgs/' %}cluster-3.png",
+                            height: 66,
+                            width: 66,
+                            textColor: 'white'
+                        },
+                    ]
+                });
                 return hereQuery;
             })
             .then(function(pos){
