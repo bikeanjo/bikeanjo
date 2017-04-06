@@ -75,7 +75,7 @@
                 } else if(address === '') {
                     mapapi.fitBounds(boundary);
                 }
-                $city.get(0).setSelectionRange(0, address.length);
+                $city.blur();
             });
         });
         
