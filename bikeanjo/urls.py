@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.views.decorators.cache import cache_page
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
@@ -103,7 +104,7 @@ urlpatterns = [
     url(r'^where-we-are/$',
         front.views.WhereWeAreView.as_view(), name='where_we_are'),
     url(r'^where-we-are/_locations/$',
-        front.views.BikeanjoPointsJsonView.as_view(), name='bikeanjo_locations'),
+        cache_page(60*60)(front.views.BikeanjoPointsJsonView.as_view()), name='bikeanjo_locations'),
 
     #
     # Dashboard User Info and Profile
