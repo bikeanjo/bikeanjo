@@ -7,8 +7,8 @@
         border-bottom: 1px solid lightgrey;
     }
 
-    .summary-box.ba {
-        box-shadow: 
+    .summary-box {
+        background-color: white;
     }
 
     .summary-box.ba h2 {
@@ -30,7 +30,6 @@
     }
 
     .summary-box p {
-        background-color: white;
         font-size: 2em;
         font-weight: bold;
         padding: 1em 0;
@@ -46,49 +45,52 @@
         display:table;
         table-layout: fixed;   
         
+        height: 200px;
+        margin: 0 auto 0;
         width: 100%;
-        max-width:700px;
-        height:200px;
-        margin:0 auto;
         
-        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.1) 2%, rgba(0, 0, 0, 0) 2%);
-        background-size: 100% 50px;
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 2%, rgba(0, 0, 0, 0) 2%);
         background-position: left top;
+        background-size: 100% 25%;
+        border-top: 1px solid #CCC;
     }
 
     .chart li{
-        position:relative;
         display:table-cell;
+        height: 200px;
+        position:relative;
         vertical-align:bottom;
-        height:200px;
     }
       
     .chart span.bar {
-        margin:0 1em;
-        display: block;
         animation: draw 1s ease-in-out;
-    }
-
-    .chart span.bar {
         background: rgba(141, 198, 63, .75);
+        display: block;
+        margin:0 auto;
+        max-width: 75px;
+        overflow: hidden;
+    }
+    
+    .chart span.bar:hover {
+        background: rgba(141, 198, 63, 1);
     }
 
-    .chart span.bar.group {
+    .chart span.bar.attended {
         background: rgba(0, 174, 239, .75);
     }
 
     .chart span.caption {
-        position:absolute;
-        left:0;
-        right:0;
-        top:100%;
-        padding:5px 1em 0;
         display: block;
+        left:0;
+        padding:5px 1em 0;
+        position:absolute;
+        right:0;
         text-align: center;
+        top:100%;
     }
 
     @keyframes draw{
-      0%{height:0;} 
+        0% { height:0; } 
     }
 </style>
 <div class="container-fluid bikeanjo-summary">
@@ -174,10 +176,11 @@
             <div class="summary-box">
                 <h2>Tipos de pedido</h2>
                 <ul class="chart">
-                    {% for total,label in totals_by_type %}
+                    {% for type,totals in totals_by_type.items %}
                     <li>
-                        <span class="bar" style="height:{{ total }}%"></span>
-                        <span class="caption">{{ label }}</span>
+                        <span class="bar" style="height:{{ totals.all.perc }}%"></span>
+                        <span class="bar attended" style="height:{{ totals.attended.perc }}%"></span>
+                        <span class="caption">{{ type }}</span>
                     </li>
                     {% endfor %}
                 </ul>    
@@ -188,26 +191,12 @@
             <div class="summary-box">
                 <h2>Feedback de atendimento</h2>
                 <ul class="chart">
-                  <li>
-                    <span class="bar" style="height:5%"></span>
-                    <span class="caption">1</span>
-                  </li>
-                  <li>
-                    <span class="bar" style="height:70%"></span>
-                    <span class="caption">2</span>
-                  </li>
-                  <li>
-                    <span class="bar" style="height:50%"></span>
-                    <span class="caption">3</span>
-                  </li>
-                  <li>
-                    <span class="bar" style="height:15%"></span>
-                    <span class="caption">4</span>
-                  </li>
-                  <li>
-                    <span class="bar" style="height:15%"></span>
-                    <span class="caption">5</span>
-                  </li>
+                    {% for rating in totals_by_rating %}
+                    <li>
+                        <span class="bar" style="height:{{ rating.perc }}%"></span>
+                        <span class="caption">{{ forloop.counter }}</span>
+                    </li>
+                    {% endfor %}
                 </ul>    
             </div>
 
