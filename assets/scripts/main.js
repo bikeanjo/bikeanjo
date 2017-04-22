@@ -166,31 +166,33 @@
         });
 
         $('input[ac-source]').each(function(i){
-            var $input = $(this);
-            var api = $input.attr('ac-source');
-            var query = $input.attr('ac-query-var');
-            var initial_text = $input.attr('ac-initial-text');
-            var initial_value = $input.attr('ac-initial-value');
+            var $holder = $(this);
+            var api = $holder.attr('ac-source');
+            var query = $holder.attr('ac-query-var');
+            var initial_text = $holder.attr('ac-initial-text');
+            var initial_value = $holder.attr('ac-initial-value');
 
-            var key_for_label = $input.attr('ac-key-for-label') || 'name';
-            var key_for_value = $input.attr('ac-key-for-value') || 'id';
-            var key_for_extra = $input.attr('ac-key-for-extra') || 'city_name';
+            var key_for_label = $holder.attr('ac-key-for-label') || 'name';
+            var key_for_value = $holder.attr('ac-key-for-value') || 'id';
+            var key_for_extra = $holder.attr('ac-key-for-extra') || 'city_name';
 
-            var $holder = $('<input type="hidden">').attr('name', $input.attr('name'));
-            $input.attr('name', 'fake_' + Math.random().toString(16)).val(initial_text);
-            $holder.insertAfter($input).val(initial_value);
+            $holder.attr('type', 'hidden').val(initial_value);
+            var $input = $('<input type="text">')
+                .attr('class', $holder.attr('class'))
+                .attr('placeholder', $holder.attr('placeholder'));
+            $input.insertAfter($holder).val(initial_text);
 
             // adjust placement of dropdown
             var $ac_results = $('<div class="ac_results">').appendTo(document.body);
             $(window).resize(function(){setTimeout(function(){
-                $ac_results.css('top', ($input.offset().top + $input.outerHeight(true)) + 'px');
+                $ac_results.css('top', ($input.offset().top + $input.outerHeight()) + 'px');
                 $ac_results.css('left', ($input.offset().left) + 'px');
             }, 500);}).trigger('resize');
 
 
             var filters = { };
-            if($input.attr('ac-filter')) {
-                eval('filters = ' + $input.attr('ac-filter'));
+            if($holder.attr('ac-filter')) {
+                eval('filters = ' + $holder.attr('ac-filter'));
             }
 
             function source(request, response) {

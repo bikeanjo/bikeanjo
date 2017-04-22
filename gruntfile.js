@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                 files: [
                     'assets/scripts/**/*.js',
                 ],
-                tasks: ['uglify:main', 'jshint',  'jscs',],
+                tasks: ['uglify:main',  'jscs',],
             },
             bower_components: {
                 files: [
@@ -74,7 +74,10 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'static/css/main.css': [
-                        'assets/styles/*.less',
+                        'assets/styles/main.less',
+                    ],
+                    'static/css/admin.css': [
+                        'assets/styles/admin.less',
                     ],
                 },
             },

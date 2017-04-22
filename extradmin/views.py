@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from django import forms
 from django.db.models.aggregates import Avg, Count
 from django.views.generic import TemplateView
 
+from cities.models import City, Country
 from cyclists.models import Bikeanjo
 from front.models import HelpRequest
 
@@ -13,8 +15,37 @@ class SummaryAdminView(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super(SummaryAdminView, self).get_context_data(**kwargs)
-        bikeanjos = Bikeanjo.objects.filter(accepted_agreement=True)
         requests = HelpRequest.objects.filter(requester__accepted_agreement=True)
+        bikeanjos = Bikeanjo.objects.filter(accepted_agreement=True)
+
+        country = self.request.GET.get('country', '')
+        if country.isdigit():
+            country = Country.objects.get(id=country)
+            requests = requests.filter(requester__country=country)
+            bikeanjos = bikeanjos.filter(country=country)
+
+        city = self.request.GET.get('city', '')
+        if city.isdigit():
+            city = City.objects.get(id=city)
+            requests = requests.filter(requester__city=city)
+            bikeanjos = bikeanjos.filter(city=city)
+
+        datefield = forms.DateField()
+        start_date = self.request.GET.get('start_date', '')
+        end_date = self.request.GET.get('end_date', '')
+
+        try:
+            start_date = datefield.clean(start_date)
+            requests = requests.filter(created_date__gt=start_date)
+        except:
+            pass
+
+        try:
+            end_date = datefield.clean(end_date)
+            requests = requests.filter(created_date__lt=end_date)
+        except:
+            pass
+
         feedback_avg = requests\
             .filter(requester_rating__gt=0)\
             .aggregate(Avg('requester_rating'))\
@@ -67,15 +98,19 @@ class SummaryAdminView(TemplateView):
             }
 
         data['bikeanjos'] = bikeanjos
-        data['requests'] = requests
+        data['city'] = city
+        data['country'] = country
+        data['end_date'] = end_date
         data['feedback_avg'] = feedback_avg
-        data['requests_attended'] = requests_attended
-        data['requests_failed'] = requests_failed
+        data['requests_abandoned'] = requests_abandoned
         data['requests_active'] = requests_active
+        data['requests_attended'] = requests_attended
         data['requests_canceled_ba'] = requests_canceled_ba
         data['requests_canceled_req'] = requests_canceled_req
-        data['requests_abandoned'] = requests_abandoned
-        data['totals_by_type'] = totals_by_type
+        data['requests_failed'] = requests_failed
+        data['requests'] = requests
+        data['start_date'] = start_date
         data['totals_by_rating'] = totals_by_rating
+        data['totals_by_type'] = totals_by_type
 
         return data
