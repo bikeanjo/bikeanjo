@@ -1,0 +1,103 @@
+.bikeanjo-summary h1 {
+    border-bottom: 1px solid lightgrey;
+}
+
+.data-inputs {
+    display: inline-block;
+    min-width: 16em;
+}
+
+.summary-box {
+    background-color: white;
+    position: relative;
+
+    &.ba h2 {
+        background-color: #00aeef;
+    }
+
+    &.request h2 {
+        background-color: #f26522;
+    }
+
+    h2 {
+        background-color: #333;
+        color: white;
+        font-size: 1em;
+        margin: 0;
+        padding: 0.5em 0;
+        text-align: center;
+        text-transform: uppercase;
+        
+        span {
+            float: right;
+            height: 14px;
+            margin-right: 0.5em;
+            width: 14px;
+            cursor: help;
+        }
+    }
+
+    p {
+        font-size: 2em;
+        font-weight: bold;
+        padding: 1em 0;
+        text-align: center;
+    }
+}
+
+body{
+    font:13px/1.3 'Lucida Grande',sans-serif;
+    color:#666;
+}
+
+.chart{
+    display:table;
+    table-layout: fixed;
+
+    height: 200px;
+    margin: 0 auto 0;
+    width: 100%;
+    
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 2%, rgba(0, 0, 0, 0) 2%);
+    background-position: left top;
+    background-size: 100% 25%;
+    border-top: 1px solid #CCC;
+}
+
+.chart li{
+    display:table-cell;
+    height: 200px;
+    position:relative;
+    vertical-align:bottom;
+}
+  
+.chart span.bar {
+    animation: draw 1s ease-in-out;
+    background: rgba(141, 198, 63, .75);
+    display: block;
+    margin:0 auto;
+    max-width: 75px;
+    overflow: hidden;
+}
+
+.chart span.bar:hover {
+    background: rgba(141, 198, 63, 1);
+}
+
+.chart span.bar.attended {
+    background: rgba(0, 174, 239, .75);
+}
+
+.chart span.caption {
+    display: block;
+    left:0;
+    padding:5px 1em 0;
+    position:absolute;
+    right:0;
+    text-align: center;
+    top:100%;
+}
+
+@keyframes draw{
+    0% { height:0; } 
+}
