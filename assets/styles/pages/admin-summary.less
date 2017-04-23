@@ -74,10 +74,19 @@ body{
 .chart span.bar {
     animation: draw 1s ease-in-out;
     background: rgba(141, 198, 63, .75);
+    color: rgb(101, 158, 23);
     display: block;
     margin:0 auto;
     max-width: 75px;
-    overflow: hidden;
+    position: relative;
+}
+
+.chart span.bar:after {
+    content: attr(data-count);
+    display: block;
+    position: absolute;
+    top: -15px;
+    width: 100%;
 }
 
 .chart span.bar:hover {
@@ -86,6 +95,8 @@ body{
 
 .chart span.bar.attended {
     background: rgba(0, 174, 239, .75);
+    color: rgb(0, 134, 199);
+    text-align: right;
 }
 
 .chart span.caption {

@@ -1,5 +1,6 @@
 {% extends 'admin/base_site.html' %}
 {% load static %}
+{% load math %}
 
 {% block extrahead %}
 <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
@@ -168,8 +169,8 @@
                 <ul class="chart">
                     {% for type,totals in totals_by_type.items %}
                     <li>
-                        <span class="bar" style="height:{{ totals.all.perc }}%"></span>
-                        <span class="bar attended" style="height:{{ totals.attended.perc }}%"></span>
+                        <span class="bar" style="height:{{ totals.all.perc }}%" data-count="{{ totals.all.absolute }}"></span>
+                        <span class="bar attended" style="height:{% max totals.attended.perc 1 %}%" data-count="{{ totals.attended.absolute }}"></span>
                         <span class="caption">{{ type }}</span>
                     </li>
                     {% endfor %}
@@ -183,7 +184,7 @@
                 <ul class="chart">
                     {% for rating in totals_by_rating %}
                     <li>
-                        <span class="bar" style="height:{{ rating.perc }}%"></span>
+                        <span class="bar" style="height:{{ rating.perc }}%" data-count="{{ rating.absolute }}"></span>
                         <span class="caption">{{ forloop.counter }}</span>
                     </li>
                     {% endfor %}
