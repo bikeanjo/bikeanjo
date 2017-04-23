@@ -96,7 +96,7 @@
                         Número médio de atendimento por bikeanjo
                         {% endspaceless %}"></span>
                     </h2>
-                    <p>-</p>
+                    <p>{% firstof attended_avg|floatformat '-' %}</p>
                 </div>
                 <div class="span6 summary-box">
                     <h2>Média Feedback<span class="icon-question-sign icon-white" data-toggle="tooltip" title="{% spaceless %}

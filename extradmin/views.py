@@ -16,7 +16,7 @@ class SummaryAdminView(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(SummaryAdminView, self).get_context_data(**kwargs)
         requests = HelpRequest.objects.filter(requester__accepted_agreement=True)
-        bikeanjos = Bikeanjo.objects.filter(accepted_agreement=True)
+        bikeanjos = Bikeanjo.objects.filter(accepted_agreement=True, is_active=True)
 
         country = self.request.GET.get('country', '')
         if country.isdigit():
@@ -51,7 +51,7 @@ class SummaryAdminView(TemplateView):
             .aggregate(Avg('requester_rating'))\
             .get('requester_rating__avg')
 
-        requests_attended = requests.filter(status='attended')
+        requests_attended = requests.filter(status__in=['attended', 'finalized'])
         requests_failed = requests.filter(status__in=['canceled', 'rejected'])
         requests_active = requests.exclude(bikeanjo=None).filter(status__in=['new', 'open'])
         requests_canceled_ba = requests.filter(status='canceled', closed_by='bikeanjo')
@@ -97,6 +97,9 @@ class SummaryAdminView(TemplateView):
                 'perc': 100 * res['total'] / total
             }
 
+        attended_avg = requests_attended.count() / float(max(1, bikeanjos.count()))
+
+        data['attended_avg'] = attended_avg
         data['bikeanjos'] = bikeanjos
         data['city'] = city
         data['country'] = country
