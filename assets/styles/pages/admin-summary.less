@@ -43,6 +43,20 @@
         padding: 1em 0;
         text-align: center;
     }
+    
+    .tooltip {
+        min-width: 200px;
+        text-transform: none;
+
+        .tooltip-inner {
+            background-color: #49afcd;
+            color: white;
+            text-shadow: 0px 0px 1px black;
+        }
+        .tooltip-arrow {
+            border-top-color: #49afcd;
+        }
+    }
 }
 
 body{
@@ -55,7 +69,7 @@ body{
     table-layout: fixed;
 
     height: 200px;
-    margin: 0 auto 0;
+    margin: 1em auto 0;
     width: 100%;
     
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 2%, rgba(0, 0, 0, 0) 2%);
@@ -82,8 +96,10 @@ body{
 }
 
 .chart span.bar:after {
+    box-sizing: border-box;
     content: attr(data-count);
     display: block;
+    padding-right: 5px;
     position: absolute;
     top: -15px;
     width: 100%;
