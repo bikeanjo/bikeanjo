@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.db.models.aggregates import Avg, Count
+from django.http import HttpResponse
+from django.utils.text import slugify
 from django.views.generic import TemplateView
-
 from cities.models import City, Country
 from cyclists.models import Bikeanjo
 from front.models import HelpRequest
+import tablib
 
 HELP_OPTIONS = HelpRequest.HELP_OPTIONS
 
@@ -117,3 +119,43 @@ class SummaryAdminView(TemplateView):
         data['totals_by_type'] = totals_by_type
 
         return data
+
+
+class SummaryAdminExportView(SummaryAdminView):
+    def render_to_response(self, context, **kwargs):
+        tabdata = tablib.Dataset(headers=['info', 'value'])
+        data = [
+            ('Bikeanjos', context['bikeanjos'].count()),
+            ('Media de atendimento', context['attended_avg']),
+            ('Media do feedback', context['feedback_avg']),
+            ('Pedidos', context['requests'].count()),
+            ('Atendidos', context['requests_attended'].count()),
+            ('Não atendidos', context['requests_failed'].count()),
+            ('Não finalizados', context['requests_active'].count()),
+            ('Cancelados ba', context['requests_canceled_ba'].count()),
+            ('Cancelados solic.', context['requests_canceled_req'].count()),
+            ('Abandonados', context['requests_abandoned'].count()),
+        ]
+
+        for req_type, totals in context['totals_by_type'].items():
+            data.append((
+                'Total %s' % req_type,
+                totals['all']['absolute'] if 'all' in totals else 0
+            ))
+
+        for req_type, totals in context['totals_by_type'].items():
+            data.append((
+                'Atendido %s' % req_type,
+                totals['attended']['absolute'] if 'attended' in totals else 0
+            ))
+        map(tabdata.append, data)
+
+        filename = 'summary'
+        for attr in ['country', 'city', 'start_date', 'end_date']:
+            if attr in context and context[attr]:
+                filename += '_%s' % context[attr]
+        filename = '%s.xslx' % slugify(filename)
+
+        response = HttpResponse(tabdata.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        return response

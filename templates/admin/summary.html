@@ -64,6 +64,7 @@
             <div class="span4">
                 <input type="submit" value="Pesquisar" class="btn btn-info">
                 <a class="btn btn-warning" href="{% url 'admin_summary' %}">Limpar</a>
+                <a class="btn btn-default" href="{% url 'admin_summary_export' %}?{{ request.GET.urlencode }}">Exportar</a>
             </div>
         </div>
     </form>

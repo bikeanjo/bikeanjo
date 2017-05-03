@@ -18,6 +18,7 @@ urlpatterns = [
     # the django admin
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/summary/$', admin.site.admin_view(extradmin.views.SummaryAdminView.as_view()), name='admin_summary'),
+    url(r'^admin/summary/export/$', admin.site.admin_view(extradmin.views.SummaryAdminExportView.as_view()), name='admin_summary_export'),
     url(r'^rosetta/', include('rosetta.urls')),
 
     # languages
