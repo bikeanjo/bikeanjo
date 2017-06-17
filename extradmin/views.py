@@ -154,8 +154,8 @@ class SummaryAdminExportView(SummaryAdminView):
         for attr in ['country', 'city', 'start_date', 'end_date']:
             if attr in context and context[attr]:
                 filename += '_%s' % context[attr]
-        filename = '%s.xslx' % slugify(filename)
+        filename = '%s.xls' % slugify(filename)
 
-        response = HttpResponse(tabdata.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response = HttpResponse(tabdata.xls, content_type='application/vnd.ms-excel')
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         return response
