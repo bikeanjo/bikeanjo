@@ -152,6 +152,7 @@ LANGUAGES = (
     ('pt-br', _('Brazilian Portuguese')),
     ('es', _('Spanish')),
     ('en', _('English')),
+    ('fr', _('French')),
 )
 
 LOCALE_PATHS = (
@@ -227,7 +228,8 @@ MODELTRANSLATION_AUTO_POPULATE = True
 MODELTRANSLATION_FALLBACK_LANGUAGES = {
     'default': ('es', 'en',),
     'en': ('pt-br', 'es'),
-    'es': ('pt-br', 'en')
+    'es': ('pt-br', 'en'),
+    'fr': ('en', 'es'),
 }
 
 try:
