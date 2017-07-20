@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block js %}{{block.super}}
+<script type="text/javascript">;(function($){
+    var mapsStyleQuery = $.ajax({
+        'url': '{% static 'data/google-maps-style.json' %}',
+        'dataType': 'json'
+    });
+    var locationsQuery = $.ajax({
+        'url': '{% url 'bikeanjo_locations' %}',
+        'dataType': 'json'
+    });
+    
+    var hereQueryDefer = $.Deferred();
+    var hereQuery = hereQueryDefer.promise();
+    navigator.geolocation.getCurrentPosition(
+        hereQueryDefer.resolve.bind(hereQueryDefer),
+        hereQueryDefer.reject.bind(hereQueryDefer)
+    );
+
+    $(function(){
+        var Geocoder = function() {
+            var _geocoder = new google.maps.Geocoder();
+            this.code = function(address) {
+                var defer = $.Deferred();
+                if(!address) { return defer.reject(); }
+                _geocoder.geocode({'address': address}, function(results, status) {
+                    status == google.maps.GeocoderStatus.OK
+                        ? defer.resolve(results)
+                        : defer.reject(status);
+                });
+                return defer;
+            };
+        }
+
+        var $nav = $('#top .navigation');
+        var $map = $('#where-we-are');
+        var $par = $('.partners.container');
+        var $city = $('#city');
+        var $form = $city.parents('form');
+        var $outer = $("#maps-app");
+
+        var $win = $(window);
+        var height = 100 - Math.ceil( 100 * ($nav.height()) / $win.height() );
+        $map.css('height', height + 'vh');
+
+        var cities = [];
+        var index = {};
+        window.mapapi;
+        var markers = [];
+        var markerCluster;
+        var boundary = new google.maps.LatLngBounds();
+        var searchbound = null;
+
+        $form.submit(function(evt){
+            evt.preventDefault();
+            return false;
+        });
+
+        var geocoder = new Geocoder();
+        $city.each(function(i, el){
+            var $el = $(el);
+            new google.maps.places.Autocomplete(el,{
+                types: ['geocode'],
+                changed: $el.trigger.bind($el, 'address-changed')
+            });
+        }).on('address-changed', function(){
+            var address = $(this).val().trim();
+            geocoder.code(address).then(function(results) {
+                if($.isArray(results) && results.length > 0) {
+                    var result = results[0];
+                    mapapi.fitBounds(result.geometry.bounds);
+                } else if(address === '') {
+                    mapapi.fitBounds(boundary);
+                }
+                $city.blur();
+            });
+        });
+        
+        $city
+            .blur(function(){
+                mapapi.setOptions({'scrollwheel': false});
+                mapapi.setOptions({'gestureHandling': 'cooperative'});
+            })
+            .click(function(){
+                $(document.body).animate({'scrollTop': $nav.offset().top });
+            })
+            .focus(function(){
+                $(document.body).animate({'scrollTop': $nav.offset().top });
+                mapapi.setOptions({'scrollwheel': true});
+                mapapi.setOptions({'gestureHandling': 'greedy'});
+            });
+
+        $(document).keydown(function(evt){
+            if(evt.keyCode === 191 && evt.shiftKey) {
+                $city.focus();
+                evt.preventDefault();
+                return false;
+            } else if(evt.keyCode === 13 && evt.ctrlKey) {
+                $outer.each(function(){
+                    this.requestFullscreen 
+                    ? this.requestFullscreen() 
+                    : this.msRequestFullscreen 
+                    ? this.msRequestFullscreen() 
+                    : this.mozRequestFullScreen 
+                    ? this.mozRequestFullScreen() 
+                    : this.webkitRequestFullscreen 
+                    ? this.webkitRequestFullscreen() 
+                    : false;
+                });
+            } else if(evt.keyCode === 27) {
+                $city.blur();
+            }
+        });
+
+        mapsStyleQuery
+            .then(function(styles){
+                mapapi = new google.maps.Map($map.get(0), {
+                    zoom: 4,
+                    center: {lat: -23.522944, lng: -47.1313491},
+                    scrollwheel: false,
+                    styles: styles
+                });
+                return locationsQuery
+            })
+            .then(function(data){
+                index = {};
+
+                var locations = data.locations;
+                locations = locations.sort(function(l1, l2){
+                    return Math.sqrt( Math.pow(l1.lat, 2) + Math.pow(l1.lng, 2) )
+                         - Math.sqrt( Math.pow(l2.lat, 2) + Math.pow(l2.lng, 2) )
+                });
+                markers = locations.map(function(location, i) {
+                        var bounds = index[location.city]
+                            || new google.maps.LatLngBounds();
+
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            title: location.addr,
+                            icon: '{% static 'imgs/where-we-are-icon.png' %}'
+                        });
+                        
+                        bounds.extend(marker.position);
+                        boundary.extend(marker.position);
+                        index[location.city] = bounds;
+                        return marker;
+                    });
+
+                markerCluster = new MarkerClusterer(mapapi, markers, {
+                    imagePath: "{% static 'imgs/' %}cluster-",
+                    styles: [
+                        {
+                            url: "{% static 'imgs/' %}cluster-1.png",
+                            height: 53,
+                            width: 53,
+                            textColor: 'white'
+                        },
+                        {
+                            url: "{% static 'imgs/' %}cluster-2.png",
+                            height: 56,
+                            width: 56,
+                            textColor: 'black'
+                        },
+                        {
+                            url: "{% static 'imgs/' %}cluster-3.png",
+                            height: 66,
+                            width: 66,
+                            textColor: 'white'
+                        },
+                    ]
+                });
+                return hereQuery;
+            })
+            .then(function(pos){
+                mapapi.setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+            });
+    });
+})(jQuery);
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key={{ GOOGLE_API_KEY }}&amp;libraries=places"></script>
+{% endblock %}
+
+{% block content %}
+<section id="top" class="static where-we-are">
+    <section class="jumbotron" style="background-image: url('http://bikeanjo.org/media/filer_public/5d/75/5d75fdc8-0c97-4891-9910-1ffce4c3a846/header-nossas-campanhas.jpg');">
+        <div class="container">
+            <h2>{% trans "Where we are" %}</h2>
+        </div>
+    </section>
+
+    <div id="maps-app">
+        <nav class="navigation">
+            <form class="form-group container" style="padding-top: 25px; max-width:500px;">
+                <input type="text" class="form-control input-lg" id="city" placeholder="{% trans "Type city name" %}"/>
+            </form>
+        </nav>
+
+        <div id="where-we-are"></div>
+    </div>
+</section>
+{% endblock %}

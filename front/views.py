@@ -7,7 +7,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.sites.models import Site
 from django.db.models import Q, F, Max
-from django.http import HttpResponseRedirect, HttpResponseNotAllowed
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View, FormView, TemplateView, DetailView
 from django.views.generic.list import ListView
@@ -105,8 +105,6 @@ class HomeView(CreateView):
         response = super(HomeView, self).form_valid(form)
         notify_user_subscribed_in_newsletter(form.instance)
         return response
-
-
 
 
 class RawTemplateView(TemplateView):
@@ -466,6 +464,52 @@ class EventDetailView(DetailView):
             for app in data['site'].socialapp_set.all():
                 data[app.provider] = app
         return data
+
+
+class WhereWeAreView(TemplateView):
+    template_name = 'where_we_are.html'
+
+
+class BikeanjoPointsJsonView(TemplateView):
+    def render_to_json_response(self, context, **response_kwargs):
+        return JsonResponse(
+            context,
+            safe=False,
+            **response_kwargs
+        )
+
+    def get_context_data(self, **kwargs):
+        locations = models.Point.objects   \
+            .distinct('user')              \
+            .filter(user__role='bikeanjo') \
+            .select_related('user__city')
+
+        locations = {
+            p.coords.hex: {
+                'lat': round(p.coords.get_y(), 4),
+                'lng': round(p.coords.get_x(), 4),
+                'addr': p.address
+            } for p in locations
+        }
+
+        locations = locations.values()
+
+        routes = models.Track.objects      \
+            .distinct('user')              \
+            .filter(user__role='bikeanjo')
+
+        for route in routes:
+            locations.append({
+                'lat': route.track.y[0],
+                'lng': route.track.x[0],
+                'addr': route.start
+            })
+
+        return {'locations': locations}
+
+    def render_to_response(self, context, **response_kwargs):
+        return self.render_to_json_response(context, **response_kwargs)
+
 
 #
 # Views to register user and his role

@@ -1,0 +1,12 @@
+{% extends 'suit:suit/menu.html' %}
+{% load i18n %}
+{% load url from suit_compat %}
+
+{% block menu_home %}
+{{ block.super }}
+
+{% url 'admin_summary' as summary_page %}
+<li{% if summary_page == request.path %} class="active"{% endif %}>
+  <a href="{% url 'admin_summary' %}"><i class="icon-list"></i>{% trans 'Summary' %}</a>
+</li>
+{% endblock %}

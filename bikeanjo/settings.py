@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'dal',
     'dal_select2',
+    'extradmin',
     'cities',
     'cyclists',
     'front',

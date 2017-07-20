@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                 files: [
                     'assets/scripts/**/*.js',
                 ],
-                tasks: ['uglify:main', 'jshint',  'jscs',],
+                tasks: ['uglify:main',  'jscs',],
             },
             bower_components: {
                 files: [
@@ -74,7 +74,10 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'static/css/main.css': [
-                        'assets/styles/*.less',
+                        'assets/styles/main.less',
+                    ],
+                    'static/css/admin.css': [
+                        'assets/styles/admin.less',
                     ],
                 },
             },
@@ -88,7 +91,9 @@ module.exports = function (grunt) {
         copy: {
             assets: {
                 files: [
+                    {expand: true, cwd: 'assets/data', src:['**'], dest: 'static/data/', },
                     {expand: true, cwd: 'assets/imgs', src:['**'], dest: 'static/imgs/', },
+                    {expand: true, cwd: 'assets/fonts', src:['**'], dest: 'static/fonts/', },
                     {expand: true, cwd: 'assets/fonts', src:['**'], dest: 'static/fonts/', },
                 ],
             },
@@ -163,6 +168,6 @@ module.exports = function (grunt) {
 
     // define default task
     grunt.registerTask('styles', ['less', 'rename',]);
-    grunt.registerTask('all', ['uglify', 'jshint', 'jscs', 'flake8', 'styles', 'copy',])
+    grunt.registerTask('all', ['uglify', 'jscs', 'flake8', 'styles', 'copy',])
     grunt.registerTask('default', ['all', 'browserSync', 'watch',]);
 };

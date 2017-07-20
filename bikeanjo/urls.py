@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+from django.views.decorators.cache import cache_page
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles import views
 from django.views.generic import TemplateView
-
 import front.views
+import extradmin.views
 
 admin.autodiscover()
 
@@ -16,6 +17,8 @@ urlpatterns = [
 
     # the django admin
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/summary/$', admin.site.admin_view(extradmin.views.SummaryAdminView.as_view()), name='admin_summary'),
+    url(r'^admin/summary/export/$', admin.site.admin_view(extradmin.views.SummaryAdminExportView.as_view()), name='admin_summary_export'),
     url(r'^rosetta/', include('rosetta.urls')),
 
     # languages
@@ -99,6 +102,11 @@ urlpatterns = [
         front.views.TipsListView.as_view(), name='tips_list'),
     url(r'^tips/(?P<target>bikeanjo|requester)/$',
         front.views.TipsListView.as_view(), name='tips_list'),
+
+    url(r'^where-we-are/$',
+        front.views.WhereWeAreView.as_view(), name='where_we_are'),
+    url(r'^where-we-are/_locations/$',
+        cache_page(60 * 60)(front.views.BikeanjoPointsJsonView.as_view()), name='bikeanjo_locations'),
 
     #
     # Dashboard User Info and Profile
