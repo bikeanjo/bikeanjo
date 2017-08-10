@@ -111,6 +111,7 @@ class HelpRequest(BaseModel):
         ('finalized', _('Finished')),
         ('canceled', _('Canceled')),
         ('rejected', _('Rejected')),
+        ('eba', _('Closed by EBA')),
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
