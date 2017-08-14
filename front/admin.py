@@ -10,7 +10,7 @@ from modeltranslation.admin import TranslationAdmin
 from dal import autocomplete
 
 from front import models
-from admin_filters import RequestStatusListFilter
+from admin_filters import CreatedDateListFilter, RequestStatusListFilter
 
 import admin_resources as resources
 
@@ -80,7 +80,7 @@ class HelpRequestAdmin(ImportExportModelAdmin):
                      'message',)
     list_display = ('created_date', 'requester_name', 'bikeanjo_name', 'get_help_label_',
                     'status', 'requester_rating', 'requester_eval',)
-    list_filter = ('created_date', RequestStatusListFilter, 'requester_rating',)
+    list_filter = (CreatedDateListFilter, RequestStatusListFilter, 'closed_by', 'requester_rating',)
 
     def get_help_label_(self, obj):
         return obj.get_help_label()
