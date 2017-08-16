@@ -45,6 +45,9 @@ class CreatedDateListFilter(admin.SimpleListFilter):
         }
         return [choice]
 
+    def value(self):
+        return super(CreatedDateListFilter, self).value() or ''
+
     def parse(self, request):
         value = self.value()
         result = []

@@ -10,18 +10,16 @@
 <span class="data-inputs search-filter{% if spec.lookup_val or spec.used_parameters %} active{% endif %}">
     <input type="text" id="id_start_{{ field_name }}"
         class="vDateField"
-        placeholder="Data inicial"
-        value="{{ start_date }}" />
+        placeholder="Data inicial"/>
 </span>
 
 <span class="data-inputs search-filter{% if spec.lookup_val or spec.used_parameters %} active{% endif %}">
     <input type="text" id="id_end_{{ field_name }}"
         class="vDateField"
-        placeholder="Data final"
-        value="{{ end_date }}" />
+        placeholder="Data final"/>
 </span>
 
-<input type="hidden" name="{{ field_name }}" id="id_{{ field_name }}" value="{{choices.0.val}}" />
+<input type="hidden" name="{{ field_name }}" id="id_{{ field_name }}" value="{% firstof choices.0.val '' %}" />
 
 <script type="text/javascript">(function($){
     var regex = /^(\d\d)\/(\d\d)\/(20\d\d)$/;
@@ -30,7 +28,7 @@
     var $end = $("#id_end_{{ field_name }}");
     var $inputs = $("#id_start_{{ field_name }},#id_end_{{ field_name }}");
 
-    $('{{choices.0.val}}'.split(',')).each(function(index, date){
+    $('{% firstof choices.0.val '' %}'.split(',')).each(function(index, date){
         if( index === 0 ) {
             $start.val(date);
         } else if( index === 1 ) {
