@@ -25,3 +25,58 @@ class UserResource(resources.ModelResource):
         if obj.country and obj.country.name:
             return obj.country.name
         return '*' + obj.v1_country
+
+
+# - Cidade;
+# - Estado?
+# - País;
+# - Gênero;
+# - Idade;
+# - Há quanto tempo pedala;
+# - Frequência de uso da bicicleta como meio de transporte (pergunta "Você usa a bike como meio de transporte?");
+# - Iniciativas de bicicleta (pergunta "Participa de alguma iniciativa de bicicleta?)
+# - Como você pode ajudar (ajudar a pedalar, sugerir rotas etc.).
+# - Número de pedidos (novos, abertos, atendidos, finalizados, cancelados, rejeitados);
+# - Número de rotas ou pontos informados.
+
+class BikeanjoResource(UserResource):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'date_joined',
+            'last_login',
+            'city',
+            'country',
+            'gender',
+            'birthday',
+            'ride_experience',
+            'bike_use',
+            'initiatives',
+            'help_with',
+            'available',
+            'accepted_agreement',
+        )
+        export_order = (
+            'first_name',
+            'last_name',
+            'email',
+            'date_joined',
+            'last_login',
+            'city',
+            'country',
+            'gender',
+            'birthday',
+            'ride_experience',
+            'bike_use',
+            'initiatives',
+            'help_with',
+            'available',
+            'accepted_agreement',
+        )
+
+    def get_queryset(self):
+        queryset = super(BikeanjoResource, self).get_queryset()
+        return queryset.filter(role='bikeanjo')
