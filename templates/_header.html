@@ -76,6 +76,7 @@
                             {% for page in about_pages %}
                                 <li><a href="{{page.url}}">{{page.title}}</a></li>
                             {% endfor %}
+                            <li><a href="{% url 'where_we_are' %}">{% trans "Where we are" %}</a></li>
                         </ul>
                     </li>
                     {% endif %}

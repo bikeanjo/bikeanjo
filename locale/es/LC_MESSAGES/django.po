@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-23 10:16-0300\n"
+"POT-Creation-Date: 2017-09-15 23:24-0300\n"
 "PO-Revision-Date: 2016-05-20 17:43-0300\n"
 "Last-Translator: Fabio Montefuscolo <fabio.montefuscolo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
-#: bikeanjo/settings.py:151
+#: bikeanjo/settings.py:152
 msgid "Brazilian Portuguese"
 msgstr "Portugués Brasileño"
 
-#: bikeanjo/settings.py:152
+#: bikeanjo/settings.py:153
 msgid "Spanish"
 msgstr "Español"
 
-#: bikeanjo/settings.py:153
+#: bikeanjo/settings.py:154
 msgid "English"
 msgstr "English"
 
@@ -588,7 +588,7 @@ msgstr "Evento"
 
 #: front/models.py:370 templates/_dashboard_sidebar_bikeanjo.html:41
 #: templates/_dashboard_sidebar_requester.html:34 templates/_footer.html:35
-#: templates/_header.html:51 templates/_header.html.py:94
+#: templates/_header.html:51 templates/_header.html.py:95
 #: templates/bikeanjo_dashboard.html:137
 #: templates/dashboard_solicitante_recados.html:24 templates/event_list.html:9
 #: templates/requester_dashboard.html:126
@@ -661,7 +661,7 @@ msgstr "Tip para pedalear"
 
 #: front/models.py:484 templates/_dashboard_sidebar_bikeanjo.html:45
 #: templates/_dashboard_sidebar_requester.html:36 templates/_footer.html:37
-#: templates/_header.html:55 templates/_header.html.py:96
+#: templates/_header.html:55 templates/_header.html.py:97
 #: templates/dashboard_solicitante_recados.html:26
 #: templates/emails/request_canceled_by_inactivity.html:36
 #: templates/emails/request_canceled_by_inactivity.txt:8
@@ -866,11 +866,11 @@ msgstr "Escribe tu e-mail"
 msgid "Send"
 msgstr "Enviar"
 
-#: front/views.py:215
+#: front/views.py:213
 msgid "Your information has been updated!"
 msgstr "Tu información ha sido actualizada!"
 
-#: front/views.py:839
+#: front/views.py:883
 msgid "Your feedback has been sent. Thank you!"
 msgstr ""
 
@@ -991,16 +991,16 @@ msgstr "Socios"
 msgid "Who we are"
 msgstr "Quienes somos"
 
-#: templates/_footer.html:29 templates/_header.html:87
+#: templates/_footer.html:29 templates/_header.html:88
 msgid "What we do"
 msgstr "Qué hacemos"
 
-#: templates/_footer.html:43 templates/_header.html:105
+#: templates/_footer.html:43 templates/_header.html:106
 msgid "Support us"
 msgstr "Soporte"
 
 #: templates/_footer.html:53 templates/_footer.html.py:56
-#: templates/_header.html:117 templates/_header.html.py:121
+#: templates/_header.html:118 templates/_header.html.py:122
 #: templates/contact_form.html:5 templates/contact_form.html.py:12
 msgid "Contact"
 msgstr "Contacto"
@@ -1017,11 +1017,17 @@ msgstr "Editar perfil"
 msgid "Log out"
 msgstr "Cerrar sesión"
 
-#: templates/_header.html:130 templates/_signup_inner_form.html:180
+#: templates/_header.html:79 templates/where_we_are.html:190
+#, fuzzy
+#| msgid "Who we are"
+msgid "Where we are"
+msgstr "Quienes somos"
+
+#: templates/_header.html:131 templates/_signup_inner_form.html:180
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
-#: templates/_header.html:133
+#: templates/_header.html:134
 msgid "Get help to ride a bike"
 msgstr "Consigue ayuda para pedalear"
 
@@ -2426,6 +2432,10 @@ msgstr ""
 "Su dirección de correo electrónico está registrada y\n"
 "validada en nuestra lista"
 
+#: templates/suit/menu.html:10
+msgid "Summary"
+msgstr ""
+
 #: templates/tips.html:15
 msgid "I am a new cyclist"
 msgstr "Soy un ciclista nuevo"
@@ -2437,6 +2447,12 @@ msgstr "soy un ciclista con experiencia"
 #: templates/tips.html:39
 msgid "See entire tip"
 msgstr "vea la indicación completa"
+
+#: templates/where_we_are.html:197
+#, fuzzy
+#| msgid "Your city name"
+msgid "Type city name"
+msgstr "Tu ciudad"
 
 #~ msgid "History"
 #~ msgstr "Historia"
