@@ -110,35 +110,35 @@ class BikeanjoResource(UserResource):
         queryset = super(BikeanjoResource, self).get_queryset()
         return queryset.filter(role='bikeanjo')
 
-    def dehydrate_requests_total(self, ba):
-        return ba.helpbikeanjo_set.count()
+    def dehydrate_requests_total(self, user):
+        return user.helpbikeanjo_set.count()
 
-    def dehydrate_requests_new(self, ba):
-        return ba.helpbikeanjo_set.filter(status='new').count()
+    def dehydrate_requests_new(self, user):
+        return user.helpbikeanjo_set.filter(status='new').count()
 
-    def dehydrate_requests_open(self, ba):
-        return ba.helpbikeanjo_set.filter(status='open').count()
+    def dehydrate_requests_open(self, user):
+        return user.helpbikeanjo_set.filter(status='open').count()
 
-    def dehydrate_requests_attended(self, ba):
-        return ba.helpbikeanjo_set.filter(status='attended').count()
+    def dehydrate_requests_attended(self, user):
+        return user.helpbikeanjo_set.filter(status='attended').count()
 
-    def dehydrate_requests_finalized(self, ba):
-        return ba.helpbikeanjo_set.filter(status='finalized').count()
+    def dehydrate_requests_finalized(self, user):
+        return user.helpbikeanjo_set.filter(status='finalized').count()
 
-    def dehydrate_requests_canceled(self, ba):
-        return ba.helpbikeanjo_set.filter(status='canceled').count()
+    def dehydrate_requests_canceled(self, user):
+        return user.helpbikeanjo_set.filter(status='canceled').count()
 
-    def dehydrate_requests_rejected(self, ba):
-        return ba.helpbikeanjo_set.filter(status='rejected').count()
+    def dehydrate_requests_rejected(self, user):
+        return user.helpbikeanjo_set.filter(status='rejected').count()
 
-    def dehydrate_requests_eba(self, ba):
-        return ba.helpbikeanjo_set.filter(status='eba').count()
+    def dehydrate_requests_eba(self, user):
+        return user.helpbikeanjo_set.filter(status='eba').count()
 
-    def dehydrate_routes_count(self, ba):
-        return ba.track_set.count()
+    def dehydrate_routes_count(self, user):
+        return user.track_set.count()
 
-    def dehydrate_points_count(self, ba):
-        return ba.point_set.count()
+    def dehydrate_points_count(self, user):
+        return user.point_set.count()
 
 
 # Cidade;
@@ -150,6 +150,16 @@ class BikeanjoResource(UserResource):
 # Número de pedidos (novos, abertos, atendidos, finalizados, cancelados, rejeitados);
 # Tipo de pedido (aprender a pedalar, praticar pedaladas, acompanhamento no trânsito etc.).
 class RequesterResource(UserResource):
+    requests_total = fields.Field()
+    requests_new = fields.Field()
+    requests_open = fields.Field()
+    requests_attended = fields.Field()
+    requests_finished = fields.Field()
+    requests_canceled = fields.Field()
+    requests_rejected = fields.Field()
+    routes_count = fields.Field()
+    points_count = fields.Field()
+
     class Meta:
         model = User
         fields = (
@@ -164,6 +174,15 @@ class RequesterResource(UserResource):
             'birthday',
             'ride_experience',
             'accepted_agreement',
+            'requests_total',
+            'requests_new',
+            'requests_open',
+            'requests_attended',
+            'requests_finished',
+            'requests_canceled',
+            'requests_rejected',
+            'routes_count',
+            'points_count',
         )
         export_order = (
             'first_name',
@@ -177,8 +196,48 @@ class RequesterResource(UserResource):
             'birthday',
             'ride_experience',
             'accepted_agreement',
+            'requests_total',
+            'requests_new',
+            'requests_open',
+            'requests_attended',
+            'requests_finished',
+            'requests_canceled',
+            'requests_rejected',
+            'routes_count',
+            'points_count',
         )
 
     def get_queryset(self):
         queryset = super(RequesterResource, self).get_queryset()
         return queryset.filter(role='requester')
+
+    def dehydrate_requests_total(self, user):
+        return user.helprequested_set.count()
+
+    def dehydrate_requests_new(self, user):
+        return user.helprequested_set.filter(status='new').count()
+
+    def dehydrate_requests_open(self, user):
+        return user.helprequested_set.filter(status='open').count()
+
+    def dehydrate_requests_attended(self, user):
+        return user.helprequested_set.filter(status='attended').count()
+
+    def dehydrate_requests_finalized(self, user):
+        return user.helprequested_set.filter(status='finalized').count()
+
+    def dehydrate_requests_canceled(self, user):
+        return user.helprequested_set.filter(status='canceled').count()
+
+    def dehydrate_requests_rejected(self, user):
+        return user.helprequested_set.filter(status='rejected').count()
+
+    def dehydrate_requests_eba(self, user):
+        return user.helprequested_set.filter(status='eba').count()
+
+    def dehydrate_routes_count(self, user):
+        return user.track_set.count()
+
+    def dehydrate_points_count(self, user):
+        return user.point_set.count()
+
