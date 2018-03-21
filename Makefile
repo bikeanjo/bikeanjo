@@ -9,6 +9,8 @@ VIRTUALENVWRAPPER_HOOK_DIR="${HOME}/.virtualenvs"
 PIP="${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/pip"
 PYTHON="${VIRTUALENVWRAPPER_HOOK_DIR}/bikeanjo/bin/python"
 
+POSTGRES_HOST="127.0.0.1"
+
 all:
 	bash -c "\
 		test -z ${VIRTUAL_ENV} && \
@@ -66,11 +68,13 @@ messages:
 
 resetdb:
 	test "${ACCIDENT}" = "no"
-	psql -Upostgres -h127.0.0.1 postgres -c 'drop database bikeanjo;'
-	psql -Upostgres -h127.0.0.1 postgres -c 'create database bikeanjo owner bikeanjo;'
-	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension postgis;'
-	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension unaccent;'
-	psql -Upostgres -h127.0.0.1 bikeanjo -c 'create extension fuzzystrmatch;'
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'drop database if exists bikeanjo;'
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'drop user if exists bikeanjo;'
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c "create user bikeanjo with password 'bikeanjo';"
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'create database bikeanjo owner bikeanjo;'
+	psql -Upostgres -h${POSTGRES_HOST} bikeanjo -c 'create extension postgis;'
+	psql -Upostgres -h${POSTGRES_HOST} bikeanjo -c 'create extension unaccent;'
+	psql -Upostgres -h${POSTGRES_HOST} bikeanjo -c 'create extension fuzzystrmatch;'
 
 remove-fuzzy-trans:
 	sed -i -z -r -e 's/((#[^\n]+\n)*)(#, fuzzy[^\n]*\n)(#\| msgid[^\n]+\n)(#[^\n]+\n)*((msgid[^\n]+\n)("[^"]+"\n)*)(msgstr[^\n]+\n)("[^"]+"\n)*/\1\6msgstr ""/g' \
