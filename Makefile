@@ -68,7 +68,9 @@ messages:
 
 resetdb:
 	test "${ACCIDENT}" = "no"
-	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'drop database bikeanjo;'
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'drop database if exists bikeanjo;'
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'drop user if exists bikeanjo;'
+	psql -Upostgres -h${POSTGRES_HOST} postgres -c "create user bikeanjo with password 'bikeanjo';"
 	psql -Upostgres -h${POSTGRES_HOST} postgres -c 'create database bikeanjo owner bikeanjo;'
 	psql -Upostgres -h${POSTGRES_HOST} bikeanjo -c 'create extension postgis;'
 	psql -Upostgres -h${POSTGRES_HOST} bikeanjo -c 'create extension unaccent;'
