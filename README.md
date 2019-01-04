@@ -1,4 +1,4 @@
-# Bike Anjo
+# BikeAnjo
 
 
 ## Development environment
@@ -19,7 +19,7 @@ based distribution also.
 The command below install system requirements on Manjaro Linux. Packages may
 have similar name on Debian and Ubuntu.
 
-```
+```sh
 sudo pacman -S postgresql     \
     postgis                   \
     nodejs                    \
@@ -30,7 +30,7 @@ sudo pacman -S postgresql     \
 The `virtualenvwrapper` is not activated right after installing, so it needs to
 be activated manually after activation.
 
-```
+```sh
 source /usr/bin/virtualenvwrapper.sh 
 ```
 
@@ -39,7 +39,7 @@ source /usr/bin/virtualenvwrapper.sh
 
 Clone project and change current directory to it. 
 
-```
+```sh
 git clone git@github.com:bikeanjo/bikeanjo.git
 ```
 
@@ -51,17 +51,17 @@ cd bikeanjo
 ### Setting up the database
 
 1. If it is first time running on Manjaro, create data folder
-```
+```sh
 sudo -u postgres initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'
 ```
 
 2. Start database service
-```
+```sh
 sudo systemctl start postgresql
 ```
 
 3. Create user and schema using a shortcut
-```
+```sh
 ACCIDENT=no make resetdb
 ```
 
@@ -75,22 +75,22 @@ It creates:
 
 
 1. Create Python2 Virtualenv
-```
+```sh
 mkvirtualenv bikeanjo -p /usr/bin/python2
 ```
 
 2. Activate virtualenv if not activated
-```
+```sh
 workon bikeanjo
 ```
 
 3. Install Python requirements
-```
+```sh
 pip install -r requirements.txt
 ```
 
 4. Setup local variables
-```
+```sh
 cat > .env <<'EOF'
 DJANGO_DEBUG=True
 DJANGO_DATABASE_URL=postgis://bikeanjo:bikeanjo@localhost/bikeanjo
@@ -98,20 +98,20 @@ EOF
 ```
 
 5. Load database initial data
-```
+```sh
 ./manage.py migrate
 ./manage.py sync_translation_fields --noinput                # First time only!
 ```
 
 6. Install assets compiling requirements
-```
+```sh
 npm install
 ./node_modules/bower/bin/bower install
 ./node_modules/grunt-cli/bin/grunt all
 ```
 
 7. Create a superuser
-```
+```sh
 ./manage.py shell_plus <<'EOF'
 user = User.objects.create_user('admin', email='b@c.de', password='admin')
 user.is_superuser=True
@@ -128,7 +128,7 @@ EOF
 ```
 
 8. Create a fake socialapp for django-allauth
-```
+```sh
 ./manage.py shell_plus <<'EOF'
 app = SocialApp()
 app.name='Facebook'
@@ -151,7 +151,7 @@ SVN revision by using a very strict regular expression. As upgrading Django just
 to solve that problem may bring a lot of head aches, a little change on core
 file is needed. The patch below does it.
 
-```
+```sh
 workon bikeanjo
 SITE_PACKAGES=$(python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
 patch -d$SITE_PACKAGES -p0 <<'DIFF'
