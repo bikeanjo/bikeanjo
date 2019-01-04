@@ -34,7 +34,7 @@ oauthlib==0.7.2
 pep8==1.6.2
 Pillow==2.8.1
 polib==1.0.6
-psycopg2==2.7
+psycopg2==2.7.6.1
 py==1.4.26
 pyflakes==0.8.1
 pytest-django==2.7.0
