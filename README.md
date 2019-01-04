@@ -151,9 +151,18 @@ SVN revision by using a very strict regular expression. As upgrading Django just
 to solve that problem may bring a lot of head aches, a little change on core
 file is needed. The patch below does it.
 
+1. Activate env
 ```sh
 workon bikeanjo
+```
+
+2. Figure out where is site-packages
+```sh
 SITE_PACKAGES=$(python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())')
+```
+
+3. Apply patch on django file
+```sh
 patch -d$SITE_PACKAGES -p0 <<'DIFF'
 diff --git django/contrib/gis/geos/libgeos.py django/contrib/gis/geos/libgeos.py
 index 66c61f3..5040bc5 100644
