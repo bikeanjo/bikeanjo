@@ -195,7 +195,7 @@ SOCIALACCOUNT_PROVIDERS = {
                   'user_location', 'public_profile'],
         'METHOD': 'js_sdk',
         'VERIFIED_EMAIL': False,
-        'VERSION': '2.9'
+        'VERSION': 'v2.9'
     },
     'google': {
         'SCOPE': ['profile', 'email'],
