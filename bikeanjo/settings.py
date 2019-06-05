@@ -194,7 +194,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email', 'user_birthday',
                   'user_location', 'public_profile'],
         'METHOD': 'js_sdk',
-        'VERIFIED_EMAIL': False
+        'VERIFIED_EMAIL': False,
+        'VERSION': '2.9'
     },
     'google': {
         'SCOPE': ['profile', 'email'],
@@ -236,3 +237,4 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+
