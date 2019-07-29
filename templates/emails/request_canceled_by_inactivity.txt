@@ -3,9 +3,9 @@
 
 {% trans "was cancelled because there was no answer or another reason. See how we can help you" %}
 
-* {% trans "Answer the message and reactivate request" %} (http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %})
-* {% trans "Make a new request" %} (http://{{ site.domain }}{% url 'requester_help_request' %})
-* {% trans "Cycling tips" %} (http://{{ site.domain }}{% url 'tips_list' %})
+* {% trans "Answer the message and reactivate request" %} (https://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %})
+* {% trans "Make a new request" %} (https://{{ site.domain }}{% url 'requester_help_request' %})
+* {% trans "Cycling tips" %} (https://{{ site.domain }}{% url 'tips_list' %})
 
 {% trans "Best regards" %},
 {% trans "Bike Anjo team" %}

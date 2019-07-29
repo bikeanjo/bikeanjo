@@ -392,14 +392,14 @@ class Event(BaseModel):
             'host': self.site.domain,
             'url': self.image.url,
         }
-        return 'http://%(host)s%(url)s' % url
+        return 'https://%(host)s%(url)s' % url
 
     def get_absolute_url(self):
         url = {
             'host': self.site.domain,
             'url': reverse('dashboard_event_detail', args=[self.slug]),
         }
-        return 'http://%(host)s%(url)s' % url
+        return 'https://%(host)s%(url)s' % url
 
     def json_ld(self):
         ld = OrderedDict()

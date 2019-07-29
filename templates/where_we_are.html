@@ -12,7 +12,7 @@
         'url': '{% url 'bikeanjo_locations' %}',
         'dataType': 'json'
     });
-    
+
     var hereQueryDefer = $.Deferred();
     var hereQuery = hereQueryDefer.promise();
     navigator.geolocation.getCurrentPosition(
@@ -78,7 +78,7 @@
                 $city.blur();
             });
         });
-        
+
         $city
             .blur(function(){
                 mapapi.setOptions({'scrollwheel': false});
@@ -100,14 +100,14 @@
                 return false;
             } else if(evt.keyCode === 13 && evt.ctrlKey) {
                 $outer.each(function(){
-                    this.requestFullscreen 
-                    ? this.requestFullscreen() 
-                    : this.msRequestFullscreen 
-                    ? this.msRequestFullscreen() 
-                    : this.mozRequestFullScreen 
-                    ? this.mozRequestFullScreen() 
-                    : this.webkitRequestFullscreen 
-                    ? this.webkitRequestFullscreen() 
+                    this.requestFullscreen
+                    ? this.requestFullscreen()
+                    : this.msRequestFullscreen
+                    ? this.msRequestFullscreen()
+                    : this.mozRequestFullScreen
+                    ? this.mozRequestFullScreen()
+                    : this.webkitRequestFullscreen
+                    ? this.webkitRequestFullscreen()
                     : false;
                 });
             } else if(evt.keyCode === 27) {
@@ -142,7 +142,7 @@
                             title: location.addr,
                             icon: '{% static 'imgs/where-we-are-icon.png' %}'
                         });
-                        
+
                         bounds.extend(marker.position);
                         boundary.extend(marker.position);
                         index[location.city] = bounds;
@@ -185,7 +185,7 @@
 
 {% block content %}
 <section id="top" class="static where-we-are">
-    <section class="jumbotron" style="background-image: url('http://bikeanjo.org/media/filer_public/5d/75/5d75fdc8-0c97-4891-9910-1ffce4c3a846/header-nossas-campanhas.jpg');">
+    <section class="jumbotron" style="background-image: url('https://bikeanjo.org/media/filer_public/5d/75/5d75fdc8-0c97-4891-9910-1ffce4c3a846/header-nossas-campanhas.jpg');">
         <div class="container">
             <h2>{% trans "Where we are" %}</h2>
         </div>

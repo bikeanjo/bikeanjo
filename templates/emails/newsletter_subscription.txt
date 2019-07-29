@@ -4,7 +4,7 @@
 {% trans "Somebody (luckly you) used the following e-mail address" %} "{{subscriber.email}}" {% trans "to subscribe to the Bike Anjo newsletter!" %}
 
 {% trans "If it was really you that subscribed, please, confirm it through the following link" %}:
---> http://{{ site.domain }}{% url 'confirm_subscription_view' subscriber.email subscriber.token %}
+--> https://{{ site.domain }}{% url 'confirm_subscription_view' subscriber.email subscriber.token %}
 
 {% trans "Best regards" %},
 {% trans "Bike Anjo team" %}

@@ -28,4 +28,4 @@ class SlideItem(BaseModel):
             'host': self.site.domain,
             'url': self.image.url,
         }
-        return 'http://%(host)s%(url)s' % url
+        return 'https://%(host)s%(url)s' % url
