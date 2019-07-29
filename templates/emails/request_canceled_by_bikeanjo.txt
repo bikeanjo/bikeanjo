@@ -3,7 +3,7 @@
 
 {% trans "Unfortunately your request for" %} "{{ helprequest.get_help_label }}" {% trans "was cancelled because your bike anjo won't be able to help you anymore. We will try to find someone else in the next 15 days." %} O=D
 
-{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} https://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
 {% trans "Best regards" %},
 {% trans "Bike Anjo team" %}
