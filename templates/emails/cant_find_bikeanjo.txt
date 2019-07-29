@@ -5,11 +5,11 @@
 
 % trans "We will keep looking, but in the meanwhile you can" %}
 
-* {% trans "Check out our cycling tips" %} (http://{{ site.domain }}{% url 'tips_list' %})
-* {% trans "Redo your request in another region" %} (http://{{ site.domain }}{% url 'requester_help_request' %})
+* {% trans "Check out our cycling tips" %} (https://{{ site.domain }}{% url 'tips_list' %})
+* {% trans "Redo your request in another region" %} (https://{{ site.domain }}{% url 'requester_help_request' %})
 
 
-{% trans "See at" %} http://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
+{% trans "See at" %} https://{{ site.domain }}{% url 'cyclist_request_detail' helprequest.id %}
 
 {% trans "Best regards" %},
 {% trans "Bike Anjo team" %}
