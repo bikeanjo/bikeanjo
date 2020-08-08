@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load flatpages %}
 
 <aside class="dashboard-sidebar col-md-3 col-md-offset-1">
   <div class="card">
@@ -58,11 +59,16 @@
           </a>
         </li>
 
-        <li>
-          <a target="_blank" href="https://bikeanjo.org/novobikeanjo/foruns/">
-            {% trans "Discussion forum" %}
-          </a>
-        </li>
+        {% get_flatpages '/foruns/' as forums_pages %}
+        {% if forums_pages %}
+          {% for page in forums_pages %}
+            <li>
+              <a title="{{ page.title }}" href="{{ page.url }}" target="_blank">
+                {{ page.title }}
+              </a>
+            </li>
+          {% endfor %}
+        {% endif %}
 
         <li>
           <a href="{% url 'tips_list' user.role %}">
