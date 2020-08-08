@@ -2,190 +2,190 @@
 {% load i18n %}
 
 {% block content %}
-<section class="dashboard dashboard-home bikeanjo container">
-  <div class="row">
-    {% include '_dashboard_sidebar.html' %}
+  <section class="dashboard dashboard-home bikeanjo container">
+    <div class="row">
+      {% include '_dashboard_sidebar.html' %}
 
-    <section class="dashboard-content col-md-7">
-      {% if first_access %}
-        <article class="card success-message big" role="alert">
-          <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
-            <span aria-hidden="true"><i class="fa fa-times"></i>
-            </span>
-          </button>
-          <div class="card-content">
-            <div class="card-badge"></div>
-            <h2 class="card-subtitle">{% trans "Success!" %}</h2>
-            <p class="card-info">
-              {% trans "Welcome to the Bike Anjo network!" %} 0=D
-              <br />
-              <br />{% trans "We take the opportunity to invite you to" %}:
-            </p>
-            <ul class="list-unstyled card-info">
-              <li>
-                <i class="fa fa-arrow-right"></i>
-                <a href="http://bit.ly/cartilhaba" target="_blank">
-                  {% trans "Check out our orientations for volunteers" %}
-                </a>
-              </li>
-              <li>
-                <i class="fa fa-arrow-right"></i>
-                <a target="_blank" href="https://bikeanjo.org/novobikeanjo/foruns/">
-                  {% trans "Join our connection groups" %}
-                </a>
-              </li>
-              <li>
-                <i class="fa fa-arrow-right"></i>
-                <a href="{% url 'tips_list' 'bikeanjo' %}" target="_blank">
-                  {% trans "See more tips for experienced cyclists and volunteers" %}
-                </a>
-              </li>
+      <section class="dashboard-content col-md-7">
+        {% if first_access %}
+          <article class="card success-message big" role="alert">
+            <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+              <span aria-hidden="true"><i class="fa fa-times"></i>
+              </span>
+            </button>
+            <div class="card-content">
+              <div class="card-badge"></div>
+              <h2 class="card-subtitle">{% trans "Success!" %}</h2>
+              <p class="card-info">
+                {% trans "Welcome to the Bike Anjo network!" %} 0=D
+                <br />
+                <br />{% trans "We take the opportunity to invite you to" %}:
+              </p>
+              <ul class="list-unstyled card-info">
+                <li>
+                  <i class="fa fa-arrow-right"></i>
+                  <a href="http://bit.ly/cartilhaba" target="_blank">
+                    {% trans "Check out our orientations for volunteers" %}
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-arrow-right"></i>
+                  <a target="_blank" href="https://bikeanjo.org/novobikeanjo/foruns/">
+                    {% trans "Join our connection groups" %}
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-arrow-right"></i>
+                  <a href="{% url 'tips_list' 'bikeanjo' %}" target="_blank">
+                    {% trans "See more tips for experienced cyclists and volunteers" %}
+                  </a>
+                </li>
+              </ul>
+              <p class="card-info">
+                <br />
+                {% trans "Thank you for joining our community" %}
+              </p>
+            </div>
+          </article>
+        {% endif %}
+
+        {% for message in messages %}
+          <div class="alert alert-{{ message.level_tag }}" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="fa fa-times"></i></span>
+            </button>
+            {{ message }}
+          </div>
+        {% endfor %}
+
+        {% with message=unread.messages.first %}{% if message %}
+          <article class="card {% if message.image %}photo{% endif %} big">
+            <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
+              <span aria-hidden="true"><i class="fa fa-times"></i></span>
+            </button>
+            <div class="card-content">
+              {% if message.image %}
+                <div class="card-photo" style="background-image: url({{message.image.url}});"></div>
+              {% endif %}
+              <h2 class="card-subtitle">{{message.title}}</h2>
+              <p class="card-info">{{message.content|striptags|truncatewords:32}}</p>
+            </div>
+            <footer class="card-footer">
+              <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">
+                {% trans "See full message" %} <i class="fa fa-arrow-right"></i>
+              </a>
+            </footer>
+          </article>
+        {% endif %}{% endwith %}
+
+        {% if helprequest_list.exists %}
+        <article class="card list">
+          <header class="card-header negative">
+            <h2 class="card-title">{% trans "My Requests" %}({{user.helpbikeanjo_set.open.count}})</h2>
+          </header>
+          {% for hr in helprequest_list %}
+          <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
+            <h3 class="card-subtitle">
+              <i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a>
+            </h3>
+            <ul class="card-info list-info list-unstyled">
+              {#<li>#{{ hr.id|stringformat:'04d' }}</li>#}
+              <li>{{ hr.requester.get_full_name }}</li>
+              <li>{{ hr.requester.city.name }}</li>
+              {#<li>{{ hr.created_date|date:'d/m/Y' }}</li>#}
             </ul>
-            <p class="card-info">
-              <br />
-              {% trans "Thank you for joining our community" %}
-            </p>
           </div>
-        </article>
-      {% endif %}
-
-      {% for message in messages %}
-        <div class="alert alert-{{ message.level_tag }}" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="fa fa-times"></i></span>
-          </button>
-          {{ message }}
-        </div>
-      {% endfor %}
-
-      {% with message=unread.messages.first %}{% if message %}
-        <article class="card {% if message.image %}photo{% endif %} big">
-          <button type="button" class="card-button" data-dismiss="card" aria-label="Close">
-            <span aria-hidden="true"><i class="fa fa-times"></i></span>
-          </button>
-          <div class="card-content">
-            {% if message.image %}
-              <div class="card-photo" style="background-image: url({{message.image.url}});"></div>
-            {% endif %}
-            <h2 class="card-subtitle">{{message.title}}</h2>
-            <p class="card-info">{{message.content|striptags|truncatewords:32}}</p>
-          </div>
+          {% endfor %}
           <footer class="card-footer">
-            <a class="see-more-link" href="{% url 'dashboard_message_detail' message.id %}">
-              {% trans "See full message" %} <i class="fa fa-arrow-right"></i>
+            <a class="see-more-link" href="{% url 'cyclist_my_requests' %}">
+              {% trans "View all" %} <i class="fa fa-arrow-right"></i>
             </a>
           </footer>
         </article>
-      {% endif %}{% endwith %}
+        {% endif %}
 
-      {% if helprequest_list.exists %}
-      <article class="card list">
-        <header class="card-header negative">
-          <h2 class="card-title">{% trans "My Requests" %}({{user.helpbikeanjo_set.open.count}})</h2>
-        </header>
-        {% for hr in helprequest_list %}
-        <div class="card-content {% if hr.last_reply < hr.bikeanjo_access %}old{% endif %} {{ hr.status }}">
-          <h3 class="card-subtitle">
-            <i class="fa fa-comment"></i> <a href="{% url 'cyclist_request_detail' hr.id %}">{{hr.get_help_label}}</a>
-          </h3>
-          <ul class="card-info list-info list-unstyled">
-            {#<li>#{{ hr.id|stringformat:'04d' }}</li>#}
-            <li>{{ hr.requester.get_full_name }}</li>
-            <li>{{ hr.requester.city.name }}</li>
-            {#<li>{{ hr.created_date|date:'d/m/Y' }}</li>#}
-          </ul>
-        </div>
-        {% endfor %}
-        <footer class="card-footer">
-          <a class="see-more-link" href="{% url 'cyclist_my_requests' %}">
-            {% trans "View all" %} <i class="fa fa-arrow-right"></i>
-          </a>
-        </footer>
-      </article>
-      {% endif %}
-
-      {% if user.helpbikeanjo_set.matching.exists %}
-      <article class="card list">
-        <header class="card-header negative">
-          <h2 class="card-title">{% trans "New requests" %}({{user.helpbikeanjo_set.matching.count}})</h2>
-        </header>
-        {% for helprequest in user.helpbikeanjo_set.matching.all %}
-          <div class="card-content">
-            <h3 class="card-subtitle">
-              <i class="fa fa-user-plus"></i> <a href="{% url 'cyclist_new_request_detail' helprequest.id %}">{{helprequest.get_help_label}}</a>
-            </h3>
-            <ul class="card-info list-info list-unstyled">
-              <li>#{{ helprequest.id|stringformat:'04d' }}</li>
-              <li>{{ helprequest.requester.get_full_name }}</li>
-              <li>{{ helprequest.requester.city.name }}</li>
-              <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
-            </ul>
-          </div>
-        {% endfor %}
-        <footer class="card-footer">
-          <a class="see-more-link" href="{% url 'cyclist_new_requests' %}?filter=new">
-            {% trans "View all" %}<i class="fa fa-arrow-right"></i>
-          </a>
-        </footer>
-      </article>
-      {% endif %}
-
-      {% if event_list %}
+        {% if user.helpbikeanjo_set.matching.exists %}
         <article class="card list">
           <header class="card-header negative">
-            <h2 class="card-title">
-              {% trans "Events" %}
-              {% if event_list.near %}
-              {% trans "in your city" %}
-              {% endif %}</h2>
+            <h2 class="card-title">{% trans "New requests" %}({{user.helpbikeanjo_set.matching.count}})</h2>
           </header>
-          {% for event in event_list|slice:'3' %}
+          {% for helprequest in user.helpbikeanjo_set.matching.all %}
             <div class="card-content">
               <h3 class="card-subtitle">
-                <i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a>
+                <i class="fa fa-user-plus"></i> <a href="{% url 'cyclist_new_request_detail' helprequest.id %}">{{helprequest.get_help_label}}</a>
               </h3>
               <ul class="card-info list-info list-unstyled">
-                <li>{{ event.date }}</li>
-                <li>{{ event.city.name }}</li>
+                <li>#{{ helprequest.id|stringformat:'04d' }}</li>
+                <li>{{ helprequest.requester.get_full_name }}</li>
+                <li>{{ helprequest.requester.city.name }}</li>
+                <li>{{ helprequest.created_date|date:'d/m/Y' }}</li>
               </ul>
             </div>
           {% endfor %}
           <footer class="card-footer">
-            <a class="see-more-link" href="{% url 'dashboard_event_list' %}">
-              {% trans "See all events" %}<i class="fa fa-arrow-right"></i>
+            <a class="see-more-link" href="{% url 'cyclist_new_requests' %}?filter=new">
+              {% trans "View all" %}<i class="fa fa-arrow-right"></i>
             </a>
           </footer>
         </article>
-      {% endif %}
+        {% endif %}
 
-      {% if tip %}
-        <article class="card photo small">
-          <header class="card-header negative">
-            <h2 class="card-title">
-              {% trans "Tips to become a bike anjo" %}
-            </h2>
-            {% comment %}
-              <button type="button" class="card-button" aria-label="Refresh">
-                <span aria-hidden="true"><i class="fa fa-refresh"></i></span>
-              </button>
-            {% endcomment %}
-          </header>
-          <div class="card-content">
-            <div class="card-photo">
-              <img src="{% firstof tip.get_image_url 'http://placehold.it/245x190' %}"
-                style="max-width: 245px; max-height: 190px">
+        {% if event_list %}
+          <article class="card list">
+            <header class="card-header negative">
+              <h2 class="card-title">
+                {% trans "Events" %}
+                {% if event_list.near %}
+                {% trans "in your city" %}
+                {% endif %}</h2>
+            </header>
+            {% for event in event_list|slice:'3' %}
+              <div class="card-content">
+                <h3 class="card-subtitle">
+                  <i class="fa fa-calendar-o"></i> <a href="{% url 'dashboard_event_detail' event.slug %}">{{ event.title }}</a>
+                </h3>
+                <ul class="card-info list-info list-unstyled">
+                  <li>{{ event.date }}</li>
+                  <li>{{ event.city.name }}</li>
+                </ul>
+              </div>
+            {% endfor %}
+            <footer class="card-footer">
+              <a class="see-more-link" href="{% url 'dashboard_event_list' %}">
+                {% trans "See all events" %}<i class="fa fa-arrow-right"></i>
+              </a>
+            </footer>
+          </article>
+        {% endif %}
+
+        {% if tip %}
+          <article class="card photo small">
+            <header class="card-header negative">
+              <h2 class="card-title">
+                {% trans "Tips to become a bike anjo" %}
+              </h2>
+              {% comment %}
+                <button type="button" class="card-button" aria-label="Refresh">
+                  <span aria-hidden="true"><i class="fa fa-refresh"></i></span>
+                </button>
+              {% endcomment %}
+            </header>
+            <div class="card-content">
+              <div class="card-photo">
+                <img src="{% firstof tip.get_image_url 'http://placehold.it/245x190' %}"
+                  style="max-width: 245px; max-height: 190px">
+              </div>
+              <h3 class="card-subtitle"></i> {{ tip.title }}</h3>
+              <p class="card-info">{{ tip.content }}</p>
             </div>
-            <h3 class="card-subtitle"></i> {{ tip.title }}</h3>
-            <p class="card-info">{{ tip.content }}</p>
-          </div>
-          <footer class="card-footer">
-            <a class="see-more-link" href="{% url 'tips_list' user.role %}">
-              {% trans "See all tips" %}<i class="fa fa-arrow-right"></i>
-            </a>
-          </footer>
-        </article>
-      {% endif %}
-    </section>
-  </div>
-</section>
+            <footer class="card-footer">
+              <a class="see-more-link" href="{% url 'tips_list' user.role %}">
+                {% trans "See all tips" %}<i class="fa fa-arrow-right"></i>
+              </a>
+            </footer>
+          </article>
+        {% endif %}
+      </section>
+    </div>
+  </section>
 {% endblock %}
