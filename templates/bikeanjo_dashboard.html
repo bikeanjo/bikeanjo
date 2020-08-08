@@ -24,10 +24,12 @@
               </p>
               <ul class="list-unstyled card-info">
                 <li>
-                  <i class="fa fa-arrow-right"></i>
-                  <a href="http://bit.ly/cartilhaba" target="_blank">
-                    {% trans "Check out our orientations for volunteers" %}
-                  </a>
+                  <p>
+                    <i class="fa fa-arrow-right"></i>
+                    <a href="http://bit.ly/cartilhaba" target="_blank">
+                      {% trans "Check out our orientations for volunteers" %}
+                    </a>
+                  </p>
                 </li>
 
                 {% get_flatpages '/foruns/' as forums_pages %}
@@ -45,10 +47,12 @@
                 {% endif %}
 
                 <li>
-                  <i class="fa fa-arrow-right"></i>
-                  <a href="{% url 'tips_list' 'bikeanjo' %}" target="_blank">
-                    {% trans "See more tips for experienced cyclists and volunteers" %}
-                  </a>
+                  <p>
+                    <i class="fa fa-arrow-right"></i>
+                    <a href="{% url 'tips_list' 'bikeanjo' %}" target="_blank">
+                      {% trans "See more tips for experienced cyclists and volunteers" %}
+                    </a>
+                  </p>
                 </li>
               </ul>
               <p class="card-info">
