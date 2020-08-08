@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load flatpages %}
 
 {% block content %}
   <section class="dashboard dashboard-home bikeanjo container">
@@ -28,12 +29,21 @@
                     {% trans "Check out our orientations for volunteers" %}
                   </a>
                 </li>
-                <li>
-                  <i class="fa fa-arrow-right"></i>
-                  <a target="_blank" href="https://bikeanjo.org/novobikeanjo/foruns/">
-                    {% trans "Join our connection groups" %}
-                  </a>
-                </li>
+
+                {% get_flatpages '/foruns/' as forums_pages %}
+                {% if forums_pages %}
+                  {% for page in forums_pages %}
+                    <li>
+                      <p>
+                        <i class="fa fa-arrow-right"></i>
+                        <a title="{{ page.title }}" href="{{ page.url }}" target="_blank">
+                          {% trans "Join our connection groups" %}
+                        </a>
+                      </p>
+                    </li>
+                  {% endfor %}
+                {% endif %}
+
                 <li>
                   <i class="fa fa-arrow-right"></i>
                   <a href="{% url 'tips_list' 'bikeanjo' %}" target="_blank">
