@@ -562,7 +562,7 @@ class SignupBikeanjoView(LoginRequiredMixin, FormView):
         context = super(SignupBikeanjoView, self).get_context_data(**kwargs)
         context['months'] = MONTHS
         context['days'] = [i for i in range(1, 32)]
-        context['years'] = [i for i in range(1950, timezone.now().year)]
+        context['years'] = [i for i in range(1920, timezone.now().year)]
         return context
 
     def get_success_url(self):
@@ -586,7 +586,7 @@ class SignupRequesterView(LoginRequiredMixin, FormView):
         context = super(SignupRequesterView, self).get_context_data(**kwargs)
         context['months'] = MONTHS
         context['days'] = [i for i in range(1, 32)]
-        context['years'] = [i for i in range(1950, timezone.now().year)]
+        context['years'] = [i for i in range(1920, timezone.now().year)]
         return context
 
     def get_success_url(self):
