@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-20 12:24-0300\n"
-"PO-Revision-Date: 2018-03-21 14:18-0306\n"
-"Last-Translator: JP Amaral <amaral.joaop@gmail.com>\n"
+"POT-Creation-Date: 2019-08-12 23:46-0300\n"
+"PO-Revision-Date: 2019-08-01 19:51-0306\n"
+"Last-Translator: Lucas Guimaraes Felipe <lucasguima.felipe@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -598,7 +598,7 @@ msgstr "Evénement"
 
 #: front/models.py:371 templates/_dashboard_sidebar_bikeanjo.html:41
 #: templates/_dashboard_sidebar_requester.html:34 templates/_footer.html:35
-#: templates/_header.html:51 templates/_header.html.py:94
+#: templates/_header.html:51 templates/_header.html.py:95
 #: templates/bikeanjo_dashboard.html:137
 #: templates/dashboard_solicitante_recados.html:24 templates/event_list.html:9
 #: templates/requester_dashboard.html:126
@@ -671,7 +671,7 @@ msgstr "Conseil \"vélo\""
 
 #: front/models.py:485 templates/_dashboard_sidebar_bikeanjo.html:45
 #: templates/_dashboard_sidebar_requester.html:36 templates/_footer.html:37
-#: templates/_header.html:55 templates/_header.html.py:96
+#: templates/_header.html:55 templates/_header.html.py:97
 #: templates/dashboard_solicitante_recados.html:26
 #: templates/emails/request_canceled_by_inactivity.html:36
 #: templates/emails/request_canceled_by_inactivity.txt:8
@@ -687,8 +687,8 @@ msgstr "Votre demande #%(id)d a été annulée par %(ba)s!"
 #: front/notifications.py:93
 msgid "We can't find a bike anjo yet, but we want to help you!"
 msgstr ""
-"Nous ne trouvons pas de vélo-coach pour l'instant, mais nous souhaitons vous"
-" aider !"
+"Nous ne trouvons pas de vélo-coach pour l'instant, mais nous souhaitons vous "
+"aider !"
 
 #: front/notifications.py:129
 #, python-format
@@ -699,8 +699,7 @@ msgstr "Vous avez reçu un message de %(user)s !"
 #, python-format
 msgid "Bike Anjo found someone to help you on your request #%(id)d!"
 msgstr ""
-"Vélo-coach a trouvé quelqu'un pour vous aider suite à votre demande #%(id)d "
-"!"
+"Vélo-coach a trouvé quelqu'un pour vous aider suite à votre demande #%(id)d !"
 
 #: front/notifications.py:181
 #, python-format
@@ -724,12 +723,12 @@ msgstr "Retours / commentaires de %s"
 
 #: front/templates/help_offer.html:21
 msgid ""
-"Type the address where you usually ride, click 'Enter' to see the address on"
-" the map and confirm by clicking on the 'Add address' button"
+"Type the address where you usually ride, click 'Enter' to see the address on "
+"the map and confirm by clicking on the 'Add address' button"
 msgstr ""
-"Tapez l'adresse où vous faites habituellement du vélo, cliquez sur "
-"\"Entrée\" pour voir l'adresse sur la carte et confirmez en cliquant sur le "
-"bouton \"Ajouter adresse\" "
+"Tapez l'adresse où vous faites habituellement du vélo, cliquez sur \"Entrée"
+"\" pour voir l'adresse sur la carte et confirmez en cliquant sur le bouton "
+"\"Ajouter adresse\" "
 
 #: front/templates/help_offer.html:30
 msgid "Add address"
@@ -787,8 +786,8 @@ msgid ""
 "recomendations, traffic information and much more"
 msgstr ""
 "Vous pouvez trouver de l'aide pour apprendre comment mettre vos compétences "
-"en pratique, trouver des recommandations d'itinéraires, des informations sur"
-" la circulation et bien plus encore"
+"en pratique, trouver des recommandations d'itinéraires, des informations sur "
+"la circulation et bien plus encore"
 
 #: front/templates/home.html:108
 msgid "Find your Bike Anjo volunteer"
@@ -799,8 +798,8 @@ msgid ""
 "We analyze your request in our database and connect you with a bike anjo "
 "close to you to help with your request"
 msgstr ""
-"Nous analysons votre demande avec notre base de données et nous vous mettons"
-" en relation avec un vélo-guide à proximité, pour répondre à votre demande"
+"Nous analysons votre demande avec notre base de données et nous vous mettons "
+"en relation avec un vélo-guide à proximité, pour répondre à votre demande"
 
 #: front/templates/home.html:113
 msgid "And be part of the community"
@@ -868,8 +867,8 @@ msgstr "Etre informé(e) de toutes les actualités"
 
 #: front/templates/home.html:186 templates/_signup_inner_form.html:62
 #: templates/account/password_reset.html:22
-#: templates/bikeanjo_dashboard_userinfo.html:65
-#: templates/contact_form.html:49 templates/contact_form.html.py:81
+#: templates/bikeanjo_dashboard_userinfo.html:65 templates/contact_form.html:49
+#: templates/contact_form.html.py:81
 #: templates/requester_dashboard_userinfo.html:70
 msgid "Type your e-mail"
 msgstr "Taper votre email"
@@ -1005,16 +1004,16 @@ msgstr "Partenaires"
 msgid "Who we are"
 msgstr "Qui sommes-nous"
 
-#: templates/_footer.html:29 templates/_header.html:87
+#: templates/_footer.html:29 templates/_header.html:88
 msgid "What we do"
 msgstr "Que faisons-nous"
 
-#: templates/_footer.html:43 templates/_header.html:105
+#: templates/_footer.html:43 templates/_header.html:106
 msgid "Support us"
 msgstr "Aidez-nous"
 
 #: templates/_footer.html:53 templates/_footer.html.py:56
-#: templates/_header.html:117 templates/_header.html.py:121
+#: templates/_header.html:118 templates/_header.html.py:122
 #: templates/contact_form.html:5 templates/contact_form.html.py:12
 msgid "Contact"
 msgstr "Contact"
@@ -1031,11 +1030,15 @@ msgstr "Modifier mon profil"
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: templates/_header.html:130 templates/_signup_inner_form.html:180
+#: templates/_header.html:79 templates/where_we_are.html:190
+msgid "Where we are"
+msgstr "Où sommes-nous présents"
+
+#: templates/_header.html:131 templates/_signup_inner_form.html:180
 msgid "Sign in"
 msgstr "S'identifier"
 
-#: templates/_header.html:133
+#: templates/_header.html:134
 msgid "Get help to ride a bike"
 msgstr "Obtenir de l'aide pour faire du vélo"
 
@@ -1052,8 +1055,7 @@ msgid "Or create an account with your e-mail"
 msgstr "Ou créez un compte avec votre adresse email"
 
 #: templates/_signup_inner_form.html:48
-#: templates/bikeanjo_dashboard_userinfo.html:53
-#: templates/contact_form.html:34
+#: templates/bikeanjo_dashboard_userinfo.html:53 templates/contact_form.html:34
 #: templates/requester_dashboard_userinfo.html:58
 msgid "Your full name"
 msgstr "Votre nom complet"
@@ -1108,8 +1110,7 @@ msgstr "Avez-vous déjà un compte ?"
 #: templates/bikeanjo_complete_signup.html:174
 #: templates/bikeanjo_help_offer.html:46
 #: templates/bikeanjo_signup_terms.html:51
-#: templates/cyclist_free_points.html:103
-#: templates/cyclist_routes_list.html:98
+#: templates/cyclist_free_points.html:103 templates/cyclist_routes_list.html:98
 #: templates/cyclist_routes_register_form.html:82
 #: templates/requester_ask_help.html:31
 #: templates/requester_ask_help_message.html:38
@@ -1126,8 +1127,7 @@ msgstr "Avez-vous des questions ou un problème ? "
 #: templates/bikeanjo_complete_signup.html:174
 #: templates/bikeanjo_help_offer.html:46
 #: templates/bikeanjo_signup_terms.html:51
-#: templates/cyclist_free_points.html:103
-#: templates/cyclist_routes_list.html:98
+#: templates/cyclist_free_points.html:103 templates/cyclist_routes_list.html:98
 #: templates/cyclist_routes_register_form.html:82
 #: templates/requester_ask_help.html:31
 #: templates/requester_ask_help_message.html:38
@@ -1173,8 +1173,8 @@ msgstr ""
 "choisie est \"Vélo-coach\". C'est un réseau de cyclistes passionnés qui "
 "mobilise et aide les habitants à se mettre au vélo au quotidien dans leurs "
 "villes. Le vélo constitue pour nous un outil pour un changement social et "
-"sociétal. Plus nous serons nombreux à vélo, plus nos villes seront agréables"
-" à vivre !"
+"sociétal. Plus nous serons nombreux à vélo, plus nos villes seront agréables "
+"à vivre !"
 
 #: templates/about.html:37
 msgid "Long story short, Bike Anjo is"
@@ -1269,8 +1269,8 @@ msgstr "Recréer un mot de passe"
 #: templates/account/password_reset.html:12
 msgid "Insert your e-mail and we will send you a reset password e-mail"
 msgstr ""
-"Insérer votre email et nous vous enverrons un message pour recréer votre mot"
-" de passe"
+"Insérer votre email et nous vous enverrons un message pour recréer votre mot "
+"de passe"
 
 #: templates/account/password_reset_done.html:11
 msgid "Success"
@@ -1334,8 +1334,8 @@ msgid ""
 "We need just a little more information about you in order to complete your "
 "registration"
 msgstr ""
-"Nous avons besoin d'un peu plus d'informations vous concernant pour terminer"
-" votre inscription"
+"Nous avons besoin d'un peu plus d'informations vous concernant pour terminer "
+"votre inscription"
 
 #: templates/bikeanjo_complete_signup.html:55
 msgid "Customize"
@@ -1380,8 +1380,8 @@ msgstr "Faites-vous du vélo au quotidien pour vos trajets domicile/travail ?"
 #: templates/requester_dashboard_experience.html:65
 msgid "Are you part of any cycling initiative?"
 msgstr ""
-"Etes-vous investi dans une association cycliste (ou une autre activité de ce"
-" type) ?"
+"Etes-vous investi dans une association cycliste (ou une autre activité de ce "
+"type) ?"
 
 #: templates/bikeanjo_complete_signup.html:161
 #: templates/bikeanjo_dashboard_experience.html:65
@@ -1427,8 +1427,7 @@ msgstr "Mes demandes"
 msgid "View all"
 msgstr "Tout voir"
 
-#: templates/bikeanjo_dashboard.html:139
-#: templates/requester_dashboard.html:126
+#: templates/bikeanjo_dashboard.html:139 templates/requester_dashboard.html:126
 msgid "in your city"
 msgstr "dans votre ville"
 
@@ -1441,8 +1440,7 @@ msgstr "Voir tous les événements"
 msgid "Tips to become a bike anjo"
 msgstr "Conseils pour devenir un vélo-coach"
 
-#: templates/bikeanjo_dashboard.html:183
-#: templates/requester_dashboard.html:163
+#: templates/bikeanjo_dashboard.html:183 templates/requester_dashboard.html:163
 msgid "See all tips"
 msgstr "Voir tous les conseils"
 
@@ -1521,8 +1519,8 @@ msgid ""
 "like these as many as you can and help as many people as you can"
 msgstr ""
 "Certaines demandes n'ont pas pu être traitées par un vélo-coach, ou bien "
-"notre système n'a pas trouvé de vélo-coach à proximité. Vous pouvez répondre"
-" à toutes les demandes reçues, si vous le souhaitez, et ainsi aider le plus "
+"notre système n'a pas trouvé de vélo-coach à proximité. Vous pouvez répondre "
+"à toutes les demandes reçues, si vous le souhaitez, et ainsi aider le plus "
 "de personnes possible."
 
 #: templates/bikeanjo_dashboard_new_requests.html:80
@@ -1532,8 +1530,8 @@ msgid ""
 "like these as many as you   can and help as many people as you can"
 msgstr ""
 "Certaines demandes n'ont pas pu être traitées par un vélo-coach, ou bien "
-"notre système n'a pas trouvé de vélo-coach à proximité. Vous pouvez répondre"
-" à toutes les demandes reçues, si vous le souhaitez, et ainsi aider le plus "
+"notre système n'a pas trouvé de vélo-coach à proximité. Vous pouvez répondre "
+"à toutes les demandes reçues, si vous le souhaitez, et ainsi aider le plus "
 "de personnes possible."
 
 #: templates/bikeanjo_dashboard_new_requests.html:81
@@ -1608,8 +1606,8 @@ msgstr "Choisir la raison de l'annulation"
 
 #: templates/bikeanjo_dashboard_request.html:214
 msgid ""
-"Choose one of the options bellow in order to help us analyse and forward the"
-" request"
+"Choose one of the options bellow in order to help us analyse and forward the "
+"request"
 msgstr ""
 "Choisir l'un des choix ci-dessous afin de nous permettre d'analyser et de "
 "transmettre la demande"
@@ -1683,9 +1681,9 @@ msgstr "Accepter les conditions générales d'utilisation"
 
 #: templates/bikeanjo_signup_terms.html:21
 msgid ""
-"I understand that the services performed by me as a bike anjo volunteer must"
-" be free of charge, and no payment whatsoever may be made or requested, and "
-"I have no employment relationship or any other relationship with Bike Anjo."
+"I understand that the services performed by me as a bike anjo volunteer must "
+"be free of charge, and no payment whatsoever may be made or requested, and I "
+"have no employment relationship or any other relationship with Bike Anjo."
 msgstr ""
 "Je comprends que les services que je rends en tant que vélo-coach bénévole "
 "doivent être rendus gratuitement et qu'aucun type de paiement ne peut être "
@@ -1706,13 +1704,13 @@ msgstr ""
 "Anjo (nom français : Vélo-coach) ne choisit pas les personnes qui demandent "
 "de l'aide aux vélo-coaches bénévoles, par le biais de cette plateforme. "
 "J'accepte donc de prendre les précautions nécessaires, comme je le ferais "
-"avec toute nouvelle personne rencontrée en ligne sur internet ; par exemple,"
-" en fixant un rendez-vous en lieu sûr dans l'espace public."
+"avec toute nouvelle personne rencontrée en ligne sur internet ; par exemple, "
+"en fixant un rendez-vous en lieu sûr dans l'espace public."
 
 #: templates/bikeanjo_signup_terms.html:35
 msgid ""
-"I agree that my safety while riding a bicycle is of my own responsibility at"
-" all times, and I fully understand all risks involved. I agree to transfer "
+"I agree that my safety while riding a bicycle is of my own responsibility at "
+"all times, and I fully understand all risks involved. I agree to transfer "
 "the same notions of safety and comfort to those who request my help as a "
 "bike anjo volunteer."
 msgstr ""
@@ -1724,14 +1722,21 @@ msgstr ""
 #: templates/bikeanjo_signup_terms.html:42
 msgid ""
 "I agree to release Bike Anjo, the employees, contractors, volunteers and "
-"agents thereof from and against any and all claim or actions that I may have"
-" against them. I accept liability for any loss, injury or illness resulting "
+"agents thereof from and against any and all claim or actions that I may have "
+"against them. I accept liability for any loss, injury or illness resulting "
 "from my preparation or participation during the activities as a bike anjo "
 "volunteer, as well as during my bicycle rides by myself or with others, "
 "aside from Bike Anjo."
 msgstr ""
-"Je reconnais que la responsabilité de Bike Anjo (Vélo-coach en français), des employés, clients, bénévoles, agents et partenaires de l'organisation, ne pourra pas être engagée, dans le cadre de tout type de réclamations ou d'actions.\n"
-"J'accepte d'engager ma propre responsabilité en cas de perte d'effets personnels, de blessure ou de maladie résultant de ma préparation ou de ma participation aux activités en tant que vélo-coach bénévole, ainsi que lors de mes trajets à vélo, seul(e) ou accompagné(e), en dehors des activités de Bike Anjo (Vélo-coach en français). "
+"Je reconnais que la responsabilité de Bike Anjo (Vélo-coach en français), "
+"des employés, clients, bénévoles, agents et partenaires de l'organisation, "
+"ne pourra pas être engagée, dans le cadre de tout type de réclamations ou "
+"d'actions.\n"
+"J'accepte d'engager ma propre responsabilité en cas de perte d'effets "
+"personnels, de blessure ou de maladie résultant de ma préparation ou de ma "
+"participation aux activités en tant que vélo-coach bénévole, ainsi que lors "
+"de mes trajets à vélo, seul(e) ou accompagné(e), en dehors des activités de "
+"Bike Anjo (Vélo-coach en français). "
 
 #: templates/bikeanjo_signup_terms.html:47
 msgid "Accept"
@@ -1873,8 +1878,7 @@ msgstr "Itinéraire enregistré"
 
 #: templates/cyclist_routes_list.html:59
 msgid "You can create more routes or continue your registration"
-msgstr ""
-"Vous pouvez créer d'autres itinéraires ou bien continuer l'inscription"
+msgstr "Vous pouvez créer d'autres itinéraires ou bien continuer l'inscription"
 
 #: templates/cyclist_routes_list.html:61
 msgid "You can register as many routes as you want"
@@ -1927,8 +1931,8 @@ msgstr "Quel est votre itinéraire ?"
 
 #: templates/cyclist_routes_register_form.html:57
 msgid ""
-"Register your route considering point '(A)' as your start and point '(B)' as"
-" your destination"
+"Register your route considering point '(A)' as your start and point '(B)' as "
+"your destination"
 msgstr ""
 "Enregistrer votre itinéraire, avec le point de départ '(A)' et la "
 "destination finale '(B)'. "
@@ -1936,8 +1940,8 @@ msgstr ""
 #: templates/cyclist_routes_register_form.html:58
 #: templates/requester_ask_help_route.html:41
 msgid ""
-"Register your route considering point '(A)' as your start and point '(B)' as"
-" your destination, and we will find a bike anjo to help you"
+"Register your route considering point '(A)' as your start and point '(B)' as "
+"your destination, and we will find a bike anjo to help you"
 msgstr ""
 "Enregistrer votre itinéraire, avec le point de départ '(A)' et la "
 "destination finale '(B)', et nous allons trouver un vélo-coach pour vous "
@@ -2203,8 +2207,8 @@ msgid ""
 "If it was really you that subscribed, please, confirm it through the "
 "following link"
 msgstr ""
-"Si c'est bien vous qui avez procédé à l'inscription, merci de le confirmer à"
-" l'aide du lien suivant"
+"Si c'est bien vous qui avez procédé à l'inscription, merci de le confirmer à "
+"l'aide du lien suivant"
 
 #: templates/emails/reminder.html:16
 msgid "Reminder"
@@ -2320,8 +2324,8 @@ msgid ""
 "Unfortunately, we don't have any bike anjo in your city yet, but don't "
 "worry! Check out what else you can do in our platform"
 msgstr ""
-"Malheureusement, il n'y a pas encore de vélo-coach dans votre ville, mais ne"
-" vous inquiétez pas ! Consultez ce que vous pouvez faire d'autre grâce à "
+"Malheureusement, il n'y a pas encore de vélo-coach dans votre ville, mais ne "
+"vous inquiétez pas ! Consultez ce que vous pouvez faire d'autre grâce à "
 "notre plateforme"
 
 #: templates/requester_dashboard.html:30
@@ -2368,8 +2372,7 @@ msgstr ""
 "notre communauté. Vous recevrez une réponse dans les 15 jours à venir"
 
 #: templates/requester_dashboard.html:63
-msgid ""
-"Take this time to visit your dashboard, see the events and cycling tips"
+msgid "Take this time to visit your dashboard, see the events and cycling tips"
 msgstr ""
 "Profitez-en pour consulter votre Tableau de bord, vous renseigner sur les "
 "événements et lire les conseils \"vélo\""
@@ -2450,15 +2453,15 @@ msgstr ""
 msgid ""
 "I hereby declare that it is of my free will to ride a bicycle and that I am "
 "in good physical and psychological conditions to make this decision, and I "
-"have consulted the recommendations, rights and duties as a cyclist to ride a"
-" bicycle alone before or after my interaction with my bike anjo volunteer."
+"have consulted the recommendations, rights and duties as a cyclist to ride a "
+"bicycle alone before or after my interaction with my bike anjo volunteer."
 msgstr ""
 "Par la présente, je déclare que j'ai pris la décision de faire du vélo de "
-"mon propre chef, et que je suis en bonne condition physique et psychologique"
-" pour prendre cette décision, et que j'ai consulté les recommandations "
-"faites aux cyclistes, les droits des cyclistes et les devoirs des cyclistes,"
-" pour circuler seul(e) à vélo, avant et après les interactions avec une "
-"personne \"vélo-coach\" bénévole."
+"mon propre chef, et que je suis en bonne condition physique et psychologique "
+"pour prendre cette décision, et que j'ai consulté les recommandations faites "
+"aux cyclistes, les droits des cyclistes et les devoirs des cyclistes, pour "
+"circuler seul(e) à vélo, avant et après les interactions avec une personne "
+"\"vélo-coach\" bénévole."
 
 #: templates/requester_signup_terms.html:44
 msgid ""
@@ -2477,16 +2480,16 @@ msgid ""
 "strangers. I understand that the Bike Anjo organization does not personally "
 "know all of the members registered with this platform. I therefore agree to "
 "take the necessary precautions, as I would do with any new person I meet on "
-"an online platform, for example, by scheduling the first meeting at a public"
-" and safe place."
+"an online platform, for example, by scheduling the first meeting at a public "
+"and safe place."
 msgstr ""
 "J'accepte les risques (et les conséquences négatives ou positives) qui sont "
 "en lien avec la rencontre d'inconnus. Je comprends que l'organisation Bike "
 "Anjo (nom français : \"Vélo-coach\") ne connait pas personnellement toutes "
 "les personnes enregistrées sur cette plateforme. J'accepte donc de prendre "
-"les précautions nécessaires, comme je le ferais avec toute nouvelle personne"
-" rencontrée en ligne sur internet ; par exemple, en fixant un rendez-vous en"
-" lieu sûr dans l'espace public."
+"les précautions nécessaires, comme je le ferais avec toute nouvelle personne "
+"rencontrée en ligne sur internet ; par exemple, en fixant un rendez-vous en "
+"lieu sûr dans l'espace public."
 
 #: templates/requester_signup_terms.html:61
 msgid ""
@@ -2497,8 +2500,8 @@ msgid ""
 "organized by Bike Anjo, as well as after my experience with my instructor, "
 "during my bicycle rides by myself."
 msgstr ""
-"J'accepte et je reconnais que la responsabilité de Bike Anjo (\"Vélo-coach\""
-" en français), des employés, clients, bénévoles, agents et partenaires de "
+"J'accepte et je reconnais que la responsabilité de Bike Anjo (\"Vélo-coach\" "
+"en français), des employés, clients, bénévoles, agents et partenaires de "
 "l'organisation, ne pourra pas être engagée, dans le cadre de tout type de "
 "réclamations ou d'actions. J'accepte d'engager ma propre responsabilité en "
 "cas de perte d'effets personnels, de blessure ou de maladie résultant de ma "
@@ -2514,8 +2517,7 @@ msgstr "Faites-partie de cette communauté"
 #: templates/signup_define_role.html:8
 msgid "You can ask for help to ride a bike or become a bike anjo"
 msgstr ""
-"Vous pouvez demander de l'aide pour faire du vélo, ou bien devenir vélo-"
-"coach"
+"Vous pouvez demander de l'aide pour faire du vélo, ou bien devenir vélo-coach"
 
 #: templates/subscription_confirmed.html:13
 msgid "Confirmed subscription!"
@@ -2540,10 +2542,6 @@ msgstr "Je suis un(e) cycliste expérimenté(e)"
 #: templates/tips.html:39
 msgid "See entire tip"
 msgstr "Voir le conseil en entier"
-
-#: templates/where_we_are.html:190
-msgid "Where we are"
-msgstr "Où sommes-nous présents"
 
 #: templates/where_we_are.html:197
 msgid "Type city name"
