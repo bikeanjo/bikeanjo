@@ -157,6 +157,7 @@ class HelpRequest(BaseModel):
         bikeanjos = User.objects.filter(
             role='bikeanjo',
             available=True,
+            is_active=True,
             accepted_agreement=True
         ).exclude(
             match__isnull=False,
