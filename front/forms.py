@@ -594,6 +594,8 @@ class SignupAgreementForm(forms.ModelForm):
     check2 = forms.BooleanField()
     check3 = forms.BooleanField()
     check4 = forms.BooleanField()
+    check5 = forms.BooleanField()
+    check6 = forms.BooleanField()
     accepted_agreement = forms.BooleanField()
     message = forms.CharField()
 

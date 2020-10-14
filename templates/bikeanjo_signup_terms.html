@@ -43,6 +43,22 @@
             </label>
         </div>
 
+        <div class="form-group {% if form.check5.errors %}has-error{% endif %}">
+            <label class="checkbox {% if form.check5.value %}checked{% endif %}">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
+                {{ form.check5 }}<span class="text terms">{% trans "Your privacy is important to us, so we ask for personal information that is important in order to respond to requests for help. The other information contained in this form will ONLY be used to surveys of the Bike Anjo network. We do not share personal identifiable information publicly or with third parties, except as required by law. When we store data, we protect it within legally permitted means to prevent unauthorized access, disclosure, copying, use or modification. You are free to refuse our request for information, but your consent is required to complete the registration" %}</span>
+            </label>
+        </div>
+
+        <div class="form-group {% if form.check6.errors %}has-error{% endif %}">
+            <label class="checkbox {% if form.check6.value %}checked{% endif %}">
+                <span class="icons"><span class="first-icon"></span><span class="second-icon"></span></span>
+                <span class="icons"><span class="first-icon"></span><span class="second-icon fa fa-check"></span></span>
+                {{ form.check6 }}<span class="text terms">{% trans "I declare that I am aware of the spread of COVID-19 and wish to receive assistance from volunteers from the Bike Anjo network, respecting all established procedures and care, recognizing my responsibility to follow the sanitary recommendations for care and I am aware and in accordance with the care protocol of Bike Anjo, recognizing the responsibility of all people." %}</span>
+            </label>
+        </div>
+
         <button class="btn btn-primary btn-block btn-lg" type="submit"
                 name="accepted_agreement" value="true">{% trans "Accept" %}</button>
 
