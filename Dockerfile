@@ -1,19 +1,29 @@
-FROM debian:jessie
-MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@hacklab.com.br>
+FROM debian:stretch
+MAINTAINER Fabio Montefuscolo <contato@bikeanjo.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
 
-RUN apt-get install -y python python-pip python-dev
-RUN apt-get install -y libpq-dev libgeos-dev libjpeg-dev
-RUN apt-get install -y nginx gunicorn supervisor
-RUN apt-get install -y npm git
+RUN apt-get install -y \
+    curl               \
+    curl               \
+    git                \
+    gunicorn           \
+    libgeos-dev        \
+    libjpeg-dev        \
+    libpq-dev          \
+    nginx              \
+    python             \
+    python-dev         \
+    python-pip         \
+    supervisor
 
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get install -y nodejs
 
-RUN useradd -m -u 1000 -s /bin/bash bikeanjo
-RUN mkdir /app
+RUN useradd -m -u 1000 -s /bin/bash bikeanjo \
+    && mkdir /app
 
 # Prefer to use mdillon/postgis
 ENV DJANGO_DATABASE_URL='postgis://bikeanjo:bikeanjo@postgis/bikeanjo'
