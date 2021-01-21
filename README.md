@@ -164,8 +164,7 @@ SITE_PACKAGES=$(python -c 'from distutils.sysconfig import get_python_lib; print
 3. Apply patch on django file
 ```sh
 patch -d$SITE_PACKAGES -p0 <<'DIFF'
---- libgeos.py.django182	2021-01-21 17:54:02.236188254 -0300
-+++ libgeos.py	2021-01-21 17:57:40.286177111 -0300
+diff --git django/contrib/gis/geos/libgeos.py django/contrib/gis/geos/libgeos.py
 @@ -130,7 +130,7 @@
  # '3.0.0rc4-CAPI-1.3.3', '3.0.0-CAPI-1.4.1', '3.4.0dev-CAPI-1.8.0' or '3.4.0dev-CAPI-1.8.0 r0'
  version_regex = re.compile(
@@ -184,5 +183,6 @@ patch -d$SITE_PACKAGES -p0 <<'DIFF'
      m = version_regex.match(ver)
      if not m:
          raise GEOSException('Could not parse version info string "%s"' % ver)
+
 DIFF
 ```
