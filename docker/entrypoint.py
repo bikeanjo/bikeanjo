@@ -14,7 +14,7 @@ from django.core.management import execute_from_command_line
 env = environ.Env()
 environ.Env.read_env('/app/.env')
 
-database = settings.DATABASES.get('default')
+database = env.db("DJANGO_DATABASE_URL", default='postgis://db/bikeanjo')
 
 tries = 5
 timeout = 5
@@ -26,9 +26,9 @@ exception = None
 while tries > 0:
     try:
         conn = psycopg2.connect(
-            user='postgres',
-            host='postgis',
-            password=env('POSTGIS_ENV_POSTGRES_PASSWORD')
+            user=database.get('USER') or 'bikeanjo',
+            host=database.get('HOST') or 'db',
+            password=database.get('PASSWORD')
         )
         tries = 0
         exception = None
