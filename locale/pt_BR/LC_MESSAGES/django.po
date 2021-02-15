@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-14 20:54-0300\n"
-"PO-Revision-Date: 2020-10-14 20:55-0306\n"
-"Last-Translator: Fabio Montefuscolo <fabio.montefuscolo@gmail.com>\n"
+"PO-Revision-Date: 2020-12-22 21:14-0306\n"
+"Last-Translator: Anjinha  Angel <sofiaperpetuo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -348,7 +348,7 @@ msgstr "Você já atendeu o pedido #%d?"
 
 #: front/admin.py:18 templates/admin/base_site.html:4
 msgid "Bike Anjo Admin"
-msgstr "Administração do Bike Anjo"
+msgstr "Administração da Bike Anjo"
 
 #: front/admin.py:19
 msgid "Site Admin"
@@ -700,7 +700,7 @@ msgstr "Você recebeu uma nova mensagem de %(user)s!"
 #: front/notifications.py:155
 #, python-format
 msgid "Bike Anjo found someone to help you on your request #%(id)d!"
-msgstr "O Bike Anjo achou alguém para te ajudar com o pedido #%(id)d!"
+msgstr "A Bike Anjo achou alguém para te ajudar com o pedido #%(id)d!"
 
 #: front/notifications.py:181
 #, python-format
@@ -714,7 +714,7 @@ msgstr "Seu pedido #%(id)d de Bike Anjo foi atendido por %(ba)s?"
 
 #: front/notifications.py:231
 msgid "You subscribed to Bike Anjo mailing news!"
-msgstr "Você se inscreveu para o boletim do Bike Anjo!"
+msgstr "Você se inscreveu para o boletim da Bike Anjo!"
 
 #: front/notifications.py:262
 #, python-format
@@ -819,7 +819,7 @@ msgstr "Saiba mais"
 
 #: front/templates/home.html:116
 msgid "about how Bike Anjo works"
-msgstr "sobre como funciona o Bike Anjo"
+msgstr "sobre como funciona a Bike Anjo"
 
 #: front/templates/home.html:122
 msgid "Check out who have already used it"
@@ -952,7 +952,7 @@ msgstr "Novos pedidos"
 #: templates/dashboard_solicitante_recados.html:27
 #: templates/requester_dashboard_experience.html:16
 msgid "Edit account"
-msgstr "Editar cadastro"
+msgstr "Editar perfil"
 
 #: templates/_dashboard_sidebar_bikeanjo.html:90
 #: templates/_dashboard_sidebar_requester.html:48
@@ -1145,7 +1145,7 @@ msgstr "Sobre nós"
 
 #: templates/about.html:15 templates/about.html.py:27
 msgid "What is Bike Anjo"
-msgstr "O que é o Bike Anjo"
+msgstr "O que é a Bike Anjo"
 
 #: templates/about.html:16 templates/about.html.py:62
 msgid "How are we organized"
@@ -1174,7 +1174,7 @@ msgstr ""
 
 #: templates/about.html:37
 msgid "Long story short, Bike Anjo is"
-msgstr "Resumindo, o Bike Anjo é"
+msgstr "Resumindo, a Bike Anjo é"
 
 #: templates/about.html:39
 msgid "A chain of well doing"
@@ -1382,7 +1382,7 @@ msgstr "Descreva sua participação aqui"
 
 #: templates/bikeanjo_dashboard.html:21
 msgid "Welcome to the Bike Anjo network!"
-msgstr "Bem-vind@ a rede do Bike Anjo!"
+msgstr "Bem-vind@ a rede Bike Anjo!"
 
 #: templates/bikeanjo_dashboard.html:23
 msgid "We take the opportunity to invite you to"
@@ -1509,7 +1509,7 @@ msgid ""
 "system could not find out any close bike anjo to help, you can get requests "
 "like these as many as you can and help as many people as you can"
 msgstr ""
-"Alguns pedidos não puderam ser atendidos pelo Bike Anjo ou nosso sistema não"
+"Alguns pedidos não puderam ser atendidos pela Bike Anjo ou nosso sistema não"
 " encontrou um voluntário próximo. Você pode atender quantos desses pedidos "
 "puder e ajudar o máximo de pessoas possíveis."
 
@@ -1519,7 +1519,7 @@ msgid ""
 "system could not find out any close bike anjo to help, you can get requests "
 "like these as many as you   can and help as many people as you can"
 msgstr ""
-"Alguns pedidos não puderam ser atendidos pelo Bike Anjo ou nosso sistema não"
+"Alguns pedidos não puderam ser atendidos pela Bike Anjo ou nosso sistema não"
 " encontrou um voluntário próximo. Você pode atender quantos desses pedidos "
 "puder e ajudar o máximo de pessoas possíveis."
 
@@ -1688,7 +1688,7 @@ msgid ""
 "first meeting at a public and safe place."
 msgstr ""
 "Eu aceito os riscos (positivos ou negativos) associados a me encontrar com "
-"estranhos. Eu entendo que o Bike Anjo não seleciona os solicitantes que se "
+"estranhos. Eu entendo que a Bike Anjo não seleciona os solicitantes que se "
 "cadastram nesta plataforma, portanto concordo em tomar as precauções "
 "sensatas, como faria encontrando qualquer nova pessoa por uma plataforma "
 "virtual, por exemplo marcando o primeiro encontro em um espaço público "
@@ -1715,7 +1715,7 @@ msgid ""
 "volunteer, as well as during my bicycle rides by myself or with others, "
 "aside from Bike Anjo."
 msgstr ""
-"Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos "
+"Aceito a isenção a Bike Anjo de toda e qualquer responsabilidade por danos "
 "materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que "
 "venham a ser causados a mim ou aos meus bens enquanto trafego durante meus "
 "atendimentos como bike anjo, bem como posteriormente, quando estiver "
@@ -1792,7 +1792,7 @@ msgstr "Pedidos de imprensa"
 
 #: templates/contact_form.html:65
 msgid "I want to be part of Bike Anjo"
-msgstr "Quero fazer parte do Bike Anjo"
+msgstr "Quero fazer parte da Bike Anjo"
 
 #: templates/contact_form.html:66
 msgid "I want to become a partner"
@@ -2230,7 +2230,7 @@ msgstr "Alguém (com muita sorte, você) usou o e-mail"
 
 #: templates/emails/newsletter_subscription.txt:4
 msgid "to subscribe to the Bike Anjo newsletter!"
-msgstr "para se inscrever nas novidades do Bike Anjo!"
+msgstr "para se inscrever nas novidades da Bike Anjo!"
 
 #: templates/emails/newsletter_subscription.txt:6
 msgid ""
@@ -2510,7 +2510,7 @@ msgid ""
 " and safe place."
 msgstr ""
 "Eu aceito os riscos (positivos e negativos) associados a me encontrar com "
-"estranhos. Eu entendo que o Bike Anjo não conhece pessoalmente todos os "
+"estranhos. Eu entendo que a Bike Anjo não conhece pessoalmente todos os "
 "membros que se cadastram nesta plataforma, portanto concordo em tomar as "
 "precauções sensatas, como faria encontrando qualquer nova pessoa por uma "
 "plataforma virtual, por exemplo marcando o primeiro encontro em um espaço "
@@ -2525,7 +2525,7 @@ msgid ""
 "organized by Bike Anjo, as well as after my experience with my instructor, "
 "during my bicycle rides by myself."
 msgstr ""
-"Aceito a isenção ao Bike Anjo de toda e qualquer responsabilidade por danos "
+"Aceito a isenção a Bike Anjo de toda e qualquer responsabilidade por danos "
 "materiais, pessoais, morais, à imagem, ou de qualquer outra espécie, que "
 "venham a ser causados a mim ou aos meus bens enquanto trafego durante minha "
 "preparação, bem como posteriormente à minha formação, quando estiver "
