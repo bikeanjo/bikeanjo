@@ -1076,7 +1076,7 @@ msgstr "O nome da sua cidade"
 #: templates/_signup_inner_form.html:151
 #: templates/account/password_reset_from_key.html:22
 #: templates/cyclist_dashboard_changepassword.html:32
-msgid "Insert your e-mail"
+msgid "Insert your password"
 msgstr "Digite sua senha"
 
 #: templates/_signup_inner_form.html:167
