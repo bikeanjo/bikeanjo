@@ -1,6 +1,6 @@
 # BikeAnjo
 
-<img src=”https://drive.google.com/drive/u/0/folders/1GaCI_fZDvxBfJ5kMq-t70kSb-sbij1vn”>
+<img src="https://user-images.githubusercontent.com/67010805/114570242-0cbb9680-9c4c-11eb-9aa2-a9fb6cf49e5c.png" height="150" width="190">
 
 
 ## What is Bike Anjo?
@@ -11,7 +11,7 @@ In the platform you can get help to learn how to ride a bike and improve your cy
 
 We analyze your request in our database and connect you to the nearest Bike Anjo volunteer to help you with your request.
 
-bikeanjo.org
+[bikeanjo.org](http://bikeanjo.org/)
 
 
 ## Development environment
