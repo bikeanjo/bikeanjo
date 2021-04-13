@@ -1,5 +1,15 @@
 # BikeAnjo
 
+## What is Bike Anjo?
+
+It is a network of passionate cyclists that promotes, mobilizes and helps people getting started with cycling as a means of transportation in cities. We believe that cycling is a tool for social change and the more people ride, the better our cities will become!
+
+In the platform you can get help to learn how to ride a bike and improve your cycling, route recommendations, commute together in traffic, tips and much more.
+
+We analyze your request in our database and connect you to the nearest Bike Anjo volunteer to help you with your request.
+
+bikeanjo.org
+
 
 ## Development environment
 
