@@ -1,5 +1,18 @@
 # BikeAnjo
 
+<img src="https://user-images.githubusercontent.com/67010805/114570242-0cbb9680-9c4c-11eb-9aa2-a9fb6cf49e5c.png" height="150" width="190">
+
+
+## What is Bike Anjo?
+
+It is a network of passionate cyclists that promotes, mobilizes and helps people getting started with cycling as a means of transportation in cities. We believe that cycling is a tool for social change and the more people ride, the better our cities will become!
+
+In the **platform** you can get help to learn how to ride a bike and improve your cycling, route recommendations, commute together in traffic, tips and much more.
+
+We analyze your request in our database and connect you to the nearest Bike Anjo volunteer to help you with your request.
+
+[bikeanjo.org](http://bikeanjo.org/)
+
 
 ## Development environment
 
@@ -165,15 +178,24 @@ SITE_PACKAGES=$(python -c 'from distutils.sysconfig import get_python_lib; print
 ```sh
 patch -d$SITE_PACKAGES -p0 <<'DIFF'
 diff --git django/contrib/gis/geos/libgeos.py django/contrib/gis/geos/libgeos.py
-index 66c61f3..5040bc5 100644
---- django/contrib/gis/geos/libgeos.py
-+++ django/contrib/gis/geos/libgeos.py
-@@ -130,7 +130,7 @@ geos_version.restype = c_char_p
+@@ -130,7 +130,7 @@
  # '3.0.0rc4-CAPI-1.3.3', '3.0.0-CAPI-1.4.1', '3.4.0dev-CAPI-1.8.0' or '3.4.0dev-CAPI-1.8.0 r0'
  version_regex = re.compile(
      r'^(?P<version>(?P<major>\d+)\.(?P<minor>\d+)\.(?P<subminor>\d+))'
 -    r'((rc(?P<release_candidate>\d+))|dev)?-CAPI-(?P<capi_version>\d+\.\d+\.\d+)( r\d+)?$'
 +    r'((rc(?P<release_candidate>\d+))|dev)?-CAPI-(?P<capi_version>\d+\.\d+\.\d+)( \w+)?$'
  )
+ 
+ 
+@@ -141,7 +141,7 @@
+     is a release candidate (and what number release candidate), and the C API
+     version.
+     """
+-    ver = geos_version().decode()
++    ver = geos_version().decode().strip()
+     m = version_regex.match(ver)
+     if not m:
+         raise GEOSException('Could not parse version info string "%s"' % ver)
+
 DIFF
 ```
