@@ -5,8 +5,7 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import select_template
 from django.utils import translation
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from front.utils import set_language
 
 logger = logging.getLogger('front.notifications')
@@ -229,7 +228,7 @@ def notify_user_subscribed_in_newsletter(subscriber):
         'subscriber': subscriber,
     }
 
-    subject = ugettext('You subscribed to Bike Anjo mailing news!')
+    subject = _('You subscribed to Bike Anjo mailing news!')
 
     template_name = 'emails/newsletter_subscription.txt'
     text = select_template([template_name]).render(data)
