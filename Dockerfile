@@ -34,7 +34,7 @@ ENV GUNICORN_EXTRA_FLAGS=''
 
 COPY . /app
 WORKDIR /app
-RUN pip install -r requirements.txt
+RUN pip install setuptools_scm && pip install -r requirements.txt
 RUN chown -R bikeanjo /app
 
 USER bikeanjo
