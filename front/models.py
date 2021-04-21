@@ -378,12 +378,12 @@ class Event(BaseModel):
     content = models.TextField(_('Content'), blank=True)
     image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
     date = models.DateTimeField(_('Date'))
-    v1_city = models.CharField(_('City'), max_length='64', editable=False, blank=True)
+    v1_city = models.CharField(_('City'), max_length=64, editable=False, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
-    address = models.CharField(_('Address'), max_length='128', blank=True)
-    address_link = models.CharField(_('Address link'), max_length='255', blank=True)
-    subscription_link = models.CharField(_('Link'), max_length='255', blank=True)
-    price = models.CharField(_('Price'), max_length='128', blank=True)
+    address = models.CharField(_('Address'), max_length=128, blank=True)
+    address_link = models.CharField(_('Address link'), max_length=255, blank=True)
+    subscription_link = models.CharField(_('Link'), max_length=255, blank=True)
+    price = models.CharField(_('Price'), max_length=128, blank=True)
     category = models.ForeignKey(Category, null=True, blank=True)
 
     def get_image_url(self):
@@ -488,7 +488,7 @@ class TipForCycling(BaseModel):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     content = models.TextField(_('Content'), blank=True)
     image = models.ImageField(_('Image'), upload_to='tips', null=True, blank=True)
-    link = models.CharField(_('Link'), max_length='255', blank=True)
+    link = models.CharField(_('Link'), max_length=255, blank=True)
     target = models.CharField(_('Target'), choices=TARGETS, default=TARGETS[0][0], max_length=16)
 
     def get_image_url(self):
