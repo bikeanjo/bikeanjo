@@ -90,6 +90,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
+if DEBUG:
+    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES \
+        + ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
 ROOT_URLCONF = 'bikeanjo.urls'
 
 TEMPLATES = [
@@ -119,9 +123,6 @@ TEMPLATES = [
     },
 ]
 
-
-# o allauth ainda usa TEMPLATE_CONTEXT_PROCESSORS
-TEMPLATE_CONTEXT_PROCESSORS = TEMPLATES[0]['OPTIONS']['context_processors']
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
