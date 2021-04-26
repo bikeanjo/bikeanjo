@@ -3,7 +3,7 @@
 
 <header>
     <h2>{% trans "Sign Up Now!" %}</h2>
-    <p>{% trans "Join a community that believes in change through bicycles" %}</p>
+    <p>{% trans "Join a community that believes in change through bicycles  >>>>>>>>>>." %}</p>
 </header>
 
 <form class="signup card" id="signup_form" method="post" {% if action %}action="{% url action %}"{% endif %} autocomplete="off">
@@ -143,37 +143,33 @@
             {% endif %}
         </div>
 
-        {% if form.password1 %}
         <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
             <input class="form-control" type="password" name="{{ form.password1.html_name }}"
                 id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}"
                 placeholder="{% trans "Insert your password" %}">
             <i class="fa fa-lock form-control-icon"></i>
-                <i class="fa fa-times form-control-feedback"></i>
+            <i class="fa fa-times form-control-feedback"></i>
             {% if form.password1.errors %}
                 {% for error in form.password1.errors %}
                 <span class="text-danger">{{ error }}</span>
                 {% endfor %}
             {% endif %}
         </div>
-        {% endif %}
 
-        {% if form.password2 %}
         <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
-            <input class="form-control" type="password" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}"
+            <input class="form-control" type="password2" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}"
                 value="{{ form.password2.value|default:"" }}"
                 placeholder="{% trans "Confirm your password" %}">
             <i class="fa fa-lock form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.password2.errors %}
                 {% for error in form.password2.errors %}
-                <span class="text-danger">{{ form.password2.errors.0 }}</span>
+                <span class="text-danger">{{ form.password2.errors }}</span>
                 {% endfor %}
             {% endif %}
         </div>
-        {% endif %}
     </fieldset>
 
     <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Sign Up" %}</button>

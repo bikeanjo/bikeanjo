@@ -6,15 +6,17 @@
 
 {% block content %}
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <section id="top" class="static contact">
+    
     <section class="jumbotron">
         <div class="container">
             <h2>{% trans "Contact" %}</h2>
         </div>
     </section>
-
+    
     <div class="forms container">
-
+        
         {% for message in messages %}
         <div class="alert alert-{{ message.level_tag }}" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -78,7 +80,7 @@
                     <textarea class="form-control" rows="7"
                               name="{{ form.message.html_name }}"
                               id="message"
-                              placeholder="{% trans "Type your e-mail" %}">{{ form.message.value|default:'' }}</textarea>
+                              placeholder="{% trans "Type your message" %}">{{ form.message.value|default:'' }}</textarea>
 
                     {% if form.message.errors %}
                         {% for error in form.message.errors %}
@@ -86,8 +88,10 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+
             </fieldset>
 
+            <div class="g-recaptcha" data-sitekey="6LcowbkaAAAAAMA7Slw4Y6RbxxXf7DIQei8uh1-e"></div>
             <div class="send-form">
                 <button class="btn btn-primary btn-lg" type="submit">{% trans "Send message" %}</button>
             </div>

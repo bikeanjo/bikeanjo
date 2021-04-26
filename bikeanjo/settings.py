@@ -72,6 +72,8 @@ INSTALLED_APPS = (
     'front',
     'emailqueue',
     'slider',
+    'snowpenguin.django.recaptcha2',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -247,3 +249,5 @@ try:
 except ImportError:
     pass
 
+RECAPTCHA_SITE_KEY = '6LcowbkaAAAAAMA7Slw4Y6RbxxXf7DIQei8uh1-e'
+RECAPTCHA_SECRET_KEY ='6LcowbkaAAAAAOPioAi8q5xW-MNRlyrljGePpIAH'
