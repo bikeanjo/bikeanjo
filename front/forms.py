@@ -182,8 +182,8 @@ class SignupForm(forms.ModelForm):
         return self
 
     def clean_email2(self):
-        email = self.cleaned_data.get('email')
-        email2 = self.cleaned_data.get('email2')
+        email = self.cleaned_data.get('email').strip()
+        email2 = self.cleaned_data.get('email2').strip()
 
         if email != email2:
             raise forms.ValidationError(_('The e-mails informed are different.'))
