@@ -169,7 +169,7 @@
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.password2.errors %}
                 {% for error in form.password2.errors %}
-                <span class="text-danger">{{ error }}</span>
+                <span class="text-danger">{{ form.password2.errors.0 }}</span>
                 {% endfor %}
             {% endif %}
         </div>

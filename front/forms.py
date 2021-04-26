@@ -216,6 +216,15 @@ class SignupForm(forms.ModelForm):
             raise forms.ValidationError(_('Fill with your full name'))
         return full_name
 
+    def clean_password2(self):
+        pass1 = self.cleaned_data.get('password1').strip()
+        pass2 = self.cleaned_data.get('password2').srip()
+
+        if pass1 != pass2:
+            raise forms.ValidationError(_('The passwords informed are different.'))
+        return pass1
+
+
     def signup(self, request, user):
         full_name = self.cleaned_data.get('full_name')
         user.first_name = full_name[0]
