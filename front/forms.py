@@ -218,8 +218,8 @@ class SignupForm(forms.ModelForm):
         return full_name
 
     def clean_password2(self):
-        pass1 = self.cleaned_data.get('password1').strip()
-        pass2 = self.cleaned_data.get('password2').srip()
+        pass1 = self.cleaned_data.get('password1')
+        pass2 = self.cleaned_data.get('password2')
 
         if pass1 != pass2:
             raise forms.ValidationError(_('The passwords informed are different.'))
