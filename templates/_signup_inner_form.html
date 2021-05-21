@@ -146,7 +146,7 @@
             <label class="primary-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
             <input class="form-control" type="password" name="{{ form.password1.html_name }}"
                 id="{{ form.password1.id_for_label }}" value="{{ form.password1.value|default:"" }}"
-                placeholder="{% trans "Insert your password" %}">
+                placeholder="{% trans "Write your password" %}">
             <i class="fa fa-lock form-control-icon"></i>
             <i class="fa fa-times form-control-feedback"></i>
             {% if form.password1.errors %}
