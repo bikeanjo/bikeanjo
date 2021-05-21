@@ -155,7 +155,6 @@ class SignupForm(forms.ModelForm):
     """
     full_name = forms.CharField(label=_('Full name'), max_length=60)
     email2 = forms.CharField(label=_('E-mail (again)'))
-    password2= forms.CharField(label= ('Password (again)'))
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)

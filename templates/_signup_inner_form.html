@@ -1,9 +1,6 @@
 {% load i18n socialaccount %}
 {% providers_media_js %}
 
-<header>
-    <h2>{% trans "Sign Up Now!" %}</h2>
-</header>
 
 <form class="signup card" id="signup_form" method="post" {% if action %}action="{% url action %}"{% endif %} autocomplete="off">
     {% csrf_token %}
