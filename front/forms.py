@@ -155,7 +155,6 @@ class SignupForm(forms.ModelForm):
     """
     full_name = forms.CharField(label=_('Full name'), max_length=60)
     email2 = forms.CharField(label=_('E-mail (again)'))
-    password2= forms.CharField(label= ('Password (again)'))
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -183,11 +182,11 @@ class SignupForm(forms.ModelForm):
         return self
 
     def clean_email2(self):
-        email = self.cleaned_data.get('email').strip()
-        email2 = self.cleaned_data.get('email2').strip()
+        email = self.cleaned_data.get('email')
+        email2 = self.cleaned_data.get('email2')
         
 
-        if email != email2:
+        if email.strip() != email2.strip():
             raise forms.ValidationError(_('The e-mails informed are different.'))
         return email
 
@@ -219,10 +218,10 @@ class SignupForm(forms.ModelForm):
         return full_name
 
     def clean_password2(self):
-        pass1 = self.cleaned_data.get('password1').strip()
-        pass2 = self.cleaned_data.get('password2').srip()
+        pass1 = self.cleaned_data.get('password1')
+        pass2 = self.cleaned_data.get('password2')
 
-        if pass1 != pass2:
+        if pass1.strip() != pass2.strip():
             raise forms.ValidationError(_('The passwords informed are different.'))
         return pass1
 

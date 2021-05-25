@@ -72,7 +72,7 @@ INSTALLED_APPS = (
     'front',
     'emailqueue',
     'slider',
-    'snowpenguin.django.recaptcha2',
+
 
 )
 
