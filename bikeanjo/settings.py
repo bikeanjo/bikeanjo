@@ -221,6 +221,7 @@ EMAIL_HOST = env('DJANGO_EMAIL_HOST', default=None)
 EMAIL_PORT = env('DJANGO_EMAIL_PORT', default=None)
 EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD', default=None)
 EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER', default=None)
+SERVER_EMAIL = "noreply@bikeanjo.org"
 
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL', default='Equipe Bike Anjo<noreply@bikeanjo.org>')
 DEFAULT_TO_EMAIL = env('DJANGO_DEFAULT_TO_EMAIL', default='Equipe Bike Anjo<contato@bikeanjo.org>')
@@ -245,4 +246,3 @@ try:
     from .settings_local import *
 except ImportError:
     pass
-

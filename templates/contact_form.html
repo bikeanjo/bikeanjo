@@ -12,9 +12,9 @@
             <h2>{% trans "Contact" %}</h2>
         </div>
     </section>
-
+    
     <div class="forms container">
-
+        
         {% for message in messages %}
         <div class="alert alert-{{ message.level_tag }}" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -78,7 +78,7 @@
                     <textarea class="form-control" rows="7"
                               name="{{ form.message.html_name }}"
                               id="message"
-                              placeholder="{% trans "Type your e-mail" %}">{{ form.message.value|default:'' }}</textarea>
+                              placeholder="{% trans "Type your message" %}">{{ form.message.value|default:'' }}</textarea>
 
                     {% if form.message.errors %}
                         {% for error in form.message.errors %}
