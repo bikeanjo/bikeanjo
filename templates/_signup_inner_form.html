@@ -142,7 +142,8 @@
                 {% endfor %}
             {% endif %}
         </div>
-
+        
+        {% if form.password1 %}
         <div class="form-group {% if form.password1.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
             <input class="form-control" type="password" name="{{ form.password1.html_name }}"
@@ -156,7 +157,8 @@
                 {% endfor %}
             {% endif %}
         </div>
-
+        {% endif %}
+        {% if form.password1 %}
         <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
             <input class="form-control" type="password2" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}"
@@ -170,6 +172,8 @@
                 {% endfor %}
             {% endif %}
         </div>
+        {% endif %}
+
     </fieldset>
 
     <button class="send-form btn btn-primary btn-block btn-lg" type="submit">{% trans "Sign Up" %}</button>

@@ -72,8 +72,6 @@ INSTALLED_APPS = (
     'front',
     'emailqueue',
     'slider',
-
-
 )
 
 MIDDLEWARE_CLASSES = (
@@ -248,6 +246,3 @@ try:
     from .settings_local import *
 except ImportError:
     pass
-
-RECAPTCHA_SITE_KEY = '6LcowbkaAAAAAMA7Slw4Y6RbxxXf7DIQei8uh1-e'
-RECAPTCHA_SECRET_KEY ='6LcowbkaAAAAAOPioAi8q5xW-MNRlyrljGePpIAH'
