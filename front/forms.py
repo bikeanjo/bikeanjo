@@ -184,10 +184,11 @@ class SignupForm(forms.ModelForm):
     def clean_email2(self):
         email = self.cleaned_data.get('email')
         email2 = self.cleaned_data.get('email2')
-        
 
-        if email.strip() != email2.strip():
-            raise forms.ValidationError(_('The e-mails informed are different.'))
+        # if email is None, Django will thrown an error on clean_email
+        if email is not None:
+            if email.strip() != email2.strip():
+                raise forms.ValidationError(_('The e-mails informed are different.'))
         return email
 
     def clean_first_name(self):
