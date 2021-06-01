@@ -23,6 +23,7 @@ from django.db.models.sql.constants import LOUTER
 import allauth.account.views
 import forms
 import models
+import requests
 
 import cyclists.models
 import cities.models
@@ -912,15 +913,32 @@ class ContactView(CreateView):
         context['force_footer'] = True
         return context
 
-    def form_valid(self, form):
-        [message for message in messages.get_messages(self.request)]
-        form.save()
-        notify_admins_about_new_contact_message(form.instance)
-        messages.success(self.request, 'Sua mensagem foi enviada!')
-        return super(ContactView, self).form_valid(form)
-
     def get_success_url(self):
         return reverse('contact_view')
+
+    def form_valid(self, form):
+        [message for message in messages.get_messages(self.request)]
+        if form.is_valid():
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = self.request.POST.get('g-recaptcha-response')
+            data = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+            result = r.json()
+            ''' End reCAPTCHA validation '''
+        if result['success']:
+            form.save()
+            notify_admins_about_new_contact_message(form.instance)
+            messages.success(self.request, 'Sua mensagem foi enviada!')
+        else:
+            form.save()             
+            print(" invalid captcha")
+            messages.error(self.request, 'Invalid reCAPTCHA. Please try again.')
+         
+        return super(ContactView, self).form_valid(form)
+
 
 
 class TipsListView(ListView):

@@ -246,3 +246,7 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+
+GOOGLE_RECAPTCHA_SITE_KEY = '6LcowbkaAAAAAMA7Slw4Y6RbxxXf7DIQei8uh1-e'
+GOOGLE_RECAPTCHA_SECRET_KEY ='6LcowbkaAAAAAOPioAi8q5xW-MNRlyrljGePpIAH'
+GOOGLE_VERIFY_RECAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify"

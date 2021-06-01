@@ -78,7 +78,7 @@
                     <textarea class="form-control" rows="7"
                               name="{{ form.message.html_name }}"
                               id="message"
-                              placeholder="{% trans "Type your message" %}">{{ form.message.value|default:'' }}</textarea>
+                              placeholder="{% trans 'Write your message' %}">{{ form.message.value|default:'' }}</textarea>
 
                     {% if form.message.errors %}
                         {% for error in form.message.errors %}
@@ -87,7 +87,15 @@
                     {% endif %}
                 </div>
             </fieldset>
-
+            
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <div class="g-recaptcha" data-sitekey="6LcowbkaAAAAAMA7Slw4Y6RbxxXf7DIQei8uh1-e"></div>
+            {% if form.form_valid.errors %}
+                {% for error in form.form_valid.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+                        
             <div class="send-form">
                 <button class="btn btn-primary btn-lg" type="submit">{% trans "Send message" %}</button>
             </div>
