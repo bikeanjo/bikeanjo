@@ -158,10 +158,11 @@
             {% endif %}
         </div>
         {% endif %}
-        {% if form.password1 %}
+
+        {% if form.password2 %}
         <div class="form-group {% if form.password2.errors %}has-error{% endif %}">
             <label class="primary-label" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
-            <input class="form-control" type="password2" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}"
+            <input class="form-control" type="password" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}"
                 value="{{ form.password2.value|default:"" }}"
                 placeholder="{% trans 'Confirm your password' %}">
             <i class="fa fa-lock form-control-icon"></i>

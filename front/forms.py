@@ -222,8 +222,9 @@ class SignupForm(forms.ModelForm):
         pass1 = self.cleaned_data.get('password1')
         pass2 = self.cleaned_data.get('password2')
 
-        if pass1.strip() != pass2.strip():
-            raise forms.ValidationError(_('The passwords informed are different.'))
+        if pass1 is not None:
+            if pass1.strip() != pass2.strip():
+                raise forms.ValidationError(_('The passwords informed are different.'))
         return pass1
 
 
