@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.html import format_html
 from suit.admin import admin
 from suit.admin import SortableModelAdmin
-from models import SlideItem
+from .models import SlideItem
 
 
 class AdminImageWidget(forms.ClearableFileInput):
@@ -34,7 +34,7 @@ class SlideItemAdmin(SortableModelAdmin):
 
     def thumb(self, obj):
         return format_html(
-            u'<img src="{}" title="{}" style="max-width:50px;max-height:50px;"/>',
+            '<img src="{}" title="{}" style="max-width:50px;max-height:50px;"/>',
             obj.get_image_url(),
             obj.image
         )

@@ -32,9 +32,9 @@ mccabe==0.3
 microsofttranslator==0.5
 oauthlib==0.7.2
 pep8==1.6.2
-Pillow==2.8.1
+Pillow==7.2.0
 polib==1.0.6
-psycopg2==2.7.6.1
+psycopg2-binary==2.8.6
 py==1.4.26
 pyflakes==0.8.1
 pytest-django==2.7.0

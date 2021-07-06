@@ -137,18 +137,18 @@ class SummaryAdminExportView(SummaryAdminView):
             ('Abandonados', context['requests_abandoned'].count()),
         ]
 
-        for req_type, totals in context['totals_by_type'].items():
+        for req_type, totals in list(context['totals_by_type'].items()):
             data.append((
                 'Total %s' % req_type,
                 totals['all']['absolute'] if 'all' in totals else 0
             ))
 
-        for req_type, totals in context['totals_by_type'].items():
+        for req_type, totals in list(context['totals_by_type'].items()):
             data.append((
                 'Atendido %s' % req_type,
                 totals['attended']['absolute'] if 'attended' in totals else 0
             ))
-        map(tabdata.append, data)
+        list(map(tabdata.append, data))
 
         filename = 'summary'
         for attr in ['country', 'city', 'start_date', 'end_date']:

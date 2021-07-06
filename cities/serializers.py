@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import serializers
-from models import Country, CountryAlias, State, City, CityAlias
+from .models import Country, CountryAlias, State, City, CityAlias
 
 
 class CountrySerializer(serializers.HyperlinkedModelSerializer):

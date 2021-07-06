@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.utils import perform_login
-from utils import DateParser
+from .utils import DateParser
 from cyclists.models import User
 
 from cities.models import Country, CityAlias

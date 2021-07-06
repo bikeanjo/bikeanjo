@@ -260,7 +260,7 @@ def notify_admins_about_new_feedback(feedback):
     from_email = feedback.author.email
     recipient = settings.DEFAULT_TO_EMAIL
     subject = _('Feedback from %s') % {'user': feedback.author.get_full_name()}
-    content = u'From "%s<%s>, %s' % (
+    content = 'From "%s<%s>, %s' % (
         feedback.author.get_full_name(),
         feedback.author.email,
         feedback.created_date.strftime('%d/%m/%Y %H:%M'),

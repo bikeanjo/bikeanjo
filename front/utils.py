@@ -16,7 +16,7 @@ class DateParser(object):
             return
 
         params = {}
-        for p, v in match.groupdict().items():
+        for p, v in list(match.groupdict().items()):
             params[p] = int(v)
 
         return datetime(**params)

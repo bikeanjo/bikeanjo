@@ -120,7 +120,7 @@ class HelpRequest(BaseModel):
     help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP_REQUEST
     message = models.TextField(_('Message'))
 
-    status = models.CharField(_('Status'), max_length=16, choices=STATUS.items(), default='new')
+    status = models.CharField(_('Status'), max_length=16, choices=list(STATUS.items()), default='new')
     closed_by = models.CharField(_('Closed by'), max_length=12, choices=CYCLIST_ROLES, blank=True)
 
     requester_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)
@@ -314,7 +314,7 @@ class Match(BaseModel):
     reason = models.CharField(_('Reason'), max_length=128, blank=True)
 
     def __repr__(self):
-        return u'Match(helprequest_id=%s, bikeanjo_id=%s, rejected_date=%.10s)'\
+        return 'Match(helprequest_id=%s, bikeanjo_id=%s, rejected_date=%.10s)'\
             % (self.helprequest_id, self.bikeanjo_id, self.rejected_date)
 
 

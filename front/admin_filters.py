@@ -4,7 +4,7 @@ import datetime
 from collections import OrderedDict
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from models import HelpRequest
+from .models import HelpRequest
 
 
 class RequestStatusListFilter(admin.SimpleListFilter):
@@ -15,7 +15,7 @@ class RequestStatusListFilter(admin.SimpleListFilter):
         status = OrderedDict()
         status.update(HelpRequest.STATUS)
         status['_noba'] = _('Requests without a bikeanjo')
-        return status.items()
+        return list(status.items())
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -37,7 +37,7 @@ class CreatedDateListFilter(admin.SimpleListFilter):
 
     def choices(self, *args):
         choice = {
-            'display': u'datepicker',
+            'display': 'datepicker',
             'name': 'created_date',
             'query_string': '?created_date=%s&q=' % self.value(),
             'selected': True,
@@ -54,7 +54,7 @@ class CreatedDateListFilter(admin.SimpleListFilter):
         for date in value.split(','):
             match = self.regex.match(date)
             if(match):
-                date = {k: int(v) for k, v in match.groupdict().items()}
+                date = {k: int(v) for k, v in list(match.groupdict().items())}
                 date = datetime.date(**date)
                 result.append(date)
 

@@ -12,8 +12,8 @@ class LowerMatch(Lookup):
     def as_sql(self, compiler, connection):
         lhs, lhs_params = self.process_lhs(compiler, connection)
         rhs, rhs_params = self.process_rhs(compiler, connection)
-        params = [u'^' + unicode(p) for p in rhs_params]
-        return u'LOWER(%s) ~ LOWER(%s)' % (lhs, rhs), params
+        params = ['^' + str(p) for p in rhs_params]
+        return 'LOWER(%s) ~ LOWER(%s)' % (lhs, rhs), params
 
 
 class Country(models.Model):

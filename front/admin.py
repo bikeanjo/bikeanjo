@@ -10,9 +10,9 @@ from modeltranslation.admin import TranslationAdmin
 from dal import autocomplete
 
 from front import models
-from admin_filters import CreatedDateListFilter, RequestStatusListFilter
+from .admin_filters import CreatedDateListFilter, RequestStatusListFilter
 
-import admin_resources as resources
+from . import admin_resources as resources
 
 admin.site.site_title = _('Bike Anjo')
 admin.site.site_header = _('Bike Anjo Admin')
@@ -30,7 +30,7 @@ class TrackAdmin(admin.ModelAdmin):
 
     def user_name(self, obj):
         return format_html(
-            u'<a href="{}">{}</a>',
+            '<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.user.id]),
             obj.user.get_full_name()
         )
@@ -49,7 +49,7 @@ class PointAdmin(admin.ModelAdmin):
 
     def user_name(self, obj):
         return format_html(
-            u'<a href="{}">{}</a>',
+            '<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.user.id]),
             obj.user.get_full_name()
         )
@@ -141,7 +141,7 @@ class TestimonyAdmin(admin.ModelAdmin):
 
     def author_name(self, obj):
         return format_html(
-            u'<a href="{}">{}</a>',
+            '<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.author.id]),
             obj.author.get_full_name()
         )
@@ -158,7 +158,7 @@ class FeedbackAdmin(ImportExportModelAdmin):
 
     def author_name(self, obj):
         return format_html(
-            u'<a href="{}">{}</a>',
+            '<a href="{}">{}</a>',
             reverse('admin:cyclists_user_change', args=[obj.author.id]),
             obj.author.get_full_name()
         )

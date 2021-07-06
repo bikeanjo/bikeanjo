@@ -6,9 +6,9 @@ from django.contrib.gis.geos import LineString, Point
 from django.utils.translation import ugettext_lazy as _, get_language
 from django.utils.timezone import now
 
-import models
+from . import models
 
-from notifications import (
+from .notifications import (
     notify_admins_about_new_feedback,
     notify_bikeanjo_about_new_request,
     notify_new_reply_by_email,
@@ -58,7 +58,7 @@ class TrackForm(forms.Form):
                 tracks.append(track)
 
             return tracks
-        except ValueError, e:
+        except ValueError as e:
             raise forms.ValidationError(e.message)
 
     def save(self):
@@ -165,7 +165,7 @@ class SignupForm(forms.ModelForm):
         if hasattr(self, 'sociallogin') or self.instance.id:
             if hasattr(self, 'sociallogin'):
                 user = self.sociallogin.user
-                for key, field in self.fields.items():
+                for key, field in list(self.fields.items()):
                     field.initial = getattr(user, key, '')
             elif self.instance.id:
                 user = self.instance
@@ -619,7 +619,7 @@ class SignupAgreementForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(SignupAgreementForm, self).clean()
         msg = 'Você deve aceitar os termos para usar o site'
-        for field, value in cleaned_data.items():
+        for field, value in list(cleaned_data.items()):
             if field != 'message' and not value:
                 self.add_error(field, msg)
 

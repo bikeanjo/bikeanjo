@@ -17,17 +17,17 @@ from django.utils.dates import MONTHS
 from django.utils.http import is_safe_url, urlencode
 from django.utils.translation import ugettext_lazy as _
 
-from datastructures import Join
+from .datastructures import Join
 from django.db.models.sql.constants import LOUTER
 
 import allauth.account.views
-import forms
-import models
+from . import forms
+from . import models
 
 import cyclists.models
 import cities.models
 import slider.models
-from notifications import notify_admins_about_new_contact_message, notify_user_subscribed_in_newsletter
+from .notifications import notify_admins_about_new_contact_message, notify_user_subscribed_in_newsletter
 
 
 class RegisteredUserMixin(LoginRequiredMixin):
@@ -66,7 +66,7 @@ class SetLanguageView(View):
         target = request.POST.get('next', reverse('home'))
         language = request.POST.get('lang')
 
-        if language in map(lambda l: l[0], settings.LANGUAGES):
+        if language in [l[0] for l in settings.LANGUAGES]:
             if user.is_authenticated():
                 models.User.objects.filter(id=user.id).update(language=language)
             else:
@@ -134,7 +134,7 @@ class DashboardMixin(RegisteredUserMixin):
         elif user.role == 'requester':
             data['unread']['requests'] = user.helprequested_set.unread()
 
-        data['unread']['total'] = sum((qs.count() for qs in data['unread'].values()))
+        data['unread']['total'] = sum((qs.count() for qs in list(data['unread'].values())))
         data['site'] = Site.objects.filter(id=settings.SITE_ID).first()
         data['force_header'] = True
         return data
@@ -444,8 +444,8 @@ class EventListView(ListView):
         qs = super(EventListView, self).get_queryset().filter(date__gte=timezone.now())
 
         filters = {}
-        for f in self.request.GET.keys():
-            f = map(lambda k: 'city__name' if k == 'city' else k, f)
+        for f in list(self.request.GET.keys()):
+            f = ['city__name' if k == 'city' else k for k in f]
             if f in ['category', 'city__name']:
                 filters[f] = self.request.GET.get(f, '')
 
@@ -492,7 +492,7 @@ class BikeanjoPointsJsonView(TemplateView):
             } for p in locations
         }
 
-        locations = locations.values()
+        locations = list(locations.values())
 
         routes = models.Track.objects      \
             .distinct('user')              \

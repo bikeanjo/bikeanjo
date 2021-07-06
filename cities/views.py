@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import django_filters
 from rest_framework import viewsets
-from serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer, CountryAliasSerializer
-from models import Country, CountryAlias, State, City, CityAlias
+from .serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer, CountryAliasSerializer
+from .models import Country, CountryAlias, State, City, CityAlias
 from rest_framework import filters
 from dal import autocomplete
 

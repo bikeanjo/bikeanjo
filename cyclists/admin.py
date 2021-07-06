@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from urllib import urlencode
+from urllib.parse import urlencode
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.core.urlresolvers import reverse
@@ -10,7 +10,7 @@ from import_export.admin import ImportExportModelAdmin
 
 from front import models
 
-import admin_resources as resources
+from . import admin_resources as resources
 import cyclists
 
 
@@ -85,7 +85,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
                 'status__in': 'new,open',
             }
             return format_html(
-                u'{} <small><a href="{}?{}">{}</a></small>',
+                '{} <small><a href="{}?{}">{}</a></small>',
                 counter,
                 reverse('admin:front_helprequest_changelist'),
                 urlencode(query),
@@ -110,7 +110,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
                 'status__in': 'finalized',
             }
             return format_html(
-                u'{} <small><a href="{}?{}">{}</a></small>',
+                '{} <small><a href="{}?{}">{}</a></small>',
                 counter,
                 reverse('admin:front_helprequest_changelist'),
                 urlencode(query),
@@ -158,10 +158,9 @@ class Bikeanjo(CustomUserAdmin):
     def service_rating(self, obj):
         if obj.role != 'bikeanjo':
             return '-'
-        rating = obj.helpbikeanjo_set\
+        rating = list(obj.helpbikeanjo_set\
                     .filter(status='finalized')\
-                    .aggregate(avg_rating=models.models.Avg('requester_rating'))\
-                    .values()[0]
+                    .aggregate(avg_rating=models.models.Avg('requester_rating')).values())[0]
         return rating or 0
     service_rating.short_description = _('Service rating')
 
@@ -184,7 +183,7 @@ class Bikeanjo(CustomUserAdmin):
         if counter > 0:
             query = {'user': obj.id}
             return format_html(
-                u'{} <small><a href="{}?{}">{}</a></small>',
+                '{} <small><a href="{}?{}">{}</a></small>',
                 counter,
                 reverse('admin:front_point_changelist'),
                 urlencode(query),
