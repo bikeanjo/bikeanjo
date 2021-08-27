@@ -25,7 +25,7 @@ djrill==1.4.0
 easy-thumbnails==2.2
 fhurl==0.1.7
 flake8==2.2.5
-futures==2.2.0
+# futures==2.2.0
 ipdb==0.8
 ipython==3.0.0
 mccabe==0.3
@@ -34,7 +34,7 @@ oauthlib==0.7.2
 pep8==1.6.2
 Pillow==7.2.0
 polib==1.1.0
-psycopg2-binary==2.8
+psycopg2==2.7.6.1
 py==1.4.26
 pyflakes==0.8.1
 pytest-django==2.7.0
@@ -43,7 +43,7 @@ python-memcached==1.58
 python-openid==2.2.5
 requests-oauthlib==0.4.2
 requests==2.6.0
-six==1.8.0
+six==1.16.0
 smarturls==0.1.4
 sqlparse==0.2.0
 tablib==0.14.0

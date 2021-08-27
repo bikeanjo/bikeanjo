@@ -1,20 +1,20 @@
 language: python
 python:
-  - "2.7"
-install: "make setup-ci"
-script: "make tests"
+    - '3.5'
+install: 'make setup-ci'
+script: 'make tests'
 sudo: false
 
 notifications:
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/df106e7590af361d5c02
-    on_success: always
-    on_failure: always
+    webhooks:
+        urls:
+            - https://webhooks.gitter.im/e/df106e7590af361d5c02
+        on_success: always
+        on_failure: always
 
 addons:
-  postgresql: "9.3"
+    postgresql: '9.3'
 
 before_install:
-  - psql -U postgres -c 'CREATE EXTENSION postgis;'
-  - psql -U postgres -c 'CREATE DATABASE bikeanjo;'
+    - psql -U postgres -c 'CREATE EXTENSION postgis;'
+    - psql -U postgres -c 'CREATE DATABASE bikeanjo;'
