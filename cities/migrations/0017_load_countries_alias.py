@@ -22,9 +22,9 @@ def load_country_aliases(apps, schema_editor):
         reader = csv.reader(csvfile, delimiter=str('\t'), quotechar=None)
 
         for row in reader:
-            aliases = set(row[ALIAS].decode('utf-8').split(','))
-            aliases.add(row[NAME1].decode('utf-8'))
-            aliases.add(row[NAME2].decode('utf-8'))
+            aliases = set(row[ALIAS].split(','))
+            aliases.add(row[NAME1])
+            aliases.add(row[NAME2])
 
             country_code = row[CODE]
             if country_code not in countries:

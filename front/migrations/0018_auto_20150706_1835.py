@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='tipforcycling',
             name='link',
-            field=models.CharField(max_length=b'255', verbose_name='Link', blank=True),
+            field=models.CharField(max_length=255, verbose_name='Link', blank=True),
         ),
         migrations.AlterField(
             model_name='tipforcycling',

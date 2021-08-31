@@ -20,6 +20,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='v1_city',
-            field=models.CharField(verbose_name='City', max_length=b'64', editable=False, blank=True),
+            field=models.CharField(verbose_name='City', max_length=64, editable=False, blank=True),
         ),
     ]

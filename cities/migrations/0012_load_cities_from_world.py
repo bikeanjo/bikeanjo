@@ -28,8 +28,8 @@ def load_cities_from_world(apps, schema_editor):
     with open(path, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=str('\t'), quotechar=None)
         for row in reader:
-            aliases = set(row[ALIAS].decode('utf-8').split(','))
-            aliases.add(row[NAME].decode('utf-8'))
+            aliases = set(row[ALIAS].split(','))
+            aliases.add(row[NAME])
 
             city = City()
             city.name = row[NAME]

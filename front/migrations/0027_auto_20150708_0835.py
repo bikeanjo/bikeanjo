@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='price',
-            field=models.CharField(max_length=b'128', verbose_name='Price', blank=True),
+            field=models.CharField(max_length=128, verbose_name='Price', blank=True),
         ),
     ]
