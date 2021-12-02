@@ -3,6 +3,7 @@ from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Lookup
 from django.db.models.fields import Field
+from django.db.models import Manager as GeoManager
 
 
 @Field.register_lookup
@@ -34,16 +35,15 @@ class CountryAlias(models.Model):
         verbose_name_plural = _('Aliases')
         unique_together = (('country', 'name',),)
 
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country,on_delete=models.DO_NOTHING)
     name = models.CharField(_('Alias name'), max_length=1024, db_index=True)
-
 
 class State(models.Model):
     class Meta:
         verbose_name = _('State')
         verbose_name_plural = _('States')
 
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, on_delete=models.DO_NOTHING)
     name = models.CharField(_('Name'), max_length=64)
     acronym = models.CharField(_('Acronym'), max_length=4)
 
@@ -56,13 +56,13 @@ class City(models.Model):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
 
-    country = models.ForeignKey(Country, null=True)
-    state = models.ForeignKey(State, null=True)
+    country = models.ForeignKey(Country, null=True, on_delete=models.DO_NOTHING)
+    state = models.ForeignKey(State, null=True, on_delete=models.DO_NOTHING)
     name = models.CharField(_('Name'), max_length=64, db_index=True)
     tz = models.CharField(_('Timezone'), max_length=40, blank=True)
     point = models.PointField(null=True)
 
-    objects = models.GeoManager()
+    objects = GeoManager()
 
     def __unicode__(self):
         return self.name
@@ -74,5 +74,5 @@ class CityAlias(models.Model):
         verbose_name_plural = _('Aliases')
         unique_together = (('city', 'name',),)
 
-    city = models.ForeignKey(City)
+    city = models.ForeignKey(City,on_delete=models.DO_NOTHING)
     name = models.CharField(_('Alias name'), max_length=1024, db_index=True)

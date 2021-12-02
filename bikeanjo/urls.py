@@ -17,15 +17,19 @@ urlpatterns = [
 
     # the django admin
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^admin/summary/$', admin.site.admin_view(extradmin.views.SummaryAdminView.as_view()), name='admin_summary'),
-    url(r'^admin/summary/export/$', admin.site.admin_view(extradmin.views.SummaryAdminExportView.as_view()), name='admin_summary_export'),
+    url(r'^admin/summary/$', admin.site.admin_view(
+        extradmin.views.SummaryAdminView.as_view()), name='admin_summary'),
+    url(r'^admin/summary/export/$', admin.site.admin_view(
+        extradmin.views.SummaryAdminExportView.as_view()), name='admin_summary_export'),
     url(r'^rosetta/', include('rosetta.urls')),
 
     # languages
-    url(r'^set-language/$', front.views.SetLanguageView.as_view(), name='set_language_view'),
+    url(r'^set-language/$', front.views.SetLanguageView.as_view(),
+        name='set_language_view'),
 
     # django allauth
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^accounts/logout/$',
+        'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^accounts/signup/$', TemplateView.as_view(template_name='signup_define_role.html'),
         name='signup_define_role'),
     url(r'^accounts/', include('allauth.urls')),
@@ -128,11 +132,13 @@ urlpatterns = [
         front.views.ConfirmSubscriptionView.as_view(), name='confirm_subscription_view'),
 
     url(r'^login/$', TemplateView.as_view(template_name="login.html")),
-    url(r'^solicitante/$', TemplateView.as_view(template_name="dashboard_solicitante.html")),
+    url(r'^solicitante/$',
+        TemplateView.as_view(template_name="dashboard_solicitante.html")),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
     urlpatterns += [
         url(r'^tpl/(?P<tpl>.*)$',
             front.views.RawTemplateView.as_view(), name='raw_tpl_view'),

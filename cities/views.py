@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import django_filters
-from rest_framework import viewsets
 from .serializers import CountrySerializer, StateSerializer, CitySerializer, CityAliasSerializer, CountryAliasSerializer
 from .models import Country, CountryAlias, State, City, CityAlias
-from rest_framework import filters
+from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter, rest_framework
+from rest_framework import viewsets
 from dal import autocomplete
 
+# import pdb; pdb.set_trace()
 
-class CountryFilter(filters.FilterSet):
+class CountryFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
     alias = django_filters.CharFilter(name="countryalias__name", lookup_type='lowermatch')
 
@@ -17,7 +18,7 @@ class CountryFilter(filters.FilterSet):
 
 
 class CountryViewSet(viewsets.ReadOnlyModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     filter_class = CountryFilter
@@ -30,7 +31,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
 #
 # django_filters for CoutryAliasViewSet
 #
-class CountryAliasFilter(filters.FilterSet):
+class CountryAliasFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
 
     class Meta:
@@ -39,7 +40,7 @@ class CountryAliasFilter(filters.FilterSet):
 
 
 class CountryAliasViewSet(viewsets.ReadOnlyModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = CountryAliasFilter
 
     queryset = CountryAlias.objects.all()\
@@ -68,7 +69,7 @@ class StateViewSet(viewsets.ReadOnlyModelViewSet):
 #
 # django_filters for CityViewSet
 #
-class CityFilter(filters.FilterSet):
+class CityFilter(django_filters.FilterSet):
     alias = django_filters.CharFilter(name="cityalias__name", lookup_type='lowermatch')
 
     class Meta:
@@ -77,7 +78,7 @@ class CityFilter(filters.FilterSet):
 
 
 class CityViewSet(viewsets.ReadOnlyModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = CityFilter
 
     queryset = City.objects.all()\
@@ -103,7 +104,7 @@ class CityViewSet(viewsets.ReadOnlyModelViewSet):
 #
 # django_filters for CityViewSet
 #
-class CityAliasFilter(filters.FilterSet):
+class CityAliasFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(name="name", lookup_type='lowermatch')
 
     class Meta:
@@ -113,7 +114,7 @@ class CityAliasFilter(filters.FilterSet):
 
 
 class CityAliasViewSet(viewsets.ReadOnlyModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = CityAliasFilter
 
     queryset = CityAlias.objects.all()\

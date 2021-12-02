@@ -1,0 +1,419 @@
+ /home/ana/.local/lib/python3.8/site-packages/filer/models/filemodels.py
+# from django.core import urlresolvers
+from django.urls import reverse
+
+-----------------
+  
+    retira from django.utils import six
+    coloca c
+
+  File "/home/ana/.local/lib/python3.8/site-packages/polymorphic/polymorphic_model.py", line 20, in <module>
+
+/home/ana/.local/lib/python3.8/site-packages/polymorphic/query.py 
+ImportError: cannot import name 'six' from 'django.utils' (/home/ana/.local/lib/python3.8/site-packages/django/utils/__init__.py)
+
+------------------
+
+File "/home/ana/.local/lib/python3.8/site-packages/polymorphic/query_translate.py", line 9, in <module>
+    from django.db.models import Q, FieldDoesNotExist
+ImportError: cannot import name 'FieldDoesNotExist' from 'django.db.models' (/home/ana/.local/lib/python3.8/site-packages/django/db/models/__init__.py)
+
+
+The import from django.db.models presumably worked in older versions of Django.
+
+The import was fixed in django-allauth in version 0.41.0. If you update django-allauth in your requirements.txt or pipenv it should fix the problem.
+
+django-polymorphic==3.0.0
+------------
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/models/filemodels.py", line 15, in <module>
+    from polymorphic import PolymorphicModel, PolymorphicManager
+ImportError: cannot import name 'PolymorphicModel' from 'polymorphic' (/home/ana/.local/lib/python3.8/site-packages/polymorphic/__init__.py)
+
+- from polymorphic import PolymorphicModel 
++ from polymorphic.models import PolymorphicModel 
+
+
+-------
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/utils/loader.py", line 12, in <module>
+    from django.utils import six
+ImportError: cannot import name 'six' from 'django.utils' (/home/ana/.local/lib/python3.8/site-packages/django/utils/__init__.py)
+
+
+/home/ana/.local/lib/python3.8/site-packages/filer/utils/compatibility.py
+ File "/home/ana/.local/lib/python3.8/site-packages/filer/utils/recursive_dictionary.py"
+/home/ana/.local/lib/python3.8/site-packages/filer/fields/multistorage_file.py
+File "/home/ana/.local/lib/python3.8/site-packages/easy_thumbnails/files.py
+/home/ana/.local/lib/python3.8/site-packages/easy_thumbnails/utils.py
+ /home/ana/.local/lib/python3.8/site-packages/mptt/models.py
+/home/ana/.local/lib/python3.8/site-packages/mptt/utils.py
+File "/home/ana/.local/lib/python3.8/site-packages/filer/models/abstract.py
+
+
+- from django.utils import six
++ import six
+
+-------
+
+
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/utils/compatibility.py", line 12, in <module>
+    from django.utils.functional import allow_lazy
+ImportError: cannot import name 'allow_lazy' from 'django.utils.functional' (/home/ana/.local/lib/python3.8/site-packages/django/utils/functional.py)
+
+  -  from django.utils.functional import allow_lazy
+  +  from django.utils.functional import keep_lazy as allow_lazy
+
+  -------------
+
+   File "/home/ana/.local/lib/python3.8/site-packages/filer/utils/compatibility.py", line 55, in <module>
+    from django.utils.encoding import python_2_unicode_compatible  # flake8: noqa
+ImportError: cannot import name 'python_2_unicode_compatible' from 'django.utils.encoding' (/home/ana/.local/lib/python3.8/site-packages/django/utils/encoding.py)
+-    from django.utils.encoding import python_2_unicode_compatible  # flake8: noqa
++    from six import python_2_unicode_compatible  # flake8: noqa
+---------------
+  File "/home/ana/.local/lib/python3.8/site-packages/easy_thumbnails/engine.py", line 5, in <module>
+    from django.utils.six import BytesIO
+ModuleNotFoundError: No module named 'django.utils.six'
+
+
+    from six import BytesIO
+
+
+-------------
+  File "/home/ana/.local/lib/python3.8/site-packages/easy_thumbnails/conf.py", line 21, in __init__
+    super(AppSettings, self).__init__(*args, **kwargs)
+TypeError: __init__() missing 1 required positional argument: 'settings_module'
+
+
+easy-thumbnails==2.7.1
+
+
+----------
+
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/models/mixins.py", line 3, in <module>
+    from django.contrib.staticfiles.templatetags.staticfiles import static
+ModuleNotFoundError: No module named 'django.contrib.staticfiles.templatetags'
+
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
+---------------
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/models/foldermodels.py", line 7, in <module>
+    from django.core import urlresolvers
+ImportError: cannot import name 'urlresolvers' from 'django.core' (/home/ana/.local/lib/python3.8/site-packages/django/core/__init__.py)
+
+
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/models/virtualitems.py", line 3, in <module>
+    from django.core import urlresolvers
+ImportError: cannot import name 'urlresolvers' from 'django.core' (/home/ana/.local/lib/python3.8/site-packages/django/core/__init__.py)
+
+
+-from django.core import urlresolvers
++ from django.urls import reverse
+
+
+   def get_admin_url_path(self):
+-        return urlresolvers.reverse('admin:filer_folder_change',
++        return reverse('admin:filer_folder_change',
+                                    args=(self.id,))
+
+    def get_admin_directory_listing_url_path(self):
+-        return urlresolvers.reverse('admin:filer-directory_listing',
++        return reverse('admin:filer-directory_listing',
+                                    args=(self.id,))
+
+
+
+----------
+ File "/home/ana/.local/lib/python3.8/site-packages/filer/models/foldermodels.py", line 103, in Folder
+    parent = models.ForeignKey('self', verbose_name=('parent'), null=True, blank=True,
+TypeError: __init__() missing 1 required positional argument: 'on_delete'
+
+File "/home/ana/.local/lib/python3.8/site-packages/filer/models/foldermodels.py", line 107, in Folder
+    owner = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'), verbose_name=('owner'),
+TypeError: __init__() missing 1 required positional argument: 'on_delete'
+
+File "/home/ana/.local/lib/python3.8/site-packages/filer/models/foldermodels.py", line 261, in FolderPermission
+    folder = models.ForeignKey(Folder, verbose_name=('folder'), null=True, blank=True)
+TypeError: __init__() missing 1 required positional argument: 'on_delete'
+
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/models/foldermodels.py", line 269, in FolderPermission
+    user = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
+TypeError: __init__() missing 1 required positional argument: 'on_delete'
+
+
+  File "/home/ana/.local/lib/python3.8/site-packages/filer/models/foldermodels.py", line 279, in FolderPermission
+    group = models.ForeignKey(auth_models.Group,
+TypeError: __init__() missing 1 required positional argument: 'on_delete'
+
+
+ File "/home/ana/.local/lib/python3.8/site-packages/filer/models/filemodels.py", line 42, in File
+    folder = models.ForeignKey(Folder, verbose_name=_('folder'), related_name='all_files',
+TypeError: __init__() missing 1 required positional argument: 'on_delete'
+
+    parent = models.ForeignKey(
+    		'self',
+    		on_delete=models.DO_NOTHING, 
+    		verbose_name=('parent'), 
+    		null=True, blank=True, 
+    		related_name='children')
+
+  owner = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
+        on_delete=models.DO_NOTHING, 
+        verbose_name=('owner'),
+        related_name='filer_owned_folders',
+        null=True, blank=True)    
+
+
+    user = models.ForeignKey(
+    	getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
+    	related_name="filer_folder_permissions",
+    	verbose_name=_("user"), 
+    	on_delete=models.DO_NOTHING,
+    	blank=True, 
+    	null=True)
+       
+      group = models.ForeignKey(
+    	auth_models.Group,
+        related_name="filer_folder_permissions",
+        verbose_name=_("group"),
+        on_delete=models.DO_NOTHING,
+        blank=True, 
+        null=True)
+        
+    folder = models.ForeignKey(
+    	Folder, 
+    	verbose_name=_('folder'), 
+    	related_name='all_files',
+    	on_delete=models.DO_NOTHING,
+        null=True, 
+        blank=True)
+
+    owner = models.ForeignKey(
+    	getattr(settings, 'AUTH_USER_MODEL', 'auth.User'),
+        related_name='owned_%(class)ss',
+        verbose_name=_('owner')
+    	  on_delete=models.DO_NOTHING,
+        null=True, 
+        blank=True)
+
+  user = models.ForeignKey(
+    	getattr(settings, 'AUTH_USER_MODEL', 'auth.User'), 
+    	verbose_name=_('user'),
+    	related_name="filer_clipboards",
+    	on_delete=models.DO_NOTHING
+    	)
+
+        file = models.ForeignKey('File', verbose_name=_('file'), on_delete=models.DO_NOTHING)
+    clipboard = models.ForeignKey(
+    	Clipboard, 
+    	verbose_name=_('clipboard'),
+    	on_delete=models.DO_NOTHING)
+
+
+------------
+
+ File "/home/ana/.local/lib/python3.8/site-packages/django/db/models/manager.py", line 116, in contribute_to_class
+    setattr(cls, name, ManagerDescriptor(self))
+AttributeError: can't set attribute
+
+django-mptt==0.13.3
+
+---------
+
+
+
+ File "/home/ana/bikeanjo/cities/models.py", line 64, in City
+    objects = models.GeoManager()
+AttributeError: module 'django.contrib.gis.db.models' has no attribute 'GeoManager'
+
+
+from django.db.models import Manager as GeoManager
+   - objects = models.GeoManager()
+   +     objects = GeoManager()
+
+   ------------
+     File "/home/ana/bikeanjo/front/models.py", line 10, in <module>
+    from django.core.urlresolvers import reverse
+ModuleNotFoundError: No module named 'django.core.urlresolvers'
+
+from django.core.urlresolvers import reverse
+from django.urls import reverse
+
+-------
+
+  File "/home/ana/.local/lib/python3.8/site-packages/modeltranslation/manager.py", line 11, in <module>
+    from django.db.models import FieldDoesNotExist
+ImportError: cannot import name 'FieldDoesNotExist' from 'django.db.models' (/home/ana/.local/lib/python3.8/site-packages/django/db/models/__init__.py)
+-from django.db.models import FieldDoesNotExist
++from django.core.exceptions import FieldDoesNotExist
+
+-----------
+  File "/home/ana/.local/lib/python3.8/site-packages/modeltranslation/translator.py", line 46, in <module>
+    class TranslationOptions(with_metaclass(FieldsAggregationMetaClass, object)):
+NameError: name 'with_metaclass' is not defined
+
+
+from six import with_metaclass
+------
+  File "/home/ana/.local/lib/python3.8/site-packages/modeltranslation/translator.py", line 548, in _get_options_for_model
+    if model._deferred:
+AttributeError: type object 'Event' has no attribute '_deferred'
+
+upgrade to django-modeltranslation==0.17.3
+----------------
+
+  File "/home/ana/.local/lib/python3.8/site-packages/suit/widgets.py", line 6, in <module>
+    from django.contrib.admin.templatetags.admin_static import static
+ModuleNotFoundError: No module named 'django.contrib.admin.templatetags.admin_static'
+
+
+-from django.contrib.admin.templatetags.admin_static import static
++from django.templatetags.static import static
+
+-----------------------
+
+
+ File "/home/ana/.local/lib/python3.8/site-packages/import_export/resources.py", line 16, in <module>
+    from django.db.models.fields import FieldDoesNotExist
+ImportError: cannot import name 'FieldDoesNotExist' from 'django.db.models.fields' (/home/ana/.local/lib/python3.8/site-packages/django/db/models/fields/__init__.py)
+
+-from django.db.models.fields import FieldDoesNotExist
++from django.core.exceptions import FieldDoesNotExist
+
+----------------------
+ File "/home/ana/bikeanjo/slider/admin.py", line 17, in AdminImageWidget
+    % forms.ClearableFileInput.template_with_clear)
+AttributeError: type object 'ClearableFileInput' has no attribute 'template_with_clear'
+
+
+?????????
+
+--------------
+
+  File "/home/ana/.local/lib/python3.8/site-packages/suit/templatetags/suit_menu.py", line 11, in <module>
+    string_types = basestring,
+NameError: name 'basestring' is not defined
+
+
+try:
+    basestring
+except NameError:
+    basestring = str
+
+
+
+
+    -------------
+
+File "/home/ana/.local/lib/python3.8/site-packages/debug_toolbar/middleware.py", line 13, in <module>
+    from django.utils.lru_cache import lru_cache
+ModuleNotFoundError: No module named 'django.utils.lru_cache'
+
+
+from django.utils.lru_cache import lru_cache
+from functools import lru_cache
+
+pip install django-crispy-forms 1.13.0
+
+------
+
+  File "/home/ana/.local/lib/python3.8/site-packages/debug_toolbar/panels/settings.py", line 7, in <module>
+    from django.views.debug import get_safe_settings
+ImportError: cannot import name 'get_safe_settings' from 'django.views.debug' (/home/ana/.local/lib/python3.8/site-packages/django/views/debug.py)
+
+django-debug-toolbar==3.2.2
+
+-------------
+
+
+
+
+  File "/home/ana/.local/lib/python3.8/site-packages/django/db/models/manager.py", line 116, in contribute_to_class
+    setattr(cls, name, ManagerDescriptor(self))
+AttributeError: can't set attribute
+
+
+update django-mptt==0.13.4
+-------------
+
+
+File "/home/ana/.local/lib/python3.8/site-packages/suit/templatetags/suit_menu.py", line 21, in <module>
+    @register.assignment_tag(takes_context=True)
+AttributeError: 'Library' object has no attribute 'assignment_tag'
+
+
+@register.assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
+
+
+-------------
+
+  File "/home/ana/.local/lib/python3.8/site-packages/django/template/backends/django.py", line 123, in get_package_libraries
+    raise InvalidTemplateLibrary(
+django.template.library.InvalidTemplateLibrary: Invalid template library specified. ImportError raised when trying to load 'suit.templatetags.suit_tags': No module named 'django.core.urlresolvers'
+
+
+
+-------------
+
+File "/home/ana/.local/lib/python3.8/site-packages/braces/views/_forms.py", line 8, in <module>
+    from django.utils.functional import curry, Promise
+ImportError: cannot import name 'curry' from 'django.utils.functional' (/home/ana/.local/lib/python3.8/site-packages/django/utils/functional.py)
+
+
+-from django.utils.functional import curry, Promise
++from functools import partialmethod
+
+            -setattr(self, name, curry(api_fn, request))
+            +setattr(self, name, partialmethod(api_fn, request))
+
+ 
+------------------ 
+
+  File "/home/ana/.local/lib/python3.8/site-packages/django_filters/utils.py", line 12, in <module>
+    import six, timezone
+ModuleNotFoundError: No module named 'timezone'
+
+from django.utils import timezone
+  
+
+  ------------------ 
+
+    from django.db.models.sql.constants import QUERY_TERMS
+ImportError: cannot import name 'QUERY_TERMS' from 'django.db.models.sql.constants' (/home/ana/.local/lib/python3.8/site-packages/django/db/models/sql/constants.py)
+
+
+django-filter==2.4.0
+
+------------------ 
+ImportError: Could not import 'rest_framework.filters.DjangoFilterBackend' for API setting 'DEFAULT_FILTER_BACKENDS'. ImportError: Module "rest_framework.filters" does not define a "DjangoFilterBackend" attribute/class.
+
+
+rest_framework.filters.DjangoFilterBackend was depricated in DRF : 3.7.
+
+So from DRF 3.7 onwards you should install django-filter package to use the DjangoFilterBackend in the views.
+
+from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter, rest_framework
+from rest_framework import viewsets
+
+------------------ 
+
+File "/home/ana/.local/lib/python3.8/site-packages/filer/admin/folderadmin.py", line 190, in get_urls
+    from django.conf.urls import patterns, url
+ImportError: cannot import name 'patterns' from 'django.conf.urls' (/home/ana/.local/lib/python3.8/site-packages/django/conf/urls/__init__.py)
+
+
+
+  ------------------ 
+
+
+
+
+------------------ 
+
+
+
+
+------------------ 
+
+
+

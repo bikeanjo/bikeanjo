@@ -13,8 +13,7 @@ class AdminImageWidget(forms.ClearableFileInput):
         '%(clear_template)s<br />%(input_text)s: %(input)s'
         '</p>'
     )
-    template_with_clear = ('<span class="clearable-file-input">%s</span>'
-                           % forms.ClearableFileInput.template_with_clear)
+    # template_with_clear = ('<span class="clearable-file-input">%s</span>' % forms.ClearableFileInput.template_with_clear)
 
 
 @admin.register(SlideItem)

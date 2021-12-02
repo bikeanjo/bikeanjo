@@ -7,9 +7,10 @@ from django.conf import settings
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import Distance as D
 from django.contrib.sites.models import Site
-from django.core.urlresolvers import reverse
+from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.db.models import Manager as GeoManager
 
 from cyclists.models import User
 from cities.models import City, Country
@@ -28,9 +29,11 @@ CYCLIST_ROLES = (
 
 HELP_OFFER = (
     (1, _('Teach someone how to ride a bike')),  # Ensinando alguém a pedalar
-    (2, _('Commute together with beginners on their first rides')),  # Acompanhando iniciantes nas pedaladas
+    # Acompanhando iniciantes nas pedaladas
+    (2, _('Commute together with beginners on their first rides')),
     (4, _('Suggest safe routes')),  # Recomendando rotas mais seguras
-    (8, _('Participate on Bike Anjo events')),  # Participando dos eventos dos Bikes Anjos
+    # Participando dos eventos dos Bikes Anjos
+    (8, _('Participate on Bike Anjo events')),
 )
 
 HELP_REQUEST = (
@@ -51,8 +54,10 @@ BIKEANJO_EXPERIENCE = (
 
 REQUESTER_EXPERIENCE = (
     ('do not know pedaling yet', _('I still don\'t know how to ride a bike')),
-    ('no experience in traffic', _('I know how to ride a bike, but have not traffic experience')),
-    ('already ride a long time', _('I bike for many years now, but not on a daily basis')),
+    ('no experience in traffic', _(
+        'I know how to ride a bike, but have not traffic experience')),
+    ('already ride a long time', _(
+        'I bike for many years now, but not on a daily basis')),
     ('use bike almost every day', _('I ride my bike almost every day')),
 )
 
@@ -71,8 +76,10 @@ class BaseModel(models.Model):
     All models here should extends this. All models will have
     the created_date and modified_date properties
     """
-    created_date = models.DateTimeField(_('Date of creation'), auto_now_add=True, editable=False)
-    modified_date = models.DateTimeField(_('Date of change'), auto_now=True, editable=False)
+    created_date = models.DateTimeField(
+        _('Date of creation'), auto_now_add=True, editable=False)
+    modified_date = models.DateTimeField(
+        _('Date of change'), auto_now=True, editable=False)
 
     class Meta:
         abstract = True
@@ -115,20 +122,31 @@ class HelpRequest(BaseModel):
     ))
     HELP_OPTIONS = dict(HELP_REQUEST)
 
-    requester = models.ForeignKey(User, related_name='helprequested_set')
-    bikeanjo = models.ForeignKey(User, related_name='helpbikeanjo_set', null=True)
-    help_with = models.IntegerField(_('Help with'), default=0)  # choices=HELP_REQUEST
+    requester = models.ForeignKey(
+        User, related_name='helprequested_set', on_delete=models.DO_NOTHING)
+    bikeanjo = models.ForeignKey(
+        User,
+        related_name='helpbikeanjo_set',
+        null=True,
+        on_delete=models.DO_NOTHING)
+    help_with = models.IntegerField(
+        _('Help with'), default=0)  # choices=HELP_REQUEST
     message = models.TextField(_('Message'))
 
-    status = models.CharField(_('Status'), max_length=16, choices=list(STATUS.items()), default='new')
-    closed_by = models.CharField(_('Closed by'), max_length=12, choices=CYCLIST_ROLES, blank=True)
+    status = models.CharField(
+        _('Status'), max_length=16, choices=list(STATUS.items()), default='new')
+    closed_by = models.CharField(
+        _('Closed by'), max_length=12, choices=CYCLIST_ROLES, blank=True)
 
-    requester_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)
-    bikeanjo_access = models.DateTimeField(_('Access date'), default=timezone.now, editable=False)
+    requester_access = models.DateTimeField(
+        _('Access date'), default=timezone.now, editable=False)
+    bikeanjo_access = models.DateTimeField(
+        _('Access date'), default=timezone.now, editable=False)
     requester_rating = models.PositiveSmallIntegerField(_('Rating'), default=0)
     requester_eval = models.TextField(_('Evaluation'), blank=True)
 
-    track = models.ForeignKey('Track', null=True, blank=True)
+    track = models.ForeignKey(
+        'Track', null=True, blank=True, on_delete=models.DO_NOTHING)
 
     objects = HelpStatusManager()
 
@@ -172,7 +190,8 @@ class HelpRequest(BaseModel):
             linestring = self.track.track
             center = linestring.centroid
 
-            near_cities = City.objects.distance(center).order_by('distance')[:2]
+            near_cities = City.objects.distance(
+                center).order_by('distance')[:2]
 
             qs = Track.objects.filter(user__in=bikeanjos)
             available = qs.filter(user__city__in=near_cities)
@@ -185,7 +204,8 @@ class HelpRequest(BaseModel):
 
             for model in available:
                 distancia = self.distance([model.track[0], model.track[-1]])
-                d2 = self.distance([model.track[0], saida_pedido, chegada_pedido, model.track[-1]])
+                d2 = self.distance(
+                    [model.track[0], saida_pedido, chegada_pedido, model.track[-1]])
                 total = abs(d2 - distancia)
 
                 if total < nota:
@@ -225,10 +245,12 @@ class HelpRequest(BaseModel):
             score, track, bikeanjo = self.find_bikeanjo()
 
             if not bikeanjo:
-                logger.debug("Can't find Bikeanjo to HelpRequest(id=%d)" % (self.id))
+                logger.debug(
+                    "Can't find Bikeanjo to HelpRequest(id=%d)" % (self.id))
                 return
 
-            logger.debug('HelpRequest(id=%d) has a new Bikeanjo(id=%d)' % (self.id, bikeanjo.id))
+            logger.debug('HelpRequest(id=%d) has a new Bikeanjo(id=%d)' %
+                         (self.id, bikeanjo.id))
             self.bikeanjo = bikeanjo
             self.save()
 
@@ -245,8 +267,8 @@ class HelpReply(BaseModel):
         verbose_name_plural = _('Replies to the request')
         ordering = ['-created_date']
 
-    author = models.ForeignKey(User)
-    helprequest = models.ForeignKey(HelpRequest)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    helprequest = models.ForeignKey(HelpRequest, on_delete=models.DO_NOTHING)
     message = models.TextField(_('Message'))
 
 
@@ -255,12 +277,12 @@ class Track(BaseModel):
         verbose_name = _('Route')
         verbose_name_plural = _('Routes')
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     start = models.CharField(_('Start'), max_length=128)
     end = models.CharField(_('End'), max_length=128)
     track = models.LineStringField()
 
-    objects = models.GeoManager()
+    objects = GeoManager()
 
     def json(self):
         d = {
@@ -281,12 +303,13 @@ class Point(BaseModel):
         verbose_name = _('Point')
         verbose_name_plural = _('Points')
 
-    user = models.ForeignKey(User)
-    helprequest = models.ForeignKey(HelpRequest, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    helprequest = models.ForeignKey(
+        HelpRequest, blank=True, null=True, on_delete=models.DO_NOTHING)
     address = models.CharField(_('Address'), max_length=128)
     coords = models.PointField()
 
-    objects = models.GeoManager()
+    objects = GeoManager()
 
     def json(self):
         d = {
@@ -307,8 +330,8 @@ class Match(BaseModel):
         verbose_name_plural = _('Matches')
         unique_together = (('bikeanjo', 'helprequest',),)
 
-    bikeanjo = models.ForeignKey(User)
-    helprequest = models.ForeignKey(HelpRequest)
+    bikeanjo = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    helprequest = models.ForeignKey(HelpRequest, on_delete=models.DO_NOTHING)
     score = models.FloatField(_('Score'), default=0)
     rejected_date = models.DateTimeField(_('Rejected date'), null=True)
     reason = models.CharField(_('Reason'), max_length=128, blank=True)
@@ -335,19 +358,24 @@ class Message(BaseModel):
 
     title = models.CharField(_('Title'), max_length=128)
     content = models.TextField(_('Content'))
-    image = models.ImageField(_('Image'), upload_to='messages', null=True, blank=True)
+    image = models.ImageField(
+        _('Image'), upload_to='messages', null=True, blank=True)
 
-    target_roles = models.CharField(_('Target'), choices=TARGET_ROLES, default=TARGET_ROLES[0][0], max_length=16)
-    target_city = models.ForeignKey(City, null=True, blank=True)
-    target_country = models.ForeignKey(Country, null=True, blank=True)
+    target_roles = models.CharField(
+        _('Target'), choices=TARGET_ROLES, default=TARGET_ROLES[0][0], max_length=16)
+    target_city = models.ForeignKey(
+        City, null=True, blank=True, on_delete=models.DO_NOTHING)
+    target_country = models.ForeignKey(
+        Country, null=True, blank=True, on_delete=models.DO_NOTHING)
 
 
 class ReadedMessage(BaseModel):
     class Meta:
         unique_together = (('user', 'message',))
 
-    user = models.ForeignKey(User)
-    message = models.ForeignKey(Message, related_name='readed_by')
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    message = models.ForeignKey(
+        Message, related_name='readed_by', on_delete=models.DO_NOTHING)
 
 
 class Category(models.Model):
@@ -372,19 +400,25 @@ class Event(BaseModel):
         verbose_name_plural = _('Events')
         ordering = ['-created_date']
 
-    site = models.ForeignKey(Site, default=default_to_first_site)
+    site = models.ForeignKey(
+        Site, default=default_to_first_site, on_delete=models.DO_NOTHING)
     title = models.CharField(_('Title'), max_length=128, blank=True)
     slug = models.SlugField(_('Slug'), max_length=128)
     content = models.TextField(_('Content'), blank=True)
-    image = models.ImageField(_('Image'), upload_to='events', null=True, blank=True)
+    image = models.ImageField(
+        _('Image'), upload_to='events', null=True, blank=True)
     date = models.DateTimeField(_('Date'))
-    v1_city = models.CharField(_('City'), max_length=64, editable=False, blank=True)
-    city = models.ForeignKey(City, null=True, blank=True)
+    v1_city = models.CharField(
+        _('City'), max_length=64, editable=False, blank=True)
+    city = models.ForeignKey(City, null=True, blank=True,
+                             on_delete=models.DO_NOTHING)
     address = models.CharField(_('Address'), max_length=128, blank=True)
-    address_link = models.CharField(_('Address link'), max_length=255, blank=True)
+    address_link = models.CharField(
+        _('Address link'), max_length=255, blank=True)
     subscription_link = models.CharField(_('Link'), max_length=255, blank=True)
     price = models.CharField(_('Price'), max_length=128, blank=True)
-    category = models.ForeignKey(Category, null=True, blank=True)
+    category = models.ForeignKey(
+        Category, null=True, blank=True, on_delete=models.DO_NOTHING)
 
     def get_image_url(self):
         if not self.image:
@@ -419,7 +453,8 @@ class Event(BaseModel):
         ld['location']['name'] = getattr(self.city, 'name', '')
         ld['location']['address'] = OrderedDict()
         ld['location']['address']["@type"] = "PostalAddress"
-        ld['location']['address']['addressLocality'] = getattr(self.city, 'name', '')
+        ld['location']['address']['addressLocality'] = getattr(
+            self.city, 'name', '')
 
         if self.address:
             ld['location']['address']['streetAddress'] = self.address
@@ -438,7 +473,7 @@ class Feedback(BaseModel):
         verbose_name = _('Feedback')
         verbose_name_plural = _('Feedbacks')
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     message = models.TextField(_('Message'))
 
 
@@ -458,7 +493,7 @@ class Testimony(BaseModel):
         verbose_name = _('Testimony')
         verbose_name_plural = _('Testimonies')
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     message = models.CharField(_('Message'), max_length=255)
 
 
@@ -472,7 +507,8 @@ class Subscriber(BaseModel):
     valid = models.BooleanField(_('Valid'), default=False)
 
     def save(self, *args, **kwargs):
-        self.token = hashlib.sha256(settings.SECRET_KEY + self.email).hexdigest()
+        self.token = hashlib.sha256(
+            settings.SECRET_KEY + self.email).hexdigest()
         super(Subscriber, self).save(*args, **kwargs)
 
 
@@ -487,9 +523,11 @@ class TipForCycling(BaseModel):
 
     title = models.CharField(_('Title'), max_length=128, blank=True)
     content = models.TextField(_('Content'), blank=True)
-    image = models.ImageField(_('Image'), upload_to='tips', null=True, blank=True)
+    image = models.ImageField(
+        _('Image'), upload_to='tips', null=True, blank=True)
     link = models.CharField(_('Link'), max_length=255, blank=True)
-    target = models.CharField(_('Target'), choices=TARGETS, default=TARGETS[0][0], max_length=16)
+    target = models.CharField(
+        _('Target'), choices=TARGETS, default=TARGETS[0][0], max_length=16)
 
     def get_image_url(self):
         if self.image:

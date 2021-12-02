@@ -19,7 +19,7 @@ class SlideItem(BaseModel):
     title = models.CharField(_('Title'), max_length=256)
     image = models.ImageField(_('Image'), upload_to='slides')
     order = models.PositiveIntegerField(_('Order'), default=0)
-    site = models.ForeignKey(Site, default=default_to_first_site)
+    site = models.ForeignKey(Site, default=default_to_first_site, on_delete=models.DO_NOTHING)
 
     def get_image_url(self):
         if not self.image:

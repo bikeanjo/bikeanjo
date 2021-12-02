@@ -164,7 +164,7 @@ LOCALE_PATHS = (
 )
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.DjangoFilterBackend',),
     'PAGE_SIZE': 100
 }
 

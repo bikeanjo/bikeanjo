@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
-from django.core.urlresolvers import reverse
+from django.conf.urls import reverse
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.utils import perform_login
@@ -9,7 +9,8 @@ from cyclists.models import User
 
 from cities.models import Country, CityAlias
 
-FACEBOOK_DATE_PATTERN = re.compile(r'^(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\d\d\d\d)$')
+FACEBOOK_DATE_PATTERN = re.compile(
+    r'^(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\d\d\d\d)$')
 FACEBOOK_LOCATION_PATTERN = re.compile(r'^(?P<city>[^,]+), *(?P<country>.*)$')
 
 FACEBOOK_DATE_PARSER = DateParser(date_re=FACEBOOK_DATE_PATTERN)
@@ -28,7 +29,8 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         city = location.get('city', '')
 
         user.country = Country.objects.filter(name=country).first()
-        user.city_alias = CityAlias.objects.filter(name__lowermatch=city).first()
+        user.city_alias = CityAlias.objects.filter(
+            name__lowermatch=city).first()
 
         if user.city_alias:
             user.city = user.city_alias.city
@@ -56,7 +58,8 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         '''
         This is a User instance candidate for Social Signup page
         '''
-        user = super(BikeanjoSocialAccountAdapter, self).populate_user(request, sociallogin, data)
+        user = super(BikeanjoSocialAccountAdapter, self).populate_user(
+            request, sociallogin, data)
 
         populator = {
             'twitter': self.__populate_with_twitter,
@@ -69,7 +72,8 @@ class BikeanjoSocialAccountAdapter(DefaultSocialAccountAdapter):
         extra = sociallogin.account.extra_data
         user = sociallogin.user
 
-        user.birthday = FACEBOOK_DATE_PARSER.parse_date(extra.get('birthday', ''))
+        user.birthday = FACEBOOK_DATE_PARSER.parse_date(
+            extra.get('birthday', ''))
         user.gender = extra.get('gender', '')
         user.role = request.session.pop('user_role')
 

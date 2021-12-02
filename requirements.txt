@@ -5,24 +5,24 @@ django-autocomplete-light==3.8.1
 django-braces==1.4.0
 django-crispy-forms==1.7.2
 django-db-mailer==2.1.0
-django-debug-toolbar==1.9.1
-django-environ==0.4.0
-django-extensions==2.2.9
-django-fieldsignals==0.1.1
-django-filer==1.0.2
-django-filter==1.1.0
-django-import-export==1.2.0
-django-modeltranslation==0.11
-django-mptt==0.7.4
-django-pipeline==1.4.2
+django-debug-toolbar==3.2.2
+django-environ==0.8.1
+django-extensions==3.1.3
+django-fieldsignals==0.7.0
+django-filer==2.1.2
+django-filter==21.1
+django-import-export==2.6.1
+django-modeltranslation==0.17.3
+django-mptt==0.13.4
+django-pipeline==2.0.7
 django-polymorphic==3.0.0
-django-rosetta==0.8.3
-django-sitetree==1.4.0
-django-suit==0.2.18
+django-rosetta==0.9.7
+django-sitetree==1.17.0
+django-suit==0.2.28
 Django==3.2
-djangorestframework==3.12.2
+djangorestframework==3.12.4
 djrill==1.4.0
-easy-thumbnails==2.7.1
+easy-thumbnails==2.8.0  
 fhurl==0.1.7
 flake8==2.2.5
 # futures==2.2.0
@@ -40,12 +40,154 @@ pyflakes==0.8.1
 pytest-django==2.7.0
 pytest==2.6.4
 python-memcached==1.58
-python-openid==2.2.5
+# python-openid==3.2.0
+python3-openid==3.2.0
 requests-oauthlib==0.4.2
 requests==2.6.0
 six==1.16.0
 smarturls==0.1.4
 sqlparse==0.2.2
-tablib==0.14.0
+tablib==3.1.0
 Unidecode==0.4.18
 Werkzeug==0.10.4
+
+
+# asgiref==3.4.1
+# backports.entry-points-selectable==1.1.0
+# beautifulsoup4==4.8.2
+# blinker==1.4
+# certifi==2019.11.28
+# chardet==3.0.4
+# cliapp==1.20180812.1
+# Click==7.0
+# colorama==0.4.3
+# command-not-found==0.3
+# cryptography==2.8
+# cssselect2==0.4.1
+# cupshelpers==1.0
+# dbus-python==1.2.16
+# defusedxml==0.7.1
+# diff-match-patch==20121119
+# distlib==0.3.2
+# distro==1.4.0
+# distro-info===0.23ubuntu1
+# dj-database-url==0.5.0
+# Django==3.2
+# django-allauth==0.41.0
+# django-autocomplete-light==3.8.1
+# django-braces==1.4.0
+# django-crispy-forms==1.7.2
+# django-db-mailer==2.1.0
+# django-debug-toolbar==3.2.2
+# django-environ==0.8.1
+# django-extensions==3.1.3
+# django-fieldsignals==0.7.0
+# django-filer==2.1.2
+# django-filter==21.1
+# django-import-export==2.6.1
+# django-js-asset==1.2.2
+# django-modeltranslation==0.17.3
+# django-mptt==0.13.4
+# django-pipeline==2.0.7
+# django-polymorphic==3.0.0
+# django-rosetta==0.9.7
+# django-sitetree==1.17.0
+# django-suit==0.2.28
+# djangorestframework==3.12.4
+# djrill==1.4.0
+# docopt==0.6.2
+# easy-thumbnails==2.8
+# entrypoints==0.3
+# et-xmlfile==1.1.0
+# evdev==1.3.0
+# fhurl==0.1.7
+# filelock==3.0.12
+# flake8==2.2.5
+# fuse-python==1.0.0
+# futures==2.2.0
+# gpg===1.13.1-unknown
+# html5lib==1.0.1
+# httplib2==0.14.0
+# idna==2.8
+# ipdb==0.8
+# ipython==3.0.0
+# keyring==18.0.1
+# language-selector==0.1
+# launchpadlib==1.10.13
+# lazr.restfulclient==0.14.2
+# lazr.uri==1.0.3
+# lxml==4.5.0
+# Markdown==3.1.1
+# MarkupPy==1.14
+# mccabe==0.3
+# microsofttranslator==0.5
+# netifaces==0.10.4
+# oauthlib==0.7.2
+# odfpy==1.4.1
+# olefile==0.46
+# openpyxl==3.0.7
+# packaging==20.3
+# pbr==5.6.0
+# pep8==1.6.2
+# pexpect==4.6.0
+# Pillow==7.2.0
+# pipreqs==0.4.10
+# platformdirs==2.3.0
+# polib==1.1.0
+# psycopg2==2.8
+# psycopg2-binary==2.8.6
+# py==1.4.26
+# pycairo==1.16.2
+# pycrypto==2.6.1
+# pycups==1.9.73
+# pyflakes==0.8.1
+# Pygments==2.3.1
+# PyGObject==3.36.0
+# PyJWT==1.7.1
+# pylibacl==0.5.4
+# pymacaroons==0.13.0
+# PyNaCl==1.3.0
+# pyparsing==2.4.6
+# PyQt5==5.15.4
+# PyQt5-sip==12.9.0
+# pysmbc==1.0.15.6
+# pytest==2.6.4
+# pytest-django==2.7.0
+# python-apt==2.0.0+ubuntu0.20.4.6
+# python-memcached==1.58
+# python-openid==2.2.5
+# python3-openid==3.2.0
+# pytz==2021.1
+# pyxattr==0.6.1
+# PyYAML==5.3.1
+# reportlab==3.5.34
+# requests==2.6.0
+# requests-oauthlib==0.4.2
+# requests-unixsocket==0.2.0
+# SecretStorage==2.3.1
+# simplejson==3.16.0
+# six==1.16.0
+# smarturls==0.1.4
+# soupsieve==1.9.5
+# sqlparse==0.2.2
+# ssh-import-id==5.10
+# stevedore==3.4.0
+# svglib==1.1.0
+# tablib==3.1.0
+# tinycss2==1.1.1
+# tornado==5.1.1
+# ttystatus==0.38
+# ubuntu-drivers-common==0.0.0
+# ufw==0.36
+# Unidecode==0.4.18
+# urllib3==1.25.8
+# virtualenv==20.7.2
+# virtualenv-clone==0.5.7
+# virtualenvwrapper==4.8.4
+# wadllib==1.3.3
+# webencodings==0.5.1
+# Werkzeug==0.10.4
+# xkit==0.0.0
+# xlrd==2.0.1
+# xlwt==1.3.0
+# yarg==0.1.9

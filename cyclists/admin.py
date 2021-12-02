@@ -2,7 +2,7 @@
 from urllib.parse import urlencode
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
@@ -145,7 +145,8 @@ class User(CustomUserAdmin):
 class Requester(CustomUserAdmin):
     list_display = ('full_name', 'date_joined', 'last_login', 'city', 'country',
                     'active_requests', 'finalized_requests',)
-    list_filter = (CityListFilter, CountryListFilter, 'date_joined', 'last_login')
+    list_filter = (CityListFilter, CountryListFilter,
+                   'date_joined', 'last_login')
 
 
 @admin.register(cyclists.models.Bikeanjo)
@@ -153,14 +154,15 @@ class Bikeanjo(CustomUserAdmin):
     list_display = ('full_name', 'date_joined', 'last_login', 'available', 'city', 'country',
                     'active_requests', 'finalized_requests', 'service_rating',
                     'tracks', 'points')
-    list_filter = (CityListFilter, CountryListFilter, 'available', 'date_joined', 'last_login')
+    list_filter = (CityListFilter, CountryListFilter,
+                   'available', 'date_joined', 'last_login')
 
     def service_rating(self, obj):
         if obj.role != 'bikeanjo':
             return '-'
-        rating = list(obj.helpbikeanjo_set\
-                    .filter(status='finalized')\
-                    .aggregate(avg_rating=models.models.Avg('requester_rating')).values())[0]
+        rating = list(obj.helpbikeanjo_set
+                      .filter(status='finalized')
+                      .aggregate(avg_rating=models.models.Avg('requester_rating')).values())[0]
         return rating or 0
     service_rating.short_description = _('Service rating')
 

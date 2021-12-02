@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from braces.views import LoginRequiredMixin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -36,7 +36,8 @@ class RegisteredUserMixin(LoginRequiredMixin):
         role = self.request.user.role
         url = reverse('cyclist_account_resignup', args=[role])
         if REDIRECT_FIELD_NAME:
-            url += '?' + urlencode({REDIRECT_FIELD_NAME: self.request.get_full_path()})
+            url += '?' + \
+                urlencode({REDIRECT_FIELD_NAME: self.request.get_full_path()})
         return url
 
     def dispatch(self, request, *args, **kwargs):
@@ -68,7 +69,8 @@ class SetLanguageView(View):
 
         if language in [l[0] for l in settings.LANGUAGES]:
             if user.is_authenticated():
-                models.User.objects.filter(id=user.id).update(language=language)
+                models.User.objects.filter(
+                    id=user.id).update(language=language)
             else:
                 request.session['language'] = language
 
@@ -82,7 +84,8 @@ class HomeView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['testimonies'] = models.Testimony.objects.select_related('author').reverse()[:5]
+        context['testimonies'] = models.Testimony.objects.select_related(
+            'author').reverse()[:5]
         context['counters'] = {
             'bikeanjos': cyclists.models.Bikeanjo.objects.count(),
             'requests': models.HelpRequest.objects.count(),
@@ -134,7 +137,8 @@ class DashboardMixin(RegisteredUserMixin):
         elif user.role == 'requester':
             data['unread']['requests'] = user.helprequested_set.unread()
 
-        data['unread']['total'] = sum((qs.count() for qs in list(data['unread'].values())))
+        data['unread']['total'] = sum((qs.count()
+                                      for qs in list(data['unread'].values())))
         data['site'] = Site.objects.filter(id=settings.SITE_ID).first()
         data['force_header'] = True
         return data
@@ -171,7 +175,8 @@ class DashBoardView(DashboardMixin, TemplateView):
     def get_event_list(self):
         user = self.request.user
 
-        event_list = models.Event.objects.filter(city=user.city, date__gte=timezone.now())
+        event_list = models.Event.objects.filter(
+            city=user.city, date__gte=timezone.now())
         setattr(event_list, 'near', True)
 
         if not event_list.exists():
@@ -191,7 +196,8 @@ class UserRegisterView(DashboardMixin, TemplateView):
 
 
 class UserInfoUpdateView(DashboardMixin, UpdateView):
-    fields = ('first_name', 'last_name', 'email', 'country', 'city', 'gender', 'birthday',)
+    fields = ('first_name', 'last_name', 'email',
+              'country', 'city', 'gender', 'birthday',)
 
     def get_template_names(self):
         role = self.request.user.role or 'requester'
@@ -294,7 +300,8 @@ class NewRequestsListView(DashboardMixin, ListView):
         uma flag 'no_new_requests' nesta instância de View
         '''
         user = self.request.user
-        queryset = super(NewRequestsListView, self).get_queryset().filter(status='new').exclude(requester=user)
+        queryset = super(NewRequestsListView, self).get_queryset().filter(
+            status='new').exclude(requester=user)
         _filter = self.request.GET.get('filter')
         qs = queryset
 
@@ -342,7 +349,8 @@ class RequestUpdateView(DashboardMixin, UpdateView):
 
         if request.user.role in ['bikeanjo', 'requester']:
             field = '{0}_access'.format(request.user.role)
-            self.model.objects.filter(id=obj.id).update(**{field: timezone.now()})
+            self.model.objects.filter(id=obj.id).update(
+                **{field: timezone.now()})
 
         response = super(RequestUpdateView, self).get(request, **kwargs)
         return response
@@ -374,7 +382,8 @@ class RequestReplyFormView(RegisteredUserMixin, FormView):
     def get_form_kwargs(self):
         kwargs = super(RequestReplyFormView, self).get_form_kwargs()
         kwargs['author'] = self.request.user
-        kwargs['helprequest'] = get_object_or_404(models.HelpRequest, **self.kwargs)
+        kwargs['helprequest'] = get_object_or_404(
+            models.HelpRequest, **self.kwargs)
         return kwargs
 
     def form_valid(self, form):
@@ -441,7 +450,8 @@ class EventListView(ListView):
         return context
 
     def get_queryset(self):
-        qs = super(EventListView, self).get_queryset().filter(date__gte=timezone.now())
+        qs = super(EventListView, self).get_queryset().filter(
+            date__gte=timezone.now())
 
         filters = {}
         for f in list(self.request.GET.keys()):
@@ -623,7 +633,8 @@ class SignupAgreementView(LoginRequiredMixin, RedirectUrlMixin, UpdateView):
 
         data = dict()
         data['message'] = self.request.POST.dict().get('message', '')
-        data['help_with'] = self.request.session.get('helprequest_01')['help_with']
+        data['help_with'] = self.request.session.get('helprequest_01')[
+            'help_with']
         data['geo_json'] = self.request.session.get('helprequest_02')
         form = forms.HelpRequestCompleteForm(data)
         return form
@@ -880,7 +891,8 @@ class FeedbackView(LoginRequiredMixin, RedirectUrlMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, _('Your feedback has been sent. Thank you!'))
+        messages.success(self.request, _(
+            'Your feedback has been sent. Thank you!'))
         return super(FeedbackView, self).form_valid(form)
 
 
@@ -889,7 +901,8 @@ class ConfirmSubscriptionView(DetailView):
     model = models.Subscriber
 
     def get_context_data(self, **kwargs):
-        context = super(ConfirmSubscriptionView, self).get_context_data(**kwargs)
+        context = super(ConfirmSubscriptionView,
+                        self).get_context_data(**kwargs)
         return context
 
     def get(self, request, **kwargs):

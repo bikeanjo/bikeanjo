@@ -16,7 +16,7 @@ class BaseModel(models.Model):
 
 
 class QueuedMail(BaseModel):
-    to = models.ForeignKey(settings.AUTH_USER_MODEL)
+    to = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     sender = models.EmailField(_('From'), default=getattr(settings, 'DEFAULT_FROM_EMAIL', ''))
     date = models.DateField(_('Date'))
     tag = models.CharField(_('Tag'), max_length=64, blank=True, db_index=True)

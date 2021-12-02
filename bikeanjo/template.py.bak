@@ -10,7 +10,7 @@ class Loader(BaseLoader):
     is_usable = True
 
     def get_template_path(self, app_template_name, template_dirs=None):
-        print(('>>>>>>>>>>>>>>' + app_template_name))
+        print('>>>>>>>>>>>>>>' + app_template_name)
         template_parts = app_template_name.split(":", 1)
 
         if len(template_parts) != 2:

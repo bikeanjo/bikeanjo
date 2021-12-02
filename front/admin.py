@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.flatpages.models import FlatPage
@@ -80,7 +80,8 @@ class HelpRequestAdmin(ImportExportModelAdmin):
                      'message',)
     list_display = ('created_date', 'requester_name', 'bikeanjo_name', 'get_help_label_',
                     'status', 'requester_rating', 'requester_eval',)
-    list_filter = (CreatedDateListFilter, RequestStatusListFilter, 'closed_by', 'requester_rating',)
+    list_filter = (CreatedDateListFilter, RequestStatusListFilter,
+                   'closed_by', 'requester_rating',)
 
     def get_help_label_(self, obj):
         return obj.get_help_label()
@@ -117,8 +118,10 @@ class MessageAdmin(admin.ModelAdmin):
 
     def get_form(self, *argz, **kwargz):
         form = super(MessageAdmin, self).get_form(*argz, **kwargz)
-        form.base_fields['target_country'].widget = autocomplete.ModelSelect2(url='ac_country')
-        form.base_fields['target_city'].widget = autocomplete.ModelSelect2(url='ac_city')
+        form.base_fields['target_country'].widget = autocomplete.ModelSelect2(
+            url='ac_country')
+        form.base_fields['target_city'].widget = autocomplete.ModelSelect2(
+            url='ac_city')
         return form
 
 
@@ -213,7 +216,8 @@ class EventAdmin(TranslationAdminMedia):
 
     def get_form(self, *argz, **kwargz):
         form = super(EventAdmin, self).get_form(*argz, **kwargz)
-        form.base_fields['city'].widget = autocomplete.ModelSelect2(url='ac_city')
+        form.base_fields['city'].widget = autocomplete.ModelSelect2(
+            url='ac_city')
         return form
 
 
